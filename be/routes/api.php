@@ -5,9 +5,6 @@ use App\Http\Controllers\Auth\{
     NewPasswordController,
     PasswordResetLinkController
 };
-use App\Http\Controllers\Module\{
-    SatkerController,
-};
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\System\{
     LogUserController,
@@ -77,14 +74,6 @@ Route::middleware(['auth:api'])->group(function () {
             Route::patch('/{id}', [ScheduleController::class, 'update'])->name('update');
             Route::delete('/{id}', [ScheduleController::class, 'destroy'])->name('destroy');
         });
-    });
-
-    Route::prefix('satker')->as('satker')->middleware('log:satker')->group(function () {
-        Route::get('/{id}', [SatkerController::class, 'getData'])->name('.detail');
-        Route::post('/', [SatkerController::class, 'store'])->name('.store');
-        Route::post('/datatable', [SatkerController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:satker');
-        Route::patch('/{id}', [SatkerController::class, 'update'])->name('.update');
-        Route::delete('/{id}', [SatkerController::class, 'destroy'])->name('.delete');
     });
 
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');

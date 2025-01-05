@@ -5,7 +5,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Helpers\Authorization;
-use App\Models\Module\SatkerModel;
 use App\Models\System\LogUserModel;
 use App\Models\UAM\RoleModel;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -23,7 +22,6 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'name',
         'email',
-        'satker_id',
         'password',
         'avatar_path',
         'is_active',
@@ -137,10 +135,5 @@ class User extends Authenticatable implements JWTSubject
     public function logs()
     {
         return $this->hasMany(LogUserModel::class, 'user_id', 'id');
-    }
-
-    public function satker()
-    {
-        return $this->hasOne(SatkerModel::class, 'id', 'satker_id');
     }
 }

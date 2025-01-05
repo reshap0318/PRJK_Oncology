@@ -26,13 +26,6 @@ const MainMenu: Array<MenuItem> = [
         route: '/system',
         pages: [
             {
-                heading: 'Satker',
-                route: '/master/satker',
-                keenthemesIcon: 'home',
-                bootstrapIcon: 'bi-app-indicator',
-                permission: StrgService.hasPermission('satker.index')
-            },
-            {
                 heading: 'User',
                 route: '/system/user',
                 keenthemesIcon: 'user',

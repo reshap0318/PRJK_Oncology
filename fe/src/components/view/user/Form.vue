@@ -31,17 +31,17 @@
                     />
                 </div>
             </div>
-            <div class="col-10 mb-5">
+            <div class="col-12 col-sm-10 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Username</label>
+                    <label class="form-label fs-6 text-dark">Name</label>
                     <input
                         class="form-control"
                         type="text"
                         autocomplete="off"
-                        placeholder="username"
-                        v-model="formInput.username"
+                        placeholder="name"
+                        v-model="formInput.name"
                     />
-                    <form-error :err="v$.username" name="username" />
+                    <form-error :err="v$.name" name="name" />
                 </div>
             </div>
             <div class="col-12 col-sm-2 mb-5">
@@ -57,15 +57,28 @@
                     </label>
                 </div>
             </div>
-            <div class="col-12 mb-5">
+            <div class="col-12 col-sm-6 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Name</label>
+                    <label class="form-label fs-6 text-dark">Username</label>
                     <input
                         class="form-control"
                         type="text"
                         autocomplete="off"
-                        placeholder="name"
-                        v-model="formInput.name"
+                        placeholder="username"
+                        v-model="formInput.username"
+                    />
+                    <form-error :err="v$.username" name="username" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 mb-5">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">Role</label>
+                    <Multiselect
+                        class="multiselect-form-control"
+                        placeholder="Select roles"
+                        v-model="formInput.roles"
+                        :options="selectStore.roles"
+                        :searchable="true"
                     />
                     <form-error :err="v$.name" name="name" />
                 </div>
@@ -108,33 +121,6 @@
                     <label class="form-label fs-6 text-dark">Confirm Password</label>
                     <InputPassword v-model="formInput.confirm_password" />
                     <form-error :err="v$.confirm_password" name="confirm_password" />
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 mb-5">
-                <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Satker</label>
-                    <Multiselect
-                        class="multiselect-form-control"
-                        placeholder="Select satker"
-                        v-model="formInput.satker_id"
-                        :options="selectStore.satkers"
-                        :searchable="true"
-                    />
-                    <form-error :err="v$.satker_id" name="satker_id" />
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 mb-5">
-                <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Role</label>
-                    <Multiselect
-                        class="multiselect-form-control"
-                        placeholder="Select roles"
-                        mode="tags"
-                        v-model="formInput.roles"
-                        :options="selectStore.roles"
-                        :searchable="true"
-                    />
-                    <form-error :err="v$.name" name="name" />
                 </div>
             </div>
             <div class="col-sm-12 mb-5">
@@ -185,14 +171,12 @@ const formInput = ref({
     alamat: '',
     avatar: null,
     is_active: true,
-    satker_id: 0,
     roles: []
 })
 const rules = {
     username: { required },
     name: { required },
     email: { required, email },
-    satker_id: {},
     password: {},
     confirm_password: {},
     no_telp: {},
@@ -215,7 +199,6 @@ function show(
         avatar: null,
         roles: [],
         is_active: true,
-        satker_id: 0,
         avatar_url: null
     }
 ) {
@@ -255,7 +238,6 @@ defineExpose({
 
 onBeforeMount(() => {
     selectStore.getRoles()
-    selectStore.getSatker()
 })
 </script>
 <style scoped>

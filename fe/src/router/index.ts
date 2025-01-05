@@ -146,22 +146,6 @@ const routes: Array<RouteRecordRaw> = [
                     }
                 ]
             },
-            //
-            {
-                path: '/master/satker',
-                meta: {
-                    pageTitle: 'Satker',
-                    breadcrumb: 'Satker',
-                    permission: 'satker.index'
-                },
-                children: [
-                    {
-                        path: '',
-                        name: 'satker.index',
-                        component: () => import('@/views/module/Satker.vue')
-                    }
-                ]
-            }
         ]
     },
     {

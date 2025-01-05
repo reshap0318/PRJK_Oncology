@@ -15,8 +15,6 @@ export type TOption = {
 export const useSelectStore = defineStore('select', () => {
     const permissions = ref<TSelect[]>([])
     const roles = ref<TOption[]>([])
-    const satkers = ref<TOption[]>([])
-    const satkersByParent = ref<TOption[]>([])
     const schedule = ref({
         timezones: [] as string[],
         frequencies: [],
@@ -47,32 +45,6 @@ export const useSelectStore = defineStore('select', () => {
         })
     }
 
-    async function getSatker() {
-        return new Promise((resolve) => {
-            client()
-                .get('/api/select-data/satker')
-                .then((res) => {
-                    satkers.value = res.data.map((d: any) => {
-                        return { value: d.id, label: d.name }
-                    })
-                    return resolve(res.data)
-                })
-        })
-    }
-
-    async function getSatkerByParent(id: number) {
-        return new Promise((resolve) => {
-            client()
-                .get(`/api/select-data/satker-by-parent?id=${id}`)
-                .then((res) => {
-                    satkersByParent.value = res.data.map((d: any) => {
-                        return { value: d.id, label: d.name }
-                    })
-                    return resolve(res.data)
-                })
-        })
-    }
-
     async function getSchedule() {
         return new Promise((resolve) => {
             client()
@@ -88,12 +60,8 @@ export const useSelectStore = defineStore('select', () => {
         roles,
         permissions,
         schedule,
-        satkers,
-        satkersByParent,
         getRoles,
         getPermissions,
         getSchedule,
-        getSatker,
-        getSatkerByParent
     }
 })

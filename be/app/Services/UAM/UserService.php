@@ -3,7 +3,6 @@
 namespace App\Services\UAM;
 
 use App\Models\Module\AnggotaRequestModel;
-use App\Models\Module\SatkerModel;
 use App\Repository\UAM\UserRepository;
 use App\Services\BaseService;
 use Illuminate\Support\Facades\Storage;
@@ -45,15 +44,8 @@ class UserService extends BaseService
     }
 
     public function datatable($payload)
-    {
-        $satker = $payload['satker_id'] ?? null;
-        
+    {        
         $query = $this->mainRepository->datatable()
-            ->when($satker, function ($q) use ($satker) {
-                return $q->where(function($q) use ($satker) {
-                    return $q->where('users.satker_id', $satker)->orWhereIn('users.satker_id', SatkerModel::select('id')->where('parent_id', $satker));
-                });
-            })
             ->filterByRole()
             ->getQuery();
         return DataTables::eloquent($query)

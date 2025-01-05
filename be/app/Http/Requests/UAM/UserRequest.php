@@ -2,9 +2,6 @@
 
 namespace App\Http\Requests\UAM;
 
-use App\Models\Module\JabatanModel;
-use App\Models\Module\SatkerModel;
-use App\Models\UAM\RoleModel;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -52,7 +49,6 @@ class UserRequest extends FormRequest
                 in_array($this->method(), ['PUT', 'PATCH']) ? "nullable" : "required", 
                 "same:password"
             ],
-            'satker_id'      => ['required', Rule::exists((new SatkerModel())->getTable(), "id")],
             'roles'          => 'required|array',
             'roles.*'       => [ 'required' ],
             'avatar'        => 'nullable|image|mimes:png,jpeg,jpg|max:2048',
@@ -66,14 +62,14 @@ class UserRequest extends FormRequest
     {
         return [
             'name'          => 'nama',
-            'satker_id'     => 'satker',
         ];
     }
 
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'is_active'          => $this->is_active ?? false
+            'is_active'          => $this->is_active ?? false,
+            'roles'              => !is_array($this->roles) ? explode(",", $this->roles) : $this->roles,
         ]);
     }
 }

@@ -134,13 +134,6 @@ const columns = ref<Array<ConfigColumns>>([
         }
     },
     {
-        data: 'satker_name',
-        name: 's.name',
-        title: 'Satker',
-        className: 'text-start',
-        defaultContent: '-'
-    },
-    {
         data: 'no_telp',
         name: 'users.no_telp',
         title: 'No Telp',
@@ -218,7 +211,6 @@ function handleBtnEdit(row: any): void {
         id: row.id,
         name: row.name,
         email: row.email,
-        satker_id: row.satker_id,
         username: row.username,
         no_telp: row.no_telp,
         password: null,

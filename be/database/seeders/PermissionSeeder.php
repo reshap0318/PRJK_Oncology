@@ -95,31 +95,6 @@ class PermissionSeeder extends Seeder
             [
                 'name' => "user.delete",
                 'keterangan' => "menghapus data User",
-            ],
-            //satker
-            [
-                'name' => "satker.index",
-                'keterangan' => "melihat data Satker",
-            ],
-            [
-                'name' => "satker.show",
-                'keterangan' => "melihat detail data Satker",
-            ],
-            [
-                'name' => "satker.admin",
-                'keterangan' => "melihat seluruh data",
-            ],
-            [
-                'name' => "satker.create",
-                'keterangan' => "menambahkan data Satker",
-            ],
-            [
-                'name' => "satker.edit",
-                'keterangan' => "mengubah data Satker",
-            ],
-            [
-                'name' => "satker.delete",
-                'keterangan' => "menghapus data Satker",
             ]
         ];
 
