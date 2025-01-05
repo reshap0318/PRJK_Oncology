@@ -1,28 +1,28 @@
 # version: '3.8'
-name: "sipenjamu-v2"
+name: "oncology-v2"
 services:
   webserver:
     image: nginx:alpine
-    container_name: sipenjamu.webserver
+    container_name: oncology.webserver
     restart: unless-stopped
     tty: true
     depends_on:
       - backend
       - frontend
     ports:
-      - "2001:80"
+      - "1012:80"
     volumes:
       - ./:/var/www/
       - ./etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - sipenjamu.network
+      - oncology.network
 
   backend:
     build:
       context: .
       dockerfile: ./etc/php/Dockerfile
-    image: sipenjamu.be/php:8.3.11
-    container_name: sipenjamu.be
+    image: oncology.be/php:8.3.11
+    container_name: oncology.be
     restart: unless-stopped
     tty: true
     environment:
@@ -34,14 +34,14 @@ services:
       - ./etc/php/supervisor/:/etc/supervisor/
     networks:
       - mysql-network
-      - sipenjamu.network
+      - oncology.network
 
   frontend:
     build:
       context: .
       dockerfile: ./etc/node/Dockerfile
-    image: sipenjamu.fe/node:21.6
-    container_name: sipenjamu.fe
+    image: oncology.fe/node:21.6
+    container_name: oncology.fe
     restart: unless-stopped
     tty: true
     depends_on:
@@ -53,13 +53,13 @@ services:
     #   - ./fe/node_modules:/app/node_modules
     working_dir: /app
     networks:
-      - sipenjamu.network
+      - oncology.network
 
 #Networks
 networks:
-  sipenjamu.network:
+  oncology.network:
     driver: bridge
-    name: sipenjamu.network
+    name: oncology.network
   mysql-network:
     driver: bridge
     name: mysql-network
