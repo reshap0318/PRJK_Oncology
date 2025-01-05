@@ -1,0 +1,26 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.node.json",
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
+  "exclude": [
+    "src/**/__tests__/*",
+    "tsconfig.json",
+    "tsconfig.config.json",
+    "postcss.config.js",
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "strict":false,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "api-client": ["./src/core/services/ApiService.ts"],
+    },
+    "types": [
+      "node", 
+      "vue-sweetalert2",
+      "jquery"
+    ]
+  }
+}

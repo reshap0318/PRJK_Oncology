@@ -1,0 +1,31 @@
+//
+// Theme style
+//
+
+// Initialize
+@import 'init';
+
+// Components
+@import './core/components/components';
+@import 'components/components';
+
+// Layout
+@import './core/layout/base/layout';
+@import 'layout/layout';
+
+.card-border-outline {
+  border-top: 3px solid #28a745;
+}
+
+.multiselect-height-auto {
+  .multiselect-single-label {
+    position: relative !important;
+    width: auto;
+  }
+  .multiselect-search {
+    width: 7%;
+  }
+  .multiselect-option {
+    min-height: auto;
+  }
+}
