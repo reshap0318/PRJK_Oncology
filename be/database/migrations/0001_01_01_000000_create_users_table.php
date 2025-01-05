@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->boolean('is_active')->default(User::S_ACTIVE);
             $table->string('password');
-            $table->boolean('gender')->nullable();
             $table->char('no_telp', 15)->nullable();
             $table->text('alamat')->nullable();
             $table->string('avatar_path', 100)->nullable();

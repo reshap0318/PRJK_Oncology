@@ -9,7 +9,6 @@ export const useUserStore = defineStore('user', () => {
     async function create(request: any) {
         const utils = useAuthStore()
         base.loading.value['create'] = true
-        request.jenis_kelamin = parseInt(request.jenis_kelamin)
         return new Promise((resolve, reject) => {
             client()
                 .post(basePath, request, {

@@ -15,7 +15,7 @@
 ### Development
 - download project dari git
     ```sh
-    git clone https://github.com/reshap0318/PRJK_SIAMIV2.git project
+    git clone https://github.com/reshap0318/PRJK_Oncology.git project
     ```
 - buka folder project
     ```sh
