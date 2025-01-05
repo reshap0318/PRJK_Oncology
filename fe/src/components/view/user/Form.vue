@@ -33,7 +33,9 @@
             </div>
             <div class="col-12 col-sm-10 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Name</label>
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required">Nama</span>
+                    </label>
                     <input
                         class="form-control"
                         type="text"
@@ -59,7 +61,9 @@
             </div>
             <div class="col-12 col-sm-6 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Username</label>
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required">Username</span>
+                    </label>
                     <input
                         class="form-control"
                         type="text"
@@ -72,7 +76,9 @@
             </div>
             <div class="col-12 col-sm-6 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Role</label>
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required">Roles</span>
+                    </label>
                     <Multiselect
                         class="multiselect-form-control"
                         placeholder="Select roles"
@@ -85,7 +91,9 @@
             </div>
             <div class="col-6 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Email</label>
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required">Email</span>
+                    </label>
                     <input
                         class="form-control"
                         type="text"
@@ -111,14 +119,18 @@
             </div>
             <div class="col-6 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Password</label>
+                    <label class="form-label fs-6 text-dark">
+                        <span :class="formInput.id == 0 ? 'required' : ''">Password</span>
+                    </label>
                     <InputPassword v-model="formInput.password" />
                     <form-error :err="v$.password" name="password" />
                 </div>
             </div>
             <div class="col-6 mb-5">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">Confirm Password</label>
+                    <label class="form-label fs-6 text-dark">
+                        <span :class="formInput.id == 0 ? 'required' : ''">Confirm Password</span>
+                    </label>
                     <InputPassword v-model="formInput.confirm_password" />
                     <form-error :err="v$.confirm_password" name="confirm_password" />
                 </div>

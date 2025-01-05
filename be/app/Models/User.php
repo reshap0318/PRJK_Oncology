@@ -65,6 +65,11 @@ class User extends Authenticatable implements JWTSubject
     const S_NON_ACTIVE  = 0;
     const S_ACTIVE      = 1;
 
+    const R_SUPER_ADMIN = 1;
+    const R_ADMIN       = 2;
+    const R_DOKTER      = 3;
+    const R_MAHASISWA   = 4;
+
     public function getTableCon(): string
     {
         return $this->getConnectionName() . "." . $this->getTable();

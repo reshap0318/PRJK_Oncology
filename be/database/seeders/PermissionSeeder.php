@@ -95,6 +95,27 @@ class PermissionSeeder extends Seeder
             [
                 'name' => "user.delete",
                 'keterangan' => "menghapus data User",
+            ],
+            //pasien
+            [
+                'name' => "pasien.index",
+                'keterangan' => "melihat data Pasien",
+            ],
+            [
+                'name' => "pasien.show",
+                'keterangan' => "melihat detail data Pasien",
+            ],
+            [
+                'name' => "pasien.create",
+                'keterangan' => "menambahkan data Pasien",
+            ],
+            [
+                'name' => "pasien.edit",
+                'keterangan' => "mengubah data Pasien",
+            ],
+            [
+                'name' => "pasien.delete",
+                'keterangan' => "menghapus data Pasien",
             ]
         ];
 
@@ -112,6 +133,14 @@ class PermissionSeeder extends Seeder
             [
                 'name'              => "Admin",
                 'permissions'       => array_column($admins, 'name')
+            ],
+            [
+                'name'              => "Dokter",
+                'permissions'       => ['pasien.index', 'pasien.show']
+            ],
+            [
+                'name'              => "Mahasiswa",
+                'permissions'       => ['pasien.index', 'pasien.show']
             ]
         ];
 

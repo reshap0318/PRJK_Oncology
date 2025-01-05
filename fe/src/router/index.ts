@@ -21,6 +21,16 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
+                path: '/pasien',
+                name: 'pasien.index',
+                component: () => import('@/views/module/Pasien.vue'),
+                meta: {
+                    pageTitle: 'Pasien',
+                    breadcrumb: 'Pasien',
+                    permission: 'pasien.index'
+                }
+            },
+            {
                 path: '/profile',
                 name: 'profile.index',
                 redirect: {

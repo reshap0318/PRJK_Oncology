@@ -20,10 +20,9 @@ class UserSeeder extends Seeder
                 'email'     => 'darkrenshandev@gmail.com',
                 'password'  => '@dmin#123',
                 'is_active' => User::S_ACTIVE,
-                'gender'    => 1,
                 'no_telp'   => null,
                 'alamat'    => null,
-                'roles'     => [1]
+                'roles'     => [User::R_SUPER_ADMIN]
             ],
             [
                 'username'  => 'admin',
@@ -31,10 +30,29 @@ class UserSeeder extends Seeder
                 'email'     => 'aldo.reshap@gmail.com',
                 'password'  => 'admin#123',
                 'is_active' => User::S_ACTIVE,
-                'gender'    => 1,
                 'no_telp'   => null,
                 'alamat'    => null,
-                'roles'     => [2]
+                'roles'     => [User::R_ADMIN]
+            ],
+            [
+                'username'  => 'dokter01',
+                'name'      => 'Dokter 01',
+                'email'     => 'dokter01@unand.ac.id',
+                'password'  => 'dokter01#123',
+                'is_active' => User::S_ACTIVE,
+                'no_telp'   => null,
+                'alamat'    => null,
+                'roles'     => [User::R_DOKTER]
+            ],
+            [
+                'username'  => 'mahasiswa01',
+                'name'      => 'Mahasiswa 01',
+                'email'     => 'mahasiswa01@unand.ac.id',
+                'password'  => 'mahasiswa01#123',
+                'is_active' => User::S_ACTIVE,
+                'no_telp'   => null,
+                'alamat'    => null,
+                'roles'     => [User::R_MAHASISWA]
             ],
         ];
 

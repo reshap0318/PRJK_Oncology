@@ -70,7 +70,7 @@ class Authorization
         return $roles->where('id', $role)->isNotEmpty();
     }
 
-    public static function hasPermission($permission): bool
+    public static function hasPermission(string $permission): bool
     {
         $key = self::getPermissionKey();
         $permissions = Cache::get($key) ?? [];

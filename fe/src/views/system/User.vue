@@ -251,7 +251,7 @@ function actionUpSert(data: any): void {
 
 function applyFilter(): void {
     const dt = table.value.getDT()
-    if (filterTable.value.role != 0) dt.column(4).search(filterTable.value.role, true)
+    if (filterTable.value.role != 0) dt.column(3).search(filterTable.value.role, true)
     if (filterTable.value.search != '') dt.search(filterTable.value.search)
     dt.table().draw()
 }

@@ -18,6 +18,12 @@ const MainMenu: Array<MenuItem> = [
                 route: '/home',
                 keenthemesIcon: 'element-11',
                 bootstrapIcon: 'bi-app-indicator'
+            },
+            {
+                heading: 'Pasien',
+                route: '/pasien',
+                keenthemesIcon: 'user-square',
+                bootstrapIcon: 'bi-app-indicator'
             }
         ]
     },

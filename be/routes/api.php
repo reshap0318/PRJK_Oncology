@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\{
     NewPasswordController,
     PasswordResetLinkController
 };
+use App\Http\Controllers\Module\{
+    PasienController
+};
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\System\{
     LogUserController,
@@ -74,6 +77,14 @@ Route::middleware(['auth:api'])->group(function () {
             Route::patch('/{id}', [ScheduleController::class, 'update'])->name('update');
             Route::delete('/{id}', [ScheduleController::class, 'destroy'])->name('destroy');
         });
+    });
+    
+    Route::prefix('pasien')->as('pasien')->middleware('log:pasien')->group(function () {
+        Route::get('/{id}', [PasienController::class, 'getData'])->name('.detail');
+        Route::post('/', [PasienController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PasienController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pasien');
+        Route::patch('/{id}', [PasienController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PasienController::class, 'destroy'])->name('.delete');
     });
 
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');

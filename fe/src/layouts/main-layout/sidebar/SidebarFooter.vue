@@ -5,11 +5,8 @@
         <button
             type="button"
             class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100"
-            data-bs-toggle="tooltip"
-            data-bs-trigger="hover"
-            title="Kembali Ke Portal"
         >
-            <span class="btn-label text-uppercase">PORTAL {{ appName }}</span>
+            <span class="btn-label text-uppercase">{{ appName }}</span>
             <KTIcon icon-name="document" icon-class="btn-icon fs-2 m-0" />
         </button>
     </div>

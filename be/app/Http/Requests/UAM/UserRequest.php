@@ -54,7 +54,6 @@ class UserRequest extends FormRequest
             'avatar'        => 'nullable|image|mimes:png,jpeg,jpg|max:2048',
             'no_telp'       => ['nullable', 'regex:/(0)[0-9]/'],
             'alamat'        => 'nullable',
-            // 'jenis_kelamin' => ['required', Rule::in([0, 1])],
         ];
     }
 
