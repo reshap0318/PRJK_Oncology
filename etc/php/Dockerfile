@@ -58,5 +58,6 @@ EXPOSE 8000
 
 USER $WWWUSER
 
-# CMD bash -c "composer install && chown -R $USER:www-data be/storage && chown -R $USER:www-data be/bootstrap/cache && sudo chmod -R 775 be/bootstrap/cache && chmod -R 775 be/storage && php artisan key:generate && php artisan jwt:secret && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+# untuk pertama kali, masuk ke conteiner dengan user root, lalu jalankan perintah ini
+# cd be && composer install && sudo chown -R $USER:www-data storage && sudo chown -R $USER:www-data bootstrap/cache && sudo chmod -R 775 bootstrap/cache && sudo chmod -R 775 storage
