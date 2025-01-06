@@ -116,6 +116,10 @@ const id = computed(() => route.params.id as string)
 const data = computed(() => pasienStore.itemDetail)
 const columns = ref<Array<ConfigColumns>>([
     {
+        data: 'id',
+        title: 'No'
+    },
+    {
         data: 'inspection_at',
         name: 'inspection_at',
         title: 'Tanggal Pemeriksaan',
@@ -130,7 +134,7 @@ const columns = ref<Array<ConfigColumns>>([
     }
 ])
 const options = ref<Config>({
-    order: [0, 'desc'],
+    order: [1, 'desc'],
     pageLength: 5,
     lengthMenu: [5, 10, 25, 50, 100]
 })

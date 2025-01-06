@@ -37,7 +37,6 @@ const columns = ref<Array<ConfigColumns>>([
     },
     {
         data: 'id',
-        className: 'text-center w-no',
         title: 'No'
     },
     {

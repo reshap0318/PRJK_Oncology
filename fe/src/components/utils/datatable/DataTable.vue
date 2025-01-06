@@ -61,7 +61,7 @@ const realColumns = computed((): Array<ConfigColumns> => {
         columns[idxCol] = {
             data: 'id',
             title: 'No',
-            className: 'text-center w-25px',
+            className: 'text-center w-number',
             orderable: true,
             searchable: false,
             render: function (data, type, row, meta: any) {
@@ -182,8 +182,8 @@ defineExpose({
 })
 </script>
 <style scoped>
-.w-no {
-    width: 1.5rem;
+.w-number {
+    width: 4rem;
 }
 
 .w-action {

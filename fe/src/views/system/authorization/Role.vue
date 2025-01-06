@@ -32,7 +32,7 @@ const formModal = ref()
 const columns = ref<Array<ConfigColumns>>([
     {
         data: 'id',
-        className: 'text-center w-no',
+        className: 'text-center w-number',
         title: 'ID'
     },
     {
