@@ -87,11 +87,8 @@
     </div>
 
     <BaseModal modalId="default" ref="modal" width="modal-fullscreen">
-        <div class="d-flex flex-column align-items-center" style="margin-top: 110px">
-            <img
-                src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3J1azI3bWwwNWNhMjh3dm96bzJmdmxtbW1oOTl3enh2OW5oMGkwNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UsR4o48xrjiZx6iOd6/giphy.webp"
-                alt=""
-            />
+        <div class="d-flex flex-column align-items-center" style="margin-top: 100px">
+            <img :src="getAssetPath('images/loading/v1.webp')" alt="" />
             <h1 style="font-size: 55px" class="text-uppercase">Under Maintenance</h1>
         </div>
     </BaseModal>
@@ -102,6 +99,7 @@ import DataTable from '@/components/utils/datatable/DataTable.vue'
 import Swal from 'sweetalert2'
 
 import type { ConfigColumns, Config } from 'datatables.net'
+import { getAssetPath } from '@/core/helpers/assets'
 import { usePasienStore } from '@/stores/module/pasien'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { computed, onMounted, watch, ref } from 'vue'
