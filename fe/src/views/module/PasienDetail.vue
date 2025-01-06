@@ -85,6 +85,7 @@
             />
         </div>
     </div>
+    <FAB @click="modal.show()" v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')" />
 
     <BaseModal modalId="default" ref="modal" width="modal-fullscreen">
         <div class="d-flex flex-column align-items-center" style="margin-top: 95px">
@@ -96,6 +97,8 @@
 <script lang="ts" setup>
 import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
+import FAB from '@/components/utils/button/FAB.vue'
+import StrgService from '@/core/services/StrgService'
 import Swal from 'sweetalert2'
 
 import type { ConfigColumns, Config } from 'datatables.net'
