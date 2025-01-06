@@ -87,7 +87,7 @@
     </div>
 
     <BaseModal modalId="default" ref="modal" width="modal-fullscreen">
-        <div class="d-flex flex-column align-items-center" style="margin-top: 100px">
+        <div class="d-flex flex-column align-items-center" style="margin-top: 95px">
             <img :src="getAssetPath('images/loading/v1.webp')" alt="" />
             <h1 style="font-size: 55px" class="text-uppercase">Under Maintenance</h1>
         </div>
