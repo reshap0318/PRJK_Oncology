@@ -85,8 +85,19 @@
             />
         </div>
     </div>
+
+    <BaseModal modalId="default" ref="modal" width="modal-fullscreen">
+        <div class="d-flex flex-column align-items-center" style="margin-top: 125px">
+            <img
+                src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3J1azI3bWwwNWNhMjh3dm96bzJmdmxtbW1oOTl3enh2OW5oMGkwNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UsR4o48xrjiZx6iOd6/giphy.webp"
+                alt=""
+            />
+            <h1>Under Maintenance</h1>
+        </div>
+    </BaseModal>
 </template>
 <script lang="ts" setup>
+import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
 import Swal from 'sweetalert2'
 
@@ -101,6 +112,7 @@ const pasienStore = usePasienStore()
 const pasienPemeriksaanStore = usePasienPemeriksaanStore()
 const route = useRoute()
 const table = ref()
+const modal = ref()
 
 const id = computed(() => route.params.id as string)
 const data = computed(() => pasienStore.itemDetail)
@@ -148,7 +160,7 @@ function handleBtnDelete(id: number): void {
 
 function handleBtnDetail(id: any): void {
     pasienPemeriksaanStore.getDetail(id).then((res) => {
-        console.log(res)
+        modal.value.show()
     })
 }
 
