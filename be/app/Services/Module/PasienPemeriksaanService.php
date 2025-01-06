@@ -2,16 +2,17 @@
 
 namespace App\Services\Module;
 
+use App\Repository\Module\PasienPemeriksaanRepository;
 use App\Repository\Module\PasienRepository;
 use App\Services\BaseService;
 use Yajra\DataTables\Facades\DataTables;
 
-class PasienService extends BaseService
+class PasienPemeriksaanService extends BaseService
 {
     protected $mainRepository;
     public function __construct()
     {
-        $this->mainRepository = new PasienRepository();
+        $this->mainRepository = new PasienPemeriksaanRepository();
     }
 
     public function getById($id)
@@ -19,6 +20,16 @@ class PasienService extends BaseService
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
         return $data;
+    }
+
+    public function datatableByPasienId($id)
+    {
+        $query = $this->mainRepository->filterByPasienId($id)->getQuery();
+        return DataTables::eloquent($query)
+            ->addColumn('action', function ($data) {
+                return $data->actionModel;
+            })
+            ->make(true);
     }
 
     public function datatable()
@@ -29,20 +40,6 @@ class PasienService extends BaseService
                 return $data->actionModel;
             })
             ->make(true);
-    }
-
-    public function create($data)
-    {
-        $data['gender'] = filter_var($data['gender'], FILTER_VALIDATE_BOOLEAN);
-        $res = $this->mainRepository->create($data);
-        return $res;
-    }
-
-    public function update($id, $data)
-    {
-        $data['gender'] = filter_var($data['gender'], FILTER_VALIDATE_BOOLEAN);
-        $res = $this->mainRepository->update($id, $data);
-        return $res;
     }
 
     public function delete($id)

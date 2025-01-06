@@ -6,7 +6,8 @@ use App\Http\Controllers\Auth\{
     PasswordResetLinkController
 };
 use App\Http\Controllers\Module\{
-    PasienController
+    PasienController,
+    PasienPemeriksaanController
 };
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\System\{
@@ -78,13 +79,24 @@ Route::middleware(['auth:api'])->group(function () {
             Route::delete('/{id}', [ScheduleController::class, 'destroy'])->name('destroy');
         });
     });
-    
+
     Route::prefix('pasien')->as('pasien')->middleware('log:pasien')->group(function () {
         Route::get('/{id}', [PasienController::class, 'getData'])->name('.detail');
         Route::post('/', [PasienController::class, 'store'])->name('.store');
         Route::post('/datatable', [PasienController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pasien');
+        Route::post('{id}/datatable-pemeriksaan', [PasienPemeriksaanController::class, 'datatableByPasienId'])
+            ->name('.datatableByPasienId')
+            ->withoutMiddleware('log:pasien');
         Route::patch('/{id}', [PasienController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PasienController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pasien-pemeriksaan')->as('pasien-pemeriksaan')->middleware('log:pasien-pemeriksaan')->group(function () {
+        Route::get('/{id}', [PasienPemeriksaanController::class, 'getData'])->name('.detail');
+        // Route::post('/', [PasienPemeriksaanController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PasienPemeriksaanController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pasien-pemeriksaan');
+        // Route::patch('/{id}', [PasienPemeriksaanController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PasienPemeriksaanController::class, 'destroy'])->name('.delete');
     });
 
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');

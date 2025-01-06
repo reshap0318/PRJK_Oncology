@@ -11,10 +11,4 @@ class PasienRepository extends BaseRepository
     {
         $this->query = new PasienModel();
     }
-
-    public function getById($id)
-    {
-        $this->query = $this->query->where('id', $id);
-        return $this;
-    }
 }

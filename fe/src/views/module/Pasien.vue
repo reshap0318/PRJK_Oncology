@@ -8,6 +8,7 @@
                 :options="options"
                 @onEdit="handleBtnEdit"
                 @onDelete="handleBtnDelete"
+                @onDetail="handleBtnDetail"
             />
         </div>
     </div>
@@ -23,11 +24,13 @@ import StrgService from '@/core/services/StrgService'
 import type { ConfigColumns, Config } from 'datatables.net'
 import { usePasienStore } from '@/stores/module/pasien'
 import { btnAction } from '@/core/helpers/datatable'
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
 const pasienStore = usePasienStore()
 const table = ref()
 const formModal = ref()
+const router = useRouter()
 
 const columns = ref<Array<ConfigColumns>>([
     {
@@ -83,6 +86,10 @@ function handleBtnDelete(id: number): void {
     pasienStore.actionDelete(id).then(() => {
         table.value.reload()
     })
+}
+
+function handleBtnDetail(id: any): void {
+    router.push({ name: 'pasien.show', params: { id: id } })
 }
 
 function actionUpSert(data: any): void {

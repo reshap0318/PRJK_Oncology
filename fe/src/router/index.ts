@@ -22,13 +22,30 @@ const routes: Array<RouteRecordRaw> = [
             },
             {
                 path: '/pasien',
-                name: 'pasien.index',
-                component: () => import('@/views/module/Pasien.vue'),
                 meta: {
-                    pageTitle: 'Pasien',
-                    breadcrumb: 'Pasien',
-                    permission: 'pasien.index'
-                }
+                    breadcrumb: 'Pasien'
+                },
+                children: [
+                    {
+                        path: '',
+                        name: 'pasien.index',
+                        component: () => import('@/views/module/Pasien.vue'),
+                        meta: {
+                            pageTitle: 'Pasien',
+                            permission: 'pasien.index'
+                        }
+                    },
+                    {
+                        path: ':id',
+                        name: 'pasien.show',
+                        component: () => import('@/views/module/PasienDetail.vue'),
+                        meta: {
+                            pageTitle: 'Detail',
+                            permission: 'pasien.show',
+                            breadcrumb: 'Detail'
+                        }
+                    }
+                ]
             },
             {
                 path: '/profile',
@@ -155,7 +172,7 @@ const routes: Array<RouteRecordRaw> = [
                         }
                     }
                 ]
-            },
+            }
         ]
     },
     {

@@ -33,9 +33,16 @@
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
                     <li class="breadcrumb-item text-muted">
-                        <router-link :to="item.to" class="text-muted text-hover-primary">{{
-                            item.label
-                        }}</router-link>
+                        <router-link
+                            v-if="i != breadcrumbs.length - 1"
+                            :to="item.to"
+                            class="text-muted text-hover-primary"
+                        >
+                            {{ item.label }}
+                        </router-link>
+                        <span v-else class="text-muted text-hover-primary cursor-pointer">
+                            {{ item.label }}
+                        </span>
                     </li>
                 </template>
             </ul>
