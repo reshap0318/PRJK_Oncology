@@ -101,6 +101,67 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="border-dashed mt-4" style="position: relative">
+                                <!-- <h2
+                                    class="text-uppercase"
+                                    style="position: absolute; top: -12px; left: 10px"
+                                >
+                                    Gejala
+                                </h2> -->
+                                <div class="pt-4"></div>
+                                <div class="row px-3" v-for="(d, i) in formInput.gejalas" :key="i">
+                                    <div class="col-12 mb-3">
+                                        <div class="fv-row">
+                                            <label class="form-label fs-6 text-dark">
+                                                <span class="required">Gejala</span>
+                                            </label>
+                                            <input
+                                                tabindex="1"
+                                                class="form-control"
+                                                type="text"
+                                                autocomplete="off"
+                                                placeholder="gejala"
+                                                v-model="d.description"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-3 mb-3">
+                                        <div class="fv-row">
+                                            <label class="form-label fs-6 text-dark">
+                                                <span class="required">Lama Keluhan</span>
+                                            </label>
+                                            <div class="input-group mb-3">
+                                                <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    min="0"
+                                                    v-model="d.long"
+                                                />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"> Bulan </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <button
+                                            class="btn btn-info mt-8"
+                                            v-if="i == formInput.gejalas.length - 1"
+                                            @click="tambahGejala"
+                                        >
+                                            Tambah
+                                        </button>
+                                        <button
+                                            v-else
+                                            class="btn btn-danger mt-8"
+                                            @click="hapusGejala(i)"
+                                        >
+                                            Hapus
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </template>
                         <template v-else-if="formActive == 'ONC002'">B</template>
                         <template v-else-if="formActive == 'ONC003'">C</template>
@@ -153,6 +214,12 @@ const formInput = ref({
             description: null,
             long: 0
         }
+    ],
+    gejalas: [
+        {
+            description: null,
+            long: 0
+        }
     ]
 })
 
@@ -167,7 +234,19 @@ function hapusKeluhan(idx: number) {
     formInput.value.keluhans.splice(idx, 1)
 }
 
+function tambahGejala() {
+    formInput.value.gejalas.push({
+        description: null,
+        long: 0
+    })
+}
+
+function hapusGejala(idx: number) {
+    formInput.value.gejalas.splice(idx, 1)
+}
+
 function show() {
+    formActive.value = 'ONC001'
     modal.value.show()
 }
 
