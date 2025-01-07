@@ -24,7 +24,7 @@
                         <span class="required">No MR</span>
                     </label>
                     <input
-                        tabindex="1"
+                        tabindex="2"
                         class="form-control"
                         type="text"
                         autocomplete="off"
@@ -40,7 +40,7 @@
                         <span class="required">Tempat Lahir</span>
                     </label>
                     <input
-                        tabindex="1"
+                        tabindex="3"
                         class="form-control"
                         type="text"
                         autocomplete="off"
@@ -56,7 +56,7 @@
                         <span class="required">Tanggal Lahir</span>
                     </label>
                     <input
-                        tabindex="1"
+                        tabindex="4"
                         class="form-control"
                         type="date"
                         autocomplete="off"
@@ -72,6 +72,7 @@
                         <span class="required">Jenis Kelamin</span>
                     </label>
                     <Multiselect
+                        tabindex="5"
                         class="multiselect-form-control"
                         placeholder="Select jenis kelamin"
                         v-model="formInput.gender"
@@ -87,7 +88,7 @@
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">Suku</label>
                     <input
-                        tabindex="1"
+                        tabindex="6"
                         class="form-control"
                         type="text"
                         autocomplete="off"
@@ -101,7 +102,7 @@
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">Telepon</label>
                     <input
-                        tabindex="1"
+                        tabindex="7"
                         class="form-control"
                         type="text"
                         autocomplete="off"
@@ -115,7 +116,7 @@
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">Email</label>
                     <input
-                        tabindex="1"
+                        tabindex="8"
                         class="form-control"
                         type="text"
                         autocomplete="off"
@@ -129,7 +130,7 @@
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">Pendidikan</label>
                     <input
-                        tabindex="1"
+                        tabindex="9"
                         class="form-control"
                         type="text"
                         autocomplete="off"
@@ -143,7 +144,7 @@
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">Pekerjaan</label>
                     <input
-                        tabindex="1"
+                        tabindex="10"
                         class="form-control"
                         type="text"
                         autocomplete="off"
@@ -157,6 +158,7 @@
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">Alamat</label>
                     <textarea
+                        tabindex="11"
                         class="form-control"
                         autocomplete="off"
                         placeholder="alamat"

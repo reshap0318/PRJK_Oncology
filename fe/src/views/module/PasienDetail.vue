@@ -86,23 +86,16 @@
         </div>
     </div>
     <FAB @click="modal.show()" v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')" />
-
-    <BaseModal modalId="default" ref="modal" width="modal-fullscreen">
-        <div class="d-flex flex-column align-items-center" style="margin-top: 95px">
-            <img :src="getAssetPath('images/loading/v1.webp')" alt="" />
-            <h1 style="font-size: 55px" class="text-uppercase">Under Maintenance</h1>
-        </div>
-    </BaseModal>
+    <PasienPemeriksaan ref="modal" />
 </template>
 <script lang="ts" setup>
-import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
+import PasienPemeriksaan from './PasienPemeriksaan.vue'
 import FAB from '@/components/utils/button/FAB.vue'
 import StrgService from '@/core/services/StrgService'
 import Swal from 'sweetalert2'
 
 import type { ConfigColumns, Config } from 'datatables.net'
-import { getAssetPath } from '@/core/helpers/assets'
 import { usePasienStore } from '@/stores/module/pasien'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { computed, onMounted, watch, ref } from 'vue'
