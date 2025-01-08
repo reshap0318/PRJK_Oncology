@@ -12,7 +12,7 @@
                     <div
                         class="modal-header justify-content-between border-0 pt-4 pb-2 bg-light-primary"
                     >
-                        <h4 class="ps-2 mb-0">
+                        <h4 class="ps-2">
                             <slot name="title"></slot>
                         </h4>
                         <div class="btn btn-sm btn-icon btn-active-color-danger" @click="hide">
