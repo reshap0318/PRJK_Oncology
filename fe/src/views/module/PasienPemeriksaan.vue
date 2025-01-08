@@ -26,13 +26,11 @@ import StrgService from '@/core/services/StrgService'
 import type { ConfigColumns, Config } from 'datatables.net'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { btnAction } from '@/core/helpers/datatable'
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 const table = ref()
 const formModal = ref()
-const router = useRouter()
 
 const columns = ref<Array<ConfigColumns>>([
     {
