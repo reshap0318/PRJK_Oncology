@@ -24,6 +24,12 @@ const MainMenu: Array<MenuItem> = [
                 route: '/pasien',
                 keenthemesIcon: 'user-square',
                 bootstrapIcon: 'bi-app-indicator'
+            },
+            {
+                heading: 'Pemeriksaan',
+                route: '/pemeriksaan',
+                keenthemesIcon: 'syringe',
+                bootstrapIcon: 'bi-app-indicator'
             }
         ]
     },

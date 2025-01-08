@@ -48,6 +48,15 @@ const routes: Array<RouteRecordRaw> = [
                 ]
             },
             {
+                path: 'pemeriksaan',
+                name: 'pemeriksaaan.index',
+                component: () => import('@/views/module/PasienPemeriksaan.vue'),
+                meta: {
+                    pageTitle: 'Pemeriksaan',
+                    permission: 'pasien-pemeriksaan.index'
+                }
+            },
+            {
                 path: '/profile',
                 name: 'profile.index',
                 redirect: {

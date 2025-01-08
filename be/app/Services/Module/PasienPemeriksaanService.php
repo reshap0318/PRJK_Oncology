@@ -34,7 +34,7 @@ class PasienPemeriksaanService extends BaseService
 
     public function datatable()
     {
-        $query = $this->mainRepository->getQuery()->query();
+        $query = $this->mainRepository->datatable()->getQuery();
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {
                 return $data->actionModel;
