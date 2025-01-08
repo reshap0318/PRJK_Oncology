@@ -50,13 +50,15 @@
                                             <div class="col-12 mb-3">
                                                 <div class="fv-row">
                                                     <label class="form-label fs-6 text-dark">
-                                                        <span class="required">Keluhan</span>
+                                                        <span class="required">
+                                                            Keluhan Utama
+                                                        </span>
                                                     </label>
                                                     <input
                                                         class="form-control"
                                                         type="text"
                                                         autocomplete="off"
-                                                        placeholder="keluhan"
+                                                        placeholder="keluhan utama"
                                                         v-model="d.description"
                                                     />
                                                 </div>
@@ -111,13 +113,13 @@
                                             <div class="col-12 mb-3">
                                                 <div class="fv-row">
                                                     <label class="form-label fs-6 text-dark">
-                                                        <span class="required">Gejala</span>
+                                                        <span class="required">Gejala Lainnya</span>
                                                     </label>
                                                     <input
                                                         class="form-control"
                                                         type="text"
                                                         autocomplete="off"
-                                                        placeholder="gejala"
+                                                        placeholder="gejala lainnya"
                                                         v-model="d.description"
                                                     />
                                                 </div>
@@ -169,10 +171,12 @@
                                                 v-for="(d, i) in formInput.penyakits"
                                                 :key="i"
                                             >
-                                                <div class="col-12 col-sm-11 mb-3">
+                                                <div class="col-12 col-sm-10 mb-3">
                                                     <div class="fv-row">
                                                         <label class="form-label fs-6 text-dark">
-                                                            <span class="required">Penyakit</span>
+                                                            <span class="required"
+                                                                >Riwayat Penyakit Dahulu</span
+                                                            >
                                                         </label>
                                                         <input
                                                             class="form-control"
@@ -205,7 +209,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="border-dashed mt-4 p-3" style="position: relative">
+                                    <h1 class="text-uppercase mt-4">Faktor Resiko</h1>
+                                    <div class="border-dashed mt-2 p-3" style="position: relative">
                                         <label class="form-label fs-6 text-dark">
                                             <span class="required">Riwayat Merokok</span>
                                         </label>
@@ -277,7 +282,7 @@
                                                         type="number"
                                                         min="0"
                                                         autocomplete="off"
-                                                        placeholder="batang / tahun"
+                                                        placeholder="batang / hari"
                                                         v-model="formInput.kategori_perokok.jumlah"
                                                     />
                                                 </div>
@@ -364,18 +369,15 @@
                                                 class="col-sm-3 mb-3"
                                                 v-if="formInput.kategori_perokok.riwayat == 1"
                                             >
-                                                <div class="fv-row">
-                                                    <input
-                                                        class="form-control"
-                                                        type="number"
-                                                        min="0"
-                                                        autocomplete="off"
-                                                        placeholder="tahun"
-                                                        v-model="
-                                                            formInput.kategori_perokok.kategori
-                                                        "
-                                                    />
-                                                </div>
+                                                <select
+                                                    v-model="formInput.kategori_perokok.jenis_rokok"
+                                                    class="form-control"
+                                                >
+                                                    <option value="">Jenis Rokok</option>
+                                                    <option value="1">Kretek</option>
+                                                    <option value="2">Filter</option>
+                                                    <option value="3">Cigar</option>
+                                                </select>
                                             </div>
 
                                             <div
@@ -819,11 +821,11 @@
                                                 <input
                                                     class="form-check-input h-20px w-20px"
                                                     type="checkbox"
-                                                    v-model="formInput.biomess.description.brekes"
+                                                    v-model="formInput.biomess.description.breket"
                                                     :value="1"
                                                 />
                                                 <span class="form-check-label fw-semibold">
-                                                    Brekes
+                                                    Breket
                                                 </span>
                                             </label>
                                         </div>
@@ -976,7 +978,7 @@
                                                 Riwayat Keganasan Dalam Keluarga
                                             </span>
                                         </label>
-                                        <div class="d-flex align-items-center my-3">
+                                        <div class="d-flex align-items-center mt-3">
                                             <label
                                                 class="form-check form-check-custom form-check-solid cursor-pointer me-10"
                                             >
@@ -1017,7 +1019,7 @@
                                             class="row"
                                             v-if="formInput.riwayat_kaganasan_keluarga.value == 1"
                                         >
-                                            <div class="col-sm-5">
+                                            <div class="mt-3 col-sm-12">
                                                 <div class="fv-row mt-4 mt-sm-0">
                                                     <label class="form-label fs-6 text-dark">
                                                         <span class="required">Siapa</span>
@@ -1033,7 +1035,7 @@
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="col-sm-5">
+                                            <div class="mt-3 col-sm-8">
                                                 <div class="fv-row mt-4 mt-sm-0">
                                                     <label class="form-label fs-6 text-dark">
                                                         <span class="required">Apa</span>
@@ -1049,7 +1051,7 @@
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="mt-3 col-sm-4">
                                                 <div class="fv-row mt-4 mt-sm-0">
                                                     <label class="form-label fs-6 text-dark">
                                                         <span class="required">Tahun</span>
@@ -1145,7 +1147,7 @@ const formInput = ref({
         jumlah: null,
         lama: 0,
         ib: 3,
-        kategori: null,
+        jenis_rokok: '',
         cara_menghisap: 0
     },
     paparan_asap_rokok: 0,
@@ -1174,7 +1176,7 @@ const formInput = ref({
         description: {
             kayu_bakar: 0,
             minyak_tanah: 0,
-            brekes: 0
+            breket: 0
         }
     },
     riwayat_ppok: {
