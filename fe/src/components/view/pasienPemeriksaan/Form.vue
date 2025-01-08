@@ -291,7 +291,9 @@
                                             <div class="col-sm-3 mb-3">
                                                 <div class="fv-row">
                                                     <label class="form-label fs-6 text-dark">
-                                                        <span class="required">Lama Merokok</span>
+                                                        <span class="required">
+                                                            Lama Merokok (Tahun)
+                                                        </span>
                                                     </label>
                                                     <input
                                                         class="form-control"
