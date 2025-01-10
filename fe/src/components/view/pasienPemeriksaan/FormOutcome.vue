@@ -15,6 +15,10 @@
                         <option value="4">Meninggal Sebelum 48 Jam</option>
                         <option value="5">Meninggal Sesudah 48 Jam</option>
                     </select>
+                    <form-error
+                        :err="formInputValidated.outcome.keadaan_pulang"
+                        name="outcome.keadaan_pulang"
+                    />
                 </div>
             </div>
             <div class="col-sm-6 mb-4">
@@ -23,13 +27,17 @@
                         <span class="required"> Cara Pulang </span>
                     </label>
                     <select v-model="formInput.cara_pulang" class="form-control">
-                        <option value="">Cara Pulang</option>
+                        <option :value="null">Cara Pulang</option>
                         <option value="1">Atas Persetujuan</option>
                         <option value="2">Pulang Paksa</option>
                         <option value="3">Pindah RS Lain</option>
                         <option value="4">Lari</option>
                         <option value="5">Meninggal Dunia</option>
                     </select>
+                    <form-error
+                        :err="formInputValidated.outcome.cara_pulang"
+                        name="outcome.cara_pulang"
+                    />
                 </div>
             </div>
             <div class="col-sm-4 mb-4">
@@ -37,7 +45,7 @@
                     <label class="form-label fs-6 text-dark">
                         <span class="required">Lama Dirawat </span>
                     </label>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <input
                             type="number"
                             class="form-control"
@@ -48,6 +56,10 @@
                             <span class="input-group-text"> Hari </span>
                         </div>
                     </div>
+                    <form-error
+                        :err="formInputValidated.outcome.lama_dirawat"
+                        name="outcome.lama_dirawat"
+                    />
                 </div>
             </div>
             <div class="col-sm-4 mb-4">
@@ -56,6 +68,10 @@
                         <span class="required">Tanggal Meninggal </span>
                     </label>
                     <input type="date" class="form-control" v-model="formInput.tanggal_meninggal" />
+                    <form-error
+                        :err="formInputValidated.outcome.tanggal_meninggal"
+                        name="outcome.tanggal_meninggal"
+                    />
                 </div>
             </div>
             <div class="col-sm-4 mb-4">
@@ -92,6 +108,10 @@
                             </span>
                         </label>
                     </div>
+                    <form-error
+                        :err="formInputValidated.outcome.waktu_meninggal"
+                        name="outcome.waktu_meninggal"
+                    />
                 </div>
             </div>
             <div class="col-sm-12 mb-4">
@@ -106,16 +126,22 @@
                         rows="3"
                         placeholder="sebab kematian"
                     ></textarea>
+                    <form-error
+                        :err="formInputValidated.outcome.sebab_kematian"
+                        name="outcome.sebab_kematian"
+                    />
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
+import FormError from '@/components/utils/error/FormError.vue'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { ref } from 'vue'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 
 const formInput = ref(pemeriksaanStore.formInput.outcome)
+const formInputValidated = ref(pemeriksaanStore.formInputValidated)
 </script>

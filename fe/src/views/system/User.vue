@@ -111,7 +111,7 @@ const columns = ref<Array<ConfigColumns>>([
     {
         data: 'id',
         name: 'users.id',
-        className: 'text-center w-number',
+        className: 'text-center w-10',
         title: 'ID'
     },
     {

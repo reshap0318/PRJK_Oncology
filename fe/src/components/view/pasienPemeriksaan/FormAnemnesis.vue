@@ -23,7 +23,7 @@
                             <label class="form-label fs-6 text-dark">
                                 <span class="required">Lama Keluhan</span>
                             </label>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <input
                                     type="number"
                                     class="form-control"
@@ -74,7 +74,7 @@
                             <label class="form-label fs-6 text-dark">
                                 <span class="required">Lama Keluhan</span>
                             </label>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <input
                                     type="number"
                                     class="form-control"
@@ -678,7 +678,7 @@
                             <label class="form-label fs-6 text-dark">
                                 <span class="required">OAT</span>
                             </label>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <input
                                     type="number"
                                     class="form-control"

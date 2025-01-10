@@ -5,7 +5,7 @@ import client from '@/core/services/ApiService'
 import StrgService from '@/core/services/StrgService'
 
 export interface User {
-    id: string
+    id: number
     name: string
     username: string
     email: string
@@ -73,8 +73,12 @@ export const useAuthStore = defineStore('auth', () => {
         purgeAuth()
     }
 
-    function hasAccess(payload: Array<string>): boolean {
+    function hasAnyAccess(payload: Array<string>): boolean {
         return StrgService.hasAnyPermission(payload)
+    }
+
+    function hasAccess(payload: string): boolean {
+        return StrgService.hasPermission(payload)
     }
 
     async function login(credentials: LoginReq) {
@@ -132,6 +136,7 @@ export const useAuthStore = defineStore('auth', () => {
         setFormError,
         setFormErrorEmpty,
         hasAccess,
+        hasAnyAccess,
         login,
         logout,
         purgeAuth,

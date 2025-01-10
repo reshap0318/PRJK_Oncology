@@ -85,6 +85,10 @@ class PermissionSeeder extends Seeder
                 'keterangan' => "melihat data User",
             ],
             [
+                'name' => "user.private",
+                'keterangan' => "melihat data User hanya Data Pribadi",
+            ],
+            [
                 'name' => "user.create",
                 'keterangan' => "menambahkan data User",
             ],
@@ -153,7 +157,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name'              => "Dokter",
-                'permissions'       => ['pasien.index', 'pasien.show']
+                'permissions'       => ['pasien.index', 'pasien.show', 'pasien-pemeriksaan.index', 'pasien-pemeriksaan.inspection', 'user.private']
             ],
             [
                 'name'              => "Mahasiswa",

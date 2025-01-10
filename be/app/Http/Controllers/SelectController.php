@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Authorization;
 use App\Http\Responses\Success;
+use App\Models\Module\PasienModel;
 use App\Models\UAM\PermissionModel;
 use App\Models\UAM\RoleModel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SelectController extends Controller
@@ -21,6 +24,10 @@ class SelectController extends Controller
             $result = $this->getRole();
         } else if ($type == 'schedule') {
             $result = $this->getScheduleData();
+        } else if ($type == 'dokter') {
+            $result = $this->getDokter();
+        } else if ($type == 'pasien') {
+            $result = $this->getPasien();
         }
         return Success::defaultSuccessWithData($result);
     }
@@ -46,6 +53,30 @@ class SelectController extends Controller
             ->when(!Authorization::hasRole(1), function ($q) {
                 return $q->whereNotIn('id', [1]);
             })
-            ->get()->toArray();
+            ->get()
+            ->toArray();
+    }
+
+    private function getDokter(): array
+    {
+        return User::query()
+            ->select(['id', 'name', 'is_active'])
+            ->active()
+            ->whereHas('roles', function($q) {
+                return $q->where('role_id', User::R_DOKTER);
+            })
+            ->when(!Authorization::hasPermission('user.index') && Authorization::hasPermission('user.private'), function($q) {
+                return $q->where('id', Auth::id());
+            })
+            ->get()
+            ->toArray();
+    }
+
+    private function getPasien(): array
+    {
+        return PasienModel::query()
+            ->select(['id', DB::raw("concat(no_mr, '-', name) as name")])
+            ->get()
+            ->toArray();
     }
 }

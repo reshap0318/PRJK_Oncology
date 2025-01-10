@@ -1,7 +1,7 @@
 <template>
     <BaseModal modalId="pemeriksaan" ref="modal" width="modal-fullscreen">
         <template #title>
-            <button class="btn btn-success btn-sm">Simpan</button>
+            <button class="btn btn-success btn-sm" @click="simpan()">Simpan</button>
         </template>
         <div class="row">
             <div class="col-sm-3">
@@ -32,11 +32,13 @@
                         </div>
                     </div>
                 </div>
-                <pre>{{ pemeriksaanStore.formInput }}</pre>
             </div>
             <div class="col-sm-9">
                 <div class="card">
                     <div class="card-body">
+                        <template v-if="formActive == 'ONC000'">
+                            <FormOverview />
+                        </template>
                         <template v-if="formActive == 'ONC001'">
                             <FormAnemnesis />
                         </template>
@@ -60,18 +62,27 @@
 
 <script lang="ts" setup>
 import BaseModal from '@/components/utils/modal/BaseModal.vue'
+import FormOverview from './FormOverview.vue'
 import FormAnemnesis from './FormAnemnesis.vue'
 import FormPemeriksaanFisik from './FormPemeriksaanFisik.vue'
 import FormDiagnosa from './FormDiagnosa.vue'
 import FormOutcome from './FormOutcome.vue'
+import { useAuthStore } from '@/stores/auth'
 
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
+import { useSelectStore } from '@/stores/global/select'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
+const selectStore = useSelectStore()
+const authStore = useAuthStore()
 const modal = ref()
-const formActive = ref('ONC001')
+const formActive = ref('ONC000')
 const menus = ref([
+    {
+        code: 'ONC000',
+        label: 'Overview'
+    },
     {
         code: 'ONC001',
         label: 'Anemnesis'
@@ -98,13 +109,29 @@ const menus = ref([
     }
 ])
 
-function show() {
-    formActive.value = 'ONC001'
+function show(param: any = {}) {
+    formActive.value = 'ONC000'
+    if (!authStore.hasAccess('user.index') && authStore.hasAccess('user.private')) {
+        pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
+    }
     modal.value.show()
+}
+
+function simpan() {
+    pemeriksaanStore.formInputValidated.$validate().then((res) => {
+        if (res) {
+            // pemeriksaanStore.create(pemeriksaanStore.formInput)
+        }
+    })
 }
 
 defineExpose({
     show
+})
+
+onMounted(() => {
+    selectStore.getDokters()
+    selectStore.getPasiens()
 })
 </script>
 

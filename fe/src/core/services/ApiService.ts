@@ -95,9 +95,9 @@ const client = () => {
                     const errors = error.response.data.errors
                     Object.keys(errors).forEach(function (key: string) {
                         errors[key].forEach((err: string) => {
-                            authStore.setFormError(`${key.split('.')[0]}`, err)
+                            authStore.setFormError(`${key}`, err)
                         })
-                    })
+                    })                    
                 } else if (error.response.status === 500) {
                     Swal.fire({
                         title: 'internal server error',

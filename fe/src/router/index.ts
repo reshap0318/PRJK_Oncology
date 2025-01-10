@@ -276,8 +276,8 @@ router.beforeEach((to, from, next) => {
 
     // before page access check if page requires authorization
     if (typeof to.meta.permission !== 'undefined') {
-        const hasAccess = authStore.hasAccess([to.meta.permission as string])
-        if (!hasAccess) {
+        const hasAnyAccess = authStore.hasAnyAccess([to.meta.permission as string])
+        if (!hasAnyAccess) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Tidak memiliki akses'

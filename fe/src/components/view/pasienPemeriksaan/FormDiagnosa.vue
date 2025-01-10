@@ -48,6 +48,10 @@
                             <span class="form-check-label fw-semibold"> KSS </span>
                         </label>
                     </div>
+                    <form-error
+                        :err="formInputValidated.diagnosa.jenis_sel"
+                        name="diagnosa.jenis_sel"
+                    />
                 </div>
             </div>
 
@@ -140,6 +144,7 @@
                             <span class="form-check-label fw-semibold"> 4B </span>
                         </label>
                     </div>
+                    <form-error :err="formInputValidated.diagnosa.stage" name="diagnosa.stage" />
                 </div>
             </div>
 
@@ -159,6 +164,7 @@
                             placeholder="egfr"
                             v-model="formInput.egfr"
                         />
+                        <form-error :err="formInputValidated.diagnosa.egfr" name="diagnosa.egfr" />
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -175,12 +181,16 @@
                             placeholder="mutasi"
                             v-model="formInput.mutasi"
                         />
+                        <form-error
+                            :err="formInputValidated.diagnosa.mutasi"
+                            name="diagnosa.mutasi"
+                        />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3 align-self-center">
                         <label class="form-label fs-6 text-dark">
-                            <span class="required"> WhildType </span>
+                            <span> WhildType </span>
                         </label>
                     </div>
                     <div class="col-sm-9">
@@ -210,6 +220,7 @@
                             placeholder="PD-L1"
                             v-model="formInput.pdl1"
                         />
+                        <form-error :err="formInputValidated.diagnosa.pdl1" name="diagnosa.pdl1" />
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -241,6 +252,7 @@
                                 <span class="form-check-label fw-semibold"> Fusi(+) </span>
                             </label>
                         </div>
+                        <form-error :err="formInputValidated.diagnosa.alk" name="diagnosa.alk" />
                     </div>
                 </div>
             </div>
@@ -274,6 +286,7 @@
                             <span class="form-check-label fw-semibold"> Kanan </span>
                         </label>
                     </div>
+                    <form-error :err="formInputValidated.diagnosa.paru" name="diagnosa.paru" />
                 </div>
             </div>
             <div class="border-dashed p-4 mb-4" style="position: relative">
@@ -313,6 +326,10 @@
                             <span class="form-check-label fw-semibold"> M </span>
                         </label>
                     </div>
+                    <form-error
+                        :err="formInputValidated.diagnosa.stagging"
+                        name="diagnosa.stagging"
+                    />
                 </div>
             </div>
             <div class="border-dashed p-4 mb-4" style="position: relative">
@@ -352,6 +369,7 @@
                             <span class="form-check-label fw-semibold"> 3 </span>
                         </label>
                     </div>
+                    <form-error :err="formInputValidated.diagnosa.ps" name="diagnosa.ps" />
                 </div>
             </div>
             <div class="border-dashed p-4 mb-4" style="position: relative">
@@ -366,16 +384,22 @@
                         rows="7"
                         placeholder="komorbid"
                     ></textarea>
+                    <form-error
+                        :err="formInputValidated.diagnosa.komorbid"
+                        name="diagnosa.komorbid"
+                    />
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
+import FormError from '@/components/utils/error/FormError.vue'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { ref } from 'vue'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 
 const formInput = ref(pemeriksaanStore.formInput.diagnosa)
+const formInputValidated = ref(pemeriksaanStore.formInputValidated)
 </script>

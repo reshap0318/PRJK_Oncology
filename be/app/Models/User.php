@@ -75,6 +75,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->getConnectionName() . "." . $this->getTable();
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
     protected function actionModel(): Attribute
     {
         return Attribute::make(

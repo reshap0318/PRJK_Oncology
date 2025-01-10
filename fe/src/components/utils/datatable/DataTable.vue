@@ -183,9 +183,7 @@ defineExpose({
 </script>
 <style scoped>
 .w-number {
-    width: 4rem;
-    min-width: 1.5rem;
-    max-width: 4rem;
+    width: 3rem;
 }
 
 .w-action {

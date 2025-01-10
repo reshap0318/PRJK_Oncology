@@ -15,7 +15,7 @@
         @click="formModal.show()"
         v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
     />
-    <FormModal ref="formModal" @onSubmit="actionUpSert" />
+    <FormModal ref="formModal" />
 </template>
 <script lang="ts" setup>
 import DataTable from '@/components/utils/datatable/DataTable.vue'
