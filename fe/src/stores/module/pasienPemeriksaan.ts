@@ -13,7 +13,7 @@ export const year = new Date().getFullYear()
 export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () => {
     const formInput = ref({
         overview: {
-            dokter_id: 0,
+            dokter_id: null,
             pasien_id: null,
             tanggal: null
         },

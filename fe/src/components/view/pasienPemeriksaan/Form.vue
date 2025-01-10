@@ -1,7 +1,11 @@
 <template>
     <BaseModal modalId="pemeriksaan" ref="modal" width="modal-fullscreen">
-        <template #title>
-            <button class="btn btn-success btn-sm" @click="simpan()">Simpan</button>
+        <template #title>{{ title }}</template>
+        <template #close>
+            <div>
+                <button class="btn btn-success btn-sm me-3" @click="simpan()">Simpan</button>
+                <button class="btn btn-danger btn-sm" @click="cancel()">Batal</button>
+            </div>
         </template>
         <div class="row">
             <div class="col-sm-3">
@@ -32,6 +36,9 @@
                         </div>
                     </div>
                 </div>
+                <pre>
+                    {{ pemeriksaanStore.formInput }}
+                </pre>
             </div>
             <div class="col-sm-9">
                 <div class="card">
@@ -77,6 +84,7 @@ const pemeriksaanStore = usePasienPemeriksaanStore()
 const selectStore = useSelectStore()
 const authStore = useAuthStore()
 const modal = ref()
+const title = ref('Tambah Pemeriksaan')
 const formActive = ref('ONC000')
 const menus = ref([
     {
@@ -112,7 +120,7 @@ const menus = ref([
 function show(param: any = {}) {
     formActive.value = 'ONC000'
     if (!authStore.hasAccess('user.index') && authStore.hasAccess('user.private')) {
-        pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
+        // pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
     }
     modal.value.show()
 }
@@ -120,9 +128,13 @@ function show(param: any = {}) {
 function simpan() {
     pemeriksaanStore.formInputValidated.$validate().then((res) => {
         if (res) {
-            // pemeriksaanStore.create(pemeriksaanStore.formInput)
+            pemeriksaanStore.create(pemeriksaanStore.formInput)
         }
     })
+}
+
+function cancel() {
+    modal.value.hide()
 }
 
 defineExpose({

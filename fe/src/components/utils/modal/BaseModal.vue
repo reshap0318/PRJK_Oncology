@@ -15,9 +15,11 @@
                         <h4 class="ps-2">
                             <slot name="title"></slot>
                         </h4>
-                        <div class="btn btn-sm btn-icon btn-active-color-danger" @click="hide">
-                            <KTIcon icon-name="cross" icon-class="fs-1" />
-                        </div>
+                        <slot name="close">
+                            <div class="btn btn-sm btn-icon btn-active-color-danger" @click="hide">
+                                <KTIcon icon-name="cross" icon-class="fs-1" />
+                            </div>
+                        </slot>
                     </div>
                     <div class="modal-body pt-4 pb-5 px-10">
                         <slot></slot>
