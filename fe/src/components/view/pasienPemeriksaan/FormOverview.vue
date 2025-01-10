@@ -118,6 +118,7 @@ import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { usePasienStore } from '@/stores/module/pasien'
 import { useSelectStore } from '@/stores/global/select'
 import { computed, ref, watch } from 'vue'
+import Swal from 'sweetalert2'
 
 const selectStore = useSelectStore()
 const pasienStore = usePasienStore()
@@ -130,7 +131,18 @@ watch(
     () => formInput.value.pasien_id,
     (val) => {
         if (val) {
-            pasienStore.getDetail(val)
+            Swal.fire({
+                title: 'Loading',
+                html: 'mengambil data...',
+                icon: 'info',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            })
+            pasienStore.getDetail(val).finally(() => {
+                Swal.close()
+            })
         }
     }
 )
