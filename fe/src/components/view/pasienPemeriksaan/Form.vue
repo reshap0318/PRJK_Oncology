@@ -36,9 +36,9 @@
                         </div>
                     </div>
                 </div>
-                <pre>
+                <!-- <pre>
                     {{ pemeriksaanStore.formInput }}
-                </pre>
+                </pre> -->
             </div>
             <div class="col-sm-9">
                 <div class="card">
@@ -120,7 +120,7 @@ const menus = ref([
 function show(param: any = {}) {
     formActive.value = 'ONC000'
     if (!authStore.hasAccess('user.index') && authStore.hasAccess('user.private')) {
-        // pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
+        pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
     }
     modal.value.show()
 }
