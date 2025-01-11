@@ -36,14 +36,6 @@
                         </div>
                     </div>
                 </div>
-                <br />
-                <pre>
-                    {{ pemeriksaanStore.formInputValidated.overview.dokter_id }}
-                </pre>
-                <br />
-                <pre>
-                    {{ pemeriksaanStore.formInputValidated.anemnesis.keluhans }}
-                </pre>
             </div>
             <div class="col-sm-9">
                 <div class="card">
@@ -125,16 +117,13 @@ const menus = ref([
 function show(param: any = {}) {
     formActive.value = 'ONC000'
     if (!authStore.hasAccess('user.index') && authStore.hasAccess('user.private')) {
-        // pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
+        pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
     }
     modal.value.show()
 }
 
 function simpan() {
     pemeriksaanStore.formInputValidated.$validate().then((res) => {
-        console.log(pemeriksaanStore.formInputValidated)
-        console.log(pemeriksaanStore.formInput)
-
         if (res) {
             pemeriksaanStore.create(pemeriksaanStore.formInput)
         }
