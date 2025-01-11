@@ -71,7 +71,7 @@ import FormAnemnesis from './FormAnemnesis.vue'
 import FormPemeriksaanFisik from './FormPemeriksaanFisik.vue'
 import FormDiagnosa from './FormDiagnosa.vue'
 import FormOutcome from './FormOutcome.vue'
-import { useAuthStore } from '@/stores/auth'
+import Swal from 'sweetalert2'
 
 import { onMounted, ref } from 'vue'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -79,7 +79,6 @@ import { useSelectStore } from '@/stores/global/select'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 const selectStore = useSelectStore()
-const authStore = useAuthStore()
 const modal = ref()
 const title = ref('Tambah Pemeriksaan')
 const formActive = ref('ONC000')
@@ -116,8 +115,11 @@ const menus = ref([
 
 function show(param: any = {}) {
     formActive.value = 'ONC000'
-    if (!authStore.hasAccess('user.index') && authStore.hasAccess('user.private')) {
-        pemeriksaanStore.formInput.overview.dokter_id = authStore.user.id
+    pemeriksaanStore.formInputValidated.$reset()
+    if (param.id) {
+        console.log('parse form be')
+    } else {
+        console.log('parse from fe')
     }
     modal.value.show()
 }
@@ -125,7 +127,21 @@ function show(param: any = {}) {
 function simpan() {
     pemeriksaanStore.formInputValidated.$validate().then((res) => {
         if (res) {
-            pemeriksaanStore.create(pemeriksaanStore.formInput)
+            pemeriksaanStore.create(pemeriksaanStore.formInput).then((res: any) => {
+                Swal.fire({
+                    title: 'Success!',
+                    text: res.message,
+                    icon: 'success'
+                }).then(() => {
+                    modal.value.hide()
+                })
+            })
+        } else {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'Form Belum Terisi dengan Lengkap, Silakan Periksa Kembali Form Anda',
+                icon: 'warning'
+            })
         }
     })
 }
@@ -139,7 +155,9 @@ defineExpose({
 })
 
 onMounted(() => {
-    selectStore.getDokters()
+    selectStore.getDokters().then((res: any) => {
+        if (res.length == 1) pemeriksaanStore.formInput.overview.dokter_id = res[0].id
+    })
     selectStore.getPasiens()
 })
 </script>

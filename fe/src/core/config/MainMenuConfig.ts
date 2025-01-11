@@ -98,6 +98,6 @@ function generateMenu(payload: Array<MenuItem>): Array<MenuItem> {
     return local
 }
 
-const MainMenuConfig: Array<MenuItem> = generateMenu(MainMenu)
+const MainMenuConfig: Array<MenuItem> = generateMenu(MainMenu).filter((d) => d.pages?.length != 0)
 
 export default MainMenuConfig

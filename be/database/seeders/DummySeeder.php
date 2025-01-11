@@ -27,10 +27,30 @@ class DummySeeder extends Seeder
                 'roles'     => [User::R_DOKTER]
             ],
             [
+                'username'  => 'dokter02',
+                'name'      => 'Dokter 02',
+                'email'     => 'dokter02@unand.ac.id',
+                'password'  => 'dokter02#123',
+                'is_active' => User::S_ACTIVE,
+                'no_telp'   => null,
+                'alamat'    => null,
+                'roles'     => [User::R_DOKTER]
+            ],
+            [
                 'username'  => 'mahasiswa01',
                 'name'      => 'Mahasiswa 01',
                 'email'     => 'mahasiswa01@unand.ac.id',
                 'password'  => 'mahasiswa01#123',
+                'is_active' => User::S_ACTIVE,
+                'no_telp'   => null,
+                'alamat'    => null,
+                'roles'     => [User::R_MAHASISWA]
+            ],
+            [
+                'username'  => 'mahasiswa02',
+                'name'      => 'Mahasiswa 02',
+                'email'     => 'mahasiswa02@unand.ac.id',
+                'password'  => 'mahasiswa02#123',
                 'is_active' => User::S_ACTIVE,
                 'no_telp'   => null,
                 'alamat'    => null,

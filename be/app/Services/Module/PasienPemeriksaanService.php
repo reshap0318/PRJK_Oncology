@@ -42,6 +42,18 @@ class PasienPemeriksaanService extends BaseService
             ->make(true);
     }
 
+    public function store($payload)
+    {
+        $pemeriksaan = $this->mainRepository->create([
+            'user_id'       => $payload['overview']['dokter_id'],
+            "pasien_id"     => $payload['overview']['pasien_id'],
+            "inspection_at" => $payload['overview']['tanggal'],
+            "type"          => 0
+        ]);
+
+        return $pemeriksaan;
+    }
+
     public function delete($id)
     {
         return $this->mainRepository->delete($id);

@@ -20,7 +20,7 @@ class PasienPemeriksaanController extends Controller
         $this->middleware('permission:pasien.show')->only(['datatableByPasienId']);
         $this->middleware('permission:pasien-pemeriksaan.index')->only(['datatable']);
         // $this->middleware('permission:pasien-pemeriksaan.show')->only(['getData']);
-        // $this->middleware('permission:pasien-pemeriksaan.inspection')->only(['detail']);
+        $this->middleware('permission:pasien-pemeriksaan.inspection')->only(['store', 'update']);
         // $this->middleware('permission:pasien-pemeriksaan.edit')->only(['update']);
         $this->middleware('permission:pasien-pemeriksaan.delete')->only(['destroy']);
     }
@@ -45,7 +45,7 @@ class PasienPemeriksaanController extends Controller
     public function store(PasienPemeriksaanRequest $request)
     {
         return $this->mainService->transaction(function () use ($request) {
-           return $request->all();
+           return $this->mainService->store($request->all());
         })->responseResult();
     }
 
