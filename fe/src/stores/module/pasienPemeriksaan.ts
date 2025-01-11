@@ -2,7 +2,7 @@ import client from 'api-client'
 import { defineStore } from 'pinia'
 import { baseStore } from '@/core/helpers/store'
 import { useVuelidate } from '@vuelidate/core'
-import { required, requiredIf } from '@vuelidate/validators'
+import { required, requiredIf, helpers } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
 import { computed, ref } from 'vue'
 
@@ -38,56 +38,49 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             kategori_perokok: {
                 riwayat: 3,
                 jumlah: null,
-                lama: 0,
+                lama: null,
                 ib: 3,
-                jenis_rokok: '',
+                jenis_rokok: null,
                 cara_menghisap: 0
             },
             paparan_asap_rokok: {
-                value: 0
+                own: 0,
+                value: null
             },
             pekerjaan_beresiko: {
-                value: 0,
-                description: null
+                own: 0,
+                value: null
             },
             tempat_tinggal_sekitar_pabrik: {
-                value: 0,
-                description: null
+                own: 0,
+                value: null
             },
             riwayat_keganasan_organ_lain: {
-                value: 0,
-                description: null
+                own: 0,
+                value: null
             },
             paparan_radon: {
-                value: 0,
-                description: {
-                    rumah_kayu: 0,
-                    lantai_retak: 0,
-                    sumur_dalam_rumah: 0
-                }
+                own: 0,
+                value: []
             },
             biomess: {
-                value: 0,
-                description: {
-                    kayu_bakar: 0,
-                    minyak_tanah: 0,
-                    breket: 0
-                }
+                own: 0,
+                value: []
             },
             riwayat_ppok: {
-                value: 0,
-                description: year
+                own: 0,
+                value: year
             },
             riwayat_tb: {
-                value: 0,
-                description: {
+                own: 0,
+                value: {
                     tahun: year,
-                    oat: 0
+                    oat: null
                 }
             },
             riwayat_kaganasan_keluarga: {
-                value: 0,
-                description: {
+                own: 0,
+                value: {
                     siapa: null,
                     apa: null,
                     tahun: year
@@ -144,45 +137,143 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 pasien_id: { required },
                 tanggal: { required }
             },
+            anemnesis: {
+                keluhans: {
+                    $each: helpers.forEach({
+                        description: { required },
+                        long: { required }
+                    })
+                },
+                gejalas: {
+                    $each: helpers.forEach({
+                        description: { required },
+                        long: { required }
+                    })
+                },
+                penyakits: {
+                    $each: helpers.forEach({
+                        description: { required }
+                    })
+                },
+                kategori_perokok: {
+                    riwayat: { required },
+                    lama: { 
+                        required: requiredIf(() => [1, 2].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    },
+                    jumlah: { 
+                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    },
+                    ib: { 
+                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    },
+                    jenis_rokok: { 
+                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    },
+                    cara_menghisap: { 
+                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    }
+                },
+                pekerjaan_beresiko: {
+                    own: {},
+                    value: {
+                        required: requiredIf(() => formInput.value.anemnesis.pekerjaan_beresiko.own == 1)
+                    }
+                },
+                tempat_tinggal_sekitar_pabrik: {
+                    own: {},
+                    value: {
+                        required: requiredIf(() => formInput.value.anemnesis.tempat_tinggal_sekitar_pabrik.own == 1)
+                    }
+                },
+                riwayat_keganasan_organ_lain: {
+                    own: {},
+                    value: {
+                        required: requiredIf(() => formInput.value.anemnesis.riwayat_keganasan_organ_lain.own == 1)
+                    }
+                },
+                paparan_radon: {
+                    own: 0,
+                    value: {
+                        required: requiredIf(() => formInput.value.anemnesis.paparan_radon.own == 1)
+                    }
+                },
+                biomess: {
+                    own: 0,
+                    value: {
+                        required: requiredIf(() => formInput.value.anemnesis.biomess.own == 1)
+                    }
+                },
+                riwayat_ppok: {
+                    own: {},
+                    value: {
+                        required: requiredIf(() => formInput.value.anemnesis.riwayat_ppok.own == 1)
+                    }
+                },
+                riwayat_tb: {
+                    own: {},
+                    value: {
+                        tahun: {
+                            required: requiredIf(() => formInput.value.anemnesis.riwayat_tb.own == 1)
+                        },
+                        oat: {
+                            required: requiredIf(() => formInput.value.anemnesis.riwayat_tb.own == 1)
+                        }
+                    }
+                },
+                riwayat_kaganasan_keluarga: {
+                    own: {},
+                    value: {
+                        siapa: {
+                            required: requiredIf(() => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1)
+                        },
+                        apa: {
+                            required: requiredIf(() => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1)
+                        },
+                        tahun: {
+                            required: requiredIf(() => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1)
+                        }
+                    }
+                }
+            },
             pemeriksaan_fisik: {
-                kesadaran: { required },
-                keadaan_umum: { required },
-                td: { required },
-                nadi: { required },
-                rr: { required },
-                suhu: { required },
-                spo2: { required },
-                vas: { required },
-                description: { required },
+                kesadaran: {} , //{ required },
+                keadaan_umum: {} , //{ required },
+                td: {} , //{ required },
+                nadi: {} , //{ required },
+                rr: {} , //{ required },
+                suhu: {} , //{ required },
+                spo2: {} , //{ required },
+                vas: {} , //{ required },
+                description: {} , //{ required },
                 kgb_option: {},
                 kgb: {
                     required: requiredIf(() => formInput.value.pemeriksaan_fisik.kgb_option == 1)
                 },
-                inspeksi_statis: { required },
-                inspeksi_dinamis: { required },
-                palpasi: { required },
-                perkusi: { required },
-                auskultasi: { required },
-                abdomen: { required },
-                ekstemitas: { required }
+                inspeksi_statis: {} , //{ required },
+                inspeksi_dinamis: {} , //{ required },
+                palpasi: {} , //{ required },
+                perkusi: {} , //{ required },
+                auskultasi: {} , //{ required },
+                abdomen: {} , //{ required },
+                ekstemitas: {} , //{ required }
             },
             diagnosa: {
-                jenis_sel: { required },
-                paru: { required },
-                stagging: { required },
-                stage: { required },
-                ps: { required },
-                egfr: { required },
-                mutasi: { required },
-                whild_type: { required },
-                pdl1: { required },
-                alk: { required },
-                komorbid: { required }
+                jenis_sel: {}, //{ required },
+                paru: {}, //{ required },
+                stagging: {}, //{ required },
+                stage: {}, //{ required },
+                ps: {}, //{ required },
+                egfr: {}, //{ required },
+                mutasi: {}, //{ required },
+                whild_type: {}, //{ required },
+                pdl1: {}, //{ required },
+                alk: {}, //{ required },
+                komorbid: {}, //{ required }
             },
             outcome: {
-                keadaan_pulang: { required },
-                cara_pulang: { required },
-                lama_dirawat: { required },
+                keadaan_pulang: {}, //{ required },
+                cara_pulang: {}, //{ required },
+                lama_dirawat: {}, //{ required },
                 tanggal_meninggal: {
                     required: requiredIf(() => formInput.value.outcome.cara_pulang == 5)
                 },

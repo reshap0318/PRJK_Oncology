@@ -199,8 +199,8 @@
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stage"
-                                :value="5"
+                                v-model="formInput.whild_type"
+                                :value="1"
                             />
                             <span class="form-check-label fw-semibold"> 1B </span>
                         </label>
