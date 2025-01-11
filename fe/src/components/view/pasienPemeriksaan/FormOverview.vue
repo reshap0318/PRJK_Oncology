@@ -143,6 +143,8 @@ watch(
             pasienStore.getDetail(val).finally(() => {
                 Swal.close()
             })
+        } else {
+            pasienStore.itemDetail = {}
         }
     }
 )
