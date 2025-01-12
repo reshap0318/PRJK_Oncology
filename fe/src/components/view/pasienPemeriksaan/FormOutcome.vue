@@ -8,7 +8,7 @@
                         <span class="required"> Keadaan Pulang </span>
                     </label>
                     <select v-model="formInput.keadaan_pulang" class="form-control">
-                        <option value="">Status Keadaan Pulang</option>
+                        <option :value="null">Status Keadaan Pulang</option>
                         <option value="1">Perbaikan</option>
                         <option value="2">Menetap</option>
                         <option value="3">Perburukan</option>
@@ -43,7 +43,7 @@
             <div class="col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required">Lama Dirawat </span>
+                        <span class="required"> Lama Dirawat </span>
                     </label>
                     <div class="input-group">
                         <input
@@ -65,7 +65,7 @@
             <div class="col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required">Tanggal Meninggal </span>
+                        <span> Tanggal Meninggal </span>
                     </label>
                     <input type="date" class="form-control" v-model="formInput.tanggal_meninggal" />
                     <form-error
@@ -77,7 +77,7 @@
             <div class="col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required">Waktu Meninggal </span>
+                        <span>Waktu Meninggal </span>
                     </label>
                     <div class="d-flex align-items-center mt-3">
                         <label
@@ -86,7 +86,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
-                                :value="1"
+                                :value="0"
                                 v-model="formInput.waktu_meninggal"
                             />
                             <span class="form-check-label fw-semibold text-gray-500">
@@ -100,7 +100,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
-                                :value="0"
+                                :value="1"
                                 v-model="formInput.waktu_meninggal"
                             />
                             <span class="form-check-label fw-semibold text-gray-500">
@@ -117,7 +117,7 @@
             <div class="col-sm-12 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Sebab Kematian </span>
+                        <span> Sebab Kematian </span>
                     </label>
                     <textarea
                         class="form-control"

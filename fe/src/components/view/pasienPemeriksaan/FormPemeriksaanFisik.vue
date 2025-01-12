@@ -14,11 +14,11 @@
                                 type="text"
                                 autocomplete="off"
                                 placeholder="kesadaran"
-                                v-model="formInput.kesadaran"
+                                v-model="formInput.awareness"
                             />
                             <form-error
-                                :err="formInputValidated.pemeriksaan_fisik.kesadaran"
-                                name="pemeriksaan_fisik.kesadaran"
+                                :err="formInputValidated.pemeriksaan_fisik.awareness"
+                                name="pemeriksaan_fisik.awareness"
                             />
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                         class="form-check-input"
                                         type="radio"
                                         :value="1"
-                                        v-model="formInput.keadaan_umum"
+                                        v-model="formInput.condition"
                                     />
                                     <span class="form-check-label fw-semibold text-gray-500">
                                         Baik
@@ -49,7 +49,7 @@
                                         class="form-check-input"
                                         type="radio"
                                         :value="2"
-                                        v-model="formInput.keadaan_umum"
+                                        v-model="formInput.condition"
                                     />
                                     <span class="form-check-label fw-semibold text-gray-500">
                                         Sedang
@@ -63,7 +63,7 @@
                                         class="form-check-input"
                                         type="radio"
                                         :value="3"
-                                        v-model="formInput.keadaan_umum"
+                                        v-model="formInput.condition"
                                     />
                                     <span class="form-check-label fw-semibold text-gray-500">
                                         Buruk
@@ -77,7 +77,7 @@
                                         class="form-check-input"
                                         type="radio"
                                         :value="4"
-                                        v-model="formInput.keadaan_umum"
+                                        v-model="formInput.condition"
                                     />
                                     <span class="form-check-label fw-semibold text-gray-500">
                                         Sangat Buruk
@@ -85,8 +85,8 @@
                                 </label>
                             </div>
                             <form-error
-                                :err="formInputValidated.pemeriksaan_fisik.keadaan_umum"
-                                name="pemeriksaan_fisik.keadaan_umum"
+                                :err="formInputValidated.pemeriksaan_fisik.condition"
+                                name="pemeriksaan_fisik.condition"
                             />
                         </div>
                     </div>
@@ -144,15 +144,15 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
-                                    v-model="formInput.spo2"
+                                    v-model="formInput.sp_o2"
                                 />
                                 <div class="input-group-append">
                                     <span class="input-group-text"> % room air </span>
                                 </div>
                             </div>
                             <form-error
-                                :err="formInputValidated.pemeriksaan_fisik.spo2"
-                                name="pemeriksaan_fisik.spo2"
+                                :err="formInputValidated.pemeriksaan_fisik.sp_o2"
+                                name="pemeriksaan_fisik.sp_o2"
                             />
                         </div>
                     </div>

@@ -88,13 +88,13 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             }
         },
         pemeriksaan_fisik: {
-            kesadaran: null,
-            keadaan_umum: null,
+            awareness: null,
+            condition: null,
             td: null,
             nadi: null,
             rr: null,
             suhu: null,
-            spo2: null,
+            sp_o2: null,
             vas: null,
             description: null,
             kgb: null,
@@ -110,7 +110,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
         diagnosa: {
             jenis_sel: [],
             paru: [],
-            stagging: [],
+            staging: [],
             stage: [],
             ps: [],
             egfr: null,
@@ -121,7 +121,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             komorbid: null
         },
         outcome: {
-            keadaan_pulang: '',
+            keadaan_pulang: null,
             cara_pulang: null,
             lama_dirawat: null,
             tanggal_meninggal: null,
@@ -236,13 +236,13 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 }
             },
             pemeriksaan_fisik: {
-                kesadaran: {} , //{ required },
-                keadaan_umum: {} , //{ required },
+                awareness: {} , //{ required },
+                condition: {} , //{ required },
                 td: {} , //{ required },
                 nadi: {} , //{ required },
                 rr: {} , //{ required },
                 suhu: {} , //{ required },
-                spo2: {} , //{ required },
+                sp_o2: {} , //{ required },
                 vas: {} , //{ required },
                 description: {} , //{ required },
                 kgb_option: {},
@@ -260,7 +260,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             diagnosa: {
                 jenis_sel: {}, //{ required },
                 paru: {}, //{ required },
-                stagging: {}, //{ required },
+                staging: {}, //{ required },
                 stage: {}, //{ required },
                 ps: {}, //{ required },
                 egfr: {}, //{ required },

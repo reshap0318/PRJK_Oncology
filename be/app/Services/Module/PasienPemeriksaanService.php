@@ -50,6 +50,10 @@ class PasienPemeriksaanService extends BaseService
             "inspection_at" => $payload['overview']['tanggal'],
             "type"          => 0
         ]);
+        
+        $pemeriksaan->diagnosa()->create($payload['diagnosa'] ?? []);
+        $pemeriksaan->outcome()->create($payload['outcome'] ?? []);
+        $pemeriksaan->fisik()->create($payload['pemeriksaan_fisik'] ?? []);
 
         return $pemeriksaan;
     }

@@ -74,7 +74,7 @@ import FormOutcome from './FormOutcome.vue'
 import Swal from 'sweetalert2'
 
 import { onMounted, ref } from 'vue'
-import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
+import { year, usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { useSelectStore } from '@/stores/global/select'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
@@ -119,7 +119,125 @@ function show(param: any = {}) {
     if (param.id) {
         console.log('parse form be')
     } else {
-        console.log('parse from fe')
+        //overview
+        pemeriksaanStore.formInput.overview.dokter_id = null
+        pemeriksaanStore.formInput.overview.pasien_id = null
+        pemeriksaanStore.formInput.overview.tanggal = null
+
+        //anamnesis
+        pemeriksaanStore.formInput.anemnesis.biomess = {
+            own: 0,
+            value: []
+        }
+        pemeriksaanStore.formInput.anemnesis.keluhans = [
+            {
+                description: null,
+                long: 0
+            }
+        ]
+        pemeriksaanStore.formInput.anemnesis.gejalas = [
+            {
+                description: null,
+                long: 0
+            }
+        ]
+        pemeriksaanStore.formInput.anemnesis.penyakits = [
+            {
+                description: null
+            }
+        ]
+        pemeriksaanStore.formInput.anemnesis.kategori_perokok = {
+            riwayat: 3,
+            jumlah: null,
+            lama: null,
+            ib: 3,
+            jenis_rokok: null,
+            cara_menghisap: 0
+        }
+        pemeriksaanStore.formInput.anemnesis.paparan_asap_rokok = {
+            own: 0,
+            value: null
+        }
+        pemeriksaanStore.formInput.anemnesis.pekerjaan_beresiko = {
+            own: 0,
+            value: null
+        }
+        pemeriksaanStore.formInput.anemnesis.tempat_tinggal_sekitar_pabrik = {
+            own: 0,
+            value: null
+        }
+        pemeriksaanStore.formInput.anemnesis.riwayat_keganasan_organ_lain = {
+            own: 0,
+            value: null
+        }
+        pemeriksaanStore.formInput.anemnesis.paparan_radon = {
+            own: 0,
+            value: []
+        }
+        pemeriksaanStore.formInput.anemnesis.biomess = {
+            own: 0,
+            value: []
+        }
+        pemeriksaanStore.formInput.anemnesis.riwayat_ppok = {
+            own: 0,
+            value: year
+        }
+        pemeriksaanStore.formInput.anemnesis.riwayat_tb = {
+            own: 0,
+            value: {
+                tahun: year,
+                oat: null
+            }
+        }
+        pemeriksaanStore.formInput.anemnesis.riwayat_kaganasan_keluarga = {
+            own: 0,
+            value: {
+                siapa: null,
+                apa: null,
+                tahun: year
+            }
+        }
+
+        //pemeriksaan fisik
+        pemeriksaanStore.formInput.pemeriksaan_fisik.abdomen = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.auskultasi = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.description = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.ekstemitas = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.inspeksi_dinamis = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.inspeksi_statis = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.awareness = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.condition = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.kgb = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.kgb_option = 0
+        pemeriksaanStore.formInput.pemeriksaan_fisik.nadi = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.palpasi = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.perkusi = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.rr = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.sp_o2 = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.suhu = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.td = null
+        pemeriksaanStore.formInput.pemeriksaan_fisik.vas = null
+
+        //diagnosa
+        pemeriksaanStore.formInput.diagnosa.jenis_sel = []
+        pemeriksaanStore.formInput.diagnosa.paru = []
+        pemeriksaanStore.formInput.diagnosa.stage = []
+        pemeriksaanStore.formInput.diagnosa.staging = []
+        pemeriksaanStore.formInput.diagnosa.ps = []
+        pemeriksaanStore.formInput.diagnosa.egfr = null
+        pemeriksaanStore.formInput.diagnosa.mutasi = null
+        pemeriksaanStore.formInput.diagnosa.whild_type = 0
+        pemeriksaanStore.formInput.diagnosa.pdl1 = null
+        pemeriksaanStore.formInput.diagnosa.alk = []
+        pemeriksaanStore.formInput.diagnosa.komorbid = null
+
+        //outcome
+        pemeriksaanStore.formInput.outcome.cara_pulang = null
+        pemeriksaanStore.formInput.outcome.keadaan_pulang = null
+        pemeriksaanStore.formInput.outcome.lama_dirawat = null
+        pemeriksaanStore.formInput.outcome.sebab_kematian = null
+        pemeriksaanStore.formInput.outcome.tanggal_meninggal = null
+        pemeriksaanStore.formInput.outcome.waktu_meninggal = null
     }
     modal.value.show()
 }
@@ -127,6 +245,8 @@ function show(param: any = {}) {
 function simpan() {
     pemeriksaanStore.formInputValidated.$validate().then((res) => {
         if (res) {
+            console.log(pemeriksaanStore.formInput)
+
             pemeriksaanStore.create(pemeriksaanStore.formInput).then((res: any) => {
                 Swal.fire({
                     title: 'Success!',

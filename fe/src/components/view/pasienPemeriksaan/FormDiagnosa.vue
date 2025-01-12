@@ -69,7 +69,7 @@
                                 v-model="formInput.stage"
                                 :value="1"
                             />
-                            <span class="form-check-label fw-semibold"> 1A </span>
+                            <span class="form-check-label fw-semibold"> IA </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
@@ -79,7 +79,7 @@
                                 v-model="formInput.stage"
                                 :value="2"
                             />
-                            <span class="form-check-label fw-semibold"> 2A </span>
+                            <span class="form-check-label fw-semibold"> IIA </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
@@ -89,7 +89,7 @@
                                 v-model="formInput.stage"
                                 :value="3"
                             />
-                            <span class="form-check-label fw-semibold"> 3A </span>
+                            <span class="form-check-label fw-semibold"> IIIA </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
@@ -99,7 +99,7 @@
                                 v-model="formInput.stage"
                                 :value="4"
                             />
-                            <span class="form-check-label fw-semibold"> 4A </span>
+                            <span class="form-check-label fw-semibold"> IVA </span>
                         </label>
                     </div>
                     <div class="d-flex align-items-center my-1 mt-4">
@@ -111,7 +111,7 @@
                                 v-model="formInput.stage"
                                 :value="5"
                             />
-                            <span class="form-check-label fw-semibold"> 1B </span>
+                            <span class="form-check-label fw-semibold"> IB </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
@@ -121,7 +121,7 @@
                                 v-model="formInput.stage"
                                 :value="6"
                             />
-                            <span class="form-check-label fw-semibold"> 2B </span>
+                            <span class="form-check-label fw-semibold"> IIB </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
@@ -131,7 +131,7 @@
                                 v-model="formInput.stage"
                                 :value="7"
                             />
-                            <span class="form-check-label fw-semibold"> 3B </span>
+                            <span class="form-check-label fw-semibold"> IIIB </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
@@ -141,7 +141,7 @@
                                 v-model="formInput.stage"
                                 :value="8"
                             />
-                            <span class="form-check-label fw-semibold"> 4B </span>
+                            <span class="form-check-label fw-semibold"> IVB </span>
                         </label>
                     </div>
                     <form-error :err="formInputValidated.diagnosa.stage" name="diagnosa.stage" />
@@ -202,7 +202,6 @@
                                 v-model="formInput.whild_type"
                                 :value="1"
                             />
-                            <span class="form-check-label fw-semibold"> 1B </span>
                         </label>
                     </div>
                 </div>
@@ -292,7 +291,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Stagging </span>
+                        <span class="required"> Staging </span>
                     </label>
                     <div class="d-flex align-items-center my-1">
                         <label class="form-check form-check-custom form-check-solid me-10">
@@ -300,7 +299,7 @@
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stagging"
+                                v-model="formInput.staging"
                                 :value="1"
                             />
                             <span class="form-check-label fw-semibold"> T </span>
@@ -310,7 +309,7 @@
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stagging"
+                                v-model="formInput.staging"
                                 :value="2"
                             />
                             <span class="form-check-label fw-semibold"> N </span>
@@ -320,15 +319,15 @@
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stagging"
+                                v-model="formInput.staging"
                                 :value="3"
                             />
                             <span class="form-check-label fw-semibold"> M </span>
                         </label>
                     </div>
                     <form-error
-                        :err="formInputValidated.diagnosa.stagging"
-                        name="diagnosa.stagging"
+                        :err="formInputValidated.diagnosa.staging"
+                        name="diagnosa.staging"
                     />
                 </div>
             </div>

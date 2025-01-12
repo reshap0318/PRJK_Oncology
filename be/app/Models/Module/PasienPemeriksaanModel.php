@@ -60,4 +60,56 @@ class PasienPemeriksaanModel extends Model
     {
         return $this->hasOne(PasienModel::class, 'id', 'user_id')->withDefault(['name' => 'tidak ditemukan']);
     }
+
+    public function diagnosa()
+    {
+        return $this->hasOne(PemeriksaanDiagnosaModel::class, 'id', 'id')->withDefault([
+            "jenis_sel"     => [],
+            "paru"          => [],
+            "stage"         => [],
+            "staging"       => [],
+            "ps"            => [],
+            "egfr"          => null,
+            "mutasi"        => null,
+            "whild_type"    => 0,
+            "pdl1"          => null,
+            "alk"           => [],
+            "komorbid"      => null,
+        ]);
+    }
+
+    public function outcome()
+    {
+        return $this->hasOne(PemeriksaanOutcomeModel::class, 'id', 'id')->withDefault([
+            "keadaan_pulang"        => null,
+            "cara_pulang"           => null,
+            "lama_dirawat"          => null,
+            "tanggal_meninggal"     => null,
+            "sebab_kematian"        => null,
+            "waktu_meninggal"       => null,
+        ]);
+    }
+
+    public function fisik()
+    {
+        return $this->hasOne(PemeriksaanFisikModel::class, 'id', 'id')->withDefault([
+            "awareness"         => null,
+            "condition"         => null,
+            "td"                => null,
+            "nadi"              => null,
+            "rr"                => null,
+            "suhu"              => null,
+            "sp_o2"             => null,
+            "vas"               => null,
+            "description"       => null,
+            "kgb"               => null,
+            "inspeksi_statis"   => null,
+            "inspeksi_dinamis"  => null,
+            "auskultasi"        => null,
+            "palpasi"           => null,
+            "abdomen"           => null,
+            "perkusi"           => null,
+            "ekstemitas"        => null,
+        ]);
+    }
 }
