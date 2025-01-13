@@ -6,7 +6,6 @@
                 :url="pemeriksaanStore.datatableLink"
                 :columns="columns"
                 :options="options"
-                @onEdit="handleBtnEdit"
                 @onDelete="handleBtnDelete"
             />
         </div>
@@ -26,7 +25,7 @@ import StrgService from '@/core/services/StrgService'
 import type { ConfigColumns, Config } from 'datatables.net'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { btnAction } from '@/core/helpers/datatable'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 const table = ref()
@@ -68,21 +67,17 @@ const options = ref<Config>({
     order: [[1, 'asc']]
 })
 
-function handleBtnEdit(row: any): void {
-    const payload = { ...row }
-    formModal.value.show(payload)
-}
-
 function handleBtnDelete(id: number): void {
     pemeriksaanStore.actionDelete(id).then(() => {
         table.value.reload()
     })
 }
 
-function actionUpSert(data: any): void {
-    pemeriksaanStore.actionUpSert(data).then(() => {
-        formModal.value.hide()
-        table.value.reload()
+onMounted(() => {
+    table.value.getDT().on('click', '.btn-periksa', function (e: any) {
+        e.preventDefault()
+        const id = e.currentTarget.getAttribute('data-id')
+        formModal.value.show({ id: id })
     })
-}
+})
 </script>

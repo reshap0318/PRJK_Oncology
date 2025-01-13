@@ -29,4 +29,10 @@ class PasienPemeriksaanRepository extends BaseRepository
             ->join((new PasienModel())->getTable() . " as p", "p.id", "pm.pasien_id");
         return $this;
     }
+
+    public function getDetailData()
+    {
+        $this->query = $this->query->with(['diagnosa', 'outcome', 'vital', 'riskFactors', 'smokingHistory']);
+        return $this;
+    }
 }

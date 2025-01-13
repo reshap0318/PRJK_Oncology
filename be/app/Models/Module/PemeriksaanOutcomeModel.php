@@ -9,7 +9,7 @@ class PemeriksaanOutcomeModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'outcome';
+    protected $table = 'i_outcome';
     protected $primaryKey = 'id';
     public $incrementing = false;
 
@@ -25,6 +25,6 @@ class PemeriksaanOutcomeModel extends Model
 
     protected $casts = [
         "tanggal_meninggal"     => 'date:Y-m-d',
-        'waktu_meninggal'       => 'boolean'
+        'waktu_meninggal'       => 'integer'
     ];
 }

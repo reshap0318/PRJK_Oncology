@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('i_outcome', function (Blueprint $table) {
+        Schema::create('i_smoking_history', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
-            $table->tinyInteger('keadaan_pulang')->nullable();
-            $table->tinyInteger('cara_pulang')->nullable();
-            $table->mediumInteger('lama_dirawat')->nullable();
-            $table->date('tanggal_meninggal')->nullable();
-            $table->text('sebab_kematian')->nullable();
-            $table->boolean('waktu_meninggal')->nullable();
+            $table->unsignedTinyInteger('history')->nullable()->default(3);
+            $table->unsignedInteger('stick_day')->nullable(); //batang / hari
+            $table->unsignedMediumInteger('count_year')->nullable();
+            $table->unsignedTinyInteger('ib')->nullable()->default(3);
+            $table->unsignedTinyInteger('category')->nullable();
+            $table->unsignedTinyInteger('suck')->nullable()->default(0); //cara menghisap
             $table->timestamps();
 
             $table->primary('id');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('i_outcome');
+        Schema::dropIfExists('i_smoking_history');
     }
 };

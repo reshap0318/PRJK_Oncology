@@ -11,7 +11,7 @@ const base = baseStore(basePath)
 
 export const year = new Date().getFullYear()
 export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () => {
-    const formInput = ref({
+    const formDefault = ref({
         overview: {
             dokter_id: null,
             pasien_id: null,
@@ -36,12 +36,12 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 }
             ],
             kategori_perokok: {
-                riwayat: 3,
-                jumlah: null,
-                lama: null,
+                history: 3,
+                stick_day: null,
+                count_year: null,
                 ib: 3,
-                jenis_rokok: null,
-                cara_menghisap: 0
+                category: null,
+                suck: 0
             },
             paparan_asap_rokok: {
                 own: 0,
@@ -69,12 +69,12 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             },
             riwayat_ppok: {
                 own: 0,
-                value: year
+                value: null
             },
             riwayat_tb: {
                 own: 0,
                 value: {
-                    tahun: year,
+                    tahun: null,
                     oat: null
                 }
             },
@@ -83,7 +83,126 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 value: {
                     siapa: null,
                     apa: null,
-                    tahun: year
+                    tahun: null
+                }
+            }
+        },
+        pemeriksaan_fisik: {
+            awareness: null,
+            condition: null,
+            td: null,
+            nadi: null,
+            rr: null,
+            suhu: null,
+            sp_o2: null,
+            vas: null,
+            description: null,
+            kgb: null,
+            kgb_option: 0,
+            inspeksi_statis: null,
+            inspeksi_dinamis: null,
+            palpasi: null,
+            perkusi: null,
+            auskultasi: null,
+            abdomen: null,
+            ekstemitas: null
+        },
+        diagnosa: {
+            jenis_sel: [],
+            paru: [],
+            staging: [],
+            stage: [],
+            ps: [],
+            egfr: null,
+            mutasi: null,
+            whild_type: 0,
+            pdl1: null,
+            alk: [],
+            komorbid: null
+        },
+        outcome: {
+            keadaan_pulang: null,
+            cara_pulang: null,
+            lama_dirawat: null,
+            tanggal_meninggal: null,
+            sebab_kematian: null,
+            waktu_meninggal: null
+        }
+    })
+
+    const formInput = ref({
+        overview: {
+            dokter_id: null,
+            pasien_id: null,
+            tanggal: null
+        },
+        anemnesis: {
+            keluhans: [
+                {
+                    description: null,
+                    long: 0
+                }
+            ],
+            gejalas: [
+                {
+                    description: null,
+                    long: 0
+                }
+            ],
+            penyakits: [
+                {
+                    description: null
+                }
+            ],
+            kategori_perokok: {
+                history: 3,
+                stick_day: null,
+                count_year: null,
+                ib: 3,
+                category: null,
+                suck: 0
+            },
+            paparan_asap_rokok: {
+                own: 0,
+                value: null
+            },
+            pekerjaan_beresiko: {
+                own: 0,
+                value: null
+            },
+            tempat_tinggal_sekitar_pabrik: {
+                own: 0,
+                value: null
+            },
+            riwayat_keganasan_organ_lain: {
+                own: 0,
+                value: null
+            },
+            paparan_radon: {
+                own: 0,
+                value: []
+            },
+            biomess: {
+                own: 0,
+                value: []
+            },
+            riwayat_ppok: {
+                own: 0,
+                value: null
+            },
+            riwayat_tb: {
+                own: 0,
+                value: {
+                    tahun: null,
+                    oat: null
+                }
+            },
+            riwayat_kaganasan_keluarga: {
+                own: 0,
+                value: {
+                    siapa: null,
+                    apa: null,
+                    tahun: null
                 }
             }
         },
@@ -156,39 +275,55 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     })
                 },
                 kategori_perokok: {
-                    riwayat: { required },
-                    lama: { 
-                        required: requiredIf(() => [1, 2].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    history: { required },
+                    count_year: {
+                        required: requiredIf(() =>
+                            [1, 2].includes(formInput.value.anemnesis.kategori_perokok.history)
+                        )
                     },
-                    jumlah: { 
-                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    stick_day: {
+                        required: requiredIf(() =>
+                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                        )
                     },
-                    ib: { 
-                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    ib: {
+                        required: requiredIf(() =>
+                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                        )
                     },
-                    jenis_rokok: { 
-                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    category: {
+                        required: requiredIf(() =>
+                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                        )
                     },
-                    cara_menghisap: { 
-                        required: requiredIf(() => [1].includes(formInput.value.anemnesis.kategori_perokok.riwayat))
+                    suck: {
+                        required: requiredIf(() =>
+                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                        )
                     }
                 },
                 pekerjaan_beresiko: {
                     own: {},
                     value: {
-                        required: requiredIf(() => formInput.value.anemnesis.pekerjaan_beresiko.own == 1)
+                        required: requiredIf(
+                            () => formInput.value.anemnesis.pekerjaan_beresiko.own == 1
+                        )
                     }
                 },
                 tempat_tinggal_sekitar_pabrik: {
                     own: {},
                     value: {
-                        required: requiredIf(() => formInput.value.anemnesis.tempat_tinggal_sekitar_pabrik.own == 1)
+                        required: requiredIf(
+                            () => formInput.value.anemnesis.tempat_tinggal_sekitar_pabrik.own == 1
+                        )
                     }
                 },
                 riwayat_keganasan_organ_lain: {
                     own: {},
                     value: {
-                        required: requiredIf(() => formInput.value.anemnesis.riwayat_keganasan_organ_lain.own == 1)
+                        required: requiredIf(
+                            () => formInput.value.anemnesis.riwayat_keganasan_organ_lain.own == 1
+                        )
                     }
                 },
                 paparan_radon: {
@@ -213,10 +348,14 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     own: {},
                     value: {
                         tahun: {
-                            required: requiredIf(() => formInput.value.anemnesis.riwayat_tb.own == 1)
+                            required: requiredIf(
+                                () => formInput.value.anemnesis.riwayat_tb.own == 1
+                            )
                         },
                         oat: {
-                            required: requiredIf(() => formInput.value.anemnesis.riwayat_tb.own == 1)
+                            required: requiredIf(
+                                () => formInput.value.anemnesis.riwayat_tb.own == 1
+                            )
                         }
                     }
                 },
@@ -224,38 +363,44 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     own: {},
                     value: {
                         siapa: {
-                            required: requiredIf(() => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1)
+                            required: requiredIf(
+                                () => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                            )
                         },
                         apa: {
-                            required: requiredIf(() => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1)
+                            required: requiredIf(
+                                () => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                            )
                         },
                         tahun: {
-                            required: requiredIf(() => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1)
+                            required: requiredIf(
+                                () => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                            )
                         }
                     }
                 }
             },
             pemeriksaan_fisik: {
-                awareness: {} , //{ required },
-                condition: {} , //{ required },
-                td: {} , //{ required },
-                nadi: {} , //{ required },
-                rr: {} , //{ required },
-                suhu: {} , //{ required },
-                sp_o2: {} , //{ required },
-                vas: {} , //{ required },
-                description: {} , //{ required },
+                awareness: {}, //{ required },
+                condition: {}, //{ required },
+                td: {}, //{ required },
+                nadi: {}, //{ required },
+                rr: {}, //{ required },
+                suhu: {}, //{ required },
+                sp_o2: {}, //{ required },
+                vas: {}, //{ required },
+                description: {}, //{ required },
                 kgb_option: {},
                 kgb: {
                     required: requiredIf(() => formInput.value.pemeriksaan_fisik.kgb_option == 1)
                 },
-                inspeksi_statis: {} , //{ required },
-                inspeksi_dinamis: {} , //{ required },
-                palpasi: {} , //{ required },
-                perkusi: {} , //{ required },
-                auskultasi: {} , //{ required },
-                abdomen: {} , //{ required },
-                ekstemitas: {} , //{ required }
+                inspeksi_statis: {}, //{ required },
+                inspeksi_dinamis: {}, //{ required },
+                palpasi: {}, //{ required },
+                perkusi: {}, //{ required },
+                auskultasi: {}, //{ required },
+                abdomen: {}, //{ required },
+                ekstemitas: {} //{ required }
             },
             diagnosa: {
                 jenis_sel: {}, //{ required },
@@ -268,7 +413,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 whild_type: {}, //{ required },
                 pdl1: {}, //{ required },
                 alk: {}, //{ required },
-                komorbid: {}, //{ required }
+                komorbid: {} //{ required }
             },
             outcome: {
                 keadaan_pulang: {}, //{ required },
@@ -330,6 +475,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
 
     return {
         ...base,
+        formDefault,
         formInput,
         formInputValidated,
         create,

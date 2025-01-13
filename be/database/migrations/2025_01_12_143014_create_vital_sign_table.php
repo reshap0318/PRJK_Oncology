@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vital', function (Blueprint $table) {
+        Schema::create('i_vital', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
             $table->string('awareness', 100)->nullable();
             $table->tinyInteger('condition')->nullable();
@@ -42,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vital');
+        Schema::dropIfExists('i_vital');
     }
 };

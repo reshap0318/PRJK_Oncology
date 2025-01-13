@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PemeriksaanDiagnosaModel extends Model
 {
     use HasFactory;
-    
-    protected $table = 'diagnosa';
+
+    protected $table = 'i_diagnosa';
     protected $primaryKey = 'id';
     public $incrementing = false;
 

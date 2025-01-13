@@ -193,7 +193,7 @@
                             class="form-check-input"
                             type="radio"
                             :value="1"
-                            v-model="formInput.kategori_perokok.riwayat"
+                            v-model="formInput.kategori_perokok.history"
                         />
                         <span class="form-check-label fw-semibold text-gray-500"> Perokok </span>
                     </label>
@@ -205,7 +205,7 @@
                             class="form-check-input"
                             type="radio"
                             :value="2"
-                            v-model="formInput.kategori_perokok.riwayat"
+                            v-model="formInput.kategori_perokok.history"
                         />
                         <span class="form-check-label fw-semibold text-gray-500">
                             Bekas Perokok
@@ -217,15 +217,15 @@
                             class="form-check-input"
                             type="radio"
                             :value="3"
-                            v-model="formInput.kategori_perokok.riwayat"
+                            v-model="formInput.kategori_perokok.history"
                         />
                         <span class="form-check-label fw-semibold text-gray-500">
                             Bukan Perokok
                         </span>
                     </label>
                 </div>
-                <div class="row mt-5" v-if="[1, 2].includes(formInput.kategori_perokok.riwayat)">
-                    <div class="col-sm-3 mb-3" v-if="formInput.kategori_perokok.riwayat == 1">
+                <div class="row mt-5" v-if="[1, 2].includes(formInput.kategori_perokok.history)">
+                    <div class="col-sm-3 mb-3" v-if="formInput.kategori_perokok.history == 1">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
                                 <span class="required">Jumlah</span>
@@ -236,11 +236,11 @@
                                 min="0"
                                 autocomplete="off"
                                 placeholder="batang / hari"
-                                v-model="formInput.kategori_perokok.jumlah"
+                                v-model="formInput.kategori_perokok.stick_day"
                             />
                             <form-error
-                                :err="formInputValidated.anemnesis.kategori_perokok.jumlah"
-                                name="anemnesis.kategori_perokok.jumlah"
+                                :err="formInputValidated.anemnesis.kategori_perokok.stick_day"
+                                name="anemnesis.kategori_perokok.stick_day"
                             />
                         </div>
                     </div>
@@ -256,16 +256,16 @@
                                 min="0"
                                 autocomplete="off"
                                 placeholder="tahun"
-                                v-model="formInput.kategori_perokok.lama"
+                                v-model="formInput.kategori_perokok.count_year"
                             />
                             <form-error
-                                :err="formInputValidated.anemnesis.kategori_perokok.lama"
-                                name="anemnesis.kategori_perokok.lama"
+                                :err="formInputValidated.anemnesis.kategori_perokok.count_year"
+                                name="anemnesis.kategori_perokok.count_year"
                             />
                         </div>
                     </div>
 
-                    <div class="col-sm-6 mb-3" v-if="formInput.kategori_perokok.riwayat == 1">
+                    <div class="col-sm-6 mb-3" v-if="formInput.kategori_perokok.history == 1">
                         <div class="d-flex align-items-center mt-12">
                             <label class="form-label fs-6 text-dar ms-12 me-7 mb-0">
                                 <span class="required">IB</span>
@@ -313,23 +313,20 @@
                         />
                     </div>
 
-                    <div class="col-sm-3 mb-3" v-if="formInput.kategori_perokok.riwayat == 1">
-                        <select
-                            v-model="formInput.kategori_perokok.jenis_rokok"
-                            class="form-control"
-                        >
+                    <div class="col-sm-3 mb-3" v-if="formInput.kategori_perokok.history == 1">
+                        <select v-model="formInput.kategori_perokok.category" class="form-control">
                             <option :value="null">Jenis Rokok</option>
                             <option value="1">Kretek</option>
                             <option value="2">Filter</option>
                             <option value="3">Cigar</option>
                         </select>
                         <form-error
-                            :err="formInputValidated.anemnesis.kategori_perokok.jenis_rokok"
-                            name="anemnesis.kategori_perokok.jenis_rokok"
+                            :err="formInputValidated.anemnesis.kategori_perokok.category"
+                            name="anemnesis.kategori_perokok.category"
                         />
                     </div>
 
-                    <div class="col-sm-9 mb-3" v-if="formInput.kategori_perokok.riwayat == 1">
+                    <div class="col-sm-9 mb-3" v-if="formInput.kategori_perokok.history == 1">
                         <div class="d-flex align-items-center mt-3">
                             <label class="form-label fs-6 text-dar me-7 mb-0">
                                 <span class="required">Cara Menghisap</span>
@@ -341,8 +338,8 @@
                                 <input
                                     class="form-check-input"
                                     type="radio"
-                                    value="1"
-                                    v-model="formInput.kategori_perokok.cara_menghisap"
+                                    :value="1"
+                                    v-model="formInput.kategori_perokok.suck"
                                 />
                                 <span class="form-check-label fw-semibold text-gray-500">
                                     Dalam
@@ -355,8 +352,8 @@
                                 <input
                                     class="form-check-input"
                                     type="radio"
-                                    value="0"
-                                    v-model="formInput.kategori_perokok.cara_menghisap"
+                                    :value="0"
+                                    v-model="formInput.kategori_perokok.suck"
                                 />
                                 <span class="form-check-label fw-semibold text-gray-500">
                                     Tidak Dalam
@@ -364,8 +361,8 @@
                             </label>
                         </div>
                         <form-error
-                            :err="formInputValidated.anemnesis.kategori_perokok.cara_menghisap"
-                            name="anemnesis.kategori_perokok.cara_menghisap"
+                            :err="formInputValidated.anemnesis.kategori_perokok.suck"
+                            name="anemnesis.kategori_perokok.suck"
                         />
                     </div>
                 </div>

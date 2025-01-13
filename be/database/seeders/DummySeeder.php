@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Module\PasienModel;
-use App\Models\Module\PasienPemeriksaanModel;
+use App\Models\Module\{
+    PasienModel,
+    PasienPemeriksaanModel,
+    PemeriksaanFaktorResikoModel as PFR
+};
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -60,7 +63,7 @@ class DummySeeder extends Seeder
 
         foreach ($dokters as $data) {
             $role = $data['roles'];
-            if(isset($data['roles'])) unset($data['roles']);
+            if (isset($data['roles'])) unset($data['roles']);
 
             $user = User::create($data);
             $user->roles()->sync($role);
@@ -82,8 +85,107 @@ class DummySeeder extends Seeder
                 "ethnic"        => "rahasia",
                 'inspections'   => [
                     [
-                        'inspection_at' => '2025-01-05',
-                        'user_id'       => 3
+                        'inspection_at'     => '2025-01-05',
+                        'user_id'           => 3,
+                        'inspection_vital'  => [
+                            "awareness"     => "Testing Kesadaran",
+                            "condition"     => 3,
+                            "td"            => 80,
+                            "nadi"          => 111,
+                            "rr"            => 100,
+                            "suhu"          => 27,
+                            "sp_o2"         => 98,
+                            "vas"           => 10,
+                            "description"   => "Testing Keterangan",
+                            "kgb"           => "Testing Lokasi KGB",
+                            "inspeksi_statis"   => "Testing Statis",
+                            "inspeksi_dinamis"  => "Testing Dinamis",
+                            "palpasi"       => "Testing Palpasi",
+                            "perkusi"       => "Testing Perkusi",
+                            "auskultasi"    => "Testing Auskultasi",
+                            "abdomen"       => "Testing Abdomen",
+                            "ekstemitas"    => "Testing Ekstemitas"
+                        ],
+                        'diagnosa'          => [
+                            "jenis_sel" => [2, 3],
+                            "paru"      => [2],
+                            "staging"   => [2, 3],
+                            "stage"     => [2, 3, 5, 8],
+                            "ps"        => [2],
+                            "egfr"      => "Testing EGFR",
+                            "mutasi"    => "Testing Mutasi",
+                            "whild_type" => 1,
+                            "pdl1"      => "Testing PD-L1",
+                            "alk"       => [1, 2],
+                            "komorbid"  => "Testing Komorbid"
+                        ],
+                        'outcome'           => [
+                            "keadaan_pulang"    =>  4,
+                            "cara_pulang"       =>  5,
+                            "lama_dirawat"      =>  4,
+                            "tanggal_meninggal" =>  "2025-01-11",
+                            "sebab_kematian"    =>  "Testing Sebab Kematian",
+                            "waktu_meninggal"   =>  1
+                        ],
+                        'risk_factors'       => [
+                            [
+                                "category"  => PFR::K_PAPARAN_ASAP_ROKOK,
+                                "own"       => 1,
+                                "value"     => null
+                            ],
+                            [
+                                "category"  => PFR::K_PEKERJAAN_BERESIKO,
+                                "own"       => 1,
+                                "value"     => "Testing Pekerjaan Beresiko"
+                            ],
+                            [
+                                "category"  => PFR::K_TEMPAT_TINGGAL_SEKITAR_PABRIK,
+                                "own"       => 0,
+                                "value"     => null
+                            ],
+                            [
+                                "category"  => PFR::K_RIWAYAT_KEGANASAN_ORGAN_LAIN,
+                                "own"       => 1,
+                                "value"     => "Testing Riwayat Keganasan Organ Lain"
+                            ],
+                            [
+                                "category"  => PFR::K_PAPARAN_RADON,
+                                "own"       => 1,
+                                "value"     => [2, 3]
+                            ],
+                            [
+                                "category"  => PFR::K_BIOMESS,
+                                "own"       => 1,
+                                "value"     => [1]
+                            ],
+                            [
+                                "category"  => PFR::K_RIWAYAT_PPOK,
+                                "own"       => 0,
+                                "value"     => null
+                            ],
+                            [
+                                "category"  => PFR::K_RIWAYAT_TB,
+                                "own"       => 0,
+                                "value"     => null
+                            ],
+                            [
+                                "category"  => PFR::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA,
+                                "own"       => 1,
+                                "value"     => [
+                                    'siapa' => "Kakek - Kakek Dahulu",
+                                    'apa'   => "Tumor Otak",
+                                    'tahun' => 2025
+                                ]
+                            ]
+                        ],
+                        'smoking_history'    => [
+                            "history"       => 1,
+                            "stick_day"     => 20,
+                            "count_year"    => 5,
+                            "ib"            => 3,
+                            "category"      => 2,
+                            "suck"          => 1
+                        ],
                     ]
                 ]
             ],
@@ -109,7 +211,30 @@ class DummySeeder extends Seeder
             $pasientObj = PasienModel::create($pasient);
 
             foreach ($inspections as $inspection) {
+                $vital = $inspection['inspection_vital'];
+                unset($inspection['inspection_vital']);
+
+                $diagnosa = $inspection['diagnosa'];
+                unset($inspection['diagnosa']);
+
+                $outcome = $inspection['outcome'];
+                unset($inspection['outcome']);
+
+                $riskFactors = $inspection['risk_factors'];
+                unset($inspection['risk_factors']);
+
+                $smokingHistory = $inspection['smoking_history'];
+                unset($inspection['smoking_history']);
+
                 $pemeriksaanObj = PasienPemeriksaanModel::create(array_merge($inspection, ['pasien_id' => $pasientObj->id]));
+
+                $pemeriksaanObj->vital()->create($vital);
+                $pemeriksaanObj->diagnosa()->create($diagnosa);
+                $pemeriksaanObj->outcome()->create($outcome);
+                $pemeriksaanObj->smokingHistory()->create($smokingHistory);
+                foreach ($riskFactors as $value) {
+                    $pemeriksaanObj->riskFactors()->create($value);
+                }
             }
         }
     }

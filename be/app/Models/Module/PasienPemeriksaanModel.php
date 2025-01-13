@@ -90,7 +90,7 @@ class PasienPemeriksaanModel extends Model
         ]);
     }
 
-    public function fisik()
+    public function vital()
     {
         return $this->hasOne(PemeriksaanFisikModel::class, 'id', 'id')->withDefault([
             "awareness"         => null,
@@ -110,6 +110,23 @@ class PasienPemeriksaanModel extends Model
             "abdomen"           => null,
             "perkusi"           => null,
             "ekstemitas"        => null,
+        ]);
+    }
+
+    public function riskFactors()
+    {
+        return $this->hasMany(PemeriksaanFaktorResikoModel::class, 'inspection_id', 'id');
+    }
+
+    public function smokingHistory()
+    {
+        return $this->hasOne(PemeriksaanSmokingHistoryModel::class, 'id', 'id')->withDefault([
+            "history"       => 3,
+            "stick_day"     => null,
+            "count_year"    => null,
+            "ib"            => 3,
+            "category"      => null,
+            "suck"          => 0
         ]);
     }
 }
