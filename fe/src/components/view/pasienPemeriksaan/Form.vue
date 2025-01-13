@@ -82,7 +82,7 @@ const pemeriksaanStore = usePasienPemeriksaanStore()
 const selectStore = useSelectStore()
 const pasienStore = usePasienStore()
 const modal = ref()
-const title = ref('Tambah Pemeriksaan')
+const title = ref('')
 const formActive = ref('ONC000')
 const menus = ref([
     {
@@ -129,11 +129,14 @@ function show(param: any = {}) {
             }
         })
         pemeriksaanStore.getDetail(param.id).then((res) => {
-            pasienStore.getDetail(res.data.overview.pasien_id)
             const newForm = { ...pemeriksaanStore.formDefault, ...res.data }
             pemeriksaanStore.formInput = newForm
             formActive.value = 'ONC001'
-            Swal.close()
+
+            pasienStore.getDetail(res.data.overview.pasien_id).then((pasien) => {
+                title.value = `Edit Pemeriksaan ${pasien.data.name} (${res.data.overview.tanggal})`
+                Swal.close()
+            })
         })
     } else {
         pasienStore.itemDetail = {}
@@ -142,6 +145,7 @@ function show(param: any = {}) {
             pasienStore.getDetail(param.pasien_id)
             pemeriksaanStore.formInput.overview.pasien_id = param.pasien_id
         }
+        title.value = 'Tambah Pemeriksaan'
     }
     modal.value.show()
 }
