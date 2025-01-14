@@ -129,4 +129,9 @@ class PasienPemeriksaanModel extends Model
             "suck"          => 0
         ]);
     }
+
+    public function complains()
+    {
+        return $this->hasMany(PemeriksaanComplainModel::class, 'inspection_id', 'id');
+    }
 }

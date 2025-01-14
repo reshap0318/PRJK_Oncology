@@ -14,7 +14,7 @@
         @click="formModal.show()"
         v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
     />
-    <FormModal ref="formModal" />
+    <FormModal ref="formModal" @onSave="tableReload()" />
 </template>
 <script lang="ts" setup>
 import DataTable from '@/components/utils/datatable/DataTable.vue'
@@ -69,8 +69,12 @@ const options = ref<Config>({
 
 function handleBtnDelete(id: number): void {
     pemeriksaanStore.actionDelete(id).then(() => {
-        table.value.reload()
+        tableReload()
     })
+}
+
+function tableReload(): void {
+    table.value.reload()
 }
 
 onMounted(() => {

@@ -3,6 +3,7 @@
 namespace App\Services\Module;
 
 use App\Models\Module\{
+    PemeriksaanComplainModel,
     PemeriksaanFaktorResikoModel as PFS
 };
 use App\Repository\Module\PasienPemeriksaanRepository;
@@ -45,6 +46,10 @@ class PasienPemeriksaanService extends BaseService
             'apa'   => null,
             'tahun' => now()->format("Y")
         ];
+        $keluhans = $data->complains->where('tag', PemeriksaanComplainModel::T_KELUHAN);
+        if (!$keluhans) $keluhans = [["description" => null, "long" => 0]];
+        $gejalas = $data->complains->where('tag', PemeriksaanComplainModel::T_GEJALA);
+        if (!$gejalas) $gejalas = [["description" => null, "long" => 0]];
 
         return [
             'overview'  => [
@@ -56,16 +61,11 @@ class PasienPemeriksaanService extends BaseService
             'outcome'   => $data['outcome'],
             'pemeriksaan_fisik' => $data['vital'],
             'anemnesis' => [
-                "keluhans" => [
+                "keluhans" => $keluhans,
+                "gejalas" => $gejalas,
+                "riwayat_penyakits" => [
                     [
-                        "description" => null,
-                        "long" => 0
-                    ]
-                ],
-                "gejalas" => [
-                    [
-                        "description" => null,
-                        "long" => 0
+                        "description" => null
                     ]
                 ],
                 "penyakits" => [
@@ -120,6 +120,18 @@ class PasienPemeriksaanService extends BaseService
         $pemeriksaan->outcome()->create($payload['outcome'] ?? []);
         $pemeriksaan->vital()->create($payload['pemeriksaan_fisik'] ?? []);
         $pemeriksaan->smokingHistory()->create($payload['anemnesis']['kategori_perokok'] ?? []);
+
+        $pemeriksaan->complains()->createMany(
+            array_map(function ($d) {
+                return array_merge($d, ['tag' => PemeriksaanComplainModel::T_KELUHAN]);
+            }, ($payload['anemnesis']['keluhans'] ?? []))
+        );
+
+        $pemeriksaan->complains()->createMany(
+            array_map(function ($d) {
+                return array_merge($d, ['tag' => PemeriksaanComplainModel::T_GEJALA]);
+            }, ($payload['anemnesis']['gejalas'] ?? []))
+        );
 
         //FACTOR RESIKO
         $pemeriksaan->riskFactors()->create(

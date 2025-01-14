@@ -36,6 +36,7 @@
                         </div>
                     </div>
                 </div>
+                <pre>{{ pemeriksaanStore.formInput }}</pre>
             </div>
             <div class="col-sm-9">
                 <div class="card">
@@ -73,7 +74,7 @@ import FormDiagnosa from './FormDiagnosa.vue'
 import FormOutcome from './FormOutcome.vue'
 import Swal from 'sweetalert2'
 
-import { onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { usePasienStore } from '@/stores/module/pasien'
 import { useSelectStore } from '@/stores/global/select'
@@ -115,8 +116,10 @@ const menus = ref([
     }
 ])
 
+const emit = defineEmits(['onSave'])
+
 function show(param: any = {}) {
-    formActive.value = 'ONC000'
+    formActive.value = 'ONC999'
     pemeriksaanStore.formInputValidated.$reset()
     if (param.id) {
         Swal.fire({
@@ -129,23 +132,148 @@ function show(param: any = {}) {
             }
         })
         pemeriksaanStore.getDetail(param.id).then((res) => {
-            const newForm = { ...pemeriksaanStore.formDefault, ...res.data }
-            pemeriksaanStore.formInput = newForm
-            formActive.value = 'ONC001'
-
+            pemeriksaanStore.formInput = res.data
             pasienStore.getDetail(res.data.overview.pasien_id).then((pasien) => {
                 title.value = `Edit Pemeriksaan ${pasien.data.name} (${res.data.overview.tanggal})`
+                nextTick(() => {
+                    formActive.value = 'ONC000'
+                })
                 Swal.close()
             })
         })
     } else {
         pasienStore.itemDetail = {}
-        pemeriksaanStore.formInput = pemeriksaanStore.formDefault
+        pemeriksaanStore.formInput = {
+            overview: {
+                dokter_id: null,
+                pasien_id: null,
+                tanggal: null
+            },
+            anemnesis: {
+                keluhans: [
+                    {
+                        description: null,
+                        duration: 0
+                    }
+                ],
+                gejalas: [
+                    {
+                        description: null,
+                        duration: 0
+                    }
+                ],
+                riwayat_penyakits: [
+                    {
+                        description: null
+                    }
+                ],
+                penyakits: [
+                    {
+                        description: null
+                    }
+                ],
+                kategori_perokok: {
+                    history: 3,
+                    stick_day: null,
+                    count_year: null,
+                    ib: 3,
+                    category: null,
+                    suck: 0
+                },
+                paparan_asap_rokok: {
+                    own: 0,
+                    value: null
+                },
+                pekerjaan_beresiko: {
+                    own: 0,
+                    value: null
+                },
+                tempat_tinggal_sekitar_pabrik: {
+                    own: 0,
+                    value: null
+                },
+                riwayat_keganasan_organ_lain: {
+                    own: 0,
+                    value: null
+                },
+                paparan_radon: {
+                    own: 0,
+                    value: []
+                },
+                biomess: {
+                    own: 0,
+                    value: []
+                },
+                riwayat_ppok: {
+                    own: 0,
+                    value: null
+                },
+                riwayat_tb: {
+                    own: 0,
+                    value: {
+                        tahun: null,
+                        oat: null
+                    }
+                },
+                riwayat_kaganasan_keluarga: {
+                    own: 0,
+                    value: {
+                        siapa: null,
+                        apa: null,
+                        tahun: null
+                    }
+                }
+            },
+            pemeriksaan_fisik: {
+                awareness: null,
+                condition: null,
+                td: null,
+                nadi: null,
+                rr: null,
+                suhu: null,
+                sp_o2: null,
+                vas: null,
+                description: null,
+                kgb: null,
+                kgb_option: 0,
+                inspeksi_statis: null,
+                inspeksi_dinamis: null,
+                palpasi: null,
+                perkusi: null,
+                auskultasi: null,
+                abdomen: null,
+                ekstemitas: null
+            },
+            diagnosa: {
+                jenis_sel: [],
+                paru: [],
+                staging: [],
+                stage: [],
+                ps: [],
+                egfr: null,
+                mutasi: null,
+                whild_type: 0,
+                pdl1: null,
+                alk: [],
+                komorbid: null
+            },
+            outcome: {
+                keadaan_pulang: null,
+                cara_pulang: null,
+                lama_dirawat: null,
+                tanggal_meninggal: null,
+                sebab_kematian: null,
+                waktu_meninggal: null
+            }
+        }
         if (param.pasien_id) {
             pasienStore.getDetail(param.pasien_id)
             pemeriksaanStore.formInput.overview.pasien_id = param.pasien_id
         }
         title.value = 'Tambah Pemeriksaan'
+        nextTick(() => {
+            formActive.value = 'ONC000'
+        })
     }
     modal.value.show()
 }
@@ -156,6 +284,7 @@ function simpan() {
             console.log(pemeriksaanStore.formInput)
 
             pemeriksaanStore.create(pemeriksaanStore.formInput).then((res: any) => {
+                emit('onSave')
                 Swal.fire({
                     title: 'Success!',
                     text: res.message,

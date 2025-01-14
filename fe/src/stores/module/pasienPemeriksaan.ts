@@ -21,13 +21,18 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             keluhans: [
                 {
                     description: null,
-                    long: 0
+                    duration: 0
                 }
             ],
             gejalas: [
                 {
                     description: null,
-                    long: 0
+                    duration: 0
+                }
+            ],
+            riwayat_penyakits: [
+                {
+                    description: null
                 }
             ],
             penyakits: [
@@ -140,13 +145,18 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             keluhans: [
                 {
                     description: null,
-                    long: 0
+                    duration: 0
                 }
             ],
             gejalas: [
                 {
                     description: null,
-                    long: 0
+                    duration: 0
+                }
+            ],
+            riwayat_penyakits: [
+                {
+                    description: null
                 }
             ],
             penyakits: [
@@ -260,13 +270,13 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 keluhans: {
                     $each: helpers.forEach({
                         description: { required },
-                        long: { required }
+                        duration: { required }
                     })
                 },
                 gejalas: {
                     $each: helpers.forEach({
                         description: { required },
-                        long: { required }
+                        duration: { required }
                     })
                 },
                 penyakits: {

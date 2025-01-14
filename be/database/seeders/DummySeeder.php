@@ -186,6 +186,33 @@ class DummySeeder extends Seeder
                             "category"      => 2,
                             "suck"          => 1
                         ],
+                        'complains'       => [
+                            [
+                                "description"   => "Testing Keluhan 1",
+                                "duration"      => 851,
+                                "tag"           => 1
+                            ],
+                            [
+                                "description"   => "Testing Keluhan 2",
+                                "duration"      => 666,
+                                "tag"           => 1
+                            ],
+                            [
+                                "description"   => "Testing Gejala 1",
+                                "duration"      => 765,
+                                "tag"           => 2
+                            ],
+                            [
+                                "description"   => "Testing Gejala 2",
+                                "duration"      => 497,
+                                "tag"           => 2
+                            ],
+                            [
+                                "description"   => "Testing Gejala 3",
+                                "duration"      => 20,
+                                "tag"           => 2
+                            ]
+                        ],
                     ]
                 ]
             ],
@@ -226,15 +253,17 @@ class DummySeeder extends Seeder
                 $smokingHistory = $inspection['smoking_history'];
                 unset($inspection['smoking_history']);
 
+                $complains = $inspection['complains'];
+                unset($inspection['complains']);
+
                 $pemeriksaanObj = PasienPemeriksaanModel::create(array_merge($inspection, ['pasien_id' => $pasientObj->id]));
 
                 $pemeriksaanObj->vital()->create($vital);
                 $pemeriksaanObj->diagnosa()->create($diagnosa);
                 $pemeriksaanObj->outcome()->create($outcome);
                 $pemeriksaanObj->smokingHistory()->create($smokingHistory);
-                foreach ($riskFactors as $value) {
-                    $pemeriksaanObj->riskFactors()->create($value);
-                }
+                $pemeriksaanObj->riskFactors()->createMany($riskFactors);
+                $pemeriksaanObj->complains()->createMany($complains);
             }
         }
     }

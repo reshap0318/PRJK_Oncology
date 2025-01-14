@@ -34,7 +34,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
-                                    v-model="d.long"
+                                    v-model="d.duration"
                                 />
                                 <div class="input-group-append">
                                     <span class="input-group-text"> Bulan </span>
@@ -43,7 +43,7 @@
                             <form-each-error
                                 :err="formInputValidated.anemnesis.keluhans"
                                 :idx="i"
-                                code="long"
+                                code="duration"
                                 name="anemnesis.keluhans"
                             />
                         </div>
@@ -101,7 +101,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
-                                    v-model="d.long"
+                                    v-model="d.duration"
                                 />
                                 <div class="input-group-append">
                                     <span class="input-group-text"> Bulan </span>
@@ -110,7 +110,7 @@
                             <form-each-error
                                 :err="formInputValidated.anemnesis.gejalas"
                                 :idx="i"
-                                code="long"
+                                code="duration"
                                 name="anemnesis.gejalas"
                             />
                         </div>
@@ -900,7 +900,7 @@ const pillihanTahuns = computed((): number[] => {
 function tambahKeluhan() {
     formInput.value.keluhans.push({
         description: null,
-        long: 0
+        duration: 0
     })
 }
 
@@ -911,7 +911,7 @@ function hapusKeluhan(idx: number) {
 function tambahGejala() {
     formInput.value.gejalas.push({
         description: null,
-        long: 0
+        duration: 0
     })
 }
 
