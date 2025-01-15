@@ -127,6 +127,10 @@ class PermissionSeeder extends Seeder
                 'keterangan' => "melihat data Pemeriksaan Pasien",
             ],
             [
+                'name' => "pasien-pemeriksaan.admin",
+                'keterangan' => "melihat seluruh data Pemeriksaan Pasien",
+            ],
+            [
                 'name' => "pasien-pemeriksaan.show",
                 'keterangan' => "melihat detail data Pemeriksaan Pasien",
             ],
