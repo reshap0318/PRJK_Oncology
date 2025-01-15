@@ -141,7 +141,6 @@ function show(param: any = {}) {
             })
         })
     } else {
-        pasienStore.itemDetail = {}
         pemeriksaanStore.formInput = {
             id: 0,
             overview: {
@@ -276,7 +275,10 @@ function show(param: any = {}) {
             }
         }
         if (param.pasien_id) {
-            pasienStore.getDetail(param.pasien_id)
+            if (param.pasien_id != pasienStore.itemDetail.id) {
+                pasienStore.itemDetail = {}
+                pasienStore.getDetail(param.pasien_id)
+            }
             pemeriksaanStore.formInput.overview.pasien_id = param.pasien_id
         }
         title.value = 'Tambah Pemeriksaan'

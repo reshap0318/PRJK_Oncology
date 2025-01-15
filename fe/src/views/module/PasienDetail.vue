@@ -81,16 +81,18 @@
                 :columns="columns"
                 :options="options"
                 @onDelete="handleBtnDelete"
-                @onDetail="handleBtnDetail"
             />
         </div>
     </div>
-    <FAB @click="modal.show()" v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')" />
-    <PasienPemeriksaan ref="modal" />
+    <FAB
+        @click="formModal.show({ pasien_id: id })"
+        v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+    />
+    <FormModal ref="formModal" @onSave="tableReload()" />
 </template>
 <script lang="ts" setup>
 import DataTable from '@/components/utils/datatable/DataTable.vue'
-import PasienPemeriksaan from './PasienPemeriksaan.vue'
+import FormModal from '@/components/view/pasienPemeriksaan/Form.vue'
 import FAB from '@/components/utils/button/FAB.vue'
 import StrgService from '@/core/services/StrgService'
 import Swal from 'sweetalert2'
@@ -106,7 +108,7 @@ const pasienStore = usePasienStore()
 const pasienPemeriksaanStore = usePasienPemeriksaanStore()
 const route = useRoute()
 const table = ref()
-const modal = ref()
+const formModal = ref()
 
 const id = computed(() => route.params.id as string)
 const data = computed(() => pasienStore.itemDetail)
@@ -150,20 +152,24 @@ function getData(id: string): void {
     })
 }
 
+function tableReload(): void {
+    table.value.reload()
+}
+
 function handleBtnDelete(id: number): void {
     pasienPemeriksaanStore.actionDelete(id).then(() => {
         table.value.reload()
     })
 }
 
-function handleBtnDetail(id: any): void {
-    pasienPemeriksaanStore.getDetail(id).then((res) => {
-        modal.value.show()
-    })
-}
-
 onMounted(() => {
     getData(id.value)
+
+    table.value.getDT().on('click', '.btn-periksa', function (e: any) {
+        e.preventDefault()
+        const id = e.currentTarget.getAttribute('data-id')
+        formModal.value.show({ id: id })
+    })
 })
 
 watch(
