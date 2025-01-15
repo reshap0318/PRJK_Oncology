@@ -6,6 +6,7 @@ use App\Helpers\Authorization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Auth;
 
 class PasienPemeriksaanModel extends Model
 {
@@ -33,13 +34,14 @@ class PasienPemeriksaanModel extends Model
     {
         return Attribute::make(
             get: function ($value) {
+                $isDokter = $this->user_id == Auth::id();
                 return [
                     'detail' => [
                         'isCan' => Authorization::hasPermission('pasien-pemeriksaan.show'),
                         'link'  => null,
                     ],
                     'periksa' => [
-                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.inspection'),
+                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.inspection') && $isDokter,
                         'link'  => null,
                     ],
                     'delete' => [

@@ -52,7 +52,7 @@ const columns = ref<Array<ConfigColumns>>([
         data: 'pasien_name',
         name: 'p.name',
         title: 'Pasien',
-        className: 'w-30p'
+        className: 'w-50p'
     },
     {
         data: 'action',

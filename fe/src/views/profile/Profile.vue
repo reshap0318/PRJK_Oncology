@@ -60,13 +60,12 @@
                                         <div
                                             class="fs-2 fw-bold"
                                             data-kt-countup="true"
-                                            data-kt-countup-value="4500"
-                                            data-kt-countup-prefix="$"
+                                            :data-kt-countup-value="data.pemeriksaan_total"
                                         >
-                                            4,500$
+                                            {{ data.pemeriksaan_total }}
                                         </div>
                                     </div>
-                                    <div class="fw-semobold fs-6 text-gray-400">Earnings</div>
+                                    <div class="fw-semobold fs-6 text-gray-400">Pemeriksaan</div>
                                 </div>
                                 <div
                                     class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
@@ -75,27 +74,12 @@
                                         <div
                                             class="fs-2 fw-bold"
                                             data-kt-countup="true"
-                                            data-kt-countup-value="75"
+                                            :data-kt-countup-value="data.pasien_total"
                                         >
-                                            75
+                                            {{ data.pasien_total }}
                                         </div>
                                     </div>
-                                    <div class="fw-semobold fs-6 text-gray-400">Projects</div>
-                                </div>
-                                <div
-                                    class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
-                                >
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="fs-2 fw-bold"
-                                            data-kt-countup="true"
-                                            data-kt-countup-value="60"
-                                            data-kt-countup-prefix="%"
-                                        >
-                                            60%
-                                        </div>
-                                    </div>
-                                    <div class="fw-semobold fs-6 text-gray-400">Success Rate</div>
+                                    <div class="fw-semobold fs-6 text-gray-400">Pasien</div>
                                 </div>
                             </div>
                         </div>

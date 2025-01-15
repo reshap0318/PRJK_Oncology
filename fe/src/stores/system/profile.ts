@@ -20,6 +20,8 @@ export type TUser = {
     no_telp: string
     alamat: string
     is_active: boolean
+    pemeriksaan_total: number
+    pasien_total: number
     roles: TRole[]
 }
 
