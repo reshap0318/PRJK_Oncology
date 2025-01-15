@@ -95,7 +95,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/{id}', [PasienPemeriksaanController::class, 'getData'])->name('.detail');
         Route::post('/', [PasienPemeriksaanController::class, 'store'])->name('.store');
         Route::post('/datatable', [PasienPemeriksaanController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pasien-pemeriksaan');
-        // Route::patch('/{id}', [PasienPemeriksaanController::class, 'update'])->name('.update');
+        Route::patch('/{id}', [PasienPemeriksaanController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PasienPemeriksaanController::class, 'destroy'])->name('.delete');
     });
 

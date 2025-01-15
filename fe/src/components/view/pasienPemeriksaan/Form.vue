@@ -36,7 +36,6 @@
                         </div>
                     </div>
                 </div>
-                <pre>{{ pemeriksaanStore.formInput }}</pre>
             </div>
             <div class="col-sm-9">
                 <div class="card">
@@ -153,12 +152,14 @@ function show(param: any = {}) {
             anemnesis: {
                 keluhans: [
                     {
+                        id: 0,
                         description: null,
                         duration: 0
                     }
                 ],
                 gejalas: [
                     {
+                        id: 0,
                         description: null,
                         duration: 0
                     }
@@ -166,10 +167,12 @@ function show(param: any = {}) {
                 penyakit_riwayats: [],
                 penyakits: [
                     {
+                        id: 0,
                         description: null
                     }
                 ],
                 kategori_perokok: {
+                    id: 0,
                     history: 3,
                     stick_day: null,
                     count_year: null,
@@ -178,34 +181,42 @@ function show(param: any = {}) {
                     suck: 0
                 },
                 paparan_asap_rokok: {
+                    id: 0,
                     own: 0,
                     value: null
                 },
                 pekerjaan_beresiko: {
+                    id: 0,
                     own: 0,
                     value: null
                 },
                 tempat_tinggal_sekitar_pabrik: {
+                    id: 0,
                     own: 0,
                     value: null
                 },
                 riwayat_keganasan_organ_lain: {
+                    id: 0,
                     own: 0,
                     value: null
                 },
                 paparan_radon: {
+                    id: 0,
                     own: 0,
                     value: []
                 },
                 biomess: {
+                    id: 0,
                     own: 0,
                     value: []
                 },
                 riwayat_ppok: {
+                    id: 0,
                     own: 0,
                     value: null
                 },
                 riwayat_tb: {
+                    id: 0,
                     own: 0,
                     value: {
                         tahun: null,
@@ -213,6 +224,7 @@ function show(param: any = {}) {
                     }
                 },
                 riwayat_kaganasan_keluarga: {
+                    id: 0,
                     own: 0,
                     value: {
                         siapa: null,
@@ -279,6 +291,10 @@ function simpan() {
     pemeriksaanStore.formInputValidated.$validate().then((res) => {
         if (res) {
             console.log(pemeriksaanStore.formInput)
+            if (pemeriksaanStore.formInput.pemeriksaan_fisik.kgb_option == 0) {
+                pemeriksaanStore.formInput.pemeriksaan_fisik.kgb = null
+            }
+
             if (pemeriksaanStore.formInput.id == 0) {
                 pemeriksaanStore.create(pemeriksaanStore.formInput).then((res: any) => {
                     emit('onSave')
@@ -291,11 +307,18 @@ function simpan() {
                     })
                 })
             } else {
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'Feature Simpan Pada Edit Belum Support',
-                    icon: 'warning'
-                })
+                pemeriksaanStore
+                    .update(pemeriksaanStore.formInput.id, pemeriksaanStore.formInput)
+                    .then((res: any) => {
+                        emit('onSave')
+                        Swal.fire({
+                            title: 'Success!',
+                            text: res.message,
+                            icon: 'success'
+                        }).then(() => {
+                            modal.value.hide()
+                        })
+                    })
             }
         } else {
             Swal.fire({

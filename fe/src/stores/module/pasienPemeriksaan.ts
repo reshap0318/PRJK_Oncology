@@ -21,27 +21,32 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
         anemnesis: {
             keluhans: [
                 {
+                    id: 0,
                     description: null,
                     duration: 0
                 }
             ],
             gejalas: [
                 {
+                    id: 0,
                     description: null,
                     duration: 0
                 }
             ],
             penyakit_riwayats: [
                 {
+                    id: 0,
                     description: null
                 }
             ],
             penyakits: [
                 {
+                    id: 0,
                     description: null
                 }
             ],
             kategori_perokok: {
+                id: 0,
                 history: 3,
                 stick_day: null,
                 count_year: null,
@@ -50,34 +55,42 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 suck: 0
             },
             paparan_asap_rokok: {
+                id: 0,
                 own: 0,
                 value: null
             },
             pekerjaan_beresiko: {
+                id: 0,
                 own: 0,
                 value: null
             },
             tempat_tinggal_sekitar_pabrik: {
+                id: 0,
                 own: 0,
                 value: null
             },
             riwayat_keganasan_organ_lain: {
+                id: 0,
                 own: 0,
                 value: null
             },
             paparan_radon: {
+                id: 0,
                 own: 0,
                 value: []
             },
             biomess: {
+                id: 0,
                 own: 0,
                 value: []
             },
             riwayat_ppok: {
+                id: 0,
                 own: 0,
                 value: null
             },
             riwayat_tb: {
+                id: 0,
                 own: 0,
                 value: {
                     tahun: null,
@@ -85,6 +98,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 }
             },
             riwayat_kaganasan_keluarga: {
+                id: 0,
                 own: 0,
                 value: {
                     siapa: null,

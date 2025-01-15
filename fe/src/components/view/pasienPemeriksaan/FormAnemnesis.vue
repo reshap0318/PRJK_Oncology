@@ -907,6 +907,7 @@ const pillihanTahuns = computed((): number[] => {
 
 function tambahKeluhan() {
     formInput.value.keluhans.push({
+        id: 0,
         description: null,
         duration: 0
     })
@@ -918,6 +919,7 @@ function hapusKeluhan(idx: number) {
 
 function tambahGejala() {
     formInput.value.gejalas.push({
+        id: 0,
         description: null,
         duration: 0
     })
@@ -929,6 +931,7 @@ function hapusGejala(idx: number) {
 
 function tambahPenyakit() {
     formInput.value.penyakits.push({
+        id: 0,
         description: null
     })
 }

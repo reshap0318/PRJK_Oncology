@@ -26,22 +26,22 @@ class PasienPemeriksaanService extends BaseService
 
         $data['vital']['kgb_option'] = $data['vital']['kgb'] == null ? 0 : 1;
 
-        $paparan_asap_rokok = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_ASAP_ROKOK)?->only(['own', 'value']);
-        $pekerjaan_beresiko = $data->riskFactors->firstWhere('category', PFS::K_PEKERJAAN_BERESIKO)?->only(['own', 'value']);
-        $tempat_tinggal_pabrik = $data->riskFactors->firstWhere('category', PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK)?->only(['own', 'value']);
-        $riwayat_keganasan_organ_lain = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_ORGAN_LAIN)?->only(['own', 'value']);
-        $paparan_radon = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_RADON)?->only(['own', 'value']);
+        $paparan_asap_rokok = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_ASAP_ROKOK)?->only(['id', 'own', 'value']);
+        $pekerjaan_beresiko = $data->riskFactors->firstWhere('category', PFS::K_PEKERJAAN_BERESIKO)?->only(['id', 'own', 'value']);
+        $tempat_tinggal_pabrik = $data->riskFactors->firstWhere('category', PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK)?->only(['id', 'own', 'value']);
+        $riwayat_keganasan_organ_lain = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_ORGAN_LAIN)?->only(['id', 'own', 'value']);
+        $paparan_radon = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_RADON)?->only(['id', 'own', 'value']);
         if (!$paparan_radon['value']) $paparan_radon['value'] = [];
-        $biomess = $data->riskFactors->firstWhere('category', PFS::K_BIOMESS)?->only(['own', 'value']);
+        $biomess = $data->riskFactors->firstWhere('category', PFS::K_BIOMESS)?->only(['id', 'own', 'value']);
         if (!$biomess['value']) $biomess['value'] = [];
-        $riwayat_ppok = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_PPOK)?->only(['own', 'value']);
+        $riwayat_ppok = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_PPOK)?->only(['id', 'own', 'value']);
         if (!$riwayat_ppok['value']) $riwayat_ppok['value'] = now()->format("Y");
-        $riwayat_tb = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_TB)?->only(['own', 'value']);
+        $riwayat_tb = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_TB)?->only(['id', 'own', 'value']);
         if (!$riwayat_tb['value']) $riwayat_tb['value'] = [
             'tahun' => now()->format("Y"),
             'oat'   => null
         ];
-        $riwayat_kaganasan_keluarga = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA)?->only(['own', 'value']);
+        $riwayat_kaganasan_keluarga = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA)?->only(['id', 'own', 'value']);
         if (!$riwayat_kaganasan_keluarga['value']) $riwayat_kaganasan_keluarga['value'] = [
             'siapa' => null,
             'apa'   => null,
@@ -119,7 +119,18 @@ class PasienPemeriksaanService extends BaseService
         $pemeriksaan->diagnosa()->create($payload['diagnosa'] ?? []);
         $pemeriksaan->outcome()->create($payload['outcome'] ?? []);
         $pemeriksaan->vital()->create($payload['pemeriksaan_fisik'] ?? []);
-        $pemeriksaan->smokingHistory()->create($payload['anemnesis']['kategori_perokok'] ?? []);
+        if ($payload['anemnesis']['kategori_perokok']['history'] == 2) {
+            $pemeriksaan->smokingHistory()->create([
+                'history'    => $payload['anemnesis']['kategori_perokok']['history'],
+                'count_year' => $payload['anemnesis']['kategori_perokok']['count_year']
+            ]);
+        } else if ($payload['anemnesis']['kategori_perokok']['history'] == 3) {
+            $pemeriksaan->smokingHistory()->create([
+                'history'    => $payload['anemnesis']['kategori_perokok']['history']
+            ]);
+        } else {
+            $pemeriksaan->smokingHistory()->create($payload['anemnesis']['kategori_perokok'] ?? []);
+        }
 
         $pemeriksaan->complains()->createMany(
             array_map(function ($d) {
@@ -136,35 +147,209 @@ class PasienPemeriksaanService extends BaseService
         $pemeriksaan->sickness()->createMany(($payload['anemnesis']['penyakits'] ?? []));
 
         //FACTOR RESIKO
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['paparan_asap_rokok'] ?? []), ['category' => PFS::K_PAPARAN_ASAP_ROKOK])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['pekerjaan_beresiko'] ?? []), ['category' => PFS::K_PEKERJAAN_BERESIKO])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['tempat_tinggal_sekitar_pabrik'] ?? []), ['category' => PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['riwayat_keganasan_organ_lain'] ?? []), ['category' => PFS::K_RIWAYAT_KEGANASAN_ORGAN_LAIN])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['paparan_radon'] ?? []), ['category' => PFS::K_PAPARAN_RADON])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['biomess'] ?? []), ['category' => PFS::K_BIOMESS])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['riwayat_ppok'] ?? []), ['category' => PFS::K_RIWAYAT_PPOK])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['riwayat_tb'] ?? []), ['category' => PFS::K_RIWAYAT_TB])
-        );
-        $pemeriksaan->riskFactors()->create(
-            array_merge(($payload['anemnesis']['riwayat_kaganasan_keluarga'] ?? []), ['category' => PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA])
-        );
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['paparan_asap_rokok']['own'],
+                'value' => null,
+                'category' => PFS::K_PAPARAN_ASAP_ROKOK
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['pekerjaan_beresiko']['own'],
+                'value' => $payload['anemnesis']['pekerjaan_beresiko']['own'] == 0 ? null : $payload['anemnesis']['pekerjaan_beresiko']['value'],
+                'category' => PFS::K_PEKERJAAN_BERESIKO
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['tempat_tinggal_sekitar_pabrik']['own'],
+                'value' => $payload['anemnesis']['tempat_tinggal_sekitar_pabrik']['own'] == 0 ? null : $payload['anemnesis']['tempat_tinggal_sekitar_pabrik']['value'],
+                'category' => PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['riwayat_keganasan_organ_lain']['own'],
+                'value' => $payload['anemnesis']['riwayat_keganasan_organ_lain']['own'] == 0 ? null : $payload['anemnesis']['riwayat_keganasan_organ_lain']['value'],
+                'category' => PFS::K_RIWAYAT_KEGANASAN_ORGAN_LAIN
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['paparan_radon']['own'],
+                'value' => $payload['anemnesis']['paparan_radon']['own'] == 0 ? null : $payload['anemnesis']['paparan_radon']['value'],
+                'category' => PFS::K_PAPARAN_RADON
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['biomess']['own'],
+                'value' => $payload['anemnesis']['biomess']['own'] == 0 ? null : $payload['anemnesis']['biomess']['value'],
+                'category' => PFS::K_BIOMESS
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['riwayat_ppok']['own'],
+                'value' => $payload['anemnesis']['riwayat_ppok']['own'] == 0 ? null : $payload['anemnesis']['riwayat_ppok']['value'],
+                'category' => PFS::K_RIWAYAT_PPOK
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['riwayat_tb']['own'],
+                'value' => $payload['anemnesis']['riwayat_tb']['own'] == 0 ? null : $payload['anemnesis']['riwayat_tb']['value'],
+                'category' => PFS::K_RIWAYAT_TB
+            ]);
+
+        $pemeriksaan->riskFactors()
+            ->create([
+                'own' => $payload['anemnesis']['riwayat_kaganasan_keluarga']['own'],
+                'value' => $payload['anemnesis']['riwayat_kaganasan_keluarga']['own'] == 0 ? null : $payload['anemnesis']['riwayat_kaganasan_keluarga']['value'],
+                'category' => PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA
+            ]);
 
         return $pemeriksaan;
+    }
+
+    public function update($id, $payload)
+    {
+        $data = $this->mainRepository->filterById($id)->first();
+        abort_if(!$data, 404, "halaman tidak ditemukan");
+
+        $data->update([
+            'user_id'       => $payload['overview']['dokter_id'],
+            "pasien_id"     => $payload['overview']['pasien_id'],
+            "inspection_at" => $payload['overview']['tanggal'],
+        ]);
+
+        $data->diagnosa()->delete();
+        $data->diagnosa()->create($payload['diagnosa'] ?? []);
+
+        $data->outcome()->delete();
+        $data->outcome()->create($payload['outcome'] ?? []);
+
+        $data->vital()->delete();
+        $data->vital()->create($payload['pemeriksaan_fisik'] ?? []);
+
+        $data->smokingHistory()->delete();
+        if ($payload['anemnesis']['kategori_perokok']['history'] == 2) {
+            $data->smokingHistory()->create([
+                'history'    => $payload['anemnesis']['kategori_perokok']['history'],
+                'count_year' => $payload['anemnesis']['kategori_perokok']['count_year']
+            ]);
+        } else if ($payload['anemnesis']['kategori_perokok']['history'] == 3) {
+            $data->smokingHistory()->create([
+                'history'    => $payload['anemnesis']['kategori_perokok']['history']
+            ]);
+        } else {
+            $data->smokingHistory()->create($payload['anemnesis']['kategori_perokok'] ?? []);
+        }
+
+        $keluhans = ($payload['anemnesis']['keluhans'] ?? []);
+        foreach ($keluhans as $keluhan) {
+            if ($keluhan['id'] == 0) continue;
+            $data->complains()->where('id', $keluhan['id'])->update([
+                'description'   => $keluhan['description'],
+                'duration'      => $keluhan['duration']
+            ]);
+        }
+
+        $gejalas = ($payload['anemnesis']['gejalas'] ?? []);
+        foreach ($gejalas as $gejala) {
+            if ($gejala['id'] == 0) continue;
+            $data->complains()->where('id', $gejala['id'])->update([
+                'description'   => $gejala['description'],
+                'duration'      => $gejala['duration']
+            ]);
+        }
+
+        $data->complains()->whereNotIn('id', array_merge(array_column($keluhans, 'id'), array_column($gejalas, 'id')))->delete();
+
+        $penyakits = ($payload['anemnesis']['penyakits'] ?? []);
+        foreach ($penyakits as $penyakit) {
+            if ($penyakit['id'] == 0) continue;
+            $data->sickness()->where('id', $penyakit['id'])->update([
+                'description'   => $penyakit['description'],
+            ]);
+        }
+
+        $data->sickness()->whereNotIn('id', array_column($penyakits, 'id'))->delete();
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['paparan_asap_rokok']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['paparan_asap_rokok']['own'],
+                'value' => null,
+                'category' => PFS::K_PAPARAN_ASAP_ROKOK
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['pekerjaan_beresiko']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['pekerjaan_beresiko']['own'],
+                'value' => $payload['anemnesis']['pekerjaan_beresiko']['own'] == 0 ? null : json_encode($payload['anemnesis']['pekerjaan_beresiko']['value']),
+                'category' => PFS::K_PEKERJAAN_BERESIKO
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['tempat_tinggal_sekitar_pabrik']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['tempat_tinggal_sekitar_pabrik']['own'],
+                'value' => $payload['anemnesis']['tempat_tinggal_sekitar_pabrik']['own'] == 0 ? null : json_encode($payload['anemnesis']['tempat_tinggal_sekitar_pabrik']['value']),
+                'category' => PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['riwayat_keganasan_organ_lain']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['riwayat_keganasan_organ_lain']['own'],
+                'value' => $payload['anemnesis']['riwayat_keganasan_organ_lain']['own'] == 0 ? null : json_encode($payload['anemnesis']['riwayat_keganasan_organ_lain']['value']),
+                'category' => PFS::K_RIWAYAT_KEGANASAN_ORGAN_LAIN
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['paparan_radon']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['paparan_radon']['own'],
+                'value' => $payload['anemnesis']['paparan_radon']['own'] == 0 ? null : $payload['anemnesis']['paparan_radon']['value'],
+                'category' => PFS::K_PAPARAN_RADON
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['biomess']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['biomess']['own'],
+                'value' => $payload['anemnesis']['biomess']['own'] == 0 ? null : $payload['anemnesis']['biomess']['value'],
+                'category' => PFS::K_BIOMESS
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['riwayat_ppok']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['riwayat_ppok']['own'],
+                'value' => $payload['anemnesis']['riwayat_ppok']['own'] == 0 ? null : json_encode($payload['anemnesis']['riwayat_ppok']['value']),
+                'category' => PFS::K_RIWAYAT_PPOK
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['riwayat_tb']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['riwayat_tb']['own'],
+                'value' => $payload['anemnesis']['riwayat_tb']['own'] == 0 ? null : $payload['anemnesis']['riwayat_tb']['value'],
+                'category' => PFS::K_RIWAYAT_TB
+            ]);
+
+        $data->riskFactors()
+            ->where('id', $payload['anemnesis']['riwayat_kaganasan_keluarga']['id'])
+            ->update([
+                'own' => $payload['anemnesis']['riwayat_kaganasan_keluarga']['own'],
+                'value' => $payload['anemnesis']['riwayat_kaganasan_keluarga']['own'] == 0 ? null : $payload['anemnesis']['riwayat_kaganasan_keluarga']['value'],
+                'category' => PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA
+            ]);
+
+        return $data;
     }
 
     public function delete($id)
