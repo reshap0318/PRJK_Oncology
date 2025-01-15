@@ -144,6 +144,7 @@ function show(param: any = {}) {
     } else {
         pasienStore.itemDetail = {}
         pemeriksaanStore.formInput = {
+            id: 0,
             overview: {
                 dokter_id: null,
                 pasien_id: null,
@@ -162,11 +163,7 @@ function show(param: any = {}) {
                         duration: 0
                     }
                 ],
-                riwayat_penyakits: [
-                    {
-                        description: null
-                    }
-                ],
+                penyakit_riwayats: [],
                 penyakits: [
                     {
                         description: null
@@ -282,17 +279,24 @@ function simpan() {
     pemeriksaanStore.formInputValidated.$validate().then((res) => {
         if (res) {
             console.log(pemeriksaanStore.formInput)
-
-            pemeriksaanStore.create(pemeriksaanStore.formInput).then((res: any) => {
-                emit('onSave')
-                Swal.fire({
-                    title: 'Success!',
-                    text: res.message,
-                    icon: 'success'
-                }).then(() => {
-                    modal.value.hide()
+            if (pemeriksaanStore.formInput.id == 0) {
+                pemeriksaanStore.create(pemeriksaanStore.formInput).then((res: any) => {
+                    emit('onSave')
+                    Swal.fire({
+                        title: 'Success!',
+                        text: res.message,
+                        icon: 'success'
+                    }).then(() => {
+                        modal.value.hide()
+                    })
                 })
-            })
+            } else {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Feature Simpan Pada Edit Belum Support',
+                    icon: 'warning'
+                })
+            }
         } else {
             Swal.fire({
                 title: 'Warning!',

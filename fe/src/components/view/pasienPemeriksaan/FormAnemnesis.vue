@@ -137,11 +137,19 @@
         <div class="col-12">
             <div class="border-dashed mt-4" style="position: relative">
                 <div class="pt-4">
+                    <div class="row px-3" v-for="(d, i) in formInput.penyakit_riwayats" :key="i">
+                        <div class="col-12 mb-3">
+                            <label class="form-label fs-6 text-dark">
+                                <span class="required">Riwayat Penyakit Dahulu</span>
+                            </label>
+                            <div class="form-control" v-html="d.description"></div>
+                        </div>
+                    </div>
                     <div class="row px-3" v-for="(d, i) in formInput.penyakits" :key="i">
                         <div class="col-12 col-sm-10 mb-3">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required">Riwayat Penyakit Dahulu</span>
+                                    <span class="required">Riwayat Penyakit</span>
                                 </label>
                                 <input
                                     class="form-control"

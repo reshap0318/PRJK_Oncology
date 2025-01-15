@@ -213,6 +213,14 @@ class DummySeeder extends Seeder
                                 "tag"           => 2
                             ]
                         ],
+                        'sickness'       => [
+                            [
+                                "description"   => "Testing Penyakit 1",
+                            ],
+                            [
+                                "description"   => "Testing Penyakit 2",
+                            ],
+                        ],
                     ]
                 ]
             ],
@@ -256,6 +264,9 @@ class DummySeeder extends Seeder
                 $complains = $inspection['complains'];
                 unset($inspection['complains']);
 
+                $sickness = $inspection['sickness'];
+                unset($inspection['sickness']);
+
                 $pemeriksaanObj = PasienPemeriksaanModel::create(array_merge($inspection, ['pasien_id' => $pasientObj->id]));
 
                 $pemeriksaanObj->vital()->create($vital);
@@ -264,6 +275,7 @@ class DummySeeder extends Seeder
                 $pemeriksaanObj->smokingHistory()->create($smokingHistory);
                 $pemeriksaanObj->riskFactors()->createMany($riskFactors);
                 $pemeriksaanObj->complains()->createMany($complains);
+                $pemeriksaanObj->sickness()->createMany($sickness);
             }
         }
     }

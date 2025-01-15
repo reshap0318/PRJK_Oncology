@@ -17,7 +17,7 @@ const prop = defineProps({
         type: Object
     },
     idx: {
-        type: Number,
+        type: [Number, String],
         default: 0
     },
     code: {
@@ -37,9 +37,10 @@ const prop = defineProps({
 })
 
 const errorMessage = computed((): string => {
-    const beKey = prop.name + '.' + prop.idx + '.' + prop.code
-    if (prop.err && getErrorEachMessages(prop.err, prop.idx, prop.code).length != 0)
-        return getErrorEachMessages(prop.err, prop.idx, prop.code, prop.customMessage).join(', ')
+    const idx = typeof prop.idx === 'string' ? parseInt(prop.idx) : prop.idx
+    const beKey = prop.name + '.' + idx + '.' + prop.code
+    if (prop.err && getErrorEachMessages(prop.err, idx, prop.code).length != 0)
+        return getErrorEachMessages(prop.err, idx, prop.code, prop.customMessage).join(', ')
     else if (prop.name && authStore.formError[beKey]) return authStore.formError[beKey]
     return ''
 })

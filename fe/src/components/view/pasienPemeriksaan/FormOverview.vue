@@ -140,9 +140,18 @@ watch(
                     Swal.showLoading()
                 }
             })
-            pasienStore.getDetail(val).finally(() => {
-                Swal.close()
-            })
+            pasienStore
+                .getDetail(val)
+                .then((res) => {
+                    const penyakits = res.data.penyakit_riwayats.filter((d: any) => {
+                        if (pemeriksaanStore.formInput.id == 0) return true
+                        return d.inspection_id < pemeriksaanStore.formInput.id
+                    })
+                    pemeriksaanStore.formInput.anemnesis.penyakit_riwayats = penyakits
+                })
+                .finally(() => {
+                    Swal.close()
+                })
         } else {
             pasienStore.itemDetail = {}
         }

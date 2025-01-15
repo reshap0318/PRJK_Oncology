@@ -11,131 +11,8 @@ const base = baseStore(basePath)
 
 export const year = new Date().getFullYear()
 export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () => {
-    const formDefault = ref({
-        overview: {
-            dokter_id: null,
-            pasien_id: null,
-            tanggal: null
-        },
-        anemnesis: {
-            keluhans: [
-                {
-                    description: null,
-                    duration: 0
-                }
-            ],
-            gejalas: [
-                {
-                    description: null,
-                    duration: 0
-                }
-            ],
-            riwayat_penyakits: [
-                {
-                    description: null
-                }
-            ],
-            penyakits: [
-                {
-                    description: null
-                }
-            ],
-            kategori_perokok: {
-                history: 3,
-                stick_day: null,
-                count_year: null,
-                ib: 3,
-                category: null,
-                suck: 0
-            },
-            paparan_asap_rokok: {
-                own: 0,
-                value: null
-            },
-            pekerjaan_beresiko: {
-                own: 0,
-                value: null
-            },
-            tempat_tinggal_sekitar_pabrik: {
-                own: 0,
-                value: null
-            },
-            riwayat_keganasan_organ_lain: {
-                own: 0,
-                value: null
-            },
-            paparan_radon: {
-                own: 0,
-                value: []
-            },
-            biomess: {
-                own: 0,
-                value: []
-            },
-            riwayat_ppok: {
-                own: 0,
-                value: null
-            },
-            riwayat_tb: {
-                own: 0,
-                value: {
-                    tahun: null,
-                    oat: null
-                }
-            },
-            riwayat_kaganasan_keluarga: {
-                own: 0,
-                value: {
-                    siapa: null,
-                    apa: null,
-                    tahun: null
-                }
-            }
-        },
-        pemeriksaan_fisik: {
-            awareness: null,
-            condition: null,
-            td: null,
-            nadi: null,
-            rr: null,
-            suhu: null,
-            sp_o2: null,
-            vas: null,
-            description: null,
-            kgb: null,
-            kgb_option: 0,
-            inspeksi_statis: null,
-            inspeksi_dinamis: null,
-            palpasi: null,
-            perkusi: null,
-            auskultasi: null,
-            abdomen: null,
-            ekstemitas: null
-        },
-        diagnosa: {
-            jenis_sel: [],
-            paru: [],
-            staging: [],
-            stage: [],
-            ps: [],
-            egfr: null,
-            mutasi: null,
-            whild_type: 0,
-            pdl1: null,
-            alk: [],
-            komorbid: null
-        },
-        outcome: {
-            keadaan_pulang: null,
-            cara_pulang: null,
-            lama_dirawat: null,
-            tanggal_meninggal: null,
-            sebab_kematian: null,
-            waktu_meninggal: null
-        }
-    })
-
     const formInput = ref({
+        id: 0,
         overview: {
             dokter_id: null,
             pasien_id: null,
@@ -154,7 +31,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     duration: 0
                 }
             ],
-            riwayat_penyakits: [
+            penyakit_riwayats: [
                 {
                     description: null
                 }
@@ -485,7 +362,6 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
 
     return {
         ...base,
-        formDefault,
         formInput,
         formInputValidated,
         create,

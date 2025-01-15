@@ -32,7 +32,15 @@ class PasienPemeriksaanRepository extends BaseRepository
 
     public function getDetailData()
     {
-        $this->query = $this->query->with(['diagnosa', 'outcome', 'vital', 'riskFactors', 'smokingHistory', 'complains']);
+        $this->query = $this->query->with([
+            'diagnosa',
+            'outcome',
+            'vital',
+            'riskFactors',
+            'smokingHistory',
+            'complains:id,description,duration,tag,inspection_id',
+            'sickness:id,description,inspection_id'
+        ]);
         return $this;
     }
 }

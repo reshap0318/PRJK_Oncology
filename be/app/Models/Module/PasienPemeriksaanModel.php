@@ -134,4 +134,9 @@ class PasienPemeriksaanModel extends Model
     {
         return $this->hasMany(PemeriksaanComplainModel::class, 'inspection_id', 'id');
     }
+
+    public function sickness()
+    {
+        return $this->hasMany(PemeriksaanSicknessModel::class, 'inspection_id', 'id');
+    }
 }

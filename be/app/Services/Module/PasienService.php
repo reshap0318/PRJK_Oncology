@@ -3,6 +3,7 @@
 namespace App\Services\Module;
 
 use App\Repository\Module\PasienRepository;
+use App\Repository\Module\PemeriksaanSicknessRepository;
 use App\Services\BaseService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,6 +19,12 @@ class PasienService extends BaseService
     {
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
+
+        $data['penyakit_riwayats'] = (new PemeriksaanSicknessRepository())
+            ->filterByHistory($id)
+            ->getQuery()
+            ->select(['id', 'description', 'inspection_id'])
+            ->get();
         return $data;
     }
 

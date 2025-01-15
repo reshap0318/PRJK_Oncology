@@ -7,6 +7,7 @@ use App\Models\Module\{
     PemeriksaanFaktorResikoModel as PFS
 };
 use App\Repository\Module\PasienPemeriksaanRepository;
+use App\Repository\Module\PemeriksaanSicknessRepository;
 use App\Services\BaseService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -46,12 +47,19 @@ class PasienPemeriksaanService extends BaseService
             'apa'   => null,
             'tahun' => now()->format("Y")
         ];
-        $keluhans = $data->complains->where('tag', PemeriksaanComplainModel::T_KELUHAN);
+        $keluhans = $data->complains->where('tag', PemeriksaanComplainModel::T_KELUHAN)->toArray();
         if (!$keluhans) $keluhans = [["description" => null, "long" => 0]];
-        $gejalas = $data->complains->where('tag', PemeriksaanComplainModel::T_GEJALA);
+        $gejalas = $data->complains->where('tag', PemeriksaanComplainModel::T_GEJALA)->toArray();
         if (!$gejalas) $gejalas = [["description" => null, "long" => 0]];
 
+        $sickness_history = (new PemeriksaanSicknessRepository())
+            ->filterByHistory($data->pasien_id, $data->id)
+            ->getQuery()
+            ->select(['id', 'description'])
+            ->get();
+
         return [
+            'id' => $id,
             'overview'  => [
                 'dokter_id' => $data->user_id,
                 'pasien_id' => $data->pasien_id,
@@ -61,18 +69,10 @@ class PasienPemeriksaanService extends BaseService
             'outcome'   => $data['outcome'],
             'pemeriksaan_fisik' => $data['vital'],
             'anemnesis' => [
-                "keluhans" => $keluhans,
-                "gejalas" => $gejalas,
-                "riwayat_penyakits" => [
-                    [
-                        "description" => null
-                    ]
-                ],
-                "penyakits" => [
-                    [
-                        "description" => null
-                    ]
-                ],
+                "keluhans" => array_values($keluhans),
+                "gejalas" => array_values($gejalas),
+                "penyakit_riwayats" => $sickness_history,
+                "penyakits" => $data->sickness,
                 "kategori_perokok" => $data->smokingHistory,
                 "paparan_asap_rokok" => $paparan_asap_rokok,
                 "pekerjaan_beresiko" => $pekerjaan_beresiko,
@@ -132,6 +132,8 @@ class PasienPemeriksaanService extends BaseService
                 return array_merge($d, ['tag' => PemeriksaanComplainModel::T_GEJALA]);
             }, ($payload['anemnesis']['gejalas'] ?? []))
         );
+
+        $pemeriksaan->sickness()->createMany(($payload['anemnesis']['penyakits'] ?? []));
 
         //FACTOR RESIKO
         $pemeriksaan->riskFactors()->create(
