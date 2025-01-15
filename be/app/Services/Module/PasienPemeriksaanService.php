@@ -354,6 +354,8 @@ class PasienPemeriksaanService extends BaseService
 
     public function delete($id)
     {
-        return $this->mainRepository->delete($id);
+        $data = $this->mainRepository->filterById($id)->first();
+        abort_if(!$data, 404, "halaman tidak ditemukan");
+        return $data->delete($id);
     }
 }

@@ -196,11 +196,11 @@
                     <div class="col-sm-9">
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
-                                multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
                                 v-model="formInput.whild_type"
-                                :value="1"
+                                :true-value="1"
+                                :false-value="0"
                             />
                         </label>
                     </div>

@@ -35,6 +35,6 @@ class PemeriksaanDiagnosaModel extends Model
         "staging"       => 'array',
         "ps"            => 'array',
         "alk"           => 'array',
-        'whild_type'    => 'boolean'
+        'whild_type'    => 'integer'
     ];
 }
