@@ -11,27 +11,51 @@
             <div class="col-sm-3">
                 <div class="card">
                     <div class="card-body py-4">
-                        <div
-                            class="row my-3 rounded"
-                            v-for="d in menus"
-                            :class="formActive == d.code ? 'bg-info' : 'bg-gray-200'"
-                            :key="d.code"
-                            @click="formActive = d.code"
-                        >
+                        <div v-for="d in menus" :key="d.code" class="my-3">
                             <div
-                                class="col-12 p-5 d-flex flex-row align-items-center cursor-pointer"
+                                class="row rounded"
+                                :class="checkActive(d) ? 'bg-info' : 'bg-gray-200'"
+                                @click="setActive(d)"
                             >
-                                <div class="me-4">
-                                    <i
-                                        class="fa fa-check-circle fs-2"
-                                        :class="formActive == d.code ? 'text-white' : ''"
-                                    ></i>
+                                <div
+                                    class="col-12 p-5 d-flex flex-row align-items-center cursor-pointer"
+                                >
+                                    <div class="me-4">
+                                        <i
+                                            class="fa fa-check-circle fs-2"
+                                            :class="checkActive(d) ? 'text-white' : ''"
+                                        ></i>
+                                    </div>
+                                    <span
+                                        class="fw-bolder fs-4 text-uppercase pb-1"
+                                        :class="checkActive(d) ? 'text-white' : 'text-gray-800'"
+                                        v-html="d.label"
+                                    />
                                 </div>
-                                <span
-                                    class="fw-bolder fs-4 text-uppercase pb-1"
-                                    :class="formActive == d.code ? 'text-white' : 'text-gray-800'"
-                                    v-html="d.label"
-                                />
+                            </div>
+                            <div
+                                v-if="checkActive(d)"
+                                v-for="e in d.children ?? []"
+                                @click="setActive(e)"
+                                :key="e.code"
+                                :class="checkActive(e) ? 'bg-info' : 'bg-gray-200'"
+                                class="row rounded ms-4 mt-4"
+                            >
+                                <div
+                                    class="col-12 p-5 d-flex flex-row align-items-center cursor-pointer"
+                                >
+                                    <div class="me-4">
+                                        <i
+                                            class="fa fa-check-circle fs-2"
+                                            :class="checkActive(e) ? 'text-white' : ''"
+                                        ></i>
+                                    </div>
+                                    <span
+                                        class="fw-bolder fs-5 text-uppercase pb-1"
+                                        :class="checkActive(e) ? 'text-white' : 'text-gray-800'"
+                                        v-html="e.label"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,11 +73,13 @@
                         <template v-else-if="formActive == 'ONC002'">
                             <FormPemeriksaanFisik />
                         </template>
-                        <template v-else-if="formActive == 'ONC003'">C</template>
+                        <template v-else-if="formActive == 'ONC0031'">C1</template>
+                        <template v-else-if="formActive == 'ONC0032'">C2</template>
                         <template v-else-if="formActive == 'ONC004'">
                             <FormDiagnosa />
                         </template>
-                        <template v-else-if="formActive == 'ONC005'">E</template>
+                        <template v-else-if="formActive == 'ONC0051'">E1</template>
+                        <template v-else-if="formActive == 'ONC0052'">E2</template>
                         <template v-else-if="formActive == 'ONC006'">
                             <FormOutcome />
                         </template>
@@ -99,7 +125,33 @@ const menus = ref([
     },
     {
         code: 'ONC003',
-        label: 'Penunjang'
+        label: 'Penunjang',
+        children: [
+            {
+                code: 'ONC0031',
+                label: 'Testing - 1'
+            },
+            {
+                code: 'ONC0032',
+                label: 'Testing - 2'
+            },
+            {
+                code: 'ONC0033',
+                label: 'Testing - 3'
+            },
+            {
+                code: 'ONC0034',
+                label: 'Testing - 4'
+            },
+            {
+                code: 'ONC0035',
+                label: 'Testing - 5'
+            },
+            {
+                code: 'ONC0036',
+                label: 'Testing - 6'
+            }
+        ]
     },
     {
         code: 'ONC004',
@@ -107,7 +159,17 @@ const menus = ref([
     },
     {
         code: 'ONC005',
-        label: 'Tatalaksana'
+        label: 'Tatalaksana',
+        children: [
+            {
+                code: 'ONC0051',
+                label: 'Testing - 1'
+            },
+            {
+                code: 'ONC0052',
+                label: 'Testing - 2'
+            }
+        ]
     },
     {
         code: 'ONC006',
@@ -287,6 +349,19 @@ function show(param: any = {}) {
         })
     }
     modal.value.show()
+}
+
+function setActive(item: any): void {
+    formActive.value = item.code
+    if (item.children?.length > 0) {
+        formActive.value = item.children[0].code
+    }
+}
+
+function checkActive(item: any): boolean {
+    if (item?.children)
+        return item.children?.filter((d: any) => d.code == formActive.value).length > 0
+    return formActive.value == item.code
 }
 
 function simpan() {

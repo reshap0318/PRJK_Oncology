@@ -14,14 +14,16 @@ class LogMiddleware
     public function handle(Request $request, Closure $next, string $tag): Response
     {
         $response = $next($request);
+        $method = Str::lower($request->method());
         $path = $request->path();
 
         // except list
         // if(Str::contains($path, ["table", "result"])) return $response;
 
+        if ($method == "get") return $response;
+
         try {
             $datas = $request->except(['password', 'confirm_password']);
-            $method = Str::lower($request->method());
 
             $action = 'mengakses detail halaman';
             $payload = [];
