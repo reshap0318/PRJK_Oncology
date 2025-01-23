@@ -188,7 +188,7 @@
             </div>
         </div>
         <div class="col-12">
-            <h2 class="text-uppercase mt-4">Faktor Resiko</h2>
+            <h2 class="text-uppercase mt-4">Faktor Risiko</h2>
             <div class="border-dashed mt-2 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
                     <span class="required">Riwayat Merokok</span>
@@ -466,7 +466,7 @@
                             :value="1"
                             v-model="formInput.tempat_tinggal_sekitar_pabrik.own"
                         />
-                        <span class="form-check-label fw-semibold text-gray-500"> Ada </span>
+                        <span class="form-check-label fw-semibold text-gray-500"> Ya </span>
                     </label>
 
                     <label
@@ -899,8 +899,8 @@ const formInputValidated = ref(pemeriksaanStore.formInputValidated)
 
 const pillihanTahuns = computed((): number[] => {
     const res: number[] = []
-    for (let i = 0; i < 10; i++) {
-        res.push(year - i)
+    while (year - res.length > 1900) {
+        res.push(year - res.length)
     }
     return res
 })
