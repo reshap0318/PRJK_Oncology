@@ -16,7 +16,9 @@ return new class extends Migration
             $table->json('jenis_sel')->nullable();
             $table->json('paru')->nullable();
             $table->json('stage')->nullable();
-            $table->json('staging')->nullable();
+            $table->text('staging_t')->nullable();
+            $table->text('staging_n')->nullable();
+            $table->text('staging_m')->nullable();
             $table->json('ps')->nullable();
             // $table->string('egfr', 100)->nullable();
             $table->string('mutasi', 100)->nullable();

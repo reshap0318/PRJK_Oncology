@@ -146,7 +146,9 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
         diagnosa: {
             jenis_sel: [],
             paru: [],
-            staging: [],
+            staging_t: '',
+            staging_n: '',
+            staging_m: '',
             stage: [],
             ps: [],
             mutasi: null,
@@ -328,7 +330,9 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             diagnosa: {
                 jenis_sel: {}, //{ required },
                 paru: {}, //{ required },
-                staging: {}, //{ required },
+                staging_t: {}, //{ required },
+                staging_n: {}, //{ required },
+                staging_m: {}, //{ required },
                 stage: {}, //{ required },
                 ps: {}, //{ required },
                 mutasi: {}, //{ required },

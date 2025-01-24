@@ -58,7 +58,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Stage </span>
+                        <span class="required"> PS </span>
                     </label>
                     <div class="d-flex align-items-center my-1">
                         <label class="form-check form-check-custom form-check-solid me-10">
@@ -66,85 +66,43 @@
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stage"
+                                v-model="formInput.ps"
                                 :value="1"
                             />
-                            <span class="form-check-label fw-semibold"> IA </span>
+                            <span class="form-check-label fw-semibold"> 1 </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stage"
+                                v-model="formInput.ps"
                                 :value="2"
                             />
-                            <span class="form-check-label fw-semibold"> IIA </span>
+                            <span class="form-check-label fw-semibold"> 2 </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stage"
+                                v-model="formInput.ps"
                                 :value="3"
                             />
-                            <span class="form-check-label fw-semibold"> IIIA </span>
+                            <span class="form-check-label fw-semibold"> 3 </span>
                         </label>
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
                                 multiple
                                 class="form-check-input h-20px w-20px"
                                 type="checkbox"
-                                v-model="formInput.stage"
+                                v-model="formInput.ps"
                                 :value="4"
                             />
-                            <span class="form-check-label fw-semibold"> IVA </span>
+                            <span class="form-check-label fw-semibold"> 4 </span>
                         </label>
                     </div>
-                    <div class="d-flex align-items-center my-1 mt-4">
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.stage"
-                                :value="5"
-                            />
-                            <span class="form-check-label fw-semibold"> IB </span>
-                        </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.stage"
-                                :value="6"
-                            />
-                            <span class="form-check-label fw-semibold"> IIB </span>
-                        </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.stage"
-                                :value="7"
-                            />
-                            <span class="form-check-label fw-semibold"> IIIB </span>
-                        </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.stage"
-                                :value="8"
-                            />
-                            <span class="form-check-label fw-semibold"> IVB </span>
-                        </label>
-                    </div>
-                    <form-error :err="formInputValidated.diagnosa.stage" name="diagnosa.stage" />
+                    <form-error :err="formInputValidated.diagnosa.ps" name="diagnosa.ps" />
                 </div>
             </div>
 
@@ -238,9 +196,112 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12 col-sm-6">
+            <div class="border-dashed p-4 mb-4" style="position: relative">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required"> Stage </span>
+                    </label>
+                    <div class="d-flex align-items-center my-1">
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="1"
+                            />
+                            <span class="form-check-label fw-semibold"> IA </span>
+                        </label>
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="2"
+                            />
+                            <span class="form-check-label fw-semibold"> IIA </span>
+                        </label>
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="3"
+                            />
+                            <span class="form-check-label fw-semibold"> IIIA </span>
+                        </label>
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="4"
+                            />
+                            <span class="form-check-label fw-semibold"> IVA </span>
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center my-1 mt-4">
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="5"
+                            />
+                            <span class="form-check-label fw-semibold"> IB </span>
+                        </label>
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="6"
+                            />
+                            <span class="form-check-label fw-semibold"> IIB </span>
+                        </label>
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="7"
+                            />
+                            <span class="form-check-label fw-semibold"> IIIB </span>
+                        </label>
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="8"
+                            />
+                            <span class="form-check-label fw-semibold"> IVB </span>
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center my-1 mt-4" style="margin-left: 147px">
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.stage"
+                                :value="9"
+                            />
+                            <span class="form-check-label fw-semibold"> IIIC </span>
+                        </label>
+                    </div>
+                    <form-error :err="formInputValidated.diagnosa.stage" name="diagnosa.stage" />
+                </div>
+            </div>
+
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
@@ -271,89 +332,9 @@
                     <form-error :err="formInputValidated.diagnosa.paru" name="diagnosa.paru" />
                 </div>
             </div>
-            <div class="border-dashed p-4 mb-4" style="position: relative">
-                <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">
-                        <span class="required"> Staging </span>
-                    </label>
-                    <div class="d-flex align-items-center my-1">
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.staging"
-                                :value="1"
-                            />
-                            <span class="form-check-label fw-semibold"> T </span>
-                        </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.staging"
-                                :value="2"
-                            />
-                            <span class="form-check-label fw-semibold"> N </span>
-                        </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.staging"
-                                :value="3"
-                            />
-                            <span class="form-check-label fw-semibold"> M </span>
-                        </label>
-                    </div>
-                    <form-error
-                        :err="formInputValidated.diagnosa.staging"
-                        name="diagnosa.staging"
-                    />
-                </div>
-            </div>
-            <div class="border-dashed p-4 mb-4" style="position: relative">
-                <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">
-                        <span class="required"> PS </span>
-                    </label>
-                    <div class="d-flex align-items-center my-1">
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.ps"
-                                :value="1"
-                            />
-                            <span class="form-check-label fw-semibold"> 1 </span>
-                        </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.ps"
-                                :value="2"
-                            />
-                            <span class="form-check-label fw-semibold"> 2 </span>
-                        </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.ps"
-                                :value="3"
-                            />
-                            <span class="form-check-label fw-semibold"> 3 </span>
-                        </label>
-                    </div>
-                    <form-error :err="formInputValidated.diagnosa.ps" name="diagnosa.ps" />
-                </div>
-            </div>
+        </div>
+
+        <div class="col-12 col-sm-6">
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
@@ -363,12 +344,63 @@
                         class="form-control"
                         v-model="formInput.komorbid"
                         cols="30"
-                        rows="7"
+                        rows="6"
                         placeholder="komorbid"
                     ></textarea>
                     <form-error
                         :err="formInputValidated.diagnosa.komorbid"
                         name="diagnosa.komorbid"
+                    />
+                </div>
+            </div>
+
+            <div class="border-dashed p-4 mb-4" style="position: relative">
+                <div class="fv-row mb-4">
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required"> Staging T </span>
+                    </label>
+                    <textarea
+                        class="form-control"
+                        v-model="formInput.staging_t"
+                        cols="30"
+                        rows="4"
+                        placeholder="staging t"
+                    ></textarea>
+                    <form-error
+                        :err="formInputValidated.diagnosa.staging_t"
+                        name="diagnosa.staging_t"
+                    />
+                </div>
+                <div class="fv-row mb-4">
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required"> Staging N </span>
+                    </label>
+                    <textarea
+                        class="form-control"
+                        v-model="formInput.staging_n"
+                        cols="30"
+                        rows="4"
+                        placeholder="staging n"
+                    ></textarea>
+                    <form-error
+                        :err="formInputValidated.diagnosa.staging_n"
+                        name="diagnosa.staging_n"
+                    />
+                </div>
+                <div class="fv-row mb-4">
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required"> Staging M </span>
+                    </label>
+                    <textarea
+                        class="form-control"
+                        v-model="formInput.staging_m"
+                        cols="30"
+                        rows="4"
+                        placeholder="staging m"
+                    ></textarea>
+                    <form-error
+                        :err="formInputValidated.diagnosa.staging_m"
+                        name="diagnosa.staging_m"
                     />
                 </div>
             </div>

@@ -109,10 +109,11 @@ class DummySeeder extends Seeder
                         'diagnosa'          => [
                             "jenis_sel" => [2, 3],
                             "paru"      => [2],
-                            "staging"   => [2, 3],
+                            "staging_t" => "Testing Staging T",
+                            "staging_n" => "Testing Staging N",
+                            "staging_m" => "Testing Staging M",
                             "stage"     => [2, 3, 5, 8],
                             "ps"        => [2],
-                            "egfr"      => "Testing EGFR",
                             "mutasi"    => "Testing Mutasi",
                             "whild_type" => 1,
                             "pdl1"      => "Testing PD-L1",

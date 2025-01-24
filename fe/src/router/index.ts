@@ -189,6 +189,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'pemeriksaaan.edit',
         component: () => import('@/views/module/PemeriksaanEdit.vue'),
         meta: {
+            pageTitle: 'Pemeriksaan',
             permission: 'pasien-pemeriksaan.inspection'
         }
     },
