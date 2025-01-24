@@ -11,7 +11,23 @@ const base = baseStore(basePath)
 
 export const year = new Date().getFullYear()
 export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () => {
-    const formInput = ref({
+    const formCreate = ref({
+        dokter_id: null,
+        pasien_id: null,
+        tanggal: null
+    })
+
+    const rulesCreate = computed(() => {
+        return {
+            dokter_id: { required },
+            pasien_id: { required },
+            tanggal: { required }
+        }
+    })
+
+    const formCreateValidated = useVuelidate(rulesCreate, formCreate)
+
+    const formUpdate = ref({
         id: 0,
         overview: {
             dokter_id: null,
@@ -141,16 +157,13 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             komorbid: null
         },
         outcome: {
-            keadaan_pulang: null,
-            cara_pulang: null,
-            lama_dirawat: null,
-            tanggal_meninggal: null,
-            sebab_kematian: null,
-            waktu_meninggal: null
+            progress: null,
+            dead: null,
+            description: null
         }
     })
 
-    const rules = computed(() => {
+    const rulesUpdate = computed(() => {
         return {
             overview: {
                 dokter_id: { required },
@@ -179,27 +192,35 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     history: { required },
                     count_year: {
                         required: requiredIf(() =>
-                            [1, 2].includes(formInput.value.anemnesis.kategori_perokok.history)
+                            [1, 2].includes(formUpdate.value.anemnesis.kategori_perokok.history)
                         )
                     },
                     stick_day: {
                         required: requiredIf(() =>
-                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                            [1].includes(formUpdate.value.anemnesis.kategori_perokok.history)
                         )
                     },
                     ib: {
                         required: requiredIf(() =>
-                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                            [1].includes(formUpdate.value.anemnesis.kategori_perokok.history)
                         )
                     },
                     category: {
                         required: requiredIf(() =>
-                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                            [1].includes(formUpdate.value.anemnesis.kategori_perokok.history)
                         )
                     },
                     suck: {
                         required: requiredIf(() =>
-                            [1].includes(formInput.value.anemnesis.kategori_perokok.history)
+                            [1].includes(formUpdate.value.anemnesis.kategori_perokok.history)
+                        )
+                    }
+                },
+                paparan_asap_rokok: {
+                    own: {},
+                    value: {
+                        required: requiredIf(
+                            () => formUpdate.value.anemnesis.paparan_asap_rokok.own == 1
                         )
                     }
                 },
@@ -207,7 +228,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     own: {},
                     value: {
                         required: requiredIf(
-                            () => formInput.value.anemnesis.pekerjaan_beresiko.own == 1
+                            () => formUpdate.value.anemnesis.pekerjaan_beresiko.own == 1
                         )
                     }
                 },
@@ -215,7 +236,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     own: {},
                     value: {
                         required: requiredIf(
-                            () => formInput.value.anemnesis.tempat_tinggal_sekitar_pabrik.own == 1
+                            () => formUpdate.value.anemnesis.tempat_tinggal_sekitar_pabrik.own == 1
                         )
                     }
                 },
@@ -223,26 +244,28 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     own: {},
                     value: {
                         required: requiredIf(
-                            () => formInput.value.anemnesis.riwayat_keganasan_organ_lain.own == 1
+                            () => formUpdate.value.anemnesis.riwayat_keganasan_organ_lain.own == 1
                         )
                     }
                 },
                 paparan_radon: {
                     own: 0,
                     value: {
-                        required: requiredIf(() => formInput.value.anemnesis.paparan_radon.own == 1)
+                        required: requiredIf(
+                            () => formUpdate.value.anemnesis.paparan_radon.own == 1
+                        )
                     }
                 },
                 biomess: {
                     own: 0,
                     value: {
-                        required: requiredIf(() => formInput.value.anemnesis.biomess.own == 1)
+                        required: requiredIf(() => formUpdate.value.anemnesis.biomess.own == 1)
                     }
                 },
                 riwayat_ppok: {
                     own: {},
                     value: {
-                        required: requiredIf(() => formInput.value.anemnesis.riwayat_ppok.own == 1)
+                        required: requiredIf(() => formUpdate.value.anemnesis.riwayat_ppok.own == 1)
                     }
                 },
                 riwayat_tb: {
@@ -250,12 +273,12 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     value: {
                         tahun: {
                             required: requiredIf(
-                                () => formInput.value.anemnesis.riwayat_tb.own == 1
+                                () => formUpdate.value.anemnesis.riwayat_tb.own == 1
                             )
                         },
                         oat: {
                             required: requiredIf(
-                                () => formInput.value.anemnesis.riwayat_tb.own == 1
+                                () => formUpdate.value.anemnesis.riwayat_tb.own == 1
                             )
                         }
                     }
@@ -265,17 +288,17 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                     value: {
                         siapa: {
                             required: requiredIf(
-                                () => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
                             )
                         },
                         apa: {
                             required: requiredIf(
-                                () => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
                             )
                         },
                         tahun: {
                             required: requiredIf(
-                                () => formInput.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
                             )
                         }
                     }
@@ -293,7 +316,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 description: {}, //{ required },
                 kgb_option: {},
                 kgb: {
-                    required: requiredIf(() => formInput.value.pemeriksaan_fisik.kgb_option == 1)
+                    required: requiredIf(() => formUpdate.value.pemeriksaan_fisik.kgb_option == 1)
                 },
                 inspeksi_statis: {}, //{ required },
                 inspeksi_dinamis: {}, //{ required },
@@ -317,23 +340,14 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 komorbid: {} //{ required }
             },
             outcome: {
-                keadaan_pulang: {}, //{ required },
-                cara_pulang: {}, //{ required },
-                lama_dirawat: {}, //{ required },
-                tanggal_meninggal: {
-                    required: requiredIf(() => formInput.value.outcome.cara_pulang == 5)
-                },
-                sebab_kematian: {
-                    required: requiredIf(() => formInput.value.outcome.cara_pulang == 5)
-                },
-                waktu_meninggal: {
-                    required: requiredIf(() => formInput.value.outcome.cara_pulang == 5)
-                }
+                progress: {}, //{ required },
+                dead: {}, //{ required },
+                description: {} //{ required }
             }
         }
     })
 
-    const formInputValidated = useVuelidate(rules, formInput)
+    const formUpdateValidated = useVuelidate(rulesUpdate, formUpdate)
 
     async function create(request: any) {
         const utils = useAuthStore()
@@ -376,8 +390,10 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
 
     return {
         ...base,
-        formInput,
-        formInputValidated,
+        formUpdate,
+        formUpdateValidated,
+        formCreate,
+        formCreateValidated,
         create,
         update
     }

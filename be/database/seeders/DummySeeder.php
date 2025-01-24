@@ -120,17 +120,14 @@ class DummySeeder extends Seeder
                             "komorbid"  => "Testing Komorbid"
                         ],
                         'outcome'           => [
-                            "keadaan_pulang"    =>  4,
-                            "cara_pulang"       =>  5,
-                            "lama_dirawat"      =>  4,
-                            "tanggal_meninggal" =>  "2025-01-11",
-                            "sebab_kematian"    =>  "Testing Sebab Kematian",
-                            "waktu_meninggal"   =>  1
+                            "progress"      =>  "2025-01-11",
+                            "dead"          =>  "2025-01-11",
+                            "description"   =>  "Testing Sebab Kematian",
                         ],
                         'risk_factors'       => [
                             [
                                 "category"  => PFR::K_PAPARAN_ASAP_ROKOK,
-                                "own"       => 1,
+                                "own"       => 0,
                                 "value"     => null
                             ],
                             [

@@ -406,6 +406,19 @@
                         <span class="form-check-label fw-semibold text-gray-500"> Tidak </span>
                     </label>
                 </div>
+                <div class="fv-row mt-4" v-if="formInput.paparan_asap_rokok.own == 1">
+                    <input
+                        class="form-control"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="keterangan"
+                        v-model="formInput.paparan_asap_rokok.value"
+                    />
+                    <form-error
+                        :err="formInputValidated.anemnesis.paparan_asap_rokok.value"
+                        name="anemnesis.paparan_asap_rokok.value"
+                    />
+                </div>
             </div>
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
@@ -894,8 +907,8 @@ import { year, usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksa
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 
-const formInput = ref(pemeriksaanStore.formInput.anemnesis)
-const formInputValidated = ref(pemeriksaanStore.formInputValidated)
+const formInput = ref(pemeriksaanStore.formUpdate.anemnesis)
+const formInputValidated = ref(pemeriksaanStore.formUpdateValidated)
 
 const pillihanTahuns = computed((): number[] => {
     const res: number[] = []

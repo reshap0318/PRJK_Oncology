@@ -85,14 +85,14 @@
         </div>
     </div>
     <FAB
-        @click="formModal.show({ pasien_id: id })"
+        @click="formCreate.show({ pasien_id: id })"
         v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
     />
-    <FormModal ref="formModal" @onSave="tableReload()" />
+    <FormCreate ref="formCreate" @onSave="tableReload()" />
 </template>
 <script lang="ts" setup>
 import DataTable from '@/components/utils/datatable/DataTable.vue'
-import FormModal from '@/components/view/pasienPemeriksaan/Form.vue'
+import FormCreate from '@/components/view/pasienPemeriksaan/Create.vue'
 import FAB from '@/components/utils/button/FAB.vue'
 import StrgService from '@/core/services/StrgService'
 import Swal from 'sweetalert2'
@@ -102,13 +102,14 @@ import { usePasienStore } from '@/stores/module/pasien'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { computed, onMounted, watch, ref } from 'vue'
 import { btnAction } from '@/core/helpers/datatable'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const pasienStore = usePasienStore()
 const pasienPemeriksaanStore = usePasienPemeriksaanStore()
 const route = useRoute()
+const router = useRouter()
 const table = ref()
-const formModal = ref()
+const formCreate = ref()
 
 const id = computed(() => route.params.id as string)
 const data = computed(() => pasienStore.itemDetail)
@@ -168,7 +169,10 @@ onMounted(() => {
     table.value.getDT().on('click', '.btn-periksa', function (e: any) {
         e.preventDefault()
         const id = e.currentTarget.getAttribute('data-id')
-        formModal.value.show({ id: id })
+        router.push({
+            name: 'pemeriksaaan.edit',
+            params: { id: id }
+        })
     })
 })
 

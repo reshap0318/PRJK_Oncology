@@ -15,16 +15,13 @@ class PemeriksaanOutcomeModel extends Model
 
     protected $fillable = [
         "id",
-        "keadaan_pulang",
-        "cara_pulang",
-        "lama_dirawat",
-        "tanggal_meninggal",
-        "sebab_kematian",
-        "waktu_meninggal",
+        "progress",
+        "dead",
+        "description",
     ];
 
     protected $casts = [
-        "tanggal_meninggal"     => 'date:Y-m-d',
-        'waktu_meninggal'       => 'integer'
+        "progress"      => 'date:Y-m-d',
+        'dead'          => 'date:Y-m-d'
     ];
 }

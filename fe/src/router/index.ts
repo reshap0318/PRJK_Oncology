@@ -50,7 +50,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'pemeriksaan',
                 name: 'pemeriksaaan.index',
-                component: () => import('@/views/module/PasienPemeriksaan.vue'),
+                component: () => import('@/views/module/Pemeriksaan.vue'),
                 meta: {
                     pageTitle: 'Pemeriksaan',
                     permission: 'pasien-pemeriksaan.index'
@@ -183,6 +183,14 @@ const routes: Array<RouteRecordRaw> = [
                 ]
             }
         ]
+    },
+    {
+        path: '/pemeriksaan/:id',
+        name: 'pemeriksaaan.edit',
+        component: () => import('@/views/module/PemeriksaanEdit.vue'),
+        meta: {
+            permission: 'pasien-pemeriksaan.inspection'
+        }
     },
     {
         path: '/',

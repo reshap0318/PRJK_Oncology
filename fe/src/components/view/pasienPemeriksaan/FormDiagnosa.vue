@@ -399,6 +399,6 @@ import { ref } from 'vue'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 
-const formInput = ref(pemeriksaanStore.formInput.diagnosa)
-const formInputValidated = ref(pemeriksaanStore.formInputValidated)
+const formInput = ref(pemeriksaanStore.formUpdate.diagnosa)
+const formInputValidated = ref(pemeriksaanStore.formUpdateValidated)
 </script>

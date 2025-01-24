@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('i_outcome', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
-            $table->tinyInteger('keadaan_pulang')->nullable();
-            $table->tinyInteger('cara_pulang')->nullable();
-            $table->mediumInteger('lama_dirawat')->nullable();
-            $table->date('tanggal_meninggal')->nullable();
-            $table->text('sebab_kematian')->nullable();
-            $table->boolean('waktu_meninggal')->nullable();
+            $table->date('progress')->nullable();
+            $table->date('dead')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->primary('id');

@@ -123,8 +123,8 @@ import Swal from 'sweetalert2'
 const selectStore = useSelectStore()
 const pasienStore = usePasienStore()
 const pemeriksaanStore = usePasienPemeriksaanStore()
-const formInput = ref(pemeriksaanStore.formInput.overview)
-const formInputValidated = ref(pemeriksaanStore.formInputValidated)
+const formInput = ref(pemeriksaanStore.formUpdate.overview)
+const formInputValidated = ref(pemeriksaanStore.formUpdateValidated)
 const pasien = computed(() => pasienStore.itemDetail)
 
 watch(
@@ -144,10 +144,10 @@ watch(
                 .getDetail(val)
                 .then((res) => {
                     const penyakits = res.data.penyakit_riwayats.filter((d: any) => {
-                        if (pemeriksaanStore.formInput.id == 0) return true
-                        return d.inspection_id < pemeriksaanStore.formInput.id
+                        if (pemeriksaanStore.formUpdate.id == 0) return true
+                        return d.inspection_id < pemeriksaanStore.formUpdate.id
                     })
-                    pemeriksaanStore.formInput.anemnesis.penyakit_riwayats = penyakits
+                    pemeriksaanStore.formUpdate.anemnesis.penyakit_riwayats = penyakits
                 })
                 .finally(() => {
                     Swal.close()

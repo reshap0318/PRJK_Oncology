@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Module;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Module\PasienPemeriksaanRequest;
+use App\Http\Requests\Module\{
+    PemeriksaanCreateRequest,
+    PemeriksaanUpdateRequest
+};
 use App\Services\Module\PasienPemeriksaanService;
 use Illuminate\Http\{
     Request,
@@ -41,7 +44,7 @@ class PasienPemeriksaanController extends Controller
         return $this->mainService->datatable();
     }
 
-    public function store(PasienPemeriksaanRequest $request)
+    public function store(PemeriksaanCreateRequest $request)
     {
         return $this->mainService->transaction(function () use ($request) {
             return $this->mainService->store($request->all());
@@ -49,7 +52,7 @@ class PasienPemeriksaanController extends Controller
     }
 
 
-    public function update($id, PasienPemeriksaanRequest $request)
+    public function update($id, PemeriksaanUpdateRequest $request)
     {
         return $this->mainService->transaction(function () use ($id, $request) {
             return $this->mainService->update($id, $request->all());
