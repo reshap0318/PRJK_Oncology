@@ -18,7 +18,7 @@ return new class extends Migration
             $table->json('stage')->nullable();
             $table->json('staging')->nullable();
             $table->json('ps')->nullable();
-            $table->string('egfr', 100)->nullable();
+            // $table->string('egfr', 100)->nullable();
             $table->string('mutasi', 100)->nullable();
             $table->boolean('whild_type')->nullable();
             $table->string('pdl1', 100)->nullable();

@@ -149,24 +149,7 @@
             </div>
 
             <div class="border-dashed p-4 mb-4" style="position: relative">
-                <h2 class="text-uppercase">Marker Molekular</h2>
-                <div class="row mb-3">
-                    <div class="col-sm-3 align-self-center">
-                        <label class="form-label fs-6 text-dark">
-                            <span class="required"> EGFR </span>
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <input
-                            class="form-control"
-                            type="text"
-                            autocomplete="off"
-                            placeholder="egfr"
-                            v-model="formInput.egfr"
-                        />
-                        <form-error :err="formInputValidated.diagnosa.egfr" name="diagnosa.egfr" />
-                    </div>
-                </div>
+                <h2 class="text-uppercase">Marker Molekular (EGFR )</h2>
                 <div class="row mb-3">
                     <div class="col-sm-3 align-self-center">
                         <label class="form-label fs-6 text-dark">

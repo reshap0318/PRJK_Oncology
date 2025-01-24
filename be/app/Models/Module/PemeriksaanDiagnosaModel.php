@@ -20,7 +20,6 @@ class PemeriksaanDiagnosaModel extends Model
         "stage",
         "staging",
         "ps",
-        "egfr",
         "mutasi",
         "whild_type",
         "pdl1",

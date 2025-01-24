@@ -35,12 +35,12 @@ export const savePermission = (permissions: TPermission[]): void => {
 }
 
 export const hasPermission = (permission: string): boolean => {
-    const permissions = JSON.parse(localStorage.getItem(ID_PERMISSION_KEY) as '[]') as TPermission[]
+    const permissions = JSON.parse(localStorage.getItem(ID_PERMISSION_KEY) ?? '[]') as TPermission[]
     return permissions.filter((p) => p.name == permission).length > 0
 }
 
 export const hasAnyPermission = (permission: string[]): boolean => {
-    const permissions = JSON.parse(localStorage.getItem(ID_PERMISSION_KEY) as '[]') as TPermission[]
+    const permissions = JSON.parse(localStorage.getItem(ID_PERMISSION_KEY) ?? '[]') as TPermission[]
     return permissions.filter((p) => permission.includes(p.name)).length > 0
 }
 
