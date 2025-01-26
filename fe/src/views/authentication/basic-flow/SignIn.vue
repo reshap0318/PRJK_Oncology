@@ -2,8 +2,7 @@
     <div class="w-lg-500px p-10">
         <form class="form w-100" id="kt_login_signin_form" @submit.prevent="onSubmitLogin()">
             <div class="text-center mb-10">
-                <h1 class="text-dark mb-3">Sign In</h1>
-                <div class="text-gray-400 fw-semobold fs-4">New Here?</div>
+                <h1 class="text-dark mb-3">Lung Cancer Registry</h1>
             </div>
             <div class="fv-row mb-10">
                 <label class="form-label fs-6 fw-bold text-dark">Username / Email</label>

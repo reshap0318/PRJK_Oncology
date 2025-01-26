@@ -100,6 +100,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
+                                    placeholder="0"
                                     v-model="formInput.td"
                                 />
                                 <div class="input-group-append">
@@ -122,6 +123,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
+                                    placeholder="0"
                                     v-model="formInput.rr"
                                 />
                                 <div class="input-group-append">
@@ -144,6 +146,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
+                                    placeholder="0"
                                     v-model="formInput.sp_o2"
                                 />
                                 <div class="input-group-append">
@@ -166,6 +169,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
+                                    placeholder="0"
                                     v-model="formInput.nadi"
                                 />
                                 <div class="input-group-append">
@@ -188,6 +192,8 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
+                                    step="0.1"
+                                    placeholder="0.0"
                                     v-model="formInput.suhu"
                                 />
                                 <div class="input-group-append">
@@ -209,6 +215,7 @@
                                 type="number"
                                 class="form-control"
                                 min="0"
+                                placeholder="0"
                                 v-model="formInput.vas"
                             />
                             <form-error

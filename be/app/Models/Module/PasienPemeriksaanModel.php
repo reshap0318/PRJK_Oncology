@@ -3,6 +3,7 @@
 namespace App\Models\Module;
 
 use App\Helpers\Authorization;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -60,7 +61,7 @@ class PasienPemeriksaanModel extends Model
 
     public function dokter()
     {
-        return $this->hasOne(PasienModel::class, 'id', 'user_id')->withDefault(['name' => 'tidak ditemukan']);
+        return $this->hasOne(User::class, 'id', 'user_id')->withDefault(['name' => 'tidak ditemukan']);
     }
 
     public function diagnosa()
@@ -140,5 +141,10 @@ class PasienPemeriksaanModel extends Model
     public function sickness()
     {
         return $this->hasMany(PemeriksaanSicknessModel::class, 'inspection_id', 'id');
+    }
+
+    public function operasis()
+    {
+        return $this->hasMany(PemeriksaanOperasiModel::class, 'inspection_id', 'id');
     }
 }

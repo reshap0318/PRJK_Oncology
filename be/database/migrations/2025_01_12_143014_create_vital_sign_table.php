@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedInteger('td')->nullable();
             $table->unsignedInteger('nadi')->nullable();
             $table->unsignedInteger('rr')->nullable();
-            $table->unsignedInteger('suhu')->nullable();
-            $table->unsignedInteger('sp_o2')->nullable();
+            $table->float('suhu', 3, 2)->nullable();
+            $table->float('sp_o2', 3, 2)->nullable();
             $table->unsignedInteger('vas')->nullable();
             $table->text('description')->nullable();
             $table->text('kgb')->nullable();

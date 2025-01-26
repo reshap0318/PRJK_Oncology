@@ -1,13 +1,13 @@
 <template>
     <div class="row">
-        <div class="col-12 col-sm-6 mb-4">
+        <div class="col-12 col-xl-6 mb-4">
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> Jenis Sel </span>
                     </label>
-                    <div class="d-flex align-items-center my-1">
-                        <label class="form-check form-check-custom form-check-solid me-10">
+                    <div class="d-flex align-items-center flex-wrap my-1">
+                        <label class="form-check form-check-custom form-check-solid me-10 mb-3">
                             <input
                                 multiple
                                 class="form-check-input h-20px w-20px"
@@ -17,7 +17,7 @@
                             />
                             <span class="form-check-label fw-semibold"> Sel Kecil </span>
                         </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
+                        <label class="form-check form-check-custom form-check-solid me-10 mb-3">
                             <input
                                 multiple
                                 class="form-check-input h-20px w-20px"
@@ -27,7 +27,7 @@
                             />
                             <span class="form-check-label fw-semibold"> Sel Besar </span>
                         </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
+                        <label class="form-check form-check-custom form-check-solid me-10 mb-3">
                             <input
                                 multiple
                                 class="form-check-input h-20px w-20px"
@@ -37,7 +37,7 @@
                             />
                             <span class="form-check-label fw-semibold"> Adenokarsenoma </span>
                         </label>
-                        <label class="form-check form-check-custom form-check-solid me-10">
+                        <label class="form-check form-check-custom form-check-solid me-10 mb-3">
                             <input
                                 multiple
                                 class="form-check-input h-20px w-20px"
@@ -46,6 +46,16 @@
                                 :value="4"
                             />
                             <span class="form-check-label fw-semibold"> KSS </span>
+                        </label>
+                        <label class="form-check form-check-custom form-check-solid me-10 mb-3">
+                            <input
+                                multiple
+                                class="form-check-input h-20px w-20px"
+                                type="checkbox"
+                                v-model="formInput.jenis_sel"
+                                :value="5"
+                            />
+                            <span class="form-check-label fw-semibold"> KPKBSK </span>
                         </label>
                     </div>
                     <form-error
@@ -60,7 +70,7 @@
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> PS </span>
                     </label>
-                    <div class="d-flex align-items-center my-1">
+                    <div class="d-flex align-items-center flex-wrap my-1">
                         <label class="form-check form-check-custom form-check-solid me-10">
                             <input
                                 multiple
@@ -334,7 +344,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-xl-6">
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">

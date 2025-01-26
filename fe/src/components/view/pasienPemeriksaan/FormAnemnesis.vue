@@ -34,6 +34,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
+                                    placeholder="0"
                                     v-model="d.duration"
                                 />
                                 <div class="input-group-append">
@@ -48,7 +49,7 @@
                             />
                         </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-9" v-if="false">
                         <button
                             v-if="i != 0 || (i == 0 && formInput.keluhans.length > 1)"
                             class="btn btn-danger mt-8 me-3"
@@ -101,6 +102,7 @@
                                     type="number"
                                     class="form-control"
                                     min="0"
+                                    placeholder="0"
                                     v-model="d.duration"
                                 />
                                 <div class="input-group-append">

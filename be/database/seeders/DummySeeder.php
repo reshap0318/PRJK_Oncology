@@ -70,6 +70,7 @@ class DummySeeder extends Seeder
         }
 
 
+        $dokterId = 3;
         $pasients = [
             [
                 "no_mr"         => "OJT04123",
@@ -86,7 +87,7 @@ class DummySeeder extends Seeder
                 'inspections'   => [
                     [
                         'inspection_at'     => '2025-01-05',
-                        'user_id'           => 3,
+                        'user_id'           => $dokterId,
                         'inspection_vital'  => [
                             "awareness"     => "Testing Kesadaran",
                             "condition"     => 3,
@@ -191,11 +192,6 @@ class DummySeeder extends Seeder
                                 "tag"           => 1
                             ],
                             [
-                                "description"   => "Testing Keluhan 2",
-                                "duration"      => 666,
-                                "tag"           => 1
-                            ],
-                            [
                                 "description"   => "Testing Gejala 1",
                                 "duration"      => 765,
                                 "tag"           => 2
@@ -219,6 +215,15 @@ class DummySeeder extends Seeder
                                 "description"   => "Testing Penyakit 2",
                             ],
                         ],
+                        'operasis'       => [
+                            [
+                                "date"          => "2025-01-11",
+                                "category"      => "Testing Kategori Operasi",
+                                "margin"        => [1],
+                                "dokter_id"     => $dokterId,
+                                "description"   => "Testing Penyakit 1",
+                            ],
+                        ]
                     ]
                 ]
             ],
@@ -265,6 +270,9 @@ class DummySeeder extends Seeder
                 $sickness = $inspection['sickness'];
                 unset($inspection['sickness']);
 
+                $operasis = $inspection['operasis'];
+                unset($inspection['operasis']);
+
                 $pemeriksaanObj = PasienPemeriksaanModel::create(array_merge($inspection, ['pasien_id' => $pasientObj->id]));
 
                 $pemeriksaanObj->vital()->create($vital);
@@ -274,6 +282,7 @@ class DummySeeder extends Seeder
                 $pemeriksaanObj->riskFactors()->createMany($riskFactors);
                 $pemeriksaanObj->complains()->createMany($complains);
                 $pemeriksaanObj->sickness()->createMany($sickness);
+                $pemeriksaanObj->operasis()->createMany($operasis);
             }
         }
     }

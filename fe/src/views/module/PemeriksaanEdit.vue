@@ -10,7 +10,7 @@
     </div>
     <div class="py-5 px-10">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body py-4">
                         <div v-for="d in menus" :key="d.code" class="my-3">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-9 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <template v-if="formActive == 'ONC000'">
@@ -80,7 +80,9 @@
                         <template v-else-if="formActive == 'ONC004'">
                             <FormDiagnosa />
                         </template>
-                        <template v-else-if="formActive == 'ONC0051'">E1</template>
+                        <template v-else-if="formActive == 'ONC0051'">
+                            <FormOperasi />
+                        </template>
                         <template v-else-if="formActive == 'ONC0052'">E2</template>
                         <template v-else-if="formActive == 'ONC006'">
                             <FormOutcome />
@@ -97,6 +99,7 @@ import FormAnemnesis from '@/components/view/pasienPemeriksaan/FormAnemnesis.vue
 import FormPemeriksaanFisik from '@/components/view/pasienPemeriksaan/FormPemeriksaanFisik.vue'
 import FormDiagnosa from '@/components/view/pasienPemeriksaan/FormDiagnosa.vue'
 import FormOutcome from '@/components/view/pasienPemeriksaan/FormOutcome.vue'
+import FormOperasi from '@/components/view/pasienPemeriksaan/OperasiView.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -169,11 +172,19 @@ const menus = ref([
         children: [
             {
                 code: 'ONC0051',
-                label: 'Testing - 1'
+                label: 'Operasi'
             },
             {
                 code: 'ONC0052',
-                label: 'Testing - 2'
+                label: 'Kemoterapi'
+            },
+            {
+                code: 'ONC0053',
+                label: 'Radioterapi'
+            },
+            {
+                code: 'ONC0054',
+                label: 'Terapi Target'
             }
         ]
     },

@@ -26,22 +26,27 @@ class PasienPemeriksaanService extends BaseService
 
         $data['vital']['kgb_option'] = $data['vital']['kgb'] == null ? 0 : 1;
 
-        $paparan_asap_rokok = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_ASAP_ROKOK)?->only(['id', 'own', 'value']);
-        $pekerjaan_beresiko = $data->riskFactors->firstWhere('category', PFS::K_PEKERJAAN_BERESIKO)?->only(['id', 'own', 'value']);
-        $tempat_tinggal_pabrik = $data->riskFactors->firstWhere('category', PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK)?->only(['id', 'own', 'value']);
-        $riwayat_keganasan_organ_lain = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_ORGAN_LAIN)?->only(['id', 'own', 'value']);
-        $paparan_radon = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_RADON)?->only(['id', 'own', 'value']);
+        $defaultAnamnesis = [
+            'own' => 0,
+            'value' => null
+        ];
+
+        $paparan_asap_rokok = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_ASAP_ROKOK)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
+        $pekerjaan_beresiko = $data->riskFactors->firstWhere('category', PFS::K_PEKERJAAN_BERESIKO)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
+        $tempat_tinggal_pabrik = $data->riskFactors->firstWhere('category', PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
+        $riwayat_keganasan_organ_lain = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_ORGAN_LAIN)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
+        $paparan_radon = $data->riskFactors->firstWhere('category', PFS::K_PAPARAN_RADON)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($paparan_radon && !$paparan_radon['value']) $paparan_radon['value'] = [];
-        $biomess = $data->riskFactors->firstWhere('category', PFS::K_BIOMESS)?->only(['id', 'own', 'value']);
+        $biomess = $data->riskFactors->firstWhere('category', PFS::K_BIOMESS)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($biomess && !$biomess['value']) $biomess['value'] = [];
-        $riwayat_ppok = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_PPOK)?->only(['id', 'own', 'value']);
+        $riwayat_ppok = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_PPOK)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($riwayat_ppok && !$riwayat_ppok['value']) $riwayat_ppok['value'] = now()->format("Y");
-        $riwayat_tb = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_TB)?->only(['id', 'own', 'value']);
+        $riwayat_tb = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_TB)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($riwayat_tb && !$riwayat_tb['value']) $riwayat_tb['value'] = [
             'tahun' => now()->format("Y"),
             'oat'   => null
         ];
-        $riwayat_kaganasan_keluarga = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA)?->only(['id', 'own', 'value']);
+        $riwayat_kaganasan_keluarga = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($riwayat_kaganasan_keluarga && !$riwayat_kaganasan_keluarga['value']) $riwayat_kaganasan_keluarga['value'] = [
             'siapa' => null,
             'apa'   => null,
@@ -72,7 +77,7 @@ class PasienPemeriksaanService extends BaseService
                 "keluhans" => array_values($keluhans),
                 "gejalas" => array_values($gejalas),
                 "penyakit_riwayats" => $sickness_history,
-                "penyakits" => $data->sickness,
+                "penyakits" => count($data->sickness) != 0 ? $data->sickness : [['description' => null]],
                 "kategori_perokok" => $data->smokingHistory,
                 "paparan_asap_rokok" => $paparan_asap_rokok,
                 "pekerjaan_beresiko" => $pekerjaan_beresiko,

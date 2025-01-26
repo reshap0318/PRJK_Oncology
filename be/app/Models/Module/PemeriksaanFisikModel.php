@@ -39,8 +39,8 @@ class PemeriksaanFisikModel extends Model
         "td"            => 'integer',
         "nadi"          => 'integer',
         "rr"            => 'integer',
-        "suhu"          => 'integer',
-        "sp_o2"         => 'integer',
+        "suhu"          => 'float:3,2',
+        "sp_o2"         => 'float:3,2',
         "vas"           => 'integer',
     ];
 }
