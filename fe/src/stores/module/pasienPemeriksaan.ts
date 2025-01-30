@@ -351,52 +351,11 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
 
     const formUpdateValidated = useVuelidate(rulesUpdate, formUpdate)
 
-    async function create(request: any) {
-        const utils = useAuthStore()
-        base.loading.value['create'] = true
-        return new Promise((resolve, reject) => {
-            client()
-                .post(basePath, request, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then((res: any) => {
-                    utils.setFormErrorEmpty()
-                    return resolve(res)
-                })
-                .catch((err: any) => reject(err))
-                .finally(() => (base.loading.value['create'] = false))
-        })
-    }
-
-    async function update(id: number, request: any) {
-        const utils = useAuthStore()
-        request._method = 'PATCH'
-        base.loading.value['update'] = true
-        return new Promise((resolve, reject) => {
-            client()
-                .post(`${basePath}/${id}`, request, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then((res: any) => {
-                    utils.setFormErrorEmpty()
-                    return resolve(res)
-                })
-                .catch((err: any) => reject(err))
-                .finally(() => (base.loading.value['update'] = false))
-        })
-    }
-
     return {
         ...base,
         formUpdate,
         formUpdateValidated,
         formCreate,
-        formCreateValidated,
-        create,
-        update
+        formCreateValidated
     }
 })

@@ -8,6 +8,8 @@ use App\Http\Controllers\Auth\{
 use App\Http\Controllers\Module\{
     PasienController,
     PasienPemeriksaanController,
+    PemeriksaanKemoterapiController,
+    PemeriksaanKemoterapiFUController,
     PemeriksaanOperasiController
 };
 use App\Http\Controllers\SelectController;
@@ -106,6 +108,22 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/datatable', [PemeriksaanOperasiController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-operasi');
         Route::patch('/{id}', [PemeriksaanOperasiController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PemeriksaanOperasiController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-kemoterapi')->as('pemeriksaan-kemoterapi')->middleware('log:pemeriksaan-kemoterapi')->group(function () {
+        Route::get('/{id}', [PemeriksaanKemoterapiController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanKemoterapiController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanKemoterapiController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-kemoterapi');
+        Route::patch('/{id}', [PemeriksaanKemoterapiController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanKemoterapiController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-kemoterapi-fu')->as('pemeriksaan-kemoterapi-fu')->middleware('log:pemeriksaan-kemoterapi-fu')->group(function () {
+        Route::get('/{id}', [PemeriksaanKemoterapiFUController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanKemoterapiFUController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanKemoterapiFUController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-kemoterapi-fu');
+        Route::patch('/{id}', [PemeriksaanKemoterapiFUController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanKemoterapiFUController::class, 'destroy'])->name('.delete');
     });
 
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');

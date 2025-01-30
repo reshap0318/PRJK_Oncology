@@ -49,14 +49,14 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): JsonResponse
     {
         return $this->mainService->transaction(function() use ($request) {
-            return $this->mainService->update($request->except(['nik', 'email']));
+            return $this->mainService->updateProfile($request->except(['nik', 'email']));
         })->responseResult();
     }
 
     public function changePassword(ProfileChangePasswordRequest $request): JsonResponse
     {
         return $this->mainService->transaction(function() use ($request) {
-            return $this->mainService->update($request->all());
+            return $this->mainService->updateProfile($request->all());
         })->responseResult();
     }
 }

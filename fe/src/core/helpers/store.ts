@@ -13,8 +13,11 @@ type TBaseFunction = {
     getDetail: (id: number | string) => Promise<any>
     create: (request: any) => Promise<any>
     update: (id: number | string, request: any) => Promise<any>
+    createFile: (request: any) => Promise<any>
+    updateFile: (id: number | string, request: any) => Promise<any>
     delete: (id: number | string) => Promise<any>
     actionUpSert: (data: any) => Promise<any>
+    actionUpSertFile: (id: number | string) => Promise<any>
     actionDelete: (id: number | string) => Promise<any>
 }
 
@@ -97,6 +100,45 @@ export function baseStore(basePath: string): TBaseFunction {
         })
     }
 
+    async function createFile(request: any) {
+        const utils = useAuthStore()
+        loading.value['create'] = true
+        return new Promise((resolve, reject) => {
+            client()
+                .post(`${basePath}`, request, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then((res: any) => {
+                    utils.setFormErrorEmpty()
+                    return resolve(res)
+                })
+                .catch((err: any) => reject(err))
+                .finally(() => (loading.value['create'] = false))
+        })
+    }
+
+    async function updateFile(id: number | string, request: any) {
+        const utils = useAuthStore()
+        request._method = 'PATCH'
+        loading.value['update'] = true
+        return new Promise((resolve, reject) => {
+            client()
+                .post(`${basePath}/${id}`, request, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then((res: any) => {
+                    utils.setFormErrorEmpty()
+                    return resolve(res)
+                })
+                .catch((err: any) => reject(err))
+                .finally(() => (loading.value['update'] = false))
+        })
+    }
+
     async function destroy(id: number | string) {
         const utils = useAuthStore()
         loading.value['destroy'] = true
@@ -119,6 +161,29 @@ export function baseStore(basePath: string): TBaseFunction {
                 result = create(data.form)
             } else {
                 result = update(data.editId, data.form)
+            }
+            result
+                .then((res: any) => {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: res.message,
+                        icon: 'success'
+                    }).then(() => {
+                        resolve(res)
+                    })
+                })
+                .catch((err) => reject(err))
+        })
+    }
+
+    async function actionUpSertFile(data: any) {
+        return new Promise((resolve, reject) => {
+            let result = new Promise((resolve) => resolve({ message: 'Success' }))
+            if ([0, null, ''].includes(data.editId)) {
+                delete data.form._method
+                result = createFile(data.form)
+            } else {
+                result = updateFile(data.editId, data.form)
             }
             result
                 .then((res: any) => {
@@ -173,6 +238,9 @@ export function baseStore(basePath: string): TBaseFunction {
         update: update,
         delete: destroy,
         actionUpSert: actionUpSert,
-        actionDelete: actionDelete
+        actionDelete: actionDelete,
+        createFile: createFile,
+        updateFile: updateFile,
+        actionUpSertFile: actionUpSertFile,
     }
 }

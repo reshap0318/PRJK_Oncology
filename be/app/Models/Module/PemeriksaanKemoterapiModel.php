@@ -3,31 +3,28 @@
 namespace App\Models\Module;
 
 use App\Helpers\Authorization;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use PharIo\Manifest\Author;
 
-class PemeriksaanOperasiModel extends Model
+class PemeriksaanKemoterapiModel extends Model
 {
     use HasFactory;
-
-    protected $table = 'i_operasi';
+    protected $table = 'i_kemoterapi';
     protected $primaryKey = 'id';
 
     protected $fillable = [
         "inspection_id",
-        "dokter_id",
-        "date",
+        "lini",
         "category",
-        "margin",
-        "description",
+        "dose",
+        "description"
     ];
 
     protected $casts = [
-        'date'          => 'date:Y-m-d',
-        'margin'        => 'array',
+        "lini"          => "integer",
+        "category"      => "integer",
+        "dose"          => "array",
     ];
 
     protected function actionModel(): Attribute
@@ -35,6 +32,10 @@ class PemeriksaanOperasiModel extends Model
         return Attribute::make(
             get: function ($value) {
                 return [
+                    'follow' => [
+                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.show'),
+                        'link'  => null,
+                    ],
                     'edit' => [
                         'isCan' => Authorization::hasPermission('pasien-pemeriksaan.inspection'),
                         'link'  => null,
@@ -48,8 +49,13 @@ class PemeriksaanOperasiModel extends Model
         );
     }
 
-    public function dokter()
+    public function inspection()
     {
-        return $this->hasOne(User::class, 'id', 'dokter_id')->withDefault(['name' => 'tidak ditemukan']);
+        return $this->belongsTo(PasienPemeriksaanModel::class, 'inspection_id', 'id');
+    }
+
+    public function fus()
+    {
+        return $this->hasMany(PemeriksaanKemoterapiFUModel::class, 'kemo_id', 'id');
     }
 }

@@ -64,4 +64,21 @@ class BaseService
             return Error::defaultErrorExtraCodeAndMessage($this->code, $this->message);
         }
     }
+
+    public function create($data)
+    {
+        $res = $this->mainRepository->create($data);
+        return $res;
+    }
+
+    public function update($id, $data)
+    {
+        $res = $this->mainRepository->update($id, $data);
+        return $res;
+    }
+
+    public function delete($id)
+    {
+        return $this->mainRepository->delete($id);
+    }
 }

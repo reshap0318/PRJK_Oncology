@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="mb-0">Operasi</h3>
+        <h3 class="mb-0">Kemoterapi</h3>
         <button class="btn btn-info btn-sm" @click="formModal.show({ inspection_id: id })">
             Tambah
         </button>
     </div>
     <DataTable
         ref="table"
-        :url="operasiStore.datatableLink"
+        :url="kemoterapiStore.datatableLink"
         :data="{ pemeriksaan_id: id }"
         :columns="columns"
         :options="options"
@@ -15,40 +15,43 @@
         @onDelete="handleBtnDelete"
     />
     <FormModal ref="formModal" @onSubmit="actionUpSert" />
+    <FollowUp ref="followUp" />
 </template>
 <script lang="ts" setup>
-import FormModal from './OperasiForm.vue'
+import FormModal from './Form.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
-import { usePemeriksaanOperasiStore } from '@/stores/module/pemeriksaanOperasi'
+import FollowUp from './FollowUp.vue'
+import { usePemeriksaanKemoterapiStore } from '@/stores/module/pemeriksaanKemoterapi'
 
 import type { ConfigColumns, Config } from 'datatables.net'
 import { btnAction } from '@/core/helpers/datatable'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-const operasiStore = usePemeriksaanOperasiStore()
+const kemoterapiStore = usePemeriksaanKemoterapiStore()
 const table = ref()
 const formModal = ref()
+const followUp = ref()
 const route = useRoute()
 const id = computed(() => route.params.id as string)
 
 const columns = ref<Array<ConfigColumns>>([
     {
         data: 'id',
-        name: 'o.id',
+        name: 'id',
         title: 'No'
     },
     {
-        data: 'date',
-        name: 'o.date',
-        title: 'Tanggal Operasi',
+        data: 'lini',
+        name: 'lini',
+        title: 'Lini Ke',
         className: 'w-30p text-start'
     },
     {
-        data: 'category',
-        name: 'o.category',
-        title: 'Jenis Operasi',
-        className: 'w-60p'
+        data: 'description',
+        name: 'description',
+        title: 'Resume',
+        className: 'w-60p text-start'
     },
     {
         data: 'action',
@@ -64,21 +67,35 @@ const options = ref<Config>({
 })
 
 function handleBtnEdit(row: any): void {
-    const payload = { ...row }
-    payload.gender = row.gender === 'Perempuan' ? 0 : 1
-    formModal.value.show(payload)
+    kemoterapiStore.getDetail(row.id).then((res) => {
+        delete res.data.created_at
+        delete res.data.updated_at
+        const ref = {
+            rontgen: res.data.rontgen_url,
+            ct_scan: res.data.ct_scan_url
+        }
+        formModal.value.show(res.data, ref)
+    })
 }
 
 function handleBtnDelete(id: number): void {
-    operasiStore.actionDelete(id).then(() => {
+    kemoterapiStore.actionDelete(id).then(() => {
         table.value.reload()
     })
 }
 
 function actionUpSert(data: any): void {
-    operasiStore.actionUpSert(data).then(() => {
+    kemoterapiStore.actionUpSertFile(data).then(() => {
         formModal.value.hide()
         table.value.reload()
     })
 }
+
+onMounted(() => {
+    table.value.getDT().on('click', '.btn-follow', function (e: any) {
+        e.preventDefault()
+        const id = e.currentTarget.getAttribute('data-id')
+        followUp.value.show(id)
+    })
+})
 </script>

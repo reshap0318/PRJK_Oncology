@@ -3,7 +3,6 @@
 namespace App\Services\Module;
 
 use App\Repository\Module\PemeriksaanOperasiRepository;
-use App\Repository\Module\PemeriksaanSicknessRepository;
 use App\Services\BaseService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -36,22 +35,5 @@ class PemeriksaanOperasiService extends BaseService
                 return $data->actionModel;
             })
             ->make(true);
-    }
-
-    public function create($data)
-    {
-        $res = $this->mainRepository->create($data);
-        return $res;
-    }
-
-    public function update($id, $data)
-    {
-        $res = $this->mainRepository->update($id, $data);
-        return $res;
-    }
-
-    public function delete($id)
-    {
-        return $this->mainRepository->delete($id);
     }
 }

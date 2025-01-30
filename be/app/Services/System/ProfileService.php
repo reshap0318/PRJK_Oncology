@@ -37,7 +37,7 @@ class ProfileService extends BaseService
         return Authorization::getUserAkses(Auth::id());
     }
 
-    public function update($data)
+    public function updateProfile($data)
     {
         if (isset($data['avatar']) && $data['avatar']->isValid()) {
             $fileName = Auth::user()->username . "." . $data['avatar']->extension();

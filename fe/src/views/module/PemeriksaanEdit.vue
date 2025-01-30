@@ -83,7 +83,11 @@
                         <template v-else-if="formActive == 'ONC0051'">
                             <FormOperasi />
                         </template>
-                        <template v-else-if="formActive == 'ONC0052'">E2</template>
+                        <template v-else-if="formActive == 'ONC0052'">
+                            <FormKemoterapi />
+                        </template>
+                        <template v-else-if="formActive == 'ONC0053'"> C3 </template>
+                        <template v-else-if="formActive == 'ONC0052'"> C4 </template>
                         <template v-else-if="formActive == 'ONC006'">
                             <FormOutcome />
                         </template>
@@ -99,7 +103,8 @@ import FormAnemnesis from '@/components/view/pasienPemeriksaan/FormAnemnesis.vue
 import FormPemeriksaanFisik from '@/components/view/pasienPemeriksaan/FormPemeriksaanFisik.vue'
 import FormDiagnosa from '@/components/view/pasienPemeriksaan/FormDiagnosa.vue'
 import FormOutcome from '@/components/view/pasienPemeriksaan/FormOutcome.vue'
-import FormOperasi from '@/components/view/pasienPemeriksaan/OperasiView.vue'
+import FormOperasi from '@/components/view/pasienPemeriksaan/operasi/OperasiView.vue'
+import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -202,7 +207,7 @@ function simpan() {
                 pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb = null
             }
             pemeriksaanStore
-                .update(pemeriksaanStore.formUpdate.id, pemeriksaanStore.formUpdate)
+                .updateFile(pemeriksaanStore.formUpdate.id, pemeriksaanStore.formUpdate)
                 .then((res: any) => {
                     Swal.fire({
                         title: 'Success!',
@@ -268,7 +273,7 @@ onMounted(() => {
         }
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
-            formActive.value = 'ONC000'
+            formActive.value = 'ONC0052'
         })
         Swal.close()
     })

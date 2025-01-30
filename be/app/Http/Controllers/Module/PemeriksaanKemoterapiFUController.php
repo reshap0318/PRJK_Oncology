@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Module;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Module\PemeriksaanOperasiRequest;
-use App\Services\Module\PemeriksaanOperasiService;
+use App\Http\Requests\Module\PemeriksaanKemoterapiFURequest;
+use App\Services\Module\PemeriksaanKemoterapiFUService;
 use Illuminate\Http\{
     Request,
     JsonResponse
 };
 
-
-class PemeriksaanOperasiController extends Controller
+class PemeriksaanKemoterapiFUController extends Controller
 {
     protected $mainService;
     public function __construct()
     {
-        $this->mainService = new PemeriksaanOperasiService();
+        $this->mainService = new PemeriksaanKemoterapiFUService();
+
         $this->middleware('permission:pasien-pemeriksaan.show')->only(['getData', 'datatable']);
         $this->middleware('permission:pasien-pemeriksaan.inspection')->only([
             'store', 'update', 'destroy'
@@ -35,7 +35,7 @@ class PemeriksaanOperasiController extends Controller
         return $this->mainService->datatable($request->all());
     }
 
-    public function store(PemeriksaanOperasiRequest $request)
+    public function store(PemeriksaanKemoterapiFURequest $request)
     {
         return $this->mainService->transaction(function () use ($request) {
             return $this->mainService->create($request->all());
@@ -43,7 +43,7 @@ class PemeriksaanOperasiController extends Controller
     }
 
 
-    public function update($id, PemeriksaanOperasiRequest $request)
+    public function update($id, PemeriksaanKemoterapiFURequest $request)
     {
         return $this->mainService->transaction(function () use ($id, $request) {
             return $this->mainService->update($id, $request->all());

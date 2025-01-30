@@ -134,7 +134,7 @@ function save(): void {
             Swal.showLoading()
         }
     })
-    pemeriksaanStore.create(formInput.value).then((res: any) => {
+    pemeriksaanStore.createFile(formInput.value).then((res: any) => {
         Swal.close()
         emit('onSave')
         Swal.fire({
