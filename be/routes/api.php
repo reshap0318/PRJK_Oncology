@@ -10,7 +10,9 @@ use App\Http\Controllers\Module\{
     PasienPemeriksaanController,
     PemeriksaanKemoterapiController,
     PemeriksaanKemoterapiFUController,
-    PemeriksaanOperasiController
+    PemeriksaanOperasiController,
+    PemeriksaanRadioterapiController,
+    PemeriksaanRadioterapiFUController
 };
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\System\{
@@ -124,6 +126,22 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/datatable', [PemeriksaanKemoterapiFUController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-kemoterapi-fu');
         Route::patch('/{id}', [PemeriksaanKemoterapiFUController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PemeriksaanKemoterapiFUController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-radioterapi')->as('pemeriksaan-radioterapi')->middleware('log:pemeriksaan-radioterapi')->group(function () {
+        Route::get('/{id}', [PemeriksaanRadioterapiController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanRadioterapiController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanRadioterapiController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-kemoterapi');
+        Route::patch('/{id}', [PemeriksaanRadioterapiController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanRadioterapiController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-radioterapi-fu')->as('pemeriksaan-radioterapi-fu')->middleware('log:pemeriksaan-radioterapi-fu')->group(function () {
+        Route::get('/{id}', [PemeriksaanRadioterapiFUController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanRadioterapiFUController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanRadioterapiFUController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-radioterapi-fu');
+        Route::patch('/{id}', [PemeriksaanRadioterapiFUController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanRadioterapiFUController::class, 'destroy'])->name('.delete');
     });
 
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');

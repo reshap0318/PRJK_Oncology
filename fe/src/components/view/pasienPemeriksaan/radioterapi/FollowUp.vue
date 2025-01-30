@@ -3,7 +3,7 @@
         <template #title>
             <div class="d-flex align-items-center">
                 <h3 class="mb-0 me-4">Follow Up</h3>
-                <button class="btn btn-info btn-sm" @click="formModal.show({ kemo_id: id })">
+                <button class="btn btn-info btn-sm" @click="formModal.show({ radio_id: id })">
                     Tambah
                 </button>
             </div>
@@ -12,7 +12,7 @@
             <DataTable
                 ref="table"
                 :url="fuStore.datatableLink"
-                :data="{ kemo_id: id }"
+                :data="{ radio_id: id }"
                 :columns="columns"
                 :options="options"
                 @onEdit="handleBtnEdit"
@@ -27,13 +27,13 @@
 import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
 import FollowUpForm from './FollowUpForm.vue'
-import { usePemeriksaanKemoterapiFUStore } from '@/stores/module/pemeriksaanKemoterapiFU'
+import { usePemeriksaanRadioterapiFUStore } from '@/stores/module/pemeriksaanRadioterapiFU'
 
 import type { ConfigColumns, Config } from 'datatables.net'
 import { btnAction } from '@/core/helpers/datatable'
 import { ref } from 'vue'
 
-const fuStore = usePemeriksaanKemoterapiFUStore()
+const fuStore = usePemeriksaanRadioterapiFUStore()
 const modal = ref()
 const formModal = ref()
 const table = ref()
@@ -52,26 +52,14 @@ const columns = ref<Array<ConfigColumns>>([
         className: 'w-30p text-start'
     },
     {
-        data: 'subjective',
-        name: 'subjective',
-        title: 'Subjective',
-        className: 'w-60p'
+        data: 'ct_scan_path',
+        name: 'ct_scan_path',
+        title: 'CT Scan',
+        className: 'w-70p',
+        render: (data, meta, full) => {
+            return `<a href="${full.ct_scan_url}" target="_blank">${full.ct_scan_url}</a>`
+        }
     },
-    // {
-    //     data: 'hb',
-    //     name: 'hb',
-    //     title: 'Hb'
-    // },
-    // {
-    //     data: 'leukosit',
-    //     name: 'leukosit',
-    //     title: 'Leukosit'
-    // },
-    // {
-    //     data: 'trombosit',
-    //     name: 'trombosit',
-    //     title: 'Trombosit'
-    // },
     {
         data: 'action',
         title: '',
@@ -89,7 +77,6 @@ function handleBtnEdit(row: any): void {
     delete row.created_at
     delete row.updated_at
     const ref = {
-        rontgen: row.rontgen_url,
         ct_scan: row.ct_scan_url
     }
     formModal.value.show(row, ref)
@@ -108,8 +95,8 @@ function actionUpSert(data: any): void {
     })
 }
 
-function show(kemoId: number = 0) {
-    id.value = kemoId
+function show(radioId: number = 0) {
+    id.value = radioId
     modal.value.show()
 }
 

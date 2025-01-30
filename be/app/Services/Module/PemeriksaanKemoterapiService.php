@@ -53,17 +53,21 @@ class PemeriksaanKemoterapiService extends BaseService
             "dose"          => $payload['dose'],
             "description"   => $payload['description'],
         ]);
+
+        $fu = $data->fus()->create($payload);
+
         if(isset($payload['rontgen']) && $payload['rontgen']->isValid()) {
-            $fileName = $data->id . "-rontgen." . $payload['rontgen']->extension();
+            $fileName = $fu->id . "-rontgen." . $payload['rontgen']->extension();
             $payload['rontgen_path'] = $payload['rontgen']->storeAs('kemoterapi', $fileName);
         }
 
         if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
-            $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
+            $fileName = $fu->id . "-ct-scan." . $payload['ct_scan']->extension();
             $payload['ct_scan_path'] = $payload['ct_scan']->storeAs('kemoterapi', $fileName);
         }
 
-        $data->fus()->create($payload);
+        $fu->update($payload);
+
         return $data;
     }
 

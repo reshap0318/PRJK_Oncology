@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Module;
 
+use App\Models\Module\PemeriksaanKemoterapiModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -22,7 +23,9 @@ class PemeriksaanKemoterapiFURequest extends FormRequest
      */
     public function rules(): array
     {
+        $kemoTbl = (new PemeriksaanKemoterapiModel())->getTable();
         return [
+            "radio_id"      => ["required", Rule::exists($kemoTbl, "id")],
             "date"          => "required|date_format:Y-m-d",
             "subjective"    => "required",
             "semi_ps"       => "required",

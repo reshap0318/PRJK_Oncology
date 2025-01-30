@@ -86,7 +86,9 @@
                         <template v-else-if="formActive == 'ONC0052'">
                             <FormKemoterapi />
                         </template>
-                        <template v-else-if="formActive == 'ONC0053'"> C3 </template>
+                        <template v-else-if="formActive == 'ONC0053'">
+                            <FormRadioterapi />
+                        </template>
                         <template v-else-if="formActive == 'ONC0052'"> C4 </template>
                         <template v-else-if="formActive == 'ONC006'">
                             <FormOutcome />
@@ -105,6 +107,7 @@ import FormDiagnosa from '@/components/view/pasienPemeriksaan/FormDiagnosa.vue'
 import FormOutcome from '@/components/view/pasienPemeriksaan/FormOutcome.vue'
 import FormOperasi from '@/components/view/pasienPemeriksaan/operasi/OperasiView.vue'
 import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.vue'
+import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/View.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -273,7 +276,8 @@ onMounted(() => {
         }
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
-            formActive.value = 'ONC0052'
+            formActive.value = 'ONC000'
+            formActive.value = 'ONC0053'
         })
         Swal.close()
     })
