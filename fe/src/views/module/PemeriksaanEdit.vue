@@ -123,7 +123,6 @@ const pasienStore = usePasienStore()
 const selectStore = useSelectStore()
 
 const id = computed(() => route.params.id as string)
-const backPage = computed(() => route.query.redirect as string)
 const title = ref('')
 const formActive = ref('ONC000')
 
@@ -277,7 +276,7 @@ onMounted(() => {
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
             formActive.value = 'ONC000'
-            formActive.value = 'ONC0053'
+            // formActive.value = 'ONC0053'
         })
         Swal.close()
     })
