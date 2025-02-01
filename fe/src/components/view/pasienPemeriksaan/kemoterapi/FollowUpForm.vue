@@ -1,6 +1,31 @@
 <template>
     <BaseModal modalId="createFU" ref="modal" width="mw-1000px" @onSubmit="save">
         <template #title> {{ title }} </template>
+
+        <div style="margin-left: -6px">
+            <table width="100%" class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row" style="width: 150px">Lini</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ kemo.lini }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Jenis Kemo</th>
+                        <td style="width: 10px">:</td>
+                        <td>
+                            {{ kemo.category_text }} ( {{ kemo.category_detail_text?.join(', ') }} )
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Dosis</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ kemo.dose }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <div class="row">
             <div class="col-12 col-sm-4 mb-4">
                 <div class="fv-row">
@@ -284,11 +309,14 @@ import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
+import { usePemeriksaanKemoterapiStore } from '@/stores/module/pemeriksaanKemoterapi'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
+const kemoterapiStore = usePemeriksaanKemoterapiStore()
 
-const title = computed(() => (formInput.value.id == 0 ? 'Create Follow Up' : 'Edit Follow Up'))
+const kemo = computed(() => kemoterapiStore.itemDetail)
+const title = computed(() => (formInput.value.id == 0 ? 'Tambah Follow Up' : 'Ubah Follow Up'))
 const modal = ref()
 const toxityList = computed(() => {
     if (formInput.value.toxity == 1) {

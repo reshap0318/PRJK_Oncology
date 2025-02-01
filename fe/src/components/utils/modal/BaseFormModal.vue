@@ -4,8 +4,8 @@
         <form class="form" @submit.prevent="emit('onSubmit')">
             <slot></slot>
             <div class="text-center pt-5">
-                <button type="button" class="btn btn-light me-3" @click="hide">Discard</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-light me-3" @click="hide">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </BaseModal>

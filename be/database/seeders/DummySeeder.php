@@ -91,7 +91,7 @@ class DummySeeder extends Seeder
                         'inspection_vital'  => [
                             "awareness"     => "Testing Kesadaran",
                             "condition"     => 3,
-                            "td"            => 80,
+                            "td"            => '120/100',
                             "nadi"          => 111,
                             "rr"            => 100,
                             "suhu"          => 27,

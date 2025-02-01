@@ -28,7 +28,8 @@ class PemeriksaanKemoterapiRequest extends FormRequest
             "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
             "lini"          => "required",
             "category"      => "required",
-            "dose"          => "required|array",
+            "category_detail"=> "required|array",
+            "dose"          => "required",
             "description"   => "nullable",
 
             "date"          => "required|date_format:Y-m-d",
@@ -65,6 +66,7 @@ class PemeriksaanKemoterapiRequest extends FormRequest
         return [
             "lini"              => "lini",
             "category"          => "jenis kemoterapi",
+            "category_detail"   => "",
             "dose"              => "dosis",
             "description"       => "deskripsi",
 

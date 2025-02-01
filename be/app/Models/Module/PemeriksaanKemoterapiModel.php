@@ -17,14 +17,15 @@ class PemeriksaanKemoterapiModel extends Model
         "inspection_id",
         "lini",
         "category",
+        "category_detail",
         "dose",
         "description"
     ];
 
     protected $casts = [
-        "lini"          => "integer",
-        "category"      => "integer",
-        "dose"          => "array",
+        "lini"              => "integer",
+        "category"          => "integer",
+        "category_detail"   => "array",
     ];
 
     protected function actionModel(): Attribute
@@ -45,6 +46,38 @@ class PemeriksaanKemoterapiModel extends Model
                         'link'  => null,
                     ],
                 ];
+            }
+        );
+    }
+    
+    protected function categoryText(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $list = [
+                    1 => 'Platinum',
+                    2 => 'Kombinasi',
+                ];
+                return $list[$this->category] ?? 'Tidak Diketahui';
+            }
+        );
+    }
+    
+    protected function categoryDetailText(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $list = [
+                    1 => 'Anemia',
+                    2 => 'Leukositosis',
+                    3 => 'Trombositopemia',
+                    4 => 'Allopesia',
+                    5 => 'Neuropati Perifer',
+                    6 => 'Lainnya',
+                ];
+                return array_map(function($val) use ($list) {
+                    return $list[$val] ?? 'Tidak Diketahui';
+                }, $this->category_detail);
             }
         );
     }

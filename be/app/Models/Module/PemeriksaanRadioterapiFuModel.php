@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class PemeriksaanRadioterapiFuModel extends Model
+class PemeriksaanRadioterapiFUModel extends Model
 {
     use HasFactory;
     protected $table = 'i_radioterapi_fu';

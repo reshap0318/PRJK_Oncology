@@ -4,7 +4,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Jenis Sel </span>
+                        <span> Jenis Sel </span>
                     </label>
                     <div class="d-flex align-items-center flex-wrap my-1">
                         <label class="form-check form-check-custom form-check-solid me-10 mb-3">
@@ -68,7 +68,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> PS </span>
+                        <span> PS </span>
                     </label>
                     <div class="d-flex align-items-center flex-wrap my-1">
                         <label class="form-check form-check-custom form-check-solid me-10">
@@ -121,7 +121,7 @@
                 <div class="row mb-3">
                     <div class="col-sm-3 align-self-center">
                         <label class="form-label fs-6 text-dark">
-                            <span class="required"> Mutasi </span>
+                            <span> Mutasi </span>
                         </label>
                     </div>
                     <div class="col-sm-9">
@@ -159,7 +159,7 @@
                 <div class="row mb-3">
                     <div class="col-sm-3 align-self-center">
                         <label class="form-label fs-6 text-dark">
-                            <span class="required"> PD-L1 </span>
+                            <span> PD-L1 </span>
                         </label>
                     </div>
                     <div class="col-sm-9">
@@ -176,7 +176,7 @@
                 <div class="row mb-3">
                     <div class="col-sm-3 align-self-center">
                         <label class="form-label fs-6 text-dark mt-1">
-                            <span class="required"> ALK </span>
+                            <span> ALK </span>
                         </label>
                     </div>
                     <div class="col-sm-9">
@@ -210,7 +210,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Stage </span>
+                        <span> Stage </span>
                     </label>
                     <div class="d-flex align-items-center my-1">
                         <label class="form-check form-check-custom form-check-solid me-10">
@@ -315,7 +315,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Paru </span>
+                        <span> Paru </span>
                     </label>
                     <div class="d-flex align-items-center my-1">
                         <label class="form-check form-check-custom form-check-solid me-10">
@@ -348,7 +348,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Komorbid </span>
+                        <span> Komorbid </span>
                     </label>
                     <textarea
                         class="form-control"
@@ -367,7 +367,7 @@
             <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row mb-4">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Staging T </span>
+                        <span> Staging T </span>
                     </label>
                     <textarea
                         class="form-control"
@@ -383,7 +383,7 @@
                 </div>
                 <div class="fv-row mb-4">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Staging N </span>
+                        <span> Staging N </span>
                     </label>
                     <textarea
                         class="form-control"
@@ -399,7 +399,7 @@
                 </div>
                 <div class="fv-row mb-4">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Staging M </span>
+                        <span> Staging M </span>
                     </label>
                     <textarea
                         class="form-control"

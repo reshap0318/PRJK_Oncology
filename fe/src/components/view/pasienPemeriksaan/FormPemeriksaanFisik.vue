@@ -7,7 +7,7 @@
                     <div class="col-sm-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> Kesadaran </span>
+                                <span> Kesadaran </span>
                             </label>
                             <input
                                 class="form-control"
@@ -25,7 +25,7 @@
                     <div class="col-sm-8 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> Keadaan Umum </span>
+                                <span> Keadaan Umum </span>
                             </label>
                             <div class="d-flex align-items-center my-3">
                                 <label
@@ -93,14 +93,14 @@
                     <div class="col-sm-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> TD </span>
+                                <span> TD- (Sistole/Diastole) </span>
                             </label>
                             <div class="input-group">
                                 <input
-                                    type="number"
+                                    type="text"
                                     class="form-control"
                                     min="0"
-                                    placeholder="0"
+                                    placeholder="0/0"
                                     v-model="formInput.td"
                                 />
                                 <div class="input-group-append">
@@ -116,7 +116,7 @@
                     <div class="col-sm-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> RR </span>
+                                <span> RR </span>
                             </label>
                             <div class="input-group">
                                 <input
@@ -139,7 +139,7 @@
                     <div class="col-sm-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> SpO2 </span>
+                                <span> SpO2 </span>
                             </label>
                             <div class="input-group">
                                 <input
@@ -162,7 +162,7 @@
                     <div class="col-sm-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> Nadi </span>
+                                <span> Nadi </span>
                             </label>
                             <div class="input-group">
                                 <input
@@ -185,7 +185,7 @@
                     <div class="col-sm-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> Suhu </span>
+                                <span> Suhu </span>
                             </label>
                             <div class="input-group">
                                 <input
@@ -209,7 +209,7 @@
                     <div class="col-sm-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> VAS </span>
+                                <span> VAS </span>
                             </label>
                             <input
                                 type="number"
@@ -227,7 +227,7 @@
                     <div class="col-sm-12 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> Keterangan </span>
+                                <span> Keterangan </span>
                             </label>
                             <textarea
                                 class="form-control"
@@ -294,7 +294,7 @@
                     <div class="col-sm-6">
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
-                                <span class="required"> Inspeksi </span>
+                                <span> Inspeksi </span>
                             </label>
                             <input
                                 type="text"
@@ -321,7 +321,7 @@
                         </div>
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
-                                <span class="required"> Palpasi </span>
+                                <span> Palpasi </span>
                             </label>
                             <input
                                 type="text"
@@ -337,7 +337,7 @@
                         </div>
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
-                                <span class="required"> Perkusi </span>
+                                <span> Perkusi </span>
                             </label>
                             <input
                                 type="text"
@@ -355,7 +355,7 @@
                     <div class="col-sm-6">
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
-                                <span class="required"> Auskultasi </span>
+                                <span> Auskultasi </span>
                             </label>
                             <input
                                 type="text"
@@ -371,7 +371,7 @@
                         </div>
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
-                                <span class="required"> Abdomen </span>
+                                <span> Abdomen </span>
                             </label>
                             <input
                                 type="text"
@@ -387,7 +387,7 @@
                         </div>
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
-                                <span class="required"> Ekstemitas </span>
+                                <span> Ekstemitas </span>
                             </label>
                             <input
                                 type="text"

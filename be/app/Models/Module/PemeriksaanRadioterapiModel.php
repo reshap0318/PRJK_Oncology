@@ -89,6 +89,6 @@ class PemeriksaanRadioterapiModel extends Model
 
     public function fus()
     {
-        return $this->hasMany(PemeriksaanRadioterapiFuModel::class, 'radio_id', 'id');
+        return $this->hasMany(PemeriksaanRadioterapiFUModel::class, 'radio_id', 'id');
     }
 }

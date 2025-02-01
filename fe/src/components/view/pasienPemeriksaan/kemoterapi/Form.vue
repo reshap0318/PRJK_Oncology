@@ -31,27 +31,35 @@
                     <form-error :err="v$.category" name="category" />
                 </div>
             </div>
-            <div class="col-12 mb-4" v-if="doseList.length != 0">
-                <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">
-                        <span class="required"> Dosis </span>
+            <div class="col-12 mb-4" v-if="categoryDetailList.length != 0">
+                <div class="d-flex align-items-center flex-wrap my-1">
+                    <label
+                        class="form-check form-check-custom form-check-solid me-5 mb-3"
+                        v-for="item in categoryDetailList"
+                        :key="item.id"
+                    >
+                        <input
+                            multiple
+                            class="form-check-input h-20px w-20px"
+                            type="checkbox"
+                            v-model="formInput.category_detail"
+                            :value="item.id"
+                        />
+                        <span class="form-check-label fw-semibold" v-html="item.name"> </span>
                     </label>
-                    <div class="d-flex align-items-center flex-wrap my-1 mt-4">
-                        <label
-                            class="form-check form-check-custom form-check-solid me-5 mb-3"
-                            v-for="dose in doseList"
-                            :key="dose.id"
-                        >
-                            <input
-                                multiple
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.dose"
-                                :value="dose.id"
-                            />
-                            <span class="form-check-label fw-semibold" v-html="dose.name"> </span>
-                        </label>
-                    </div>
+                </div>
+                <form-error :err="v$.category_detail" name="category_detail" />
+            </div>
+            <div class="col-12 mb-4">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark"> Dosis </label>
+                    <textarea
+                        v-model="formInput.dose"
+                        cols="30"
+                        rows="3"
+                        class="form-control"
+                        placeholder="Dosis"
+                    ></textarea>
                     <form-error :err="v$.dose" name="dose" />
                 </div>
             </div>
@@ -346,7 +354,7 @@ import BaseModal from '@/components/utils/modal/BaseFormModal.vue'
 import FormError from '@/components/utils/error/FormError.vue'
 import InputFile from '@/components/utils/form/InputFile.vue'
 
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
@@ -356,7 +364,7 @@ const authStore = useAuthStore()
 
 const title = computed(() => (formInput.value.id == 0 ? 'Create Kemoterapi' : 'Edit Kemoterapi'))
 const modal = ref()
-const doseList = computed(() => {
+const categoryDetailList = computed(() => {
     if (formInput.value.category == 1) {
         return [
             { id: 1, name: 'Karboplatin' },
@@ -395,7 +403,8 @@ const formInput = ref({
     inspection_id: 0,
     lini: null,
     category: null,
-    dose: [],
+    category_detail: [],
+    dose: null,
     description: null,
 
     date: null,
@@ -424,6 +433,7 @@ const rules = computed(() => {
     return {
         lini: { required },
         category: { required },
+        category_detail: { required },
         dose: { required },
         description: { required },
 
@@ -453,7 +463,8 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.inspection_id = payload.inspection_id || 0
     formInput.value.lini = payload.lini || null
     formInput.value.category = payload.category || null
-    formInput.value.dose = payload.dose || []
+    formInput.value.category_detail = payload.category_detail || []
+    formInput.value.dose = payload.dose || ''
     formInput.value.description = payload.description || null
 
     formInput.value.date = payload.date || null
@@ -498,4 +509,11 @@ defineExpose({
     show,
     hide
 })
+
+watch(
+    () => formInput.value.category,
+    () => {
+        formInput.value.category_detail = []
+    }
+)
 </script>

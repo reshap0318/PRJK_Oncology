@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('inspection_id');
             $table->tinyInteger('lini');
             $table->tinyInteger('category');
-            $table->json('dose'); //dosis
+            $table->json('category_detail');
+            $table->text('dose'); //dosis
             $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('inspection_id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();

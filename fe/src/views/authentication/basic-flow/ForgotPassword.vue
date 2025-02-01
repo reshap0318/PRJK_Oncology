@@ -28,11 +28,11 @@
                     id="kt_password_forgot_submit"
                     class="btn btn-lg btn-primary fw-bold me-4"
                 >
-                    Submit
+                    Simpan
                 </button>
 
                 <router-link to="/sign-in" class="btn btn-lg btn-light-primary fw-bold">
-                    Cancel
+                    Batal
                 </router-link>
             </div>
         </form>

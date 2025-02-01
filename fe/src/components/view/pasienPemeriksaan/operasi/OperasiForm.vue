@@ -112,7 +112,7 @@ const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
 const selectStore = useSelectStore()
 
-const title = computed(() => (formInput.value.id == 0 ? 'Create Operasi' : 'Edit Operasi'))
+const title = computed(() => (formInput.value.id == 0 ? 'Tambah Operasi' : 'Ubah Operasi'))
 const modal = ref()
 
 const formInput = ref({

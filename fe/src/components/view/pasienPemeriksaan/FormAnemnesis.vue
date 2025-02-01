@@ -7,7 +7,7 @@
                     <div class="col-12 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> Keluhan Utama </span>
+                                <span> Keluhan Utama </span>
                             </label>
                             <input
                                 class="form-control"
@@ -27,7 +27,7 @@
                     <div class="col-3 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Lama Keluhan</span>
+                                <span>Lama Keluhan</span>
                             </label>
                             <div class="input-group">
                                 <input
@@ -75,7 +75,7 @@
                     <div class="col-12 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Gejala Lainnya</span>
+                                <span>Gejala Lainnya</span>
                             </label>
                             <input
                                 class="form-control"
@@ -95,7 +95,7 @@
                     <div class="col-3 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Lama Keluhan</span>
+                                <span>Lama Keluhan</span>
                             </label>
                             <div class="input-group">
                                 <input
@@ -142,7 +142,7 @@
                     <div class="row px-3" v-for="(d, i) in formInput.penyakit_riwayats" :key="i">
                         <div class="col-12 mb-3">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Riwayat Penyakit Dahulu</span>
+                                <span>Riwayat Penyakit Dahulu</span>
                             </label>
                             <div class="form-control" v-html="d.description"></div>
                         </div>
@@ -151,7 +151,7 @@
                         <div class="col-12 col-sm-10 mb-3">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required">Riwayat Penyakit</span>
+                                    <span>Riwayat Penyakit</span>
                                 </label>
                                 <input
                                     class="form-control"
@@ -193,7 +193,7 @@
             <h2 class="text-uppercase mt-4">Faktor Risiko</h2>
             <div class="border-dashed mt-2 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required">Riwayat Merokok</span>
+                    <span>Riwayat Merokok</span>
                 </label>
                 <div class="d-flex align-items-center">
                     <label
@@ -238,7 +238,7 @@
                     <div class="col-sm-3 mb-3" v-if="formInput.kategori_perokok.history == 1">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Jumlah</span>
+                                <span>Jumlah</span>
                             </label>
                             <input
                                 class="form-control"
@@ -258,7 +258,7 @@
                     <div class="col-sm-3 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required"> Lama Merokok (Tahun) </span>
+                                <span> Lama Merokok (Tahun) </span>
                             </label>
                             <input
                                 class="form-control"
@@ -278,7 +278,7 @@
                     <div class="col-sm-6 mb-3" v-if="formInput.kategori_perokok.history == 1">
                         <div class="d-flex align-items-center mt-12">
                             <label class="form-label fs-6 text-dar ms-12 me-7 mb-0">
-                                <span class="required">IB</span>
+                                <span>IB</span>
                             </label>
 
                             <label
@@ -339,7 +339,7 @@
                     <div class="col-sm-9 mb-3" v-if="formInput.kategori_perokok.history == 1">
                         <div class="d-flex align-items-center mt-3">
                             <label class="form-label fs-6 text-dar me-7 mb-0">
-                                <span class="required">Cara Menghisap</span>
+                                <span>Cara Menghisap</span>
                             </label>
 
                             <label
@@ -381,7 +381,7 @@
         <div class="col-12 col-sm-6">
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Paparan Asap Rokok Lingkungan </span>
+                    <span> Paparan Asap Rokok Lingkungan </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -425,7 +425,7 @@
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Pekerjaan Beresiko </span>
+                    <span> Pekerjaan Beresiko </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -469,7 +469,7 @@
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Tempat Tinggal Disekitar Pabrik </span>
+                    <span> Tempat Tinggal Disekitar Pabrik </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -513,7 +513,7 @@
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark my-3">
-                    <span class="required"> Riwayat Keganasan di Organ Lain </span>
+                    <span> Riwayat Keganasan di Organ Lain </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -557,7 +557,7 @@
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Paparan Radon </span>
+                    <span> Paparan Radon </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -626,7 +626,7 @@
         <div class="col-12 col-sm-6">
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Biomess </span>
+                    <span> Biomess </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -690,7 +690,7 @@
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Riwayat PPOK </span>
+                    <span> Riwayat PPOK </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -732,7 +732,7 @@
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Riwayat TB </span>
+                    <span> Riwayat TB </span>
                 </label>
                 <div class="d-flex align-items-center my-3">
                     <label
@@ -764,7 +764,7 @@
                     <div class="col-sm-6">
                         <div class="fv-row mt-4 mt-sm-0">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Tahun</span>
+                                <span>Tahun</span>
                             </label>
                             <select v-model="formInput.riwayat_tb.value.tahun" class="form-control">
                                 <option v-for="i in pillihanTahuns" :key="i" :value="i">
@@ -780,7 +780,7 @@
                     <div class="col-sm-6">
                         <div class="fv-row mt-4 mt-sm-0">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">OAT</span>
+                                <span>OAT</span>
                             </label>
                             <div class="input-group">
                                 <input
@@ -804,7 +804,7 @@
 
             <div class="border-dashed mt-4 p-3" style="position: relative">
                 <label class="form-label fs-6 text-dark">
-                    <span class="required"> Riwayat Keganasan Dalam Keluarga </span>
+                    <span> Riwayat Keganasan Dalam Keluarga </span>
                 </label>
                 <div class="d-flex align-items-center mt-3">
                     <label
@@ -835,7 +835,7 @@
                     <div class="mt-3 col-sm-12">
                         <div class="fv-row mt-4 mt-sm-0">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Siapa</span>
+                                <span>Siapa</span>
                             </label>
                             <input
                                 class="form-control"
@@ -855,7 +855,7 @@
                     <div class="mt-3 col-sm-8">
                         <div class="fv-row mt-4 mt-sm-0">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Apa</span>
+                                <span>Apa</span>
                             </label>
                             <input
                                 class="form-control"
@@ -875,7 +875,7 @@
                     <div class="mt-3 col-sm-4">
                         <div class="fv-row mt-4 mt-sm-0">
                             <label class="form-label fs-6 text-dark">
-                                <span class="required">Tahun</span>
+                                <span>Tahun</span>
                             </label>
                             <select
                                 v-model="formInput.riwayat_kaganasan_keluarga.value.tahun"

@@ -20,10 +20,10 @@ class PemeriksaanKemoterapiService extends BaseService
     {
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
+        $data->category_text = $data->category_text;
+        $data->category_detail_text = $data->category_detail_text;
         
         $fuInit = (new PemeriksaanKemoterapiFURepository)->filterByKemoId($id)->filterByInitData()->first();
-        $fuInit->rontgen_url = $fuInit->rontgen_url;
-        $fuInit->ct_scan_url = $fuInit->ct_scan_url;
         
         return array_merge($fuInit->toArray(), $data->toArray());
     }
@@ -47,11 +47,12 @@ class PemeriksaanKemoterapiService extends BaseService
     public function create($payload)
     {
         $data = $this->mainRepository->create([
-            "inspection_id" => $payload['inspection_id'],
-            "lini"          => $payload['lini'],
-            "category"      => $payload['category'],
-            "dose"          => $payload['dose'],
-            "description"   => $payload['description'],
+            "inspection_id"     => $payload['inspection_id'],
+            "lini"              => $payload['lini'],
+            "category"          => $payload['category'],
+            "category_detail"   => $payload['category_detail'],
+            "dose"              => $payload['dose'],
+            "description"       => $payload['description'],
         ]);
 
         $fu = $data->fus()->create($payload);
@@ -77,10 +78,11 @@ class PemeriksaanKemoterapiService extends BaseService
         abort_if(!$data, 404, "halaman tidak ditemukan");
 
         $data->update([
-            "lini"          => $payload['lini'],
-            "category"      => $payload['category'],
-            "dose"          => $payload['dose'],
-            "description"   => $payload['description'],
+            "lini"              => $payload['lini'],
+            "category"          => $payload['category'],
+            "category_detail"   => $payload['category_detail'],
+            "dose"              => $payload['dose'],
+            "description"       => $payload['description'],
         ]);
 
         $update = [

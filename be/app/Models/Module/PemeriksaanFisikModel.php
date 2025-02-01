@@ -36,7 +36,7 @@ class PemeriksaanFisikModel extends Model
 
     protected $casts = [
         "condition"     => 'integer',
-        "td"            => 'integer',
+        // "td"            => 'integer',
         "nadi"          => 'integer',
         "rr"            => 'integer',
         "suhu"          => 'float:3,2',

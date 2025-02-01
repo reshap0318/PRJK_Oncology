@@ -8,6 +8,29 @@
                 </button>
             </div>
         </template>
+        <div style="margin-left: -6px">
+            <table width="100%" class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row" style="width: 150px">Lini</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ kemo.lini }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Jenis Kemo</th>
+                        <td style="width: 10px">:</td>
+                        <td>
+                            {{ kemo.category_text }} ( {{ kemo.category_detail_text?.join(', ') }} )
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Dosis</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ kemo.dose }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <template v-if="id != 0">
             <DataTable
                 ref="table"
@@ -28,12 +51,15 @@ import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
 import FollowUpForm from './FollowUpForm.vue'
 import { usePemeriksaanKemoterapiFUStore } from '@/stores/module/pemeriksaanKemoterapiFU'
+import { usePemeriksaanKemoterapiStore } from '@/stores/module/pemeriksaanKemoterapi'
 
 import type { ConfigColumns, Config } from 'datatables.net'
 import { btnAction } from '@/core/helpers/datatable'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
+const kemoterapiStore = usePemeriksaanKemoterapiStore()
 const fuStore = usePemeriksaanKemoterapiFUStore()
+const kemo = computed(() => kemoterapiStore.itemDetail)
 const modal = ref()
 const formModal = ref()
 const table = ref()
@@ -110,7 +136,9 @@ function actionUpSert(data: any): void {
 
 function show(kemoId: number = 0) {
     id.value = kemoId
-    modal.value.show()
+    kemoterapiStore.getDetail(kemoId).then(() => {
+        modal.value.show()
+    })
 }
 
 function hide() {

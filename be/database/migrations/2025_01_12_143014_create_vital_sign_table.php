@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id');
             $table->string('awareness', 100)->nullable();
             $table->tinyInteger('condition')->nullable();
-            $table->unsignedInteger('td')->nullable();
+            $table->char('td', 8)->nullable();
             $table->unsignedInteger('nadi')->nullable();
             $table->unsignedInteger('rr')->nullable();
             $table->float('suhu', 3, 2)->nullable();
