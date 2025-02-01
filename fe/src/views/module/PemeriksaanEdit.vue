@@ -2,11 +2,7 @@
     <div
         class="d-flex justify-content-between align-items-center border-0 py-4 pe-4 bg-light-primary"
     >
-        <h2 class="ps-4 mb-0">{{ title }}</h2>
-        <div>
-            <button class="btn btn-success btn-sm me-3" @click="simpan()">Simpan</button>
-            <button class="btn btn-danger btn-sm me-3" @click="cancel()">Batal</button>
-        </div>
+        <h2 class="ps-4 my-1">{{ title }}</h2>
     </div>
     <div class="py-5 px-10">
         <div class="row">
@@ -59,6 +55,14 @@
                                     />
                                 </div>
                             </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4">
+                            <button class="btn btn-success btn-sm me-3" @click="simpan()">
+                                Simpan
+                            </button>
+                            <button class="btn btn-danger btn-sm me-3" @click="cancel()">
+                                Batal
+                            </button>
                         </div>
                     </div>
                 </div>
