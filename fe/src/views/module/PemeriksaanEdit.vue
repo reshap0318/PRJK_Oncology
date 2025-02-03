@@ -60,9 +60,9 @@
                             <button class="btn btn-success btn-sm me-3" @click="simpan()">
                                 Simpan
                             </button>
-                            <button class="btn btn-danger btn-sm me-3" @click="cancel()">
+                            <!-- <button class="btn btn-danger btn-sm me-3" @click="cancel()">
                                 Batal
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,9 @@
                         <template v-else-if="formActive == 'ONC0053'">
                             <FormRadioterapi />
                         </template>
-                        <template v-else-if="formActive == 'ONC0052'"> C4 </template>
+                        <template v-else-if="formActive == 'ONC0054'">
+                            <FormTerapiTarget />
+                        </template>
                         <template v-else-if="formActive == 'ONC006'">
                             <FormOutcome />
                         </template>
@@ -112,6 +114,7 @@ import FormOutcome from '@/components/view/pasienPemeriksaan/FormOutcome.vue'
 import FormOperasi from '@/components/view/pasienPemeriksaan/operasi/OperasiView.vue'
 import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.vue'
 import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/View.vue'
+import FormTerapiTarget from '@/components/view/pasienPemeriksaan/terapi/View.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -280,7 +283,7 @@ onMounted(() => {
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
             formActive.value = 'ONC000'
-            formActive.value = 'ONC0052'
+            // formActive.value = 'ONC0054'
         })
         Swal.close()
     })

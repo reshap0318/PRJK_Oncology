@@ -12,7 +12,9 @@ use App\Http\Controllers\Module\{
     PemeriksaanKemoterapiFUController,
     PemeriksaanOperasiController,
     PemeriksaanRadioterapiController,
-    PemeriksaanRadioterapiFUController
+    PemeriksaanRadioterapiFUController,
+    PemeriksaanTerapiTargetController,
+    PemeriksaanTerapiTargetFUController
 };
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\System\{
@@ -131,7 +133,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::prefix('pemeriksaan-radioterapi')->as('pemeriksaan-radioterapi')->middleware('log:pemeriksaan-radioterapi')->group(function () {
         Route::get('/{id}', [PemeriksaanRadioterapiController::class, 'getData'])->name('.detail');
         Route::post('/', [PemeriksaanRadioterapiController::class, 'store'])->name('.store');
-        Route::post('/datatable', [PemeriksaanRadioterapiController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-kemoterapi');
+        Route::post('/datatable', [PemeriksaanRadioterapiController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-radioterapi');
         Route::patch('/{id}', [PemeriksaanRadioterapiController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PemeriksaanRadioterapiController::class, 'destroy'])->name('.delete');
     });
@@ -142,6 +144,22 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/datatable', [PemeriksaanRadioterapiFUController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-radioterapi-fu');
         Route::patch('/{id}', [PemeriksaanRadioterapiFUController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PemeriksaanRadioterapiFUController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-terapi-target')->as('pemeriksaan-terapi-target')->middleware('log:pemeriksaan-terapi-target')->group(function () {
+        Route::get('/{id}', [PemeriksaanTerapiTargetController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanTerapiTargetController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanTerapiTargetController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-terapi-target');
+        Route::patch('/{id}', [PemeriksaanTerapiTargetController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanTerapiTargetController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-terapi-target-fu')->as('pemeriksaan-terapi-target-fu')->middleware('log:pemeriksaan-terapi-target-fu')->group(function () {
+        Route::get('/{id}', [PemeriksaanTerapiTargetFUController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanTerapiTargetFUController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanTerapiTargetFUController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-terapi-target-fu');
+        Route::patch('/{id}', [PemeriksaanTerapiTargetFUController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanTerapiTargetFUController::class, 'destroy'])->name('.delete');
     });
 
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');

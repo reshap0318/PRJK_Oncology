@@ -37,6 +37,7 @@ class PemeriksaanKemoterapiRequest extends FormRequest
             "semi_ps"       => "required",
             "semi_bb"       => "required",
             "toxity"        => "required",
+            "toxity_detail" => "required",
             "grade"         => "required",
             "rontgen"       => [
                 "nullable",
