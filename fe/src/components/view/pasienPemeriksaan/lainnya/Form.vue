@@ -58,17 +58,18 @@
 <script lang="ts" setup>
 import BaseModal from '@/components/utils/modal/BaseFormModal.vue'
 import FormError from '@/components/utils/error/FormError.vue'
-import InputFile from '@/components/utils/form/InputFile.vue'
 
 import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, requiredIf } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
 
-const title = computed(() => (formInput.value.id == 0 ? 'Create Radioterapi' : 'Edit Radioterapi'))
+const title = computed(() =>
+    formInput.value.id == 0 ? 'Tambah Pemeriksaan Lainnya' : 'Ubah Pemeriksaan Lainnya'
+)
 const modal = ref()
 
 const formInput = ref({
