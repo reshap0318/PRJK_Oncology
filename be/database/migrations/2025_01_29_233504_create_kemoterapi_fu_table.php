@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kemo_id');
             $table->date('date');
+            $table->tinyInteger('siklus')->default(0);
             $table->text('subjective');
             $table->float('semi_ps', 5, 2);
             $table->float('semi_bb', 5, 2);

@@ -27,7 +27,7 @@
                     <form-error :err="v$.date" name="date" />
                 </div>
             </div>
-            <div class="col-12 mb-4">
+            <div class="col-12 col-sm-8 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> Jenis Kemoterapi </span>
@@ -38,6 +38,21 @@
                         <option :value="2">Kombinasi</option>
                     </select>
                     <form-error :err="v$.category" name="category" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 mb-4">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">
+                        <span class="required"> Siklus </span>
+                    </label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        v-model="formInput.siklus"
+                        min="0"
+                        placeholder="0"
+                    />
+                    <form-error :err="v$.siklus" name="siklus" />
                 </div>
             </div>
             <div class="col-12 mb-4" v-if="categoryDetailList.length != 0">
@@ -425,6 +440,7 @@ const formInput = ref({
     description: null,
 
     date: null,
+    siklus: null,
     subjective: null,
     semi_ps: null,
     semi_bb: null,
@@ -455,6 +471,7 @@ const rules = computed(() => {
         description: { required },
 
         date: { required },
+        siklus: { required },
         subjective: {}, //{ required },
         semi_ps: { required },
         semi_bb: { required },
@@ -485,6 +502,7 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.description = payload.description || null
 
     formInput.value.date = payload.date || null
+    formInput.value.siklus = payload.siklus || null
     formInput.value.subjective = payload.subjective || null
     formInput.value.semi_ps = payload.semi_ps || null
     formInput.value.semi_bb = payload.semi_bb || null

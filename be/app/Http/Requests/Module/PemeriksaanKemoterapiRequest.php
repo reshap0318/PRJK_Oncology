@@ -33,6 +33,7 @@ class PemeriksaanKemoterapiRequest extends FormRequest
             "description"   => "nullable",
 
             "date"          => "required|date_format:Y-m-d",
+            "siklus"        => "required",
             "subjective"    => "required",
             "semi_ps"       => "required",
             "semi_bb"       => "required",
@@ -72,6 +73,7 @@ class PemeriksaanKemoterapiRequest extends FormRequest
             "description"       => "deskripsi",
 
             "date"              => "tanggal",
+            "siklus"            => "siklus",
             "subjective"        => "subjektif",
             "semi_ps"           => "ps",
             "semi_bb"           => "bb",

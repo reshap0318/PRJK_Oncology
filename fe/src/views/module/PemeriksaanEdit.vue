@@ -152,27 +152,27 @@ const menus = ref([
         children: [
             {
                 code: 'ONC0031',
-                label: 'Testing - 1'
+                label: 'Radiologi'
             },
             {
                 code: 'ONC0032',
-                label: 'Testing - 2'
+                label: 'Hasil Laboratorium'
             },
             {
                 code: 'ONC0033',
-                label: 'Testing - 3'
+                label: 'Bronkoskopi'
             },
             {
                 code: 'ONC0034',
-                label: 'Testing - 4'
+                label: 'PA/Sitologi'
             },
             {
                 code: 'ONC0035',
-                label: 'Testing - 5'
+                label: 'Paal Paru'
             },
             {
                 code: 'ONC0036',
-                label: 'Testing - 6'
+                label: 'Pemeriksaan Lainnya'
             }
         ]
     },

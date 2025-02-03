@@ -16,6 +16,7 @@ class PemeriksaanKemoterapiFUModel extends Model
     protected $fillable = [
         "kemo_id",
         "date",
+        "siklus",
         "subjective",
         "semi_ps",
         "semi_bb",

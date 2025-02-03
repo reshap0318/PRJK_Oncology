@@ -87,6 +87,7 @@ class PemeriksaanKemoterapiService extends BaseService
 
         $update = [
             "date"          => $payload['date'],
+            "siklus"        => $payload['siklus'],
             "subjective"    => $payload['subjective'],
             "semi_ps"       => $payload['semi_ps'],
             "semi_bb"       => $payload['semi_bb'],

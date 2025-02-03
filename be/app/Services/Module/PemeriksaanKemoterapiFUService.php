@@ -47,6 +47,7 @@ class PemeriksaanKemoterapiFUService extends BaseService
         $data = $this->mainRepository->create([
             "kemo_id"       => $payload['kemo_id'],
             "date"          => $payload['date'],
+            "siklus"        => $payload['siklus'],
             "subjective"    => $payload['subjective'],
             "semi_ps"       => $payload['semi_ps'],
             "semi_bb"       => $payload['semi_bb'],
@@ -84,6 +85,7 @@ class PemeriksaanKemoterapiFUService extends BaseService
 
         $update = [
             "date"          => $payload['date'],
+            "siklus"        => $payload['siklus'],
             "subjective"    => $payload['subjective'],
             "semi_ps"       => $payload['semi_ps'],
             "semi_bb"       => $payload['semi_bb'],
