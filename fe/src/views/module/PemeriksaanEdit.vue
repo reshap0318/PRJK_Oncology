@@ -81,6 +81,12 @@
                         </template>
                         <template v-else-if="formActive == 'ONC0031'">C1</template>
                         <template v-else-if="formActive == 'ONC0032'">C2</template>
+                        <template v-else-if="formActive == 'ONC0033'">C3</template>
+                        <template v-else-if="formActive == 'ONC0034'">C4</template>
+                        <template v-else-if="formActive == 'ONC0035'">C5</template>
+                        <template v-else-if="formActive == 'ONC0036'">
+                            <FormLainnya />
+                        </template>
                         <template v-else-if="formActive == 'ONC004'">
                             <FormDiagnosa />
                         </template>
@@ -115,6 +121,7 @@ import FormOperasi from '@/components/view/pasienPemeriksaan/operasi/OperasiView
 import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.vue'
 import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/View.vue'
 import FormTerapiTarget from '@/components/view/pasienPemeriksaan/terapi/View.vue'
+import FormLainnya from '@/components/view/pasienPemeriksaan/lainnya/View.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'

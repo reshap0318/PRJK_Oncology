@@ -23,6 +23,7 @@ class PemeriksaanKemoterapiModel extends Model
     ];
 
     protected $casts = [
+        'date'              => 'date:Y-m-d',
         "lini"              => "integer",
         "category"          => "integer",
         "category_detail"   => "array",

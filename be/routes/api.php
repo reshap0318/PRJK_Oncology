@@ -10,6 +10,7 @@ use App\Http\Controllers\Module\{
     PasienPemeriksaanController,
     PemeriksaanKemoterapiController,
     PemeriksaanKemoterapiFUController,
+    PemeriksaanLainnyaController,
     PemeriksaanOperasiController,
     PemeriksaanRadioterapiController,
     PemeriksaanRadioterapiFUController,
@@ -160,6 +161,14 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/datatable', [PemeriksaanTerapiTargetFUController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-terapi-target-fu');
         Route::patch('/{id}', [PemeriksaanTerapiTargetFUController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PemeriksaanTerapiTargetFUController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-lainnya')->as('pemeriksaan-lainnya')->middleware('log:pemeriksaan-lainnya')->group(function () {
+        Route::get('/{id}', [PemeriksaanLainnyaController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanLainnyaController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanLainnyaController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-lainnya');
+        Route::patch('/{id}', [PemeriksaanLainnyaController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanLainnyaController::class, 'destroy'])->name('.delete');
     });
 
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');
