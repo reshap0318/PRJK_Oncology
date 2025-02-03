@@ -8,6 +8,46 @@
                 </button>
             </div>
         </template>
+        <div style="margin-left: -6px">
+            <table width="100%" class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row" style="width: 150px">Tangal</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Jenis Radioterapi</th>
+                        <td style="width: 10px">:</td>
+                        <td>
+                            {{ radio.category_text }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Dosis</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.dose }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Fraksi</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.fraksi }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">CT-Scan Baseline</th>
+                        <td style="width: 10px">:</td>
+                        <td>
+                            <a :href="radio.ct_scan_url" target="_blank">{{ radio.ct_scan_url }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Resume</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <template v-if="id != 0">
             <DataTable
                 ref="table"
@@ -28,12 +68,15 @@ import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
 import FollowUpForm from './FollowUpForm.vue'
 import { usePemeriksaanRadioterapiFUStore } from '@/stores/module/pemeriksaanRadioterapiFU'
+import { usePemeriksaanRadioterapiStore } from '@/stores/module/pemeriksaanRadioterapi'
 
 import type { ConfigColumns, Config } from 'datatables.net'
 import { btnAction } from '@/core/helpers/datatable'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const fuStore = usePemeriksaanRadioterapiFUStore()
+const radioStore = usePemeriksaanRadioterapiStore()
+const radio = computed(() => radioStore.itemDetail)
 const modal = ref()
 const formModal = ref()
 const table = ref()
@@ -97,7 +140,9 @@ function actionUpSert(data: any): void {
 
 function show(radioId: number = 0) {
     id.value = radioId
-    modal.value.show()
+    radioStore.getDetail(radioId).then(() => {
+        modal.value.show()
+    })
 }
 
 function hide() {

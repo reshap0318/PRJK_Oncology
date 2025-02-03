@@ -1,6 +1,46 @@
 <template>
     <BaseModal modalId="createFU" ref="modal" width="mw-500px" @onSubmit="save">
         <template #title> {{ title }} </template>
+        <div style="margin-left: -6px">
+            <table width="100%" class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row" style="width: 150px">Tangal</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Jenis Radioterapi</th>
+                        <td style="width: 10px">:</td>
+                        <td>
+                            {{ radio.category_text }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Dosis</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.dose }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Fraksi</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.fraksi }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">CT-Scan Baseline</th>
+                        <td style="width: 10px">:</td>
+                        <td>
+                            <a :href="radio.ct_scan_url" target="_blank">{{ radio.ct_scan_url }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 150px">Resume</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ radio.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="col-12 mb-4">
                 <div class="fv-row">
@@ -35,6 +75,7 @@ import BaseModal from '@/components/utils/modal/BaseFormModal.vue'
 import FormError from '@/components/utils/error/FormError.vue'
 import InputFile from '@/components/utils/form/InputFile.vue'
 
+import { usePemeriksaanRadioterapiStore } from '@/stores/module/pemeriksaanRadioterapi'
 import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
@@ -42,8 +83,10 @@ import { useAuthStore } from '@/stores/auth'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
+const radioStore = usePemeriksaanRadioterapiStore()
+const radio = computed(() => radioStore.itemDetail)
 
-const title = computed(() => (formInput.value.id == 0 ? 'Create Follow Up' : 'Edit Follow Up'))
+const title = computed(() => (formInput.value.id == 0 ? 'Tambah Follow Up' : 'Ubah Follow Up'))
 const modal = ref()
 
 const formInput = ref({

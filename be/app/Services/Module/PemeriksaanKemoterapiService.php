@@ -47,12 +47,12 @@ class PemeriksaanKemoterapiService extends BaseService
     public function create($payload)
     {
         $data = $this->mainRepository->create([
+            "date"              => $payload['date'],
             "inspection_id"     => $payload['inspection_id'],
             "lini"              => $payload['lini'],
             "category"          => $payload['category'],
             "category_detail"   => $payload['category_detail'],
             "dose"              => $payload['dose'],
-            "description"       => $payload['description'],
         ]);
 
         $fu = $data->fus()->create($payload);
@@ -78,11 +78,11 @@ class PemeriksaanKemoterapiService extends BaseService
         abort_if(!$data, 404, "halaman tidak ditemukan");
 
         $data->update([
+            "date"              => $payload['date'],
             "lini"              => $payload['lini'],
             "category"          => $payload['category'],
             "category_detail"   => $payload['category_detail'],
             "dose"              => $payload['dose'],
-            "description"       => $payload['description'],
         ]);
 
         $update = [
@@ -100,6 +100,7 @@ class PemeriksaanKemoterapiService extends BaseService
             "sgpt"          => $payload['sgpt'],
             "urine"         => $payload['urine'],
             "dc"            => $payload['dc'],
+            "description"   => $payload['description'],
         ];
 
         if(isset($payload['rontgen']) && $payload['rontgen']->isValid()) {

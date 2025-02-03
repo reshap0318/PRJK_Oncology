@@ -280,7 +280,7 @@ onMounted(() => {
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
             formActive.value = 'ONC000'
-            // formActive.value = 'ONC0053'
+            formActive.value = 'ONC0052'
         })
         Swal.close()
     })

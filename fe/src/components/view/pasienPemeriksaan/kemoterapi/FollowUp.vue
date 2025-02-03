@@ -24,6 +24,11 @@
                         </td>
                     </tr>
                     <tr>
+                        <th scope="row" style="width: 150px">Tanggal</th>
+                        <td style="width: 10px">:</td>
+                        <td>{{ kemo.date }}</td>
+                    </tr>
+                    <tr>
                         <th scope="row" style="width: 150px">Dosis</th>
                         <td style="width: 10px">:</td>
                         <td>{{ kemo.dose }}</td>

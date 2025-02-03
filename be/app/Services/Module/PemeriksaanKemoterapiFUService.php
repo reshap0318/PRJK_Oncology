@@ -97,6 +97,7 @@ class PemeriksaanKemoterapiFUService extends BaseService
             "sgpt"          => $payload['sgpt'],
             "urine"         => $payload['urine'],
             "dc"            => $payload['dc'],
+            "description"   => $payload['description'],
         ];
 
         if(isset($payload['rontgen']) && $payload['rontgen']->isValid()) {

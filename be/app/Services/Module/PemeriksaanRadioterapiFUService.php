@@ -48,7 +48,7 @@ class PemeriksaanRadioterapiFUService extends BaseService
 
         $update = [];
         if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
-            $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
+            $fileName = $data->id . "-ct-scan-fu." . $payload['ct_scan']->extension();
             $update['ct_scan_path'] = $payload['ct_scan']->storeAs('radioterapi', $fileName);
         }
 
@@ -66,7 +66,7 @@ class PemeriksaanRadioterapiFUService extends BaseService
         ];
 
         if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
-            $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
+            $fileName = $data->id . "-ct-scan-fu." . $payload['ct_scan']->extension();
             $update['ct_scan_path'] = $payload['ct_scan']->storeAs('radioterapi', $fileName);
         }
 

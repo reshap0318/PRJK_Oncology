@@ -15,11 +15,11 @@ class PemeriksaanKemoterapiModel extends Model
 
     protected $fillable = [
         "inspection_id",
+        "date",
         "lini",
         "category",
         "category_detail",
         "dose",
-        "description"
     ];
 
     protected $casts = [

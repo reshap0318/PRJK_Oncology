@@ -19,7 +19,8 @@ class PemeriksaanRadioterapiService extends BaseService
     public function getById($id)
     {
         $data = $this->mainRepository->filterById($id)->first();
-        abort_if(!$data, 404, "halaman tidak ditemukan");        
+        abort_if(!$data, 404, "halaman tidak ditemukan");       
+        $data->category_text = $data->category_text; 
         return $data;
     }
 
@@ -54,7 +55,7 @@ class PemeriksaanRadioterapiService extends BaseService
         ]);
 
         if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
-            $fileName = $data->id . "-ct-scan-fu." . $payload['ct_scan']->extension();
+            $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
             $data->update([
                 'ct_scan_path' => $payload['ct_scan']->storeAs('radioterapi', $fileName)
             ]);
@@ -77,7 +78,7 @@ class PemeriksaanRadioterapiService extends BaseService
         ];
 
         if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
-            $fileName = $data->id . "-ct-scan-fu." . $payload['ct_scan']->extension();
+            $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
             $update['ct_scan_path'] = $payload['ct_scan']->storeAs('radioterapi', $fileName);
         }
         
