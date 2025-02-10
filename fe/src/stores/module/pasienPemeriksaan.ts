@@ -168,7 +168,25 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             vep_ml: null,
             vep_percent: null,
             vep_kvp: null,
-            description: null,
+            description: null
+        },
+        bronkoskopi: {
+            vocal_cords: null,
+            trachea: null,
+            carina: null,
+
+            r_bu: null,
+            r_carina_second: null,
+            r_la: null,
+            r_lb: null,
+            r_ti: null,
+            r_lm: null,
+
+            l_bu: null,
+            l_carina_second: null,
+            l_la: null,
+            l_lb: null,
+            l_ld: null
         }
     })
 
@@ -360,7 +378,25 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 vep_ml: {}, //{ required },
                 vep_percent: {}, //{ required },
                 vep_kvp: {}, //{ required },
-                description: {}, //{ required },
+                description: {} //{ required },
+            },
+            bronkoskopi: {
+                vocal_cords: {}, //{ required },
+                trachea: {}, //{ required },
+                carina: {}, //{ required },
+
+                r_bu: {}, //{ required },
+                r_carina_second: {}, //{ required },
+                r_la: {}, //{ required },
+                r_lb: {}, //{ required },
+                r_ti: {}, //{ required },
+                r_lm: {}, //{ required },
+
+                l_bu: {}, //{ required },
+                l_carina_second: {}, //{ required },
+                l_la: {}, //{ required },
+                l_lb: {}, //{ required },
+                l_ld: {} //{ required },
             }
         }
     })

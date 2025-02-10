@@ -159,4 +159,26 @@ class PasienPemeriksaanModel extends Model
             "description"   => null
         ]);
     }
+
+    public function bronkoskopi()
+    {
+        return $this->hasOne(PemeriksaanBronkoskopiModel::class, 'id', 'id')->withDefault([
+            "vocal_cords"   => null,
+            "trachea"       => null,
+            "carina"        => null,
+
+            "r_bu"          => null,
+            "r_carina_second"   => null,
+            "r_la"          => null,
+            "r_lb"          => null,
+            "r_ti"          => null,
+            "r_lm"          => null,
+            
+            "l_bu"          => null,
+            "l_carina_second"   => null,
+            "l_la"          => null,
+            "l_lb"          => null,
+            "l_ld"          => null,
+        ]);
+    }
 }

@@ -90,6 +90,7 @@ class PasienPemeriksaanService extends BaseService
                 "riwayat_kaganasan_keluarga" => $riwayat_kaganasan_keluarga,
             ],
             "paal_paru" => $data->paalParu,
+            "bronkoskopi" => $data->bronkoskopi,
         ];
     }
 
@@ -263,6 +264,9 @@ class PasienPemeriksaanService extends BaseService
 
         $data->paalParu()->delete();
         $data->paalParu()->create($payload['paal_paru'] ?? []);
+
+        $data->bronkoskopi()->delete();
+        $data->bronkoskopi()->create($payload['bronkoskopi'] ?? []);
 
         return $data;
     }
