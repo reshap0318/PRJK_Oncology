@@ -39,7 +39,8 @@ class PasienPemeriksaanRepository extends BaseRepository
             'riskFactors',
             'smokingHistory',
             'complains:id,description,duration,tag,inspection_id',
-            'sickness:id,description,inspection_id'
+            'sickness:id,description,inspection_id',
+            'paalParu',
         ]);
         return $this;
     }

@@ -12,11 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('i_paal_lungs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('inspection_id');
-            $table->date('date');
+            $table->unsignedBigInteger('id');
+            $table->float('kvp_ml', 5, 2);
+            $table->float('kvp_percent', 3, 2);
+            $table->float('vep_ml', 5, 2);
+            $table->float('vep_percent', 3, 2);
+            $table->float('vep_kvp', 3, 2);
+            $table->text('description')->nullable();
             $table->timestamps();
-            $table->foreign('inspection_id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->primary('id');
+            $table->foreign('id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

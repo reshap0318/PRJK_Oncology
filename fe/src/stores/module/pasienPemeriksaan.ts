@@ -161,6 +161,14 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             progress: null,
             dead: null,
             description: null
+        },
+        paal_paru: {
+            kvp_ml: null,
+            kvp_percent: null,
+            vep_ml: null,
+            vep_percent: null,
+            vep_kvp: null,
+            description: null,
         }
     })
 
@@ -345,6 +353,14 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 progress: {}, //{ required },
                 dead: {}, //{ required },
                 description: {} //{ required }
+            },
+            paal_paru: {
+                kvp_ml: {}, //{ required },
+                kvp_percent: {}, //{ required },
+                vep_ml: {}, //{ required },
+                vep_percent: {}, //{ required },
+                vep_kvp: {}, //{ required },
+                description: {}, //{ required },
             }
         }
     })

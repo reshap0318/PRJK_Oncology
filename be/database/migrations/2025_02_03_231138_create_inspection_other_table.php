@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('i_other', function (Blueprint $table) {
             $table->id();
             $table->foreignId('inspection_id');
-            $table->date('date');
+            // $table->date('date');
             $table->string('inspector_name');
             $table->string('result');
             $table->text('description')->nullable();

@@ -147,4 +147,16 @@ class PasienPemeriksaanModel extends Model
     {
         return $this->hasMany(PemeriksaanOperasiModel::class, 'inspection_id', 'id');
     }
+
+    public function paalParu()
+    {
+        return $this->hasOne(PemeriksaanPaalParuModel::class, 'id', 'id')->withDefault([
+            "kvp_ml"        => null,
+            "kvp_percent"   => null,
+            "vep_ml"        => null,
+            "vep_percent"   => null,
+            "vep_kvp"       => null,
+            "description"   => null
+        ]);
+    }
 }

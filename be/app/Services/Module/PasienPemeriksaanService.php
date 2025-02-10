@@ -87,8 +87,9 @@ class PasienPemeriksaanService extends BaseService
                 "biomess" => $biomess,
                 "riwayat_ppok" => $riwayat_ppok,
                 "riwayat_tb" => $riwayat_tb,
-                "riwayat_kaganasan_keluarga" => $riwayat_kaganasan_keluarga
-            ]
+                "riwayat_kaganasan_keluarga" => $riwayat_kaganasan_keluarga,
+            ],
+            "paal_paru" => $data->paalParu,
         ];
     }
 
@@ -259,6 +260,9 @@ class PasienPemeriksaanService extends BaseService
                 'value' => $payload['anemnesis']['riwayat_kaganasan_keluarga']['own'] == 0 ? null : $payload['anemnesis']['riwayat_kaganasan_keluarga']['value'],
                 'category' => PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA
             ]);
+
+        $data->paalParu()->delete();
+        $data->paalParu()->create($payload['paal_paru'] ?? []);
 
         return $data;
     }

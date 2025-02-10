@@ -26,7 +26,7 @@ class PemeriksaanLainnyaRequest extends FormRequest
         $pemeriksaanTbl = (new PasienPemeriksaanModel())->getTable();
         return [
             "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
-            "date"          => "required|date_format:Y-m-d",
+            // "date"          => "required|date_format:Y-m-d",
             "inspector_name"=> "required",
             "result"        => "required",
             "description"   => "nullable",

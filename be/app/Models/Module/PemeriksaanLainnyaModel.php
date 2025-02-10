@@ -16,14 +16,10 @@ class PemeriksaanLainnyaModel extends Model
 
     protected $fillable = [
         "inspection_id",
-        "date",
+        // "date",
         "inspector_name",
         "result",
         "description",
-    ];
-
-    protected $casts = [
-        'date'              => 'date:Y-m-d',
     ];
 
     protected function actionModel(): Attribute
@@ -42,5 +38,10 @@ class PemeriksaanLainnyaModel extends Model
                 ];
             }
         );
+    }
+
+    public function inspection()
+    {
+        return $this->belongsTo(PasienPemeriksaanModel::class, 'inspection_id', 'id');
     }
 }

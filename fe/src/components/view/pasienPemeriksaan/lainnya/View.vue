@@ -39,16 +39,10 @@ const columns = ref<Array<ConfigColumns>>([
         title: 'No'
     },
     {
-        data: 'date',
-        name: 'date',
-        title: 'Tanggal',
-        className: 'w-30p text-start'
-    },
-    {
         data: 'inspector_name',
         name: 'inspector_name',
         title: 'Nama Pemeriksa',
-        className: 'w-60p text-start'
+        className: 'w-80p text-start'
     },
     {
         data: 'action',

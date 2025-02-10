@@ -2,7 +2,7 @@
     <BaseModal modalId="create" ref="modal" width="mw-800px" @onSubmit="save">
         <template #title> {{ title }} </template>
         <div class="row">
-            <div class="col-12 mb-4">
+            <!-- <div class="col-12 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> Tanggal </span>
@@ -10,7 +10,7 @@
                     <input type="date" class="form-control" v-model="formInput.date" />
                     <form-error :err="v$.date" name="date" />
                 </div>
-            </div>
+            </div> -->
             <div class="col-12 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
@@ -75,14 +75,14 @@ const modal = ref()
 const formInput = ref({
     id: 0,
     inspection_id: 0,
-    date: null,
+    // date: null,
     inspector_name: null,
     result: null,
     description: null
 })
 const rules = computed(() => {
     return {
-        date: { required },
+        // date: { required },
         inspector_name: { required },
         result: { required },
         description: { required }
@@ -94,7 +94,7 @@ function show(payload: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.inspection_id = payload.inspection_id || 0
 
-    formInput.value.date = payload.date || null
+    // formInput.value.date = payload.date || null
     formInput.value.inspector_name = payload.inspector_name || null
     formInput.value.result = payload.result || null
     formInput.value.description = payload.description || null
