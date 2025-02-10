@@ -4,10 +4,12 @@ namespace App\Services\Module;
 
 use App\Models\Module\{
     PemeriksaanComplainModel,
-    PemeriksaanFaktorResikoModel as PFS
+    PemeriksaanFaktorResikoModel as PFS,
+    PemeriksaanSitologiModel
 };
 use App\Repository\Module\PasienPemeriksaanRepository;
 use App\Repository\Module\PemeriksaanSicknessRepository;
+use App\Repository\Module\PemeriksaanSitologiRepository;
 use App\Services\BaseService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -57,6 +59,23 @@ class PasienPemeriksaanService extends BaseService
         $gejalas = $data->complains->where('tag', PemeriksaanComplainModel::T_GEJALA)->toArray();
         if (!$gejalas) $gejalas = [["description" => null, "long" => 0]];
 
+        $sitologis = [];
+        foreach (PemeriksaanSitologiModel::CATEGORY_LIST as $key => $value) {
+            $tmp = [
+                "label"         => $value,
+                "category"      => $key,
+                "date"          => null,
+                "type"          => null,
+                "type_detail"   => null,
+                "description"   => null
+            ];
+            $sitologi = $data->sitologis->firstWhere('category', $key);
+            if($sitologi) {
+                $tmp = array_merge($tmp, $sitologi->only(['type', 'type_detail', 'description']));
+            }
+            array_push($sitologis, $tmp);
+        }
+
         $sickness_history = (new PemeriksaanSicknessRepository())
             ->filterByHistory($data->pasien_id, $data->id)
             ->getQuery()
@@ -91,6 +110,7 @@ class PasienPemeriksaanService extends BaseService
             ],
             "paal_paru" => $data->paalParu,
             "bronkoskopi" => $data->bronkoskopi,
+            'sitologis'   => $sitologis
         ];
     }
 
@@ -267,6 +287,19 @@ class PasienPemeriksaanService extends BaseService
 
         $data->bronkoskopi()->delete();
         $data->bronkoskopi()->create($payload['bronkoskopi'] ?? []);
+        
+        $sitologis = array_map(function($q) use ($data) {
+            $type = $q['type'] ?? null;
+            return [
+                'inspection_id'     => $data->id,
+                "category"          => $q['category'],
+                "date"              => $q['date'] ?? null,
+                "type"              => $type,
+                "type_detail"       => $type ? ($q['type_detail'] ?? null) : null,
+                "description"       => $q['description'] ?? null,
+            ];
+        }, $payload['sitologis'] ?? []);
+        (new PemeriksaanSitologiRepository())->upsert($sitologis, ['inspection_id', 'category'], ['date', 'type', 'type_detail', 'description']);
 
         return $data;
     }

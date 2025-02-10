@@ -86,7 +86,9 @@
                         <template v-else-if="formActive == 'ONC0033'">
                             <FormBronkoskopi />
                         </template>
-                        <template v-else-if="formActive == 'ONC0034'">C4</template>
+                        <template v-else-if="formActive == 'ONC0034'">
+                            <FormSitologi />
+                        </template>
                         <template v-else-if="formActive == 'ONC0035'">
                             <FormPaalParu />
                         </template>
@@ -129,6 +131,7 @@ import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/Vie
 import FormTerapiTarget from '@/components/view/pasienPemeriksaan/terapi/View.vue'
 import FormLaboratory from '@/components/view/pasienPemeriksaan/laboratory/View.vue'
 import FormBronkoskopi from '@/components/view/pasienPemeriksaan/FormBronkoskopi.vue'
+import FormSitologi from '@/components/view/pasienPemeriksaan/FormSitologi.vue'
 import FormPaalParu from '@/components/view/pasienPemeriksaan/FormPaalParu.vue'
 import FormLainnya from '@/components/view/pasienPemeriksaan/lainnya/View.vue'
 import Swal from 'sweetalert2'
@@ -299,7 +302,7 @@ onMounted(() => {
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
             formActive.value = 'ONC000'
-            // formActive.value = 'ONC0035'
+            formActive.value = 'ONC0034'
         })
         Swal.close()
     })

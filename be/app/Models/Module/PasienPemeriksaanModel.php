@@ -181,4 +181,9 @@ class PasienPemeriksaanModel extends Model
             "l_ld"          => null,
         ]);
     }
+
+    public function sitologis()
+    {
+        return $this->hasMany(PemeriksaanSitologiModel::class, 'inspection_id', 'id');
+    }
 }

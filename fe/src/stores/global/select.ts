@@ -17,6 +17,7 @@ export const useSelectStore = defineStore('select', () => {
     const roles = ref<TOption[]>([])
     const dokters = ref<TOption[]>([])
     const pasiens = ref<TOption[]>([])
+    const sitologis = ref<TOption[]>([])
     const schedule = ref({
         timezones: [] as string[],
         frequencies: [],
@@ -84,16 +85,31 @@ export const useSelectStore = defineStore('select', () => {
         })
     }
 
+    async function getSitologiCategorys() {
+        return new Promise((resolve) => {
+            client()
+                .get('/api/select-data/sitologi-category')
+                .then((res) => {
+                    sitologis.value = res.data.map((d: any) => {
+                        return { value: d.id, label: d.name }
+                    })
+                    return resolve(res.data)
+                })
+        })
+    }
+
     return {
         roles,
         permissions,
         schedule,
         dokters,
         pasiens,
+        sitologis,
         getRoles,
         getPermissions,
         getSchedule,
         getDokters,
-        getPasiens
+        getPasiens,
+        getSitologiCategorys
     }
 })

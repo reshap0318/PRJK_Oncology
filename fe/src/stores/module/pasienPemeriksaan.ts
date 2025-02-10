@@ -187,7 +187,17 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             l_la: null,
             l_lb: null,
             l_ld: null
-        }
+        },
+        sitologis: [
+            {
+                label: null,
+                category: null,
+                date: null,
+                type: null,
+                type_detail: null,
+                description: null
+            }
+        ]
     })
 
     const rulesUpdate = computed(() => {
@@ -397,6 +407,16 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 l_la: {}, //{ required },
                 l_lb: {}, //{ required },
                 l_ld: {} //{ required },
+            },
+            sitologis: {
+                $each: helpers.forEach({
+                    type_detail: { 
+                        required: (value: string, item: any) => {
+                            if(!item.type) return true
+                            return value != null;
+                        }
+                    }
+                })
             }
         }
     })

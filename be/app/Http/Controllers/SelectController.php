@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Authorization;
 use App\Http\Responses\Success;
 use App\Models\Module\PasienModel;
+use App\Models\Module\PemeriksaanSitologiModel;
 use App\Models\UAM\PermissionModel;
 use App\Models\UAM\RoleModel;
 use App\Models\User;
@@ -28,6 +29,8 @@ class SelectController extends Controller
             $result = $this->getDokter();
         } else if ($type == 'pasien') {
             $result = $this->getPasien();
+        } else if ($type == 'sitologi-category') {
+            $result = $this->getSitologiCategory();
         }
         return Success::defaultSuccessWithData($result);
     }
@@ -78,5 +81,15 @@ class SelectController extends Controller
             ->select(['id', DB::raw("concat(no_mr, '-', name) as name")])
             ->get()
             ->toArray();
+    }
+
+    private function getSitologiCategory(): array
+    {
+        return array_map(function($d, $i) {
+            return [
+                'id' => $i,
+                'name' => $d
+            ];
+        }, PemeriksaanSitologiModel::TYPE_LIST, array_keys(PemeriksaanSitologiModel::TYPE_LIST));
     }
 }

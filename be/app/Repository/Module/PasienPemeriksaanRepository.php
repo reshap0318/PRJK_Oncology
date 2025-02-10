@@ -41,7 +41,8 @@ class PasienPemeriksaanRepository extends BaseRepository
             'complains:id,description,duration,tag,inspection_id',
             'sickness:id,description,inspection_id',
             'paalParu',
-            'bronkoskopi'
+            'bronkoskopi',
+            'sitologis'
         ]);
         return $this;
     }
