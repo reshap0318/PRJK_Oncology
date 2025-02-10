@@ -1,5 +1,5 @@
 const defaultErrorMessages = {
-    required: 'required',
+    required: 'wajib diisi',
     moreThanStartDate: 'Oops! Start date must be earlier than end date',
     moreThanStartTime: 'Oops! End time cannot be below start time',
     email: 'data must be format valid email'

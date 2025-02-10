@@ -90,7 +90,7 @@ const rules = computed(() => {
 })
 const v$ = useVuelidate(rules, formInput)
 
-function show(payload: any = {}, fileRef: any = {}) {
+function show(payload: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.inspection_id = payload.inspection_id || 0
 
