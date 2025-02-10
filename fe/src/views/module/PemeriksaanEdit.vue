@@ -79,10 +79,10 @@
                         <template v-else-if="formActive == 'ONC002'">
                             <FormPemeriksaanFisik />
                         </template>
-                        <template v-else-if="formActive == 'ONC0031'">
+                        <template v-else-if="formActive == 'ONC0031'"> C1 </template>
+                        <template v-else-if="formActive == 'ONC0032'">
                             <FormLaboratory />
                         </template>
-                        <template v-else-if="formActive == 'ONC0032'">C2</template>
                         <template v-else-if="formActive == 'ONC0033'">C3</template>
                         <template v-else-if="formActive == 'ONC0034'">C4</template>
                         <template v-else-if="formActive == 'ONC0035'">
