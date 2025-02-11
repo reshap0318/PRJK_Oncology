@@ -111,8 +111,11 @@
                         <template v-else-if="formActive == 'ONC00312'">
                             <FormTorakScan />
                         </template>
-                        <template v-else-if="formActive == 'ONC00313'"> C3 </template>
-                        <template v-else-if="formActive == 'ONC00314'">
+                        <template v-else-if="formActive == 'ONC00313'">
+                            <FormBoneSurvey />
+                        </template>
+                        <template v-else-if="formActive == 'ONC00314'"> C4 </template>
+                        <template v-else-if="formActive == 'ONC00315'">
                             <FormTorakUsg />
                         </template>
                         <template v-else-if="formActive == 'ONC0032'">
@@ -171,8 +174,9 @@ import FormSitologi from '@/components/view/pasienPemeriksaan/FormSitologi.vue'
 import FormPaalParu from '@/components/view/pasienPemeriksaan/FormPaalParu.vue'
 import FormLainnya from '@/components/view/pasienPemeriksaan/lainnya/View.vue'
 
-import FormTorakUsg from '@/components/view/pasienPemeriksaan/toraksUsg/View.vue'
 import FormTorakScan from '@/components/view/pasienPemeriksaan/toraksScan/View.vue'
+import FormBoneSurvey from '@/components/view/pasienPemeriksaan/boneSurvey/View.vue'
+import FormTorakUsg from '@/components/view/pasienPemeriksaan/toraksUsg/View.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -222,10 +226,14 @@ const menus = ref([
                     },
                     {
                         code: 'ONC00313',
-                        label: 'MRI KEPALA'
+                        label: 'BONE SURVEY'
                     },
                     {
                         code: 'ONC00314',
+                        label: 'MRI KEPALA'
+                    },
+                    {
+                        code: 'ONC00315',
                         label: 'USG TORAKS'
                     }
                 ]
