@@ -335,6 +335,9 @@ function setActive(item: any): void {
     formActive.value = item.code
     if (item.children?.length > 0) {
         formActive.value = item.children[0].code
+        if (item.children[0].children?.length > 0) {
+            formActive.value = item.children[0].children[0].code
+        }
     }
 }
 
@@ -378,7 +381,7 @@ onMounted(() => {
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
             formActive.value = 'ONC000'
-            formActive.value = 'ONC00312'
+            // formActive.value = 'ONC00312'
         })
         Swal.close()
     })
