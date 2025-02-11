@@ -108,7 +108,9 @@
                             <FormPemeriksaanFisik />
                         </template>
                         <template v-else-if="formActive == 'ONC00311'"> C1 </template>
-                        <template v-else-if="formActive == 'ONC00312'"> C2 </template>
+                        <template v-else-if="formActive == 'ONC00312'">
+                            <FormTorakScan />
+                        </template>
                         <template v-else-if="formActive == 'ONC00313'"> C3 </template>
                         <template v-else-if="formActive == 'ONC00314'">
                             <FormTorakUsg />
@@ -170,6 +172,7 @@ import FormPaalParu from '@/components/view/pasienPemeriksaan/FormPaalParu.vue'
 import FormLainnya from '@/components/view/pasienPemeriksaan/lainnya/View.vue'
 
 import FormTorakUsg from '@/components/view/pasienPemeriksaan/toraksUsg/View.vue'
+import FormTorakScan from '@/components/view/pasienPemeriksaan/toraksScan/View.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -364,7 +367,7 @@ onMounted(() => {
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
             formActive.value = 'ONC000'
-            formActive.value = 'ONC00314'
+            formActive.value = 'ONC00312'
         })
         Swal.close()
     })
