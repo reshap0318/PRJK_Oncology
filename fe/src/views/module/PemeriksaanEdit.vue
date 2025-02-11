@@ -114,7 +114,9 @@
                         <template v-else-if="formActive == 'ONC00313'">
                             <FormBoneSurvey />
                         </template>
-                        <template v-else-if="formActive == 'ONC00314'"> C4 </template>
+                        <template v-else-if="formActive == 'ONC00314'">
+                            <FormMriKepala />
+                        </template>
                         <template v-else-if="formActive == 'ONC00315'">
                             <FormTorakUsg />
                         </template>
@@ -176,6 +178,7 @@ import FormLainnya from '@/components/view/pasienPemeriksaan/lainnya/View.vue'
 
 import FormTorakScan from '@/components/view/pasienPemeriksaan/toraksScan/View.vue'
 import FormBoneSurvey from '@/components/view/pasienPemeriksaan/boneSurvey/View.vue'
+import FormMriKepala from '@/components/view/pasienPemeriksaan/mriKepala/View.vue'
 import FormTorakUsg from '@/components/view/pasienPemeriksaan/toraksUsg/View.vue'
 import Swal from 'sweetalert2'
 

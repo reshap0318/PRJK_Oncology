@@ -29,7 +29,7 @@ class PemeriksaanToraksScanRequest extends FormRequest
             "date"          => "required|date_format:Y-m-d",
             "file"          => [
                 "nullable",
-                Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
+                // Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",
             ],

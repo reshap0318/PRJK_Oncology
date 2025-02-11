@@ -70,7 +70,7 @@ const formInput = ref({
 const rules = computed(() => {
     return {
         date: { required },
-        file: { required },
+        file: {},
         description: { required }
     }
 })
