@@ -31,30 +31,58 @@
                                     />
                                 </div>
                             </div>
-                            <div
-                                v-if="checkActive(d)"
-                                v-for="e in d.children ?? []"
-                                @click="setActive(e)"
-                                :key="e.code"
-                                :class="checkActive(e) ? 'bg-info' : 'bg-gray-200'"
-                                class="row rounded ms-4 mt-4"
-                            >
+                            <template v-for="e in d.children ?? []">
                                 <div
-                                    class="col-12 p-5 d-flex flex-row align-items-center cursor-pointer"
+                                    v-if="checkActive(d)"
+                                    @click="setActive(e)"
+                                    :key="e.code"
+                                    :class="checkActive(e) ? 'bg-info' : 'bg-gray-200'"
+                                    class="row rounded ms-4 mt-4"
                                 >
-                                    <div class="me-4">
-                                        <i
-                                            class="fa fa-check-circle fs-2"
-                                            :class="checkActive(e) ? 'text-white' : ''"
-                                        ></i>
+                                    <div
+                                        class="col-12 p-5 d-flex flex-row align-items-center cursor-pointer"
+                                    >
+                                        <div class="me-4">
+                                            <i
+                                                class="fa fa-check-circle fs-2"
+                                                :class="checkActive(e) ? 'text-white' : ''"
+                                            ></i>
+                                        </div>
+                                        <span
+                                            class="fw-bolder fs-5 text-uppercase pb-1"
+                                            :class="checkActive(e) ? 'text-white' : 'text-gray-800'"
+                                            v-html="e.label"
+                                        />
                                     </div>
-                                    <span
-                                        class="fw-bolder fs-5 text-uppercase pb-1"
-                                        :class="checkActive(e) ? 'text-white' : 'text-gray-800'"
-                                        v-html="e.label"
-                                    />
                                 </div>
-                            </div>
+                                <template v-for="f in e.children ?? []">
+                                    <div
+                                        v-if="checkActive(e)"
+                                        @click="setActive(f)"
+                                        :key="f.code"
+                                        :class="checkActive(f) ? 'bg-info' : 'bg-gray-200'"
+                                        class="row rounded ms-12 mt-4 bg-gray-200"
+                                    >
+                                        <div
+                                            class="col-12 p-5 d-flex flex-row align-items-center cursor-pointer"
+                                        >
+                                            <div class="me-4">
+                                                <i
+                                                    class="fa fa-check-circle fs-2"
+                                                    :class="checkActive(f) ? 'text-white' : ''"
+                                                ></i>
+                                            </div>
+                                            <span
+                                                class="fw-bolder fs-5 text-uppercase pb-1"
+                                                :class="
+                                                    checkActive(f) ? 'text-white' : 'text-gray-800'
+                                                "
+                                                v-html="f.label"
+                                            />
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
                         </div>
                         <div class="d-flex justify-content-center mt-4">
                             <button class="btn btn-success btn-sm me-3" @click="simpan()">
@@ -79,7 +107,12 @@
                         <template v-else-if="formActive == 'ONC002'">
                             <FormPemeriksaanFisik />
                         </template>
-                        <template v-else-if="formActive == 'ONC0031'"> C1 </template>
+                        <template v-else-if="formActive == 'ONC00311'"> C1 </template>
+                        <template v-else-if="formActive == 'ONC00312'"> C2 </template>
+                        <template v-else-if="formActive == 'ONC00313'"> C3 </template>
+                        <template v-else-if="formActive == 'ONC00314'">
+                            <FormTorakUsg />
+                        </template>
                         <template v-else-if="formActive == 'ONC0032'">
                             <FormLaboratory />
                         </template>
@@ -129,11 +162,14 @@ import FormOperasi from '@/components/view/pasienPemeriksaan/operasi/OperasiView
 import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.vue'
 import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/View.vue'
 import FormTerapiTarget from '@/components/view/pasienPemeriksaan/terapi/View.vue'
+
 import FormLaboratory from '@/components/view/pasienPemeriksaan/laboratory/View.vue'
 import FormBronkoskopi from '@/components/view/pasienPemeriksaan/FormBronkoskopi.vue'
 import FormSitologi from '@/components/view/pasienPemeriksaan/FormSitologi.vue'
 import FormPaalParu from '@/components/view/pasienPemeriksaan/FormPaalParu.vue'
 import FormLainnya from '@/components/view/pasienPemeriksaan/lainnya/View.vue'
+
+import FormTorakUsg from '@/components/view/pasienPemeriksaan/toraksUsg/View.vue'
 import Swal from 'sweetalert2'
 
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
@@ -171,7 +207,25 @@ const menus = ref([
         children: [
             {
                 code: 'ONC0031',
-                label: 'Radiologi'
+                label: 'Radiologi',
+                children: [
+                    {
+                        code: 'ONC00311',
+                        label: 'RO.FOTO TORAKS'
+                    },
+                    {
+                        code: 'ONC00312',
+                        label: 'CT-SCAN TORAKS'
+                    },
+                    {
+                        code: 'ONC00313',
+                        label: 'MRI KEPALA'
+                    },
+                    {
+                        code: 'ONC00314',
+                        label: 'USG TORAKS'
+                    }
+                ]
             },
             {
                 code: 'ONC0032',
@@ -271,8 +325,16 @@ function setActive(item: any): void {
 }
 
 function checkActive(item: any): boolean {
-    if (item?.children)
-        return item.children?.filter((d: any) => d.code == formActive.value).length > 0
+    if (item.children) {
+        return (
+            item.children.filter((d: any) => {
+                return (
+                    d.code == formActive.value ||
+                    d.children?.filter((e: any) => e.code == formActive.value).length > 0
+                )
+            }).length > 0
+        )
+    }
     return formActive.value == item.code
 }
 
@@ -302,7 +364,7 @@ onMounted(() => {
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
             formActive.value = 'ONC000'
-            formActive.value = 'ONC0034'
+            formActive.value = 'ONC00314'
         })
         Swal.close()
     })

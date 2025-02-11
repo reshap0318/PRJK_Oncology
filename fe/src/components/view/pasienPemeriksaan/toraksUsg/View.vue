@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="mb-0">Pemeriksaan Lainnya</h3>
+        <h3 class="mb-0">USG Toraks</h3>
         <button class="btn btn-info btn-sm" @click="formModal.show({ inspection_id: id })">
             Tambah
         </button>
     </div>
     <DataTable
         ref="table"
-        :url="lainnyaStore.datatableLink"
+        :url="toraksUsgStore.datatableLink"
         :data="{ pemeriksaan_id: id }"
         :columns="columns"
         :options="options"
@@ -19,14 +19,14 @@
 <script lang="ts" setup>
 import FormModal from './Form.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
-import { usePemeriksaanLainnyaStore } from '@/stores/module/pemeriksaanLainnya'
+import { usePemeriksaanToraksUsgStore } from '@/stores/module/pemeriksaanToraksUsg'
 
 import type { ConfigColumns, Config } from 'datatables.net'
 import { btnAction } from '@/core/helpers/datatable'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-const lainnyaStore = usePemeriksaanLainnyaStore()
+const toraksUsgStore = usePemeriksaanToraksUsgStore()
 const table = ref()
 const formModal = ref()
 const route = useRoute()
@@ -39,10 +39,19 @@ const columns = ref<Array<ConfigColumns>>([
         title: 'No'
     },
     {
-        data: 'inspector_name',
-        name: 'inspector_name',
-        title: 'Nama Pemeriksa',
-        className: 'w-80p text-start'
+        data: 'date',
+        name: 'date',
+        title: 'tanggal',
+        className: 'w-20p text-start'
+    },
+    {
+        data: 'file_path',
+        name: 'file_path',
+        title: 'File',
+        className: 'w-60p text-start',
+        render: (value, meta, full) => {
+            return `<a href="${full.file_url}" target="_blank">${full.file_url}</a>`
+        }
     },
     {
         data: 'action',
@@ -60,17 +69,17 @@ const options = ref<Config>({
 function handleBtnEdit(row: any): void {
     delete row.created_at
     delete row.updated_at
-    formModal.value.show(row)
+    formModal.value.show(row, { file: row.file_url })
 }
 
 function handleBtnDelete(id: number): void {
-    lainnyaStore.actionDelete(id).then(() => {
+    toraksUsgStore.actionDelete(id).then(() => {
         table.value.reload()
     })
 }
 
 function actionUpSert(data: any): void {
-    lainnyaStore.actionUpSertFile(data).then(() => {
+    toraksUsgStore.actionUpSertFile(data).then(() => {
         formModal.value.hide()
         table.value.reload()
     })

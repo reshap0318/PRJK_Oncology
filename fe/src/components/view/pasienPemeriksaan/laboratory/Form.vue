@@ -385,7 +385,7 @@ const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
 
 const title = computed(() =>
-    formInput.value.id == 0 ? 'Tambah Pemeriksaan Lainnya' : 'Ubah Pemeriksaan Lainnya'
+    formInput.value.id == 0 ? 'Tambah Pemeriksaan laboratory' : 'Ubah Pemeriksaan laboratory'
 )
 const modal = ref()
 
