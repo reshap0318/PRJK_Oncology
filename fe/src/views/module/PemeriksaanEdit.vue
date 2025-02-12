@@ -107,7 +107,9 @@
                         <template v-else-if="formActive == 'ONC002'">
                             <FormPemeriksaanFisik />
                         </template>
-                        <template v-else-if="formActive == 'ONC00311'"> C1 </template>
+                        <template v-else-if="formActive == 'ONC00311'">
+                            <FormTorakFoto />
+                        </template>
                         <template v-else-if="formActive == 'ONC00312'">
                             <FormTorakScan />
                         </template>
@@ -176,6 +178,7 @@ import FormSitologi from '@/components/view/pasienPemeriksaan/FormSitologi.vue'
 import FormPaalParu from '@/components/view/pasienPemeriksaan/FormPaalParu.vue'
 import FormLainnya from '@/components/view/pasienPemeriksaan/lainnya/View.vue'
 
+import FormTorakFoto from '@/components/view/pasienPemeriksaan/toraksFoto/View.vue'
 import FormTorakScan from '@/components/view/pasienPemeriksaan/toraksScan/View.vue'
 import FormBoneSurvey from '@/components/view/pasienPemeriksaan/boneSurvey/View.vue'
 import FormMriKepala from '@/components/view/pasienPemeriksaan/mriKepala/View.vue'

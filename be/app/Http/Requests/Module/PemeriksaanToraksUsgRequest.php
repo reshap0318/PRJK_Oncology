@@ -23,7 +23,7 @@ class PemeriksaanToraksUsgRequest extends FormRequest
             "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
             "date"          => "required|date_format:Y-m-d",
             "file"          => [
-                "nullable",
+                "required",
                 // Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",

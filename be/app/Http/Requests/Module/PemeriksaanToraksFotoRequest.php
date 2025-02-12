@@ -6,7 +6,7 @@ use App\Models\Module\PasienPemeriksaanModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PemeriksaanMriKepalaRequest extends FormRequest
+class PemeriksaanToraksFotoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,12 @@ class PemeriksaanMriKepalaRequest extends FormRequest
     {
         return true;
     }
-    
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
     public function rules(): array
     {
         $pemeriksaanTbl = (new PasienPemeriksaanModel())->getTable();
@@ -28,7 +33,18 @@ class PemeriksaanMriKepalaRequest extends FormRequest
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",
             ],
-            "description"   => "nullable",
+
+            "pa_size"               => "required",
+            "pa_lokasi"             => "required",
+            "pa_efusi"              => "required",
+            "pa_efusi_lainnya"      => ["nullable", Rule::requiredIf($this->pa_efusi == 3)],
+            "pa_description"        => "nullable",
+
+            "la_size"               => "required",
+            "la_lokasi"             => "required",
+            "la_efusi"              => "required",
+            "la_efusi_lainnya"      => ["nullable", Rule::requiredIf($this->la_efusi == 3)],
+            "la_description"        => "nullable",
         ];
     }
 }

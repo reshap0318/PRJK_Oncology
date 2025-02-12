@@ -19,6 +19,7 @@ use App\Http\Controllers\Module\{
     PemeriksaanRadioterapiFUController,
     PemeriksaanTerapiTargetController,
     PemeriksaanTerapiTargetFUController,
+    PemeriksaanToraksFotoController,
     PemeriksaanToraksScanController,
     PemeriksaanToraksUsgController
 };
@@ -198,6 +199,14 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/datatable', [PemeriksaanToraksScanController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-toraks-scan');
         Route::patch('/{id}', [PemeriksaanToraksScanController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PemeriksaanToraksScanController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('pemeriksaan-toraks-foto')->as('pemeriksaan-toraks-foto')->middleware('log:pemeriksaan-toraks-foto')->group(function () {
+        Route::get('/{id}', [PemeriksaanToraksFotoController::class, 'getData'])->name('.detail');
+        Route::post('/', [PemeriksaanToraksFotoController::class, 'store'])->name('.store');
+        Route::post('/datatable', [PemeriksaanToraksFotoController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-toraks-foto');
+        Route::patch('/{id}', [PemeriksaanToraksFotoController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [PemeriksaanToraksFotoController::class, 'destroy'])->name('.delete');
     });
 
     Route::prefix('pemeriksaan-bone-survey')->as('pemeriksaan-bone-survey')->middleware('log:pemeriksaan-bone-survey')->group(function () {
