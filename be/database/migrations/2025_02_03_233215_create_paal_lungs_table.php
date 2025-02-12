@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('i_paal_lungs', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
-            $table->float('kvp_ml', 5, 2);
-            $table->float('kvp_percent', 3, 2);
-            $table->float('vep_ml', 5, 2);
-            $table->float('vep_percent', 3, 2);
-            $table->float('vep_kvp', 3, 2);
+            $table->float('kvp_ml', 5, 2)->nullable();
+            $table->float('kvp_percent', 3, 2)->nullable();
+            $table->float('vep_ml', 5, 2)->nullable();
+            $table->float('vep_percent', 3, 2)->nullable();
+            $table->float('vep_kvp', 3, 2)->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
 

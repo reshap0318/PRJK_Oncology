@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inspection_id');
             $table->unsignedTinyInteger('category');
-            $table->date('date');
-            $table->unsignedTinyInteger('type');
-            $table->unsignedTinyInteger('type_detail');
+            $table->date('date')->nullable();
+            $table->unsignedTinyInteger('type')->nullable();
+            $table->unsignedTinyInteger('type_detail')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->unique(['inspection_id', 'category']);

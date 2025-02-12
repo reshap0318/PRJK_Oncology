@@ -13,23 +13,23 @@ return new class extends Migration
     {
         Schema::create('i_bronkoskopi', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
-            $table->string('vocal_cords'); //pita suara
-            $table->string('trachea'); // trakea
-            $table->string('carina');
+            $table->string('vocal_cords')->nullable(); //pita suara
+            $table->string('trachea')->nullable(); // trakea
+            $table->string('carina')->nullable();
             
-            $table->string('r_bu');
-            $table->string('r_carina_second');
-            $table->string('r_la');
-            $table->string('r_lb');
-            $table->string('r_ti');
-            $table->string('r_lm');
+            $table->string('r_bu')->nullable();
+            $table->string('r_carina_second')->nullable();
+            $table->string('r_la')->nullable();
+            $table->string('r_lb')->nullable();
+            $table->string('r_ti')->nullable();
+            $table->string('r_lm')->nullable();
 
             
-            $table->string('l_bu');
-            $table->string('l_carina_second');
-            $table->string('l_la');
-            $table->string('l_lb');
-            $table->string('l_ld'); //lower division
+            $table->string('l_bu')->nullable();
+            $table->string('l_carina_second')->nullable();
+            $table->string('l_la')->nullable();
+            $table->string('l_lb')->nullable();
+            $table->string('l_ld')->nullable(); //lower division
             $table->timestamps();
 
             $table->primary('id');
