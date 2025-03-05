@@ -92,7 +92,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="LAKa"
+                        placeholder="TI"
                         v-model="formInput.r_ti"
                     />
                     <form-error :err="v$.bronkoskopi.r_ti" name="bronkoskopi.r_ti" />
@@ -104,7 +104,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="LAKa"
+                        placeholder="LM"
                         v-model="formInput.r_lm"
                     />
                     <form-error :err="v$.bronkoskopi.r_lm" name="bronkoskopi.r_lm" />
