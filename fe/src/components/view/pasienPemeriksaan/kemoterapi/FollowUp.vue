@@ -17,14 +17,14 @@
                         <td>{{ kemo.lini }}</td>
                     </tr>
                     <tr>
-                        <th scope="row" style="width: 150px">Jenis Kemo</th>
+                        <th scope="row" style="width: 150px">Jenis Kemoterapi</th>
                         <td style="width: 10px">:</td>
                         <td>
                             {{ kemo.category_text }} ( {{ kemo.category_detail_text?.join(', ') }} )
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row" style="width: 150px">Tanggal</th>
+                        <th scope="row" style="width: 150px">Tanggal Kemoterapi</th>
                         <td style="width: 10px">:</td>
                         <td>{{ kemo.date }}</td>
                     </tr>

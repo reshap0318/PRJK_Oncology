@@ -8,12 +8,12 @@
 .act-btn {
     background: #7239ea;
     display: block;
-    width: 40px;
-    height: 40px;
-    line-height: 35px;
+    width: 50px;
+    height: 50px;
+    line-height: 43px;
     text-align: center;
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     border-radius: 50%;
     -webkit-border-radius: 50%;

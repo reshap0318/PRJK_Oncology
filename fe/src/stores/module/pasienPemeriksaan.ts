@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import { baseStore } from '@/core/helpers/store'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf, helpers } from '@vuelidate/validators'
-import { useAuthStore } from '@/stores/auth'
 import { computed, ref } from 'vue'
 
 const basePath = '/api/pasien-pemeriksaan'
@@ -39,14 +38,14 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 {
                     id: 0,
                     description: null,
-                    duration: 0
+                    duration: null
                 }
             ],
             gejalas: [
                 {
                     id: 0,
                     description: null,
-                    duration: 0
+                    duration: null
                 }
             ],
             penyakit_riwayats: [
@@ -216,13 +215,18 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 },
                 gejalas: {
                     $each: helpers.forEach({
-                        description: { required },
-                        duration: { required }
+                        description: { },
+                        duration: { 
+                            required: (value: number, item: any) => {
+                                if(!item.description) return true
+                                return value != null;
+                            }
+                        }
                     })
                 },
                 penyakits: {
                     $each: helpers.forEach({
-                        description: { required }
+                        description: { }
                     })
                 },
                 kategori_perokok: {

@@ -147,11 +147,14 @@ function save(): void {
     })
 }
 
-function show(param: any = {}) {
+function show(param: any = {}): void {
     formInput.value = {
         dokter_id: null,
         pasien_id: null,
         tanggal: null
+    }
+    if (param.tag == 'create') {
+        pasienStore.itemDetail = {}
     }
     if (param.pasien_id) {
         formInput.value.pasien_id = param.pasien_id

@@ -11,7 +11,7 @@
         </div>
     </div>
     <FAB
-        @click="formCreate.show()"
+        @click="formCreate.show({ tag: 'create' })"
         v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
     />
     <FormCreate ref="formCreate" @onSave="tableReload()" />

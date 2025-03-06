@@ -924,7 +924,7 @@ function tambahKeluhan() {
     formInput.value.keluhans.push({
         id: 0,
         description: null,
-        duration: 0
+        duration: null
     })
 }
 
@@ -936,7 +936,7 @@ function tambahGejala() {
     formInput.value.gejalas.push({
         id: 0,
         description: null,
-        duration: 0
+        duration: null
     })
 }
 
