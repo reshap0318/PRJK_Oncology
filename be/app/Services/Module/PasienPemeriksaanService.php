@@ -185,27 +185,31 @@ class PasienPemeriksaanService extends BaseService
 
         $keluhans = ($payload['anemnesis']['keluhans'] ?? []);
         foreach ($keluhans as $key => $keluhan) {
-            if ($keluhan['id'] == 0) {
-                if(!isset($keluhan['description'])) continue;
-                $obj = $data->complains()->create([
-                    'description'   => $keluhan['description'],
-                    'duration'      => $keluhan['duration'],
-                    'tag'           => PemeriksaanComplainModel::T_KELUHAN
-                ]);
-                $keluhans[$key]['id'] = $obj->id;
-            }
-            else {
+            if (isset($keluhan['id']) && $keluhan['id'] != 0) {
                 $data->complains()->where('id', $keluhan['id'])->update([
                     'description'   => $keluhan['description'],
                     'duration'      => $keluhan['duration']
                 ]);
             }
+            else if(isset($keluhan['description'])) {
+                $obj = $data->complains()->create([
+                    'description'   => $keluhan['description'] ?? null,
+                    'duration'      => $keluhan['duration'] ?? null,
+                    'tag'           => PemeriksaanComplainModel::T_KELUHAN
+                ]);
+                $keluhans[$key]['id'] = $obj->id;
+            }
         }
         
         $gejalas = ($payload['anemnesis']['gejalas'] ?? []);
         foreach ($gejalas as $key => $gejala) {
-            if ($gejala['id'] == 0) {
-                if(!isset($gejala['description'])) continue;
+            if (isset($gejala['id']) && $gejala['id'] != 0) {
+                $data->complains()->where('id', $gejala['id'])->update([
+                    'description'   => $gejala['description'],
+                    'duration'      => $gejala['duration']
+                ]);
+            }
+            else if(isset($gejala['description'])) {
                 $obj = $data->complains()->create([
                     'description'   => $gejala['description'],
                     'duration'      => $gejala['duration'],
@@ -213,29 +217,22 @@ class PasienPemeriksaanService extends BaseService
                 ]);
                 $gejalas[$key]['id'] = $obj->id;
             }
-            else {
-                $data->complains()->where('id', $gejala['id'])->update([
-                    'description'   => $gejala['description'],
-                    'duration'      => $gejala['duration']
-                ]);
-            }
         }
 
         $data->complains()->whereNotIn('id', array_merge(array_column($keluhans, 'id'), array_column($gejalas, 'id')))->delete();
 
         $penyakits = ($payload['anemnesis']['penyakits'] ?? []);
         foreach ($penyakits as $key => $penyakit) {
-            if ($penyakit['id'] == 0) {
-                if(!isset($penyakit['description'])) continue;
+            if (isset($penyakit['id']) && $penyakit['id'] != 0) {
+                $data->sickness()->where('id', $penyakit['id'])->update([
+                    'description'   => $penyakit['description'],
+                ]);                
+            }
+            else if(!isset($penyakit['description'])) {
                 $obj = $data->sickness()->create([
                     'description'   => $penyakit['description']
                 ]);
                 $penyakits[$key]['id'] = $obj->id;
-            }
-            else {
-                $data->sickness()->where('id', $penyakit['id'])->update([
-                    'description'   => $penyakit['description'],
-                ]);
             }
         }
 
