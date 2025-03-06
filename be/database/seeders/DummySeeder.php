@@ -171,9 +171,11 @@ class DummySeeder extends Seeder
                                 "category"  => PFR::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA,
                                 "own"       => 1,
                                 "value"     => [
-                                    'siapa' => "Kakek - Kakek Dahulu",
-                                    'apa'   => "Tumor Otak",
-                                    'tahun' => 2025
+                                    [
+                                        'siapa' => "Kakek - Kakek Dahulu",
+                                        'apa'   => "Tumor Otak",
+                                        'tahun' => 2025
+                                    ]
                                 ]
                             ]
                         ],
