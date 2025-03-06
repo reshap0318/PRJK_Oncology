@@ -52,10 +52,12 @@ class PasienPemeriksaanService extends BaseService
         ];
         $riwayat_kaganasan_keluarga = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($riwayat_kaganasan_keluarga && !$riwayat_kaganasan_keluarga['value']) $riwayat_kaganasan_keluarga['value'] = [
-            'id' => 0,
-            'siapa' => null,
-            'apa'   => null,
-            'tahun' => now()->format("Y")
+            [
+                'id' => 0,
+                'siapa' => null,
+                'apa'   => null,
+                'tahun' => now()->format("Y")
+            ]
         ];
         $keluhans = $data->complains->where('tag', PemeriksaanComplainModel::T_KELUHAN)->toArray();
         if (!$keluhans) $keluhans = [["id" => 0,"description" => null, "duration" => null]];

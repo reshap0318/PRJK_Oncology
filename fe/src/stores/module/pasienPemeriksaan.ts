@@ -115,11 +115,13 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             riwayat_kaganasan_keluarga: {
                 id: 0,
                 own: 0,
-                value: {
-                    siapa: null,
-                    apa: null,
-                    tahun: null
-                }
+                value: [
+                    {
+                        siapa: null,
+                        apa: null,
+                        tahun: null
+                    }
+                ]
             }
         },
         pemeriksaan_fisik: {
@@ -327,21 +329,23 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 riwayat_kaganasan_keluarga: {
                     own: {},
                     value: {
-                        siapa: {
-                            required: requiredIf(
-                                () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
-                            )
-                        },
-                        apa: {
-                            required: requiredIf(
-                                () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
-                            )
-                        },
-                        tahun: {
-                            required: requiredIf(
-                                () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
-                            )
-                        }
+                        $each: helpers.forEach({
+                            siapa: {
+                                required: requiredIf(
+                                    () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                )
+                            },
+                            apa: {
+                                required: requiredIf(
+                                    () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                )
+                            },
+                            tahun: {
+                                required: requiredIf(
+                                    () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                )
+                            }
+                        })
                     }
                 }
             },

@@ -51,8 +51,8 @@
                     </div>
                     <div class="col-9" v-if="false">
                         <button
-                            v-if="i != 0 || (i == 0 && formInput.keluhans.length > 1)"
                             class="btn btn-danger mt-8 me-3"
+                            v-if="i != 0 || (i == 0 && formInput.keluhans.length > 1)"
                             @click="hapusKeluhan(i)"
                         >
                             Hapus
@@ -170,8 +170,8 @@
                         </div>
                         <div class="col-12 col-sm-2 mb-3">
                             <button
-                                v-if="i != 0 || (i == 0 && formInput.penyakits.length > 1)"
                                 class="btn btn-danger mt-8 me-3"
+                                v-if="i != 0 || (i == 0 && formInput.penyakits.length > 1)"
                                 @click="hapusPenyakit(i)"
                             >
                                 Hapus
@@ -832,66 +832,102 @@
                     </label>
                 </div>
                 <div class="row" v-if="formInput.riwayat_kaganasan_keluarga.own == 1">
-                    <div class="mt-3 col-sm-12">
-                        <div class="fv-row mt-4 mt-sm-0">
-                            <label class="form-label fs-6 text-dark">
-                                <span>Siapa</span>
-                            </label>
-                            <input
-                                class="form-control"
-                                type="text"
-                                autocomplete="off"
-                                v-model="formInput.riwayat_kaganasan_keluarga.value.siapa"
-                            />
-                            <form-error
-                                :err="
-                                    formInputValidated.anemnesis.riwayat_kaganasan_keluarga.value
-                                        .siapa
-                                "
-                                name="anemnesis.riwayat_kaganasan_keluarga.value.siapa"
-                            />
-                        </div>
-                    </div>
-                    <div class="mt-3 col-sm-8">
-                        <div class="fv-row mt-4 mt-sm-0">
-                            <label class="form-label fs-6 text-dark">
-                                <span>Apa</span>
-                            </label>
-                            <input
-                                class="form-control"
-                                type="text"
-                                autocomplete="off"
-                                v-model="formInput.riwayat_kaganasan_keluarga.value.apa"
-                            />
-                            <form-error
-                                :err="
-                                    formInputValidated.anemnesis.riwayat_kaganasan_keluarga.value
-                                        .apa
-                                "
-                                name="anemnesis.riwayat_kaganasan_keluarga.value.apa"
-                            />
-                        </div>
-                    </div>
-                    <div class="mt-3 col-sm-4">
-                        <div class="fv-row mt-4 mt-sm-0">
-                            <label class="form-label fs-6 text-dark">
-                                <span>Tahun</span>
-                            </label>
-                            <select
-                                v-model="formInput.riwayat_kaganasan_keluarga.value.tahun"
-                                class="form-control"
-                            >
-                                <option v-for="i in pillihanTahuns" :key="i" :value="i">
-                                    {{ i }}
-                                </option>
-                            </select>
-                            <form-error
-                                :err="
-                                    formInputValidated.anemnesis.riwayat_kaganasan_keluarga.value
-                                        .tahun
-                                "
-                                name="anemnesis.riwayat_kaganasan_keluarga.value.tahun"
-                            />
+                    <div class="col-12">
+                        <div
+                            class="row"
+                            v-for="(d, i) in formInput.riwayat_kaganasan_keluarga.value ?? []"
+                        >
+                            <div class="mt-3 col-sm-8">
+                                <div class="fv-row mt-4 mt-sm-0">
+                                    <label class="form-label fs-6 text-dark">
+                                        <span>Siapa</span>
+                                    </label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        autocomplete="off"
+                                        v-model="d.siapa"
+                                    />
+                                    <form-each-error
+                                        :err="
+                                            formInputValidated.anemnesis.riwayat_kaganasan_keluarga
+                                                .value
+                                        "
+                                        :idx="i"
+                                        code="siapa"
+                                        name="anemnesis.riwayat_kaganasan_keluarga.value"
+                                    />
+                                </div>
+                            </div>
+                            <div class="mt-3 col-sm-4">
+                                <div class="mt-9">
+                                    <button
+                                        class="btn btn-sm btn-danger me-2"
+                                        v-if="
+                                            i != 0 ||
+                                            (i == 0 &&
+                                                formInput.riwayat_kaganasan_keluarga.value?.length >
+                                                    1)
+                                        "
+                                        @click="hapusRiwayatKeluarga(i)"
+                                    >
+                                        Hapus
+                                    </button>
+                                    <button
+                                        class="btn btn-sm btn-info"
+                                        v-if="
+                                            i ==
+                                            formInput.riwayat_kaganasan_keluarga.value?.length - 1
+                                        "
+                                        @click="tambahRiwayatKeluarga"
+                                    >
+                                        Tambah
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3 col-sm-8">
+                                <div class="fv-row mt-4 mt-sm-0">
+                                    <label class="form-label fs-6 text-dark">
+                                        <span>Apa</span>
+                                    </label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        autocomplete="off"
+                                        v-model="d.apa"
+                                    />
+                                    <form-each-error
+                                        :err="
+                                            formInputValidated.anemnesis.riwayat_kaganasan_keluarga
+                                                .value
+                                        "
+                                        :idx="i"
+                                        code="apa"
+                                        name="anemnesis.riwayat_kaganasan_keluarga.value"
+                                    />
+                                </div>
+                            </div>
+                            <div class="mt-3 col-sm-4">
+                                <div class="fv-row mt-4 mt-sm-0">
+                                    <label class="form-label fs-6 text-dark">
+                                        <span>Tahun</span>
+                                    </label>
+                                    <select v-model="d.tahun" class="form-control">
+                                        <option v-for="i in pillihanTahuns" :key="i" :value="i">
+                                            {{ i }}
+                                        </option>
+                                    </select>
+                                    <form-each-error
+                                        :err="
+                                            formInputValidated.anemnesis.riwayat_kaganasan_keluarga
+                                                .value
+                                        "
+                                        :idx="i"
+                                        code="tahun"
+                                        name="anemnesis.riwayat_kaganasan_keluarga.value"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -942,6 +978,18 @@ function tambahGejala() {
 
 function hapusGejala(idx: number) {
     formInput.value.gejalas.splice(idx, 1)
+}
+
+function tambahRiwayatKeluarga() {
+    formInput.value.riwayat_kaganasan_keluarga.value.push({
+        siapa: null,
+        apa: null,
+        tahun: null
+    })
+}
+
+function hapusRiwayatKeluarga(idx: number) {
+    formInput.value.riwayat_kaganasan_keluarga.value.splice(idx, 1)
 }
 
 function tambahPenyakit() {
