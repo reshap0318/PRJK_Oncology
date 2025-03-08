@@ -58,7 +58,10 @@
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> CT-Scan Baseline </span>
                     </label>
-                    <InputFile v-model="formInput.ct_scan" :accept="['.pdf']" />
+                    <InputFile
+                        v-model="formInput.ct_scan"
+                        :accept="['.pdf', '.jpg', '.jpeg', '.png']"
+                    />
                     <a
                         v-if="ctScanReferral"
                         class="text-info"

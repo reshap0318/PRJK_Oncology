@@ -16,7 +16,10 @@
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> Upload Hasil </span>
                     </label>
-                    <InputFile v-model="formInput.file" :accept="['.pdf']" />
+                    <InputFile
+                        v-model="formInput.file"
+                        :accept="['.pdf', '.jpg', '.jpeg', '.png']"
+                    />
                     <a
                         v-if="fileReferral"
                         class="text-info"

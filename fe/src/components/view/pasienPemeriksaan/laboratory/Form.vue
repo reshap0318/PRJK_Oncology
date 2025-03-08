@@ -16,7 +16,10 @@
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> Hasil Laboratorium </span>
                     </label>
-                    <InputFile v-model="formInput.result" :accept="['.pdf']" />
+                    <InputFile
+                        v-model="formInput.result"
+                        :accept="['.pdf', '.jpg', '.jpeg', '.png']"
+                    />
                     <a
                         v-if="resultReferral"
                         class="text-info"

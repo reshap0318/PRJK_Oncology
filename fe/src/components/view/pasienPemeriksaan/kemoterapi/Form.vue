@@ -202,7 +202,10 @@
                                 <label class="form-label fs-6 text-dark">
                                     <span class="required"> Rontgen </span>
                                 </label>
-                                <InputFile v-model="formInput.rontgen" :accept="['.pdf']" />
+                                <InputFile
+                                    v-model="formInput.rontgen"
+                                    :accept="['.pdf', '.jpg', '.jpeg', '.png']"
+                                />
                                 <a
                                     v-if="fileReferral.rontgen"
                                     class="text-info"
@@ -218,7 +221,10 @@
                                 <label class="form-label fs-6 text-dark">
                                     <span class="required"> Ct-Scan </span>
                                 </label>
-                                <InputFile v-model="formInput.ct_scan" :accept="['.pdf']" />
+                                <InputFile
+                                    v-model="formInput.ct_scan"
+                                    :accept="['.pdf', '.jpg', '.jpeg', '.png']"
+                                />
                                 <a
                                     v-if="fileReferral.ct_scan"
                                     class="text-info"
