@@ -35,7 +35,7 @@
             <div class="col-12 col-sm-6 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Tanggal </span>
+                        <span class="required"> Tanggal FollowUp </span>
                     </label>
                     <input type="date" class="form-control" v-model="formInput.date" />
                     <form-error :err="v$.date" name="date" />

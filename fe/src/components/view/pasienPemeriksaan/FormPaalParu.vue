@@ -91,13 +91,14 @@
                     <label class="form-label fs-6 text-dark">
                         <span>VEP1/KVP</span>
                     </label>
-                    <div class="input-group">
+                    <div class="input-group disabled">
                         <input
                             type="number"
                             class="form-control"
                             min="0"
                             placeholder="0"
-                            v-model="formInput.vep_kvp"
+                            :value="calculateVEPKVP"
+                            disabled
                         />
                         <div class="input-group-append">
                             <span class="input-group-text"> % </span>
@@ -125,10 +126,16 @@
 <script lang="ts" setup>
 import FormError from '@/components/utils/error/FormError.vue'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 
 const formInput = ref(pemeriksaanStore.formUpdate.paal_paru)
 const v$ = ref(pemeriksaanStore.formUpdateValidated)
+
+const calculateVEPKVP = computed(() => {
+    const vep = formInput.value.vep_ml ?? 0
+    const kvp = formInput.value.kvp_ml ?? 0
+    return kvp > 0 ? (vep / kvp) * 100 : 0
+})
 </script>

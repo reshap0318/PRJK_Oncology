@@ -25,7 +25,7 @@ class PemeriksaanKemoterapiFURequest extends FormRequest
     {
         $kemoTbl = (new PemeriksaanKemoterapiModel())->getTable();
         return [
-            "radio_id"      => ["required", Rule::exists($kemoTbl, "id")],
+            "kemo_id"       => ["required", Rule::exists($kemoTbl, "id")],
             "date"          => "required|date_format:Y-m-d",
             "subjective"    => "required",
             "semi_ps"       => "required",

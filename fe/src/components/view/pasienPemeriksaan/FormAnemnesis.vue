@@ -761,42 +761,71 @@
                 </div>
 
                 <div class="row" v-if="formInput.riwayat_tb.own == 1">
-                    <div class="col-sm-6">
-                        <div class="fv-row mt-4 mt-sm-0">
-                            <label class="form-label fs-6 text-dark">
-                                <span>Tahun</span>
-                            </label>
-                            <select v-model="formInput.riwayat_tb.value.tahun" class="form-control">
-                                <option v-for="i in pillihanTahuns" :key="i" :value="i">
-                                    {{ i }}
-                                </option>
-                            </select>
-                            <form-error
-                                :err="formInputValidated.anemnesis.riwayat_tb.value.tahun"
-                                name="anemnesis.riwayat_tb.value.tahun"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="fv-row mt-4 mt-sm-0">
-                            <label class="form-label fs-6 text-dark">
-                                <span>OAT</span>
-                            </label>
-                            <div class="input-group">
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    min="0"
-                                    v-model="formInput.riwayat_tb.value.oat"
-                                />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"> Bulan </span>
+                    <div class="col-12">
+                        <div
+                            class="row mt-1 mb-3"
+                            v-for="(d, i) in formInput.riwayat_tb.value ?? []"
+                        >
+                            <div class="col-sm-4">
+                                <div class="fv-row">
+                                    <label class="form-label fs-6 text-dark">
+                                        <span>Tahun</span>
+                                    </label>
+                                    <select v-model="d.tahun" class="form-control">
+                                        <option v-for="i in pillihanTahuns" :key="i" :value="i">
+                                            {{ i }}
+                                        </option>
+                                    </select>
+
+                                    <form-each-error
+                                        :err="formInputValidated.anemnesis.riwayat_tb.value"
+                                        :idx="i"
+                                        code="tahun"
+                                        name="anemnesis.riwayat_tb.value"
+                                    />
                                 </div>
                             </div>
-                            <form-error
-                                :err="formInputValidated.anemnesis.riwayat_tb.value.oat"
-                                name="anemnesis.riwayat_tb.value.oat"
-                            />
+                            <div class="col-sm-4">
+                                <div class="fv-row">
+                                    <label class="form-label fs-6 text-dark">
+                                        <span>OAT</span>
+                                    </label>
+                                    <select v-model="d.oat" class="form-control">
+                                        <option :value="null">OAT</option>
+                                        <option value="1">Sembuh</option>
+                                        <option value="2">Pengobatan Lengkap</option>
+                                        <option value="3">Putus Berobat</option>
+                                        <option value="4">Tidak Jelas</option>
+                                    </select>
+                                    <form-each-error
+                                        :err="formInputValidated.anemnesis.riwayat_tb.value"
+                                        :idx="i"
+                                        code="oat"
+                                        name="anemnesis.riwayat_tb.value"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="mt-9">
+                                    <button
+                                        class="btn btn-sm btn-danger me-2"
+                                        v-if="
+                                            i != 0 ||
+                                            (i == 0 && formInput.riwayat_tb.value?.length > 1)
+                                        "
+                                        @click="hapusRiwayatTB(i)"
+                                    >
+                                        Hapus
+                                    </button>
+                                    <button
+                                        class="btn btn-sm btn-info"
+                                        v-if="i == formInput.riwayat_tb.value?.length - 1"
+                                        @click="tambahRiwayatTB()"
+                                    >
+                                        Tambah
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -980,6 +1009,17 @@ function hapusGejala(idx: number) {
     formInput.value.gejalas.splice(idx, 1)
 }
 
+function tambahPenyakit() {
+    formInput.value.penyakits.push({
+        id: 0,
+        description: null
+    })
+}
+
+function hapusPenyakit(idx: number) {
+    formInput.value.penyakits.splice(idx, 1)
+}
+
 function tambahRiwayatKeluarga() {
     formInput.value.riwayat_kaganasan_keluarga.value.push({
         siapa: null,
@@ -992,14 +1032,14 @@ function hapusRiwayatKeluarga(idx: number) {
     formInput.value.riwayat_kaganasan_keluarga.value.splice(idx, 1)
 }
 
-function tambahPenyakit() {
-    formInput.value.penyakits.push({
-        id: 0,
-        description: null
+function tambahRiwayatTB() {
+    formInput.value.riwayat_tb.value.push({
+        tahun: null,
+        oat: null
     })
 }
 
-function hapusPenyakit(idx: number) {
-    formInput.value.penyakits.splice(idx, 1)
+function hapusRiwayatTB(idx: number) {
+    formInput.value.riwayat_tb.value.splice(idx, 1)
 }
 </script>

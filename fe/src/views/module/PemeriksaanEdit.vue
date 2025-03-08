@@ -88,9 +88,9 @@
                             <button class="btn btn-success btn-sm me-3" @click="simpan()">
                                 Simpan
                             </button>
-                            <!-- <button class="btn btn-danger btn-sm me-3" @click="cancel()">
-                                Batal
-                            </button> -->
+                            <button class="btn btn-danger btn-sm me-3" @click="back()">
+                                Kembali
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -298,31 +298,34 @@ const menus = ref([
     }
 ])
 
-function simpan() {
-    pemeriksaanStore.formUpdateValidated.$validate().then((res) => {
-        if (res) {
-            console.log(pemeriksaanStore.formUpdate)
-            if (pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb_option == 0) {
-                pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb = null
-            }
-            pemeriksaanStore
-                .updateFile(pemeriksaanStore.formUpdate.id, pemeriksaanStore.formUpdate)
-                .then((res: any) => {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: res.message,
-                        icon: 'success'
-                    }).then(() => {
-                        cancel()
+async function simpan() {
+    return new Promise((resolve) => {
+        pemeriksaanStore.formUpdateValidated.$validate().then((res) => {
+            if (res) {
+                console.log(pemeriksaanStore.formUpdate)
+                if (pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb_option == 0) {
+                    pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb = null
+                }
+                pemeriksaanStore
+                    .updateFile(pemeriksaanStore.formUpdate.id, pemeriksaanStore.formUpdate)
+                    .then((res: any) => {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: res.message,
+                            icon: 'success'
+                        }).then(() => {
+                            resolve(true)
+                        })
                     })
+            } else {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Form Belum Terisi dengan Lengkap, Silakan Periksa Kembali Form Anda',
+                    icon: 'warning'
                 })
-        } else {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'Form Belum Terisi dengan Lengkap, Silakan Periksa Kembali Form Anda',
-                icon: 'warning'
-            })
-        }
+                resolve(true)
+            }
+        })
     })
 }
 
@@ -332,6 +335,22 @@ function cancel(): void {
         return
     }
     router.back()
+}
+
+function back(): void {
+    Swal.fire({
+        title: 'Konfirmasi',
+        text: 'Apakah Anda Yakin? Data yang Telah Diisi Akan Disimpan',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Simpan'
+    }).then((res) => {
+        if (res.isConfirmed) {
+            simpan().then(() => {
+                cancel()
+            })
+        }
+    })
 }
 
 function setActive(item: any): void {

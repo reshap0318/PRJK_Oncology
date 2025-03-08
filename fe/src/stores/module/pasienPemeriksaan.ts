@@ -107,10 +107,12 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             riwayat_tb: {
                 id: 0,
                 own: 0,
-                value: {
-                    tahun: null,
-                    oat: null
-                }
+                value: [
+                    {
+                        tahun: null,
+                        oat: null
+                    }
+                ]
             },
             riwayat_kaganasan_keluarga: {
                 id: 0,
@@ -314,16 +316,18 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 riwayat_tb: {
                     own: {},
                     value: {
-                        tahun: {
-                            required: requiredIf(
-                                () => formUpdate.value.anemnesis.riwayat_tb.own == 1
-                            )
-                        },
-                        oat: {
-                            required: requiredIf(
-                                () => formUpdate.value.anemnesis.riwayat_tb.own == 1
-                            )
-                        }
+                        $each: helpers.forEach({
+                            tahun: {
+                                required: requiredIf(
+                                    () => formUpdate.value.anemnesis.riwayat_tb.own == 1
+                                )
+                            },
+                            oat: {
+                                required: requiredIf(
+                                    () => formUpdate.value.anemnesis.riwayat_tb.own == 1
+                                )
+                            }
+                        })
                     }
                 },
                 riwayat_kaganasan_keluarga: {

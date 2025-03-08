@@ -79,7 +79,7 @@ const columns = ref<Array<ConfigColumns>>([
     {
         data: 'date',
         name: 'date',
-        title: 'Tanggal',
+        title: 'Tanggal Kemoterapi',
         className: 'w-30p text-start'
     },
     {

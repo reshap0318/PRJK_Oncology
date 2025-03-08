@@ -66,7 +66,6 @@
                                     <option :value="null">pilihan</option>
                                     <option :value="1">Efusi Pleura</option>
                                     <option :value="2">Atelektasis</option>
-                                    <option :value="3">Lainnya</option>
                                 </select>
                                 <form-error :err="v$.pa_efusi" name="pa_efusi" />
                             </div>
@@ -126,7 +125,6 @@
                                     <option :value="null">pilihan</option>
                                     <option :value="1">Efusi Pleura</option>
                                     <option :value="2">Atelektasis</option>
-                                    <option :value="3">Lainnya</option>
                                 </select>
                                 <form-error :err="v$.la_efusi" name="la_efusi" />
                             </div>

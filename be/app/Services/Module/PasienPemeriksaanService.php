@@ -46,9 +46,11 @@ class PasienPemeriksaanService extends BaseService
         if ($riwayat_ppok && !$riwayat_ppok['value']) $riwayat_ppok['value'] = now()->format("Y");
         $riwayat_tb = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_TB)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($riwayat_tb && !$riwayat_tb['value']) $riwayat_tb['value'] = [
-            'id' => 0,
-            'tahun' => now()->format("Y"),
-            'oat'   => null
+            [
+                'id' => 0,
+                'tahun' => null,
+                'oat'   => null
+            ]
         ];
         $riwayat_kaganasan_keluarga = $data->riskFactors->firstWhere('category', PFS::K_RIWAYAT_KEGANASAN_DALAM_KELUARGA)?->only(['id', 'own', 'value']) ?? $defaultAnamnesis;
         if ($riwayat_kaganasan_keluarga && !$riwayat_kaganasan_keluarga['value']) $riwayat_kaganasan_keluarga['value'] = [
@@ -56,7 +58,7 @@ class PasienPemeriksaanService extends BaseService
                 'id' => 0,
                 'siapa' => null,
                 'apa'   => null,
-                'tahun' => now()->format("Y")
+                'tahun' => null
             ]
         ];
         $keluhans = $data->complains->where('tag', PemeriksaanComplainModel::T_KELUHAN)->toArray();
@@ -76,7 +78,12 @@ class PasienPemeriksaanService extends BaseService
             ];
             $sitologi = $data->sitologis->firstWhere('category', $key);
             if($sitologi) {
-                $tmp = array_merge($tmp, $sitologi->only(['type', 'type_detail', 'description']));
+                $tmp = array_merge($tmp, [
+                    "date"          => $sitologi['date'] ? $sitologi['date']->format("Y-m-d") : null,
+                    "type"          => $sitologi['type'],
+                    "type_detail"   => $sitologi['type_detail'],
+                    "description"   => $sitologi['description']
+                ]);
             }
             array_push($sitologis, $tmp);
         }
