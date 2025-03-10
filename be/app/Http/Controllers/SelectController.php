@@ -68,7 +68,7 @@ class SelectController extends Controller
             ->whereHas('roles', function($q) {
                 return $q->where('role_id', User::R_DOKTER);
             })
-            ->when(!Authorization::hasPermission('user.index') && Authorization::hasPermission('user.private'), function($q) {
+            ->when(!Authorization::hasPermission('user.index') && Authorization::hasPermission('user.dokter'), function($q) {
                 return $q->where('id', Auth::id());
             })
             ->get()

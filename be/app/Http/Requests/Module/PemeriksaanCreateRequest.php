@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Module;
 
+use App\Helpers\Authorization;
 use App\Models\Module\PasienModel;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class PemeriksaanCreateRequest extends FormRequest
@@ -29,9 +31,13 @@ class PemeriksaanCreateRequest extends FormRequest
         return [
             'dokter_id' => [
                 'required',
-                Rule::exists($tblDokter, 'id')->where(function ($q) {
-                    return $q->whereRaw("id in (select user_id from user_has_roles where role_id = ?)", [User::R_DOKTER]);
-                })
+                Rule::exists($tblDokter, 'id')
+                    ->where(function ($q) {
+                        return $q->whereRaw("id in (select user_id from user_has_roles where role_id = ?)", [User::R_DOKTER]);
+                    })
+                    ->when(!Authorization::hasPermission('pasien-pemeriksaan.admin'), function ($q) {
+                        return $q->where('id', Auth::id());
+                    })
             ],
             'pasien_id' => [
                 'required',

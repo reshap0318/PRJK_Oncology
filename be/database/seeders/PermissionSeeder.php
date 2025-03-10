@@ -85,7 +85,7 @@ class PermissionSeeder extends Seeder
                 'keterangan' => "melihat data User",
             ],
             [
-                'name' => "user.private",
+                'name' => "user.dokter",
                 'keterangan' => "melihat data User hanya Data Pribadi",
             ],
             [
@@ -128,6 +128,10 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => "pasien-pemeriksaan.admin",
+                'keterangan' => "menambah atau mengedit seluruh data Pemeriksaan Pasien",
+            ],
+            [
+                'name' => "pasien-pemeriksaan.all",
                 'keterangan' => "melihat seluruh data Pemeriksaan Pasien",
             ],
             [
@@ -161,11 +165,11 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name'              => "Dokter",
-                'permissions'       => ['pasien.index', 'pasien.show', 'pasien-pemeriksaan.index', 'pasien-pemeriksaan.inspection', 'user.private']
+                'permissions'       => ['pasien.index', 'pasien.show', 'pasien-pemeriksaan.index', 'pasien-pemeriksaan.show', 'pasien-pemeriksaan.inspection', 'user.dokter']
             ],
             [
                 'name'              => "Mahasiswa",
-                'permissions'       => ['pasien.index', 'pasien.show']
+                'permissions'       => ['pasien.index', 'pasien.show', 'pasien-pemeriksaan.index', 'pasien-pemeriksaan.show', 'pasien-pemeriksaan.all']
             ]
         ];
 

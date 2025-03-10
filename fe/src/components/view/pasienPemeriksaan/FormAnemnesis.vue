@@ -49,7 +49,10 @@
                             />
                         </div>
                     </div>
-                    <div class="col-9" v-if="false">
+                    <div
+                        class="col-9"
+                        v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+                    >
                         <button
                             class="btn btn-danger mt-8 me-3"
                             v-if="i != 0 || (i == 0 && formInput.keluhans.length > 1)"
@@ -117,7 +120,10 @@
                             />
                         </div>
                     </div>
-                    <div class="col-9">
+                    <div
+                        class="col-9"
+                        v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+                    >
                         <button
                             v-if="i != 0 || (i == 0 && formInput.gejalas.length > 1)"
                             class="btn btn-danger mt-8 me-3"
@@ -168,7 +174,10 @@
                                 />
                             </div>
                         </div>
-                        <div class="col-12 col-sm-2 mb-3">
+                        <div
+                            class="col-12 col-sm-2 mb-3"
+                            v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+                        >
                             <button
                                 class="btn btn-danger mt-8 me-3"
                                 v-if="i != 0 || (i == 0 && formInput.penyakits.length > 1)"
@@ -805,7 +814,10 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div
+                                class="col-sm-4"
+                                v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+                            >
                                 <div class="mt-9">
                                     <button
                                         class="btn btn-sm btn-danger me-2"
@@ -888,7 +900,10 @@
                                     />
                                 </div>
                             </div>
-                            <div class="mt-3 col-sm-4">
+                            <div
+                                class="mt-3 col-sm-4"
+                                v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+                            >
                                 <div class="mt-9">
                                     <button
                                         class="btn btn-sm btn-danger me-2"
@@ -971,6 +986,7 @@ import FormError from '@/components/utils/error/FormError.vue'
 
 import { computed, ref } from 'vue'
 import { year, usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
+import StrgService from '@/core/services/StrgService'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 

@@ -2,10 +2,12 @@
 
 namespace App\Repository\Module;
 
+use App\Helpers\Authorization;
 use App\Models\Module\PasienModel;
 use App\Models\Module\PasienPemeriksaanModel;
 use App\Models\User;
 use App\Repository\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 
 class PasienPemeriksaanRepository extends BaseRepository
 {
@@ -44,6 +46,17 @@ class PasienPemeriksaanRepository extends BaseRepository
             'bronkoskopi',
             'sitologis'
         ]);
+        return $this;
+    }
+
+    public function filterByRole($tbl=null)
+    {
+        $tbl = $tbl ?? (new PasienPemeriksaanModel())->getTable();
+        $this->query = $this->query->when(
+            !Authorization::hasPermission('pasien-pemeriksaan.all'), function ($q) use ($tbl) {
+                return $q->where($tbl.".user_id", Auth::id());
+            }
+        );
         return $this;
     }
 }

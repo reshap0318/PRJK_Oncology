@@ -84,7 +84,10 @@
                                 </template>
                             </template>
                         </div>
-                        <div class="d-flex justify-content-center mt-4">
+                        <div
+                            class="d-flex justify-content-center mt-4"
+                            v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+                        >
                             <button class="btn btn-success btn-sm me-3" @click="simpan()">
                                 Simpan
                             </button>
@@ -190,6 +193,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { usePasienStore } from '@/stores/module/pasien'
 import { useSelectStore } from '@/stores/global/select'
 import { computed, onMounted, ref, nextTick } from 'vue'
+import StrgService from '@/core/services/StrgService'
 
 const route = useRoute()
 const router = useRouter()
@@ -299,7 +303,7 @@ const menus = ref([
 ])
 
 async function simpan() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         pemeriksaanStore.formUpdateValidated.$validate().then((res) => {
             if (res) {
                 console.log(pemeriksaanStore.formUpdate)
@@ -323,7 +327,7 @@ async function simpan() {
                     text: 'Form Belum Terisi dengan Lengkap, Silakan Periksa Kembali Form Anda',
                     icon: 'warning'
                 })
-                resolve(true)
+                reject(false)
             }
         })
     })

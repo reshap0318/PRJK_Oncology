@@ -38,7 +38,9 @@ class PemeriksaanToraksFotoModel extends Model
 
     protected $appends = [
         'file_url',
-    ];protected function actionModel(): Attribute
+    ];
+    
+    protected function actionModel(): Attribute
     {
         return Attribute::make(
             get: function ($value) {

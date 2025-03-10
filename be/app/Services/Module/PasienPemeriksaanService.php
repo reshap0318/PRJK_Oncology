@@ -2,15 +2,22 @@
 
 namespace App\Services\Module;
 
+use App\Helpers\Authorization;
 use App\Models\Module\{
     PemeriksaanComplainModel,
+    PemeriksaanDiagnosaModel,
     PemeriksaanFaktorResikoModel as PFS,
-    PemeriksaanSitologiModel
+    PemeriksaanKemoterapiModel,
+    PemeriksaanOperasiModel,
+    PemeriksaanRadioterapiModel,
+    PemeriksaanSitologiModel,
+    PemeriksaanTerapiTargetModel
 };
 use App\Repository\Module\PasienPemeriksaanRepository;
 use App\Repository\Module\PemeriksaanSicknessRepository;
 use App\Repository\Module\PemeriksaanSitologiRepository;
 use App\Services\BaseService;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PasienPemeriksaanService extends BaseService
@@ -136,9 +143,32 @@ class PasienPemeriksaanService extends BaseService
             ->make(true);
     }
 
-    public function datatable()
+    public function datatable(array $param = [])
     {
-        $query = $this->mainRepository->datatable()->getQuery();
+        $tata_laksana = $param['tata_laksana'] ?? null;
+        $jenis_sel = $param['jenis_sel'] ?? null;
+
+        
+        $query = $this->mainRepository->datatable()
+            ->filterByRole('pm')
+            ->when($jenis_sel, function ($q) use ($jenis_sel) {
+                return $q->whereIn(
+                    'pm.id', 
+                    PemeriksaanDiagnosaModel::select('id')->whereJsonContains('jenis_sel', "$jenis_sel")
+                );
+            })
+            ->getQuery();
+
+        if($tata_laksana == 1) {
+            $query = $query->whereIn('pm.id', PemeriksaanKemoterapiModel::select('inspection_id')->whereNotNull('category'));
+        } else if($tata_laksana == 2) {
+            $query = $query->whereIn('pm.id', PemeriksaanOperasiModel::select('inspection_id')->whereNotNull('margin'));
+        } else if($tata_laksana == 3) {
+            $query = $query->whereIn('pm.id', PemeriksaanTerapiTargetModel::select('inspection_id')->whereNotNull('category'));
+        } else if($tata_laksana == 4) {
+            $query = $query->whereIn('pm.id', PemeriksaanRadioterapiModel::select('inspection_id')->whereNotNull('category'));
+        }
+
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {
                 return $data->actionModel;
@@ -162,6 +192,7 @@ class PasienPemeriksaanService extends BaseService
     {
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
+        abort_if(!Authorization::hasPermission('pasien-pemeriksaan.admin') && $data->user_id != Auth::id(), 403, "anda tidak memiliki akses");
 
         $data->update([
             'user_id'       => $payload['overview']['dokter_id'],
@@ -283,6 +314,7 @@ class PasienPemeriksaanService extends BaseService
     {
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
+        abort_if(!Authorization::hasPermission('pasien-pemeriksaan.admin') && $data->user_id != Auth::id(), 403, "anda tidak memiliki akses");
         return $data->delete($id);
     }
 

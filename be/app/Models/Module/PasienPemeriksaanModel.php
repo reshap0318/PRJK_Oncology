@@ -35,14 +35,14 @@ class PasienPemeriksaanModel extends Model
     {
         return Attribute::make(
             get: function ($value) {
-                $isDokter = $this->user_id == Auth::id() || Authorization::hasPermission('pasien-pemeriksaan.admin');
+                $isDokter = $this->user_id == Auth::id() || Authorization::hasPermission('pasien-pemeriksaan.all');
                 return [
                     'detail' => [
                         'isCan' => Authorization::hasPermission('pasien-pemeriksaan.show'),
                         'link'  => null,
                     ],
                     'periksa' => [
-                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.inspection') && $isDokter,
+                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.show') && $isDokter,
                         'link'  => null,
                     ],
                     'delete' => [
