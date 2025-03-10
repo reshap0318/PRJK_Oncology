@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-sm-2">
                     <input
-                        class="form-control form-control-solid"
+                        class="form-control"
                         type="search"
                         autocomplete="off"
                         placeholder="search"

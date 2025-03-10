@@ -157,7 +157,7 @@ class PermissionSeeder extends Seeder
         $roles = [
             [
                 'name'              => 'SuAdmin',
-                'permissions'       => array_column($permissions, 'name')
+                'permissions'       => array_merge(array_column($permissions, 'name'), array_column($admins, 'name'))
             ],
             [
                 'name'              => "Admin",
