@@ -151,23 +151,9 @@ class PasienPemeriksaanService extends BaseService
         
         $query = $this->mainRepository->datatable()
             ->filterByRole('pm')
-            ->when($jenis_sel, function ($q) use ($jenis_sel) {
-                return $q->whereIn(
-                    'pm.id', 
-                    PemeriksaanDiagnosaModel::select('id')->whereJsonContains('jenis_sel', "$jenis_sel")
-                );
-            })
+            ->datatableFilterByJenisSel('pm', $jenis_sel)
+            ->datatableFilterByTatalaksana('pm', $tata_laksana)
             ->getQuery();
-
-        if($tata_laksana == 1) {
-            $query = $query->whereIn('pm.id', PemeriksaanKemoterapiModel::select('inspection_id')->whereNotNull('category'));
-        } else if($tata_laksana == 2) {
-            $query = $query->whereIn('pm.id', PemeriksaanOperasiModel::select('inspection_id')->whereNotNull('margin'));
-        } else if($tata_laksana == 3) {
-            $query = $query->whereIn('pm.id', PemeriksaanTerapiTargetModel::select('inspection_id')->whereNotNull('category'));
-        } else if($tata_laksana == 4) {
-            $query = $query->whereIn('pm.id', PemeriksaanRadioterapiModel::select('inspection_id')->whereNotNull('category'));
-        }
 
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {
