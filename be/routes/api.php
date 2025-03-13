@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\{
     NewPasswordController,
     PasswordResetLinkController
 };
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\Module\{
     PasienController,
     PasienPemeriksaanController,
@@ -108,7 +109,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::prefix('pasien-pemeriksaan')->as('pasien-pemeriksaan')->middleware('log:pasien-pemeriksaan')->group(function () {
         Route::get('/{id}', [PasienPemeriksaanController::class, 'getData'])->name('.detail');
         Route::post('/', [PasienPemeriksaanController::class, 'store'])->name('.store');
-        Route::post('/datatable', [PasienPemeriksaanController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pasien-pemeriksaan');
+        Route::post('/datatable', [PasienPemeriksaanController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pasien-pemeriksaan');        
         Route::patch('/{id}', [PasienPemeriksaanController::class, 'update'])->name('.update');
         Route::delete('/{id}', [PasienPemeriksaanController::class, 'destroy'])->name('.delete');
     });
@@ -225,5 +226,9 @@ Route::middleware(['auth:api'])->group(function () {
         Route::delete('/{id}', [PemeriksaanMriKepalaController::class, 'destroy'])->name('.delete');
     });
 
+    Route::prefix('export')->as('export')->group(function () {
+        Route::post('/pemeriksaan-pdf/{id}', [ExportController::class, 'pemeriksaanPDF'])->name('.pemeriksaan-pdf');
+    });
+    
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');
 });

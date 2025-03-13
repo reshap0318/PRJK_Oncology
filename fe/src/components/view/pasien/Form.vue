@@ -154,6 +154,36 @@
                     <form-error :err="v$.job" name="job" />
                 </div>
             </div>
+            <div class="col-12 col-sm-6 mb-5">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">Kabupaten / Kota</label>
+                    <input
+                        tabindex="9"
+                        class="form-control"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="kabupaten / kota"
+                        v-model="formInput.city"
+                        v-uppercase
+                    />
+                    <form-error :err="v$.city" name="city" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 mb-5">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">Provinsi</label>
+                    <input
+                        tabindex="10"
+                        class="form-control"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="provinsi"
+                        v-model="formInput.province"
+                        v-uppercase
+                    />
+                    <form-error :err="v$.province" name="province"" />
+                </div>
+            </div>
             <div class="col-12 col-sm-12 mb-5">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">Alamat</label>
@@ -195,6 +225,8 @@ const formInput = ref({
     pob: '',
     phone: '',
     email: '',
+    city: '',
+    province: '',
     address: '',
     education: '',
     job: '',
@@ -209,6 +241,8 @@ const rules = {
     pob: { required },
     phone: {},
     email: {},
+    city: {},
+    province: {},
     address: {},
     education: {},
     job: {},
@@ -228,6 +262,8 @@ function show(payload = {}) {
         pob: '',
         phone: '',
         email: '',
+        city: '',
+        province: '',
         address: '',
         education: '',
         job: '',

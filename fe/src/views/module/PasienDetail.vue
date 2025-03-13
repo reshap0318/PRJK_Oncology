@@ -32,6 +32,11 @@
                                 <td style="width: 10px">:</td>
                                 <td>{{ data.phone ?? '-' }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row" style="width: 150px">Kota & Province</th>
+                                <td style="width: 10px">:</td>
+                                <td>{{ data.city ?? '-' }} & {{ data.province ?? '-' }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -59,6 +64,11 @@
                                 <th scope="row" style="width: 150px">Suku</th>
                                 <td style="width: 10px">:</td>
                                 <td>{{ data.ethnic ?? '-' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="width: 150px">Alamat</th>
+                                <td style="width: 10px">:</td>
+                                <td>{{ data.address ?? '-' }}</td>
                             </tr>
                         </tbody>
                     </table>

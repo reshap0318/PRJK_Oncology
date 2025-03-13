@@ -21,6 +21,8 @@ class PasienModel extends Model
         "pob",
         "phone",
         "email",
+        "city",
+        "province",
         "address",
         "education",
         "job",
