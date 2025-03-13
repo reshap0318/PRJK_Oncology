@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Module\PasienPemeriksaanService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Browsershot\Browsershot;
 
 class ExportController extends Controller
 {
     function pemeriksaanPDF($id) {
-        // $template = view('exports.PemeriksaanPDF')->render();
+        $payload = (new PasienPemeriksaanService())->getById($id, 'laporan');
+        // return view('exports.PemeriksaanPDF', ['payload' => $payload]);
+        $template = view('exports.PemeriksaanPDF', ['payload' => $payload])->render();
 
-        // Browsershot::html($template)
-        //     ->noSandbox()
-        //     ->showBackground()
-        //     ->margins(0, 0, 0, 0)
-        //     ->format('A4')
-        //     ->save('exports/pemeriksaan.pdf');
-        // // return response()->download('exports/pemeriksaan.pdf');
+        Storage::disk('local')->makeDirectory('exports');
+        $dir = Storage::disk('local')->path('exports');
+        $path = $dir . '/pemeriksaan.pdf';
+
+        Browsershot::html($template)
+            ->showBackground()
+            ->waitUntilNetworkIdle()
+            ->margins(20, 18, 20, 18)
+            ->format('A4')
+            ->save($path);
+        
+        return view('exports.PemeriksaanPDF', ['payload' => $payload]);
+        // return response()->download('exports/pemeriksaan.pdf');
     }
 }

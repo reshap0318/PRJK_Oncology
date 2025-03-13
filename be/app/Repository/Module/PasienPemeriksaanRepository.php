@@ -68,6 +68,8 @@ class PasienPemeriksaanRepository extends BaseRepository
     public function getDetailData()
     {
         $this->query = $this->query->with([
+            'pasien',
+            'dokter',
             'diagnosa',
             'outcome',
             'vital',

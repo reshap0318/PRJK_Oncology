@@ -28,7 +28,7 @@ class PasienPemeriksaanService extends BaseService
         $this->mainRepository = new PasienPemeriksaanRepository();
     }
 
-    public function getById($id)
+    public function getById($id, $tag = null)
     {
         $data = $this->mainRepository->filterById($id)->getDetailData()->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
@@ -101,22 +101,45 @@ class PasienPemeriksaanService extends BaseService
             ->select(['id', 'description'])
             ->get();
 
+        if($tag == 'laporan') {
+            $data->smokingHistory->append(['history_text','category_text', 'suck_text']);
+            $paparan_radon['value_txt'] = array_map(function($q) {
+                $list = [
+                    1 => 'Rumah Kayu',
+                    2 => 'Lantai Retak',
+                    3 => 'Sumur Dalam Rumah',
+                ];
+                return $list[$q] ?? 'Tidak Diketahui';
+            }, $paparan_radon['value']);
+
+            $biomess['value_txt'] = array_map(function($q) {
+                $list = [
+                    1 => 'Kayu Bakar',
+                    2 => 'Minyak Tanah',
+                    3 => 'Breket',
+                ];
+                return $list[$q] ?? 'Tidak Diketahui';
+            }, $biomess['value']);
+        }
+
         return [
             'id' => $id,
             'overview'  => [
                 'dokter_id' => $data->user_id,
                 'pasien_id' => $data->pasien_id,
-                'tanggal'   => $data->inspection_at->format("Y-m-d")
+                'tanggal'   => $data->inspection_at->format("Y-m-d"),
+                'dokter'    => $data->dokter->toArray(),
+                'pasien'    => $data->pasien->toArray(),
             ],
-            'diagnosa'  => $data['diagnosa'],
-            'outcome'   => $data['outcome'],
-            'pemeriksaan_fisik' => $data['vital'],
+            'diagnosa'  => $data['diagnosa']->toArray(),
+            'outcome'   => $data['outcome']->toArray(),
+            'pemeriksaan_fisik' => $data['vital']->toArray(),
             'anemnesis' => [
                 "keluhans" => array_values($keluhans),
                 "gejalas" => array_values($gejalas),
-                "penyakit_riwayats" => $sickness_history,
-                "penyakits" => count($data->sickness) != 0 ? $data->sickness : [['description' => null]],
-                "kategori_perokok" => $data->smokingHistory,
+                "penyakit_riwayats" => $sickness_history->toArray(),
+                "penyakits" => count($data->sickness) != 0 ? $data->sickness->toArray() : [['description' => null]],
+                "kategori_perokok" => $data->smokingHistory->toArray(),
                 "paparan_asap_rokok" => $paparan_asap_rokok,
                 "pekerjaan_beresiko" => $pekerjaan_beresiko,
                 "tempat_tinggal_sekitar_pabrik" => $tempat_tinggal_pabrik,
@@ -127,8 +150,8 @@ class PasienPemeriksaanService extends BaseService
                 "riwayat_tb" => $riwayat_tb,
                 "riwayat_kaganasan_keluarga" => $riwayat_kaganasan_keluarga,
             ],
-            "paal_paru" => $data->paalParu,
-            "bronkoskopi" => $data->bronkoskopi,
+            "paal_paru" => $data->paalParu->toArray(),
+            "bronkoskopi" => $data->bronkoskopi->toArray(),
             'sitologis'   => $sitologis
         ];
     }
