@@ -51,7 +51,7 @@
                     </div>
                     <div
                         class="col-9"
-                        v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+                        v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection') && false"
                     >
                         <button
                             class="btn btn-danger mt-8 me-3"

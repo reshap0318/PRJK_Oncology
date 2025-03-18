@@ -11,6 +11,7 @@
   <div class="text-center fw-bold">DATA PEMERIKSAAN PASIEN</div>
       @php
           $pasien = $payload['overview']['pasien'] ?? [];
+          $dokter = $payload['overview']['dokter'] ?? [];
           $anamnesis = $payload['anemnesis'] ?? [];
           $pemeriksaan_fisik = $payload['pemeriksaan_fisik'] ?? [];
           $outcome = $payload['outcome'] ?? [];
@@ -89,29 +90,23 @@
           <tr>
             <td scope="row">Gejala Lainnya</td>
             <td class="align-top">
-              {{ $anamnesis['gejalas'][0]['description'] }}
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">Lama Keluhan (Bulan)</td>
-            <td class="align-top">
-              {{ $anamnesis['gejalas'][0]['duration'] }}
+              @php
+                  $gejalas = $anamnesis['gejalas'];
+                  foreach ($gejalas as $key => $value) {
+                    echo "- ". $value['description'] . " ( ". $value['duration'] ." Bulan ) " . "<br />";
+                  }
+              @endphp
             </td>
           </tr>
           <tr>
             <td scope="row">Riwayat Penyakit</td>
             <td class="align-top">
-              {{ 
-                implode(
-                  ', ', 
-                  array_map(
-                    function ($d) {
-                      return $d['description'];
-                    }, 
-                    $anamnesis['riwayat_penyakits'] ?? []
-                  )
-                )
-              }}
+              @php
+                  $penyakits = array_merge($anamnesis['penyakit_riwayats'], $anamnesis['penyakits']);
+                  foreach ($penyakits as $key => $value) {
+                    echo "- ". $value['description'] . "<br />";
+                  }
+              @endphp
             </td>
           </tr>
           <tr>
@@ -231,6 +226,7 @@
         </tbody>
       </table>
     </div>
+
     <div class="mt-3">
       <h5 class="ms-3">B. PEMERIKSAAN FISIK</h5>
       <table class="table table-bordered table-sm">
@@ -318,7 +314,7 @@
           <tr>
             <td scope="row">Palpasi</td>
             <td class="align-top">
-              {{ $pemeriksaan_fisik['inspeksi_dinamis'] }}
+              {{ $pemeriksaan_fisik['palpasi'] }}
             </td>
           </tr>
           <tr>
@@ -356,13 +352,13 @@
           <tr>
             <td scope="row" style="width: 200px">Jenis Sel</td>
             <td class="align-top">
-              {{-- {{ $diagnosa['jenis_sel'] }} --}}
+              {{ implode(", ", $diagnosa['jenis_sel_text'] ?? []) }}
             </td>
           </tr>
           <tr>
             <td scope="row">PS</td>
             <td class="align-top">
-              {{-- {{ $diagnosa['ps'] }} --}}
+              {{ implode(", ", $diagnosa['ps'] ?? []) }}
             </td>
           </tr>
           <tr>
@@ -390,19 +386,19 @@
           <tr>
             <td scope="row">ALK</td>
             <td class="align-top">
-              {{-- {{ $diagnosa['alk'] }} --}}
+              {{ implode(", ", $diagnosa['alk_text'] ?? []) }}
             </td>
           </tr>
           <tr>
             <td scope="row">Stage</td>
             <td class="align-top">
-              {{-- {{ $diagnosa['stage'] }} --}}
+              {{ implode(", ", $diagnosa['stage_text'] ?? []) }}
             </td>
           </tr>
           <tr>
             <td scope="row">Paru</td>
             <td class="align-top">
-              {{-- {{ $diagnosa['paru'] }} --}}
+              {{ implode(", ", $diagnosa['paru_text'] ?? []) }}
             </td>
           </tr>
           <tr>
@@ -427,6 +423,50 @@
             <td scope="row">Staging M</td>
             <td class="align-top">
               {{ $diagnosa['staging_m'] ?? "" }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-3">
+      <h5 class="ms-3">E. TATALAKSANA</h5>
+      <table class="table table-bordered table-sm">
+        <tbody>
+          <tr>
+            <td scope="row" style="width: 200px">
+              <b>Operasi</b>
+            </td>
+            <td class="align-top"></td>
+          </tr>
+          <tr>
+            <td scope="row">Tanggal</td>
+            <td class="align-top">
+              -
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">Dokter</td>
+            <td class="align-top">
+              -
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">Jenis Operasi</td>
+            <td class="align-top">
+              -
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">Margin</td>
+            <td class="align-top">
+              -
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">Resume</td>
+            <td class="align-top">
+              -
             </td>
           </tr>
         </tbody>
@@ -457,6 +497,13 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="mt-3 text-end">
+      <b>{{ $payload['overview']['perubahan_terakhir'] }}</b> <br />
+      <b>Dokter yang Merawat</b> <br />
+      {{ $dokter['name'] }} <br />
+      {{ $dokter['id'] }}
     </div>
   </div>
   {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}

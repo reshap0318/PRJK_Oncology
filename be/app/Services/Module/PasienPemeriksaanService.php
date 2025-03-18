@@ -5,17 +5,14 @@ namespace App\Services\Module;
 use App\Helpers\Authorization;
 use App\Models\Module\{
     PemeriksaanComplainModel,
-    PemeriksaanDiagnosaModel,
     PemeriksaanFaktorResikoModel as PFS,
-    PemeriksaanKemoterapiModel,
-    PemeriksaanOperasiModel,
-    PemeriksaanRadioterapiModel,
-    PemeriksaanSitologiModel,
-    PemeriksaanTerapiTargetModel
+    PemeriksaanSitologiModel
 };
-use App\Repository\Module\PasienPemeriksaanRepository;
-use App\Repository\Module\PemeriksaanSicknessRepository;
-use App\Repository\Module\PemeriksaanSitologiRepository;
+use App\Repository\Module\{
+    PasienPemeriksaanRepository,
+    PemeriksaanSicknessRepository,
+    PemeriksaanSitologiRepository
+};
 use App\Services\BaseService;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -69,7 +66,7 @@ class PasienPemeriksaanService extends BaseService
             ]
         ];
         $keluhans = $data->complains->where('tag', PemeriksaanComplainModel::T_KELUHAN)->toArray();
-        if (!$keluhans) $keluhans = [["id" => 0,"description" => null, "duration" => null]];
+        if (!$keluhans) $keluhans = [["id" => 0, "description" => null, "duration" => null]];
         $gejalas = $data->complains->where('tag', PemeriksaanComplainModel::T_GEJALA)->toArray();
         if (!$gejalas) $gejalas = [["id" => 0, "description" => null, "duration" => null]];
 
@@ -84,7 +81,7 @@ class PasienPemeriksaanService extends BaseService
                 "description"   => null
             ];
             $sitologi = $data->sitologis->firstWhere('category', $key);
-            if($sitologi) {
+            if ($sitologi) {
                 $tmp = array_merge($tmp, [
                     "date"          => $sitologi['date'] ? $sitologi['date']->format("Y-m-d") : null,
                     "type"          => $sitologi['type'],
@@ -101,9 +98,10 @@ class PasienPemeriksaanService extends BaseService
             ->select(['id', 'description'])
             ->get();
 
-        if($tag == 'laporan') {
-            $data->smokingHistory->append(['history_text','category_text', 'suck_text']);
-            $paparan_radon['value_txt'] = array_map(function($q) {
+        if ($tag == 'laporan') {
+            $data->smokingHistory->append(['history_text', 'category_text', 'suck_text']);
+            $data->diagnosa->append(['jenis_sel_text', 'paru_text', 'stage_text', 'alk_text']);
+            $paparan_radon['value_txt'] = array_map(function ($q) {
                 $list = [
                     1 => 'Rumah Kayu',
                     2 => 'Lantai Retak',
@@ -112,7 +110,7 @@ class PasienPemeriksaanService extends BaseService
                 return $list[$q] ?? 'Tidak Diketahui';
             }, $paparan_radon['value']);
 
-            $biomess['value_txt'] = array_map(function($q) {
+            $biomess['value_txt'] = array_map(function ($q) {
                 $list = [
                     1 => 'Kayu Bakar',
                     2 => 'Minyak Tanah',
@@ -128,6 +126,7 @@ class PasienPemeriksaanService extends BaseService
                 'dokter_id' => $data->user_id,
                 'pasien_id' => $data->pasien_id,
                 'tanggal'   => $data->inspection_at->format("Y-m-d"),
+                'perubahan_terakhir' => $data->updated_at->format("Y-m-d"),
                 'dokter'    => $data->dokter->toArray(),
                 'pasien'    => $data->pasien->toArray(),
             ],
@@ -171,7 +170,7 @@ class PasienPemeriksaanService extends BaseService
         $tata_laksana = $param['tata_laksana'] ?? null;
         $jenis_sel = $param['jenis_sel'] ?? null;
 
-        
+
         $query = $this->mainRepository->datatable()
             ->filterByRole('pm')
             ->datatableFilterByJenisSel('pm', $jenis_sel)
@@ -239,8 +238,7 @@ class PasienPemeriksaanService extends BaseService
                     'description'   => $keluhan['description'],
                     'duration'      => $keluhan['duration']
                 ]);
-            }
-            else if(isset($keluhan['description'])) {
+            } else if (isset($keluhan['description'])) {
                 $obj = $data->complains()->create([
                     'description'   => $keluhan['description'] ?? null,
                     'duration'      => $keluhan['duration'] ?? null,
@@ -249,7 +247,7 @@ class PasienPemeriksaanService extends BaseService
                 $keluhans[$key]['id'] = $obj->id;
             }
         }
-        
+
         $gejalas = ($payload['anemnesis']['gejalas'] ?? []);
         foreach ($gejalas as $key => $gejala) {
             if (isset($gejala['id']) && $gejala['id'] != 0) {
@@ -257,8 +255,7 @@ class PasienPemeriksaanService extends BaseService
                     'description'   => $gejala['description'],
                     'duration'      => $gejala['duration']
                 ]);
-            }
-            else if(isset($gejala['description'])) {
+            } else if (isset($gejala['description'])) {
                 $obj = $data->complains()->create([
                     'description'   => $gejala['description'],
                     'duration'      => $gejala['duration'],
@@ -275,9 +272,8 @@ class PasienPemeriksaanService extends BaseService
             if (isset($penyakit['id']) && $penyakit['id'] != 0) {
                 $data->sickness()->where('id', $penyakit['id'])->update([
                     'description'   => $penyakit['description'],
-                ]);                
-            }
-            else if(!isset($penyakit['description'])) {
+                ]);
+            } else if (!isset($penyakit['description'])) {
                 $obj = $data->sickness()->create([
                     'description'   => $penyakit['description']
                 ]);
@@ -302,8 +298,8 @@ class PasienPemeriksaanService extends BaseService
 
         $data->bronkoskopi()->delete();
         $data->bronkoskopi()->create($payload['bronkoskopi'] ?? []);
-        
-        $sitologis = array_map(function($q) use ($data) {
+
+        $sitologis = array_map(function ($q) use ($data) {
             $type = $q['type'] ?? null;
             return [
                 'inspection_id'     => $data->id,
@@ -327,13 +323,14 @@ class PasienPemeriksaanService extends BaseService
         return $data->delete($id);
     }
 
-    private function insertRiskFactorLogic($riskFactors, $payload = []) {
+    private function insertRiskFactorLogic($riskFactors, $payload = [])
+    {
         $input = [
             'own' => $payload['own'],
             'value' => $payload['own'] == 0 ? null : json_encode($payload['value']),
             'category' => $payload['category']
         ];
-        if(isset($payload['id']) && $payload['id'] != 0) {
+        if (isset($payload['id']) && $payload['id'] != 0) {
             $riskFactors->where('id', $payload['id'])->update($input);
         } else {
             $riskFactors->create($input);

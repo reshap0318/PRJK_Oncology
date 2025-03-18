@@ -12,9 +12,9 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        api: __DIR__ . '/../routes/api.php',
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -25,12 +25,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withSchedule(function (Schedule $schedule) {
-        if(config('queue.default') == 'database') {
+        if (config('queue.default') == 'database') {
             $scheduleService = new ScheduleService();
             $list = $scheduleService->getData();
-            $list->each(function($data) use ($schedule, $scheduleService)
-            {
-                $event = $schedule->command($data->command." ".$data->parameters);
+            $list->each(function ($data) use ($schedule, $scheduleService) {
+                $event = $schedule->command($data->command . " " . $data->parameters);
                 $event->cron($scheduleService->getCronExpression($data))
                     ->name($data->description)
                     ->timezone($data->timezone)
@@ -46,15 +45,15 @@ return Application::configure(basePath: dirname(__DIR__))
                         // schedule after run function
                         dispatch(new ExecutedJob($data->result, $data->start, $output));
                     });
-        
+
                 if ($data->dont_overlap) {
                     $event->withoutOverlapping();
                 }
-        
+
                 if ($data->run_in_maintenance) {
                     $event->evenInMaintenanceMode();
                 }
-        
+
                 if ($data->run_in_background) {
                     $event->runInBackground();
                 }
