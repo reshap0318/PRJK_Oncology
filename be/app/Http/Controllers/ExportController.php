@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Module\PasienPemeriksaanService;
+use App\Services\Module\PemeriksaanOperasiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Browsershot\Browsershot;
@@ -12,8 +13,9 @@ class ExportController extends Controller
     function pemeriksaanPDF($id)
     {
         $payload = (new PasienPemeriksaanService())->getById($id, 'laporan');
+        $payload['tatalaksana_operasis'] = (new PemeriksaanOperasiService())->getLaporan(['pemeriksaan_id' => $id])->toArray();
 
-        return view('exports.PemeriksaanPDF', ['payload' => $payload]);
+        // return view('exports.PemeriksaanPDF', ['payload' => $payload]);
         $template = view('exports.PemeriksaanPDF', ['payload' => $payload])->render();
 
         Storage::disk('local')->makeDirectory('exports');

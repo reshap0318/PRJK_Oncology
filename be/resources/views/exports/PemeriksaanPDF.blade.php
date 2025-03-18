@@ -16,6 +16,8 @@
           $pemeriksaan_fisik = $payload['pemeriksaan_fisik'] ?? [];
           $outcome = $payload['outcome'] ?? [];
           $diagnosa = $payload['diagnosa'] ?? [];
+          $bronkoskopi = $payload['bronkoskopi'] ?? [];
+          $paalParu = $payload['paal_paru'] ?? [];
       @endphp
   <div class="mt-3">
     {{-- table table-borderless table-sm --}}
@@ -430,47 +432,203 @@
     </div>
 
     <div class="mt-3">
-      <h5 class="ms-3">E. TATALAKSANA</h5>
+      <p class="ms-3 fw-bold">D. DIAGNOSA</p>
+      <p class="ms-3 fw-bold">1. RADIOLOGI</p>
       <table class="table table-bordered table-sm">
         <tbody>
           <tr>
             <td scope="row" style="width: 200px">
-              <b>Operasi</b>
+              <b>RO.FOTO TORAKS</b>
             </td>
-            <td class="align-top"></td>
+            <td class="align-top">-</td>
           </tr>
+        </tbody>
+      </table>
+      <p class="ms-3 fw-bold mt-3">2. HASIL LABORATORIUM</p>
+      <table class="table table-bordered table-sm">
+        <tbody>
           <tr>
-            <td scope="row">Tanggal</td>
-            <td class="align-top">
-              -
+            <td scope="row" style="width: 200px">
+              Tanggal
             </td>
+            <td class="align-top">-</td>
           </tr>
+        </tbody>
+      </table>
+      <p class="ms-3 fw-bold mt-3">3. HASIL BRONKOSKOPI</p>
+      <table class="table table-bordered table-sm">
+        <tbody>
           <tr>
-            <td scope="row">Dokter</td>
+            <td scope="row" style="width: 200px">Pita Suara</td>
             <td class="align-top">
-              -
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">Jenis Operasi</td>
-            <td class="align-top">
-              -
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">Margin</td>
-            <td class="align-top">
-              -
+              {{ $bronkoskopi['vocal_cords'] }}
             </td>
           </tr>
           <tr>
-            <td scope="row">Resume</td>
+            <td scope="row" style="width: 200px">Trakea</td>
             <td class="align-top">
-              -
+              {{ $bronkoskopi['trachea'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">Carina</td>
+            <td class="align-top">
+              {{ $bronkoskopi['carina'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">BUKa</td>
+            <td class="align-top">
+              {{ $bronkoskopi['r_bu'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">Second Carina</td>
+            <td class="align-top">
+              {{ $bronkoskopi['r_carina_second'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">BUKi</td>
+            <td class="align-top">
+              {{ $bronkoskopi['l_bu'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">Second Carina</td>
+            <td class="align-top">
+              {{ $bronkoskopi['l_carina_second'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">LAKa/LAKi</td>
+            <td class="align-top">
+              {{ $bronkoskopi['l_la'] }}/{{ $bronkoskopi['r_la'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">TI</td>
+            <td class="align-top">
+              {{ $bronkoskopi['r_ti'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">Lower Division</td>
+            <td class="align-top">
+              {{ $bronkoskopi['l_ld'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">LM</td>
+            <td class="align-top">
+              {{ $bronkoskopi['r_lm'] }}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">LBKa/LBKi</td>
+            <td class="align-top">
+              {{ $bronkoskopi['l_lb'] }}/{{ $bronkoskopi['r_lb'] }}
             </td>
           </tr>
         </tbody>
       </table>
+      <p class="ms-3 fw-bold mt-3">4. HASIL LABORATORIUM</p>
+      <table class="table table-bordered table-sm">
+        <tbody>
+          <tr>
+            <td scope="row" style="width: 200px">
+              Tanggal
+            </td>
+            <td class="align-top">-</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="ms-3 fw-bold mt-3">5. PAAL PARU</p>
+      <table class="table table-bordered table-sm">
+        <tbody>
+          <tr>
+            <td scope="row" style="width: 200px">KVP</td>
+            <td class="align-top">
+              {{ $paalParu['kvp_ml'] ?? 0 }}ml {{ $paalParu['kvp_percent'] ?? 0 }}ml 
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">VEP 1</td>
+            <td class="align-top">
+              {{ $paalParu['vep_ml'] ?? 0 }}ml {{ $paalParu['vep_percent'] ?? 0 }}% 
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">VEP1/KVP</td>
+            <td class="align-top">
+              {{ $paalParu['vep_kvp'] ?? 0 }}% 
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" style="width: 200px">Resume</td>
+            <td class="align-top">
+              {{ $paalParu['description'] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="ms-3 fw-bold mt-3">6. PEMERIKSAAN LAINNYA</p>
+      <table class="table table-bordered table-sm">
+        <tbody>
+          <tr>
+            <td scope="row" style="width: 200px">
+              Nama Pemeriksa
+            </td>
+            <td class="align-top">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-3">
+      <h5 class="ms-3">E. TATALAKSANA</h5>
+      @foreach ($payload['tatalaksana_operasis'] as $key => $item)
+        <table class="table table-bordered table-sm mb-3">
+          <tbody>
+            <tr>
+              <td scope="row" style="width: 200px">
+                <b>Operasi {{ $key + 1 }}</b>
+              </td>
+              <td class="align-top"></td>
+            </tr>
+            <tr>
+              <td scope="row">Tanggal</td>
+              <td class="align-top">
+                {{ $item['date'] }}
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Dokter</td>
+              <td class="align-top">
+                {{ $item['dokter_name'] }}
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Jenis Operasi</td>
+              <td class="align-top">
+                {{ $item['category'] }}
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Margin</td>
+              <td class="align-top">
+                R{{ implode(", R", $item['margin']) }}
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Resume</td>
+              <td class="align-top">
+                {{ $item['description'] }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      @endforeach
     </div>
     
     <div class="mt-3">

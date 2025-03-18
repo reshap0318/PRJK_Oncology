@@ -21,14 +21,20 @@ class PemeriksaanOperasiService extends BaseService
         return $data;
     }
 
-    public function datatable(array $payload = [])
+    public function getLaporan(array $payload = [], $tag = 'default')
     {
         $pemeriksaanId = $payload['pemeriksaan_id'] ?? null;
-        $query = $this->mainRepository->datatable()
-            ->when($pemeriksaanId, function($query) use ($pemeriksaanId) {
+        $q = $this->mainRepository->datatable()
+            ->when($pemeriksaanId, function ($query) use ($pemeriksaanId) {
                 return $query->where('o.inspection_id', $pemeriksaanId);
-            })
-            ->getQuery();
+            });
+        if ($tag == 'datatable') return $q;
+        return $q->get();
+    }
+
+    public function datatable(array $payload = [])
+    {
+        $query = $this->getLaporan($payload, 'datatable')->getQuery();
 
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {
