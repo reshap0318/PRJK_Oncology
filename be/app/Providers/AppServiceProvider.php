@@ -27,8 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // setup https
-        if(Str::contains(URL::to('/'), ['ngrok', 'rangminangdev']))
-        {
+        if (Str::contains(URL::to('/'), ['ngrok', 'rangminangdev', 'sabrinaermayanti'])) {
             URL::forceScheme('https');
         }
 
@@ -38,8 +37,8 @@ class AppServiceProvider extends ServiceProvider
 
         RateLimiter::for('uploads', function (Request $request) {
             return $request->user()
-                        ? Limit::perMinute(300)->by($request->user()->id)
-                        : Limit::perMinute(20)->by($request->ip());
+                ? Limit::perMinute(300)->by($request->user()->id)
+                : Limit::perMinute(20)->by($request->ip());
         });
     }
 }
