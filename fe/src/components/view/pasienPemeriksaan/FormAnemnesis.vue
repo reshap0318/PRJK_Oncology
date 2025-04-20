@@ -78,13 +78,13 @@
                     <div class="col-12 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
-                                <span>Gejala Lainnya</span>
+                                <span>Keluhan Tambahan</span>
                             </label>
                             <input
                                 class="form-control"
                                 type="text"
                                 autocomplete="off"
-                                placeholder="gejala lainnya"
+                                placeholder="keluhan tambahan"
                                 v-model="d.description"
                             />
                             <form-each-error

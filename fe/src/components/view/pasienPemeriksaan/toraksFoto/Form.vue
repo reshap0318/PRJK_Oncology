@@ -37,51 +37,58 @@
                         <div class="col-12 col-sm-4 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Ukuran </span>
+                                    <span> Ukuran (CM) </span>
                                 </label>
-                                <select class="form-control" v-model="formInput.pa_size">
-                                    <option :value="null">pilihan</option>
-                                    <option :value="1">< 3 cm</option>
-                                    <option :value="2">> 3 cm</option>
-                                </select>
+                                <input
+                                    type="number"
+                                    step="0.1"
+                                    class="form-control"
+                                    min="0"
+                                    placeholder="0,0"
+                                    v-model="formInput.pa_size"
+                                />
                                 <form-error :err="v$.pa_size" name="pa_size" />
                             </div>
                         </div>
                         <div class="col-12 col-sm-4 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Lokasi </span>
+                                    <span> Lokasi </span>
                                 </label>
-                                <select class="form-control" v-model="formInput.pa_lokasi">
-                                    <option :value="null">pilihan</option>
-                                    <option :value="1">Destruksi Iga</option>
-                                    <option :value="2">Destruksi Vertebrata</option>
-                                </select>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="lokasi"
+                                    v-model="formInput.pa_lokasi"
+                                />
                                 <form-error :err="v$.pa_lokasi" name="pa_lokasi" />
                             </div>
                         </div>
                         <div class="col-12 col-sm-4 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Efusi Pleura </span>
+                                    <span> Efusi Pleura </span>
                                 </label>
-                                <select class="form-control" v-model="formInput.pa_efusi">
-                                    <option :value="null">pilihan</option>
-                                    <option :value="1">Efusi Pleura</option>
-                                    <option :value="2">Atelektasis</option>
-                                </select>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="efusi pleura"
+                                    v-model="formInput.pa_efusi"
+                                />
                                 <form-error :err="v$.pa_efusi" name="pa_efusi" />
                             </div>
                         </div>
                         <div class="col-12 mb-4">
                             <div class="fv-row">
-                                <label class="form-label fs-6 text-dark"> Keterangan </label>
+                                <label class="form-label fs-6 text-dark">
+                                    Keterangan Lainnya
+                                </label>
                                 <textarea
                                     v-model="formInput.pa_description"
                                     cols="30"
                                     rows="3"
                                     class="form-control"
-                                    placeholder="keterangan"
+                                    placeholder="keterangan lainnya"
                                 ></textarea>
                                 <form-error :err="v$.pa_description" name="pa_description" />
                             </div>
@@ -96,51 +103,58 @@
                         <div class="col-12 col-sm-4 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Ukuran </span>
+                                    <span> Ukuran (CM) </span>
                                 </label>
-                                <select class="form-control" v-model="formInput.la_size">
-                                    <option :value="null">pilihan</option>
-                                    <option :value="1">< 3 cm</option>
-                                    <option :value="2">> 3 cm</option>
-                                </select>
+                                <input
+                                    type="number"
+                                    step="0.1"
+                                    class="form-control"
+                                    min="0"
+                                    placeholder="0,0"
+                                    v-model="formInput.la_size"
+                                />
                                 <form-error :err="v$.la_size" name="la_size" />
                             </div>
                         </div>
                         <div class="col-12 col-sm-4 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Lokasi </span>
+                                    <span> Lokasi </span>
                                 </label>
-                                <select class="form-control" v-model="formInput.la_lokasi">
-                                    <option :value="null">pilihan</option>
-                                    <option :value="1">Destruksi Iga</option>
-                                    <option :value="2">Destruksi Vertebrata</option>
-                                </select>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="lokasi"
+                                    v-model="formInput.la_lokasi"
+                                />
                                 <form-error :err="v$.la_lokasi" name="la_lokasi" />
                             </div>
                         </div>
                         <div class="col-12 col-sm-4 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Efusi Pleura </span>
+                                    <span> Efusi Pleura </span>
                                 </label>
-                                <select class="form-control" v-model="formInput.la_efusi">
-                                    <option :value="null">pilihan</option>
-                                    <option :value="1">Efusi Pleura</option>
-                                    <option :value="2">Atelektasis</option>
-                                </select>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="efusi pleura"
+                                    v-model="formInput.la_efusi"
+                                />
                                 <form-error :err="v$.la_efusi" name="la_efusi" />
                             </div>
                         </div>
                         <div class="col-12 mb-4">
                             <div class="fv-row">
-                                <label class="form-label fs-6 text-dark"> Keterangan </label>
+                                <label class="form-label fs-6 text-dark">
+                                    Keterangan Lainnya
+                                </label>
                                 <textarea
                                     v-model="formInput.la_description"
                                     cols="30"
                                     rows="3"
                                     class="form-control"
-                                    placeholder="keterangan"
+                                    placeholder="keterangan lainnya"
                                 ></textarea>
                                 <form-error :err="v$.la_description" name="la_description" />
                             </div>
@@ -179,13 +193,11 @@ const formInput = ref({
     pa_size: null,
     pa_lokasi: null,
     pa_efusi: null,
-    pa_efusi_lainnya: null,
     pa_description: null,
 
     la_size: null,
     la_lokasi: null,
     la_efusi: null,
-    la_efusi_lainnya: null,
     la_description: null
 })
 const rules = computed(() => {
@@ -193,17 +205,15 @@ const rules = computed(() => {
         date: { required },
         file: {},
 
-        pa_size: { required },
-        pa_lokasi: { required },
-        pa_efusi: { required },
-        pa_efusi_lainnya: { required: requiredIf(formInput.value.pa_efusi == null) },
-        pa_description: { required },
+        pa_size: {},
+        pa_lokasi: {},
+        pa_efusi: {},
+        pa_description: {},
 
-        la_size: { required },
-        la_lokasi: { required },
-        la_efusi: { required },
-        la_efusi_lainnya: { required: requiredIf(formInput.value.la_efusi == null) },
-        la_description: { required }
+        la_size: {},
+        la_lokasi: {},
+        la_efusi: {},
+        la_description: {}
     }
 })
 const v$ = useVuelidate(rules, formInput)
@@ -217,13 +227,11 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.pa_size = payload.pa_size || null
     formInput.value.pa_lokasi = payload.pa_lokasi || null
     formInput.value.pa_efusi = payload.pa_efusi || null
-    formInput.value.pa_efusi_lainnya = payload.pa_efusi_lainnya || null
     formInput.value.pa_description = payload.pa_description || null
 
     formInput.value.la_size = payload.la_size || null
     formInput.value.la_lokasi = payload.la_lokasi || null
     formInput.value.la_efusi = payload.la_efusi || null
-    formInput.value.la_efusi_lainnya = payload.la_efusi_lainnya || null
     formInput.value.la_description = payload.la_description || null
 
     fileReferral.value = fileRef.file || null

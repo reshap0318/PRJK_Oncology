@@ -32,6 +32,7 @@ class PemeriksaanFisikModel extends Model
         "abdomen",
         "perkusi",
         "ekstemitas",
+        "lainnya",
     ];
 
     protected $casts = [

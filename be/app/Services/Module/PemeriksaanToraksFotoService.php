@@ -41,17 +41,9 @@ class PemeriksaanToraksFotoService extends BaseService
 
     public function create($payload)
     {
-        if($payload['pa_efusi'] == 3) {
-            $payload['pa_efusi_lainnya'] = null;
-        }
-        
-        if($payload['la_efusi'] == 3) {
-            $payload['la_efusi_lainnya'] = null;
-        }
-
         $data = $this->mainRepository->create($payload);
 
-        if(isset($payload['file']) && $payload['file']->isValid()) {
+        if(isset($payload['file']) && $payload['file'] && $payload['file']->isValid()) {
             $fileName = $data->id . "-toraks-foto." . $payload['file']->extension();
             $data->update([
                 'file_path' => $payload['file']->storeAs('toraks-foto', $fileName)
@@ -65,15 +57,7 @@ class PemeriksaanToraksFotoService extends BaseService
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
 
-        if($payload['pa_efusi'] != 3) {
-            $payload['pa_efusi_lainnya'] = null;
-        }
-        
-        if($payload['la_efusi'] != 3) {
-            $payload['la_efusi_lainnya'] = null;
-        }
-
-        if(isset($payload['file']) && $payload['file']->isValid()) {
+        if(isset($payload['file']) && $payload['file'] && $payload['file']->isValid()) {
             $fileName = $data->id . "-toraks-foto." . $payload['file']->extension();
             $payload['file_path'] = $payload['file']->storeAs('toraks-foto', $fileName);
         }

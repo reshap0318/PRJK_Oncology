@@ -22,17 +22,17 @@ class PemeriksaanToraksFotoModel extends Model
         "pa_size",
         "pa_lokasi",
         "pa_efusi",
-        "pa_efusi_lainnya",
         "pa_description",
 
         "la_size",
         "la_lokasi",
         "la_efusi",
-        "la_efusi_lainnya",
         "la_description"
     ];
 
     protected $casts = [
+        "pa_size"       => 'float:3,2',
+        "la_size"       => 'float:3,2',
         "date"          => 'date:Y-m-d',
     ];
 

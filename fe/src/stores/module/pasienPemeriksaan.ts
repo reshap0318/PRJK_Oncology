@@ -144,7 +144,8 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             perkusi: null,
             auskultasi: null,
             abdomen: null,
-            ekstemitas: null
+            ekstemitas: null,
+            lainnya: null
         },
         diagnosa: {
             jenis_sel: [],
@@ -373,7 +374,8 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 perkusi: {}, //{ required },
                 auskultasi: {}, //{ required },
                 abdomen: {}, //{ required },
-                ekstemitas: {} //{ required }
+                ekstemitas: {}, //{ required }
+                lainnya: {} //{ required }
             },
             diagnosa: {
                 jenis_sel: {}, //{ required },

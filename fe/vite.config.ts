@@ -21,6 +21,6 @@ export default defineConfig({
     },
     server: {
         // @ts-ignore
-        allowedHosts: ['sabrinaermayanti.com', 'localhost']
+        allowedHosts: ['lcr.sabrinaermayanti.com', 'localhost']
     }
 })

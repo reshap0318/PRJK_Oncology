@@ -28,22 +28,18 @@ class PemeriksaanToraksFotoRequest extends FormRequest
             "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
             "date"          => "required|date_format:Y-m-d",
             "file"          => [
-                "required",
-                // Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",
             ],
 
-            "pa_size"               => "required",
-            "pa_lokasi"             => "required",
-            "pa_efusi"              => "required",
-            "pa_efusi_lainnya"      => ["nullable", Rule::requiredIf($this->pa_efusi == 3)],
+            "pa_size"               => "nullable",
+            "pa_lokasi"             => "nullable",
+            "pa_efusi"              => "nullable",
             "pa_description"        => "nullable",
 
-            "la_size"               => "required",
-            "la_lokasi"             => "required",
-            "la_efusi"              => "required",
-            "la_efusi_lainnya"      => ["nullable", Rule::requiredIf($this->la_efusi == 3)],
+            "la_size"               => "nullable",
+            "la_lokasi"             => "nullable",
+            "la_efusi"              => "nullable",
             "la_description"        => "nullable",
         ];
     }

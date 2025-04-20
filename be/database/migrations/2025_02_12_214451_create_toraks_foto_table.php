@@ -17,16 +17,14 @@ return new class extends Migration
             $table->date('date');
             $table->string('file_path')->nullable();
 
-            $table->tinyInteger('pa_size');
-            $table->tinyInteger('pa_lokasi');
-            $table->tinyInteger('pa_efusi');
-            $table->string('pa_efusi_lainnya')->nullable();
+            $table->float('pa_size', 3, 2)->nullable();
+            $table->string('pa_lokasi')->nullable();
+            $table->string('pa_efusi')->nullable();
             $table->text('pa_description')->nullable();
 
-            $table->tinyInteger('la_size');
-            $table->tinyInteger('la_lokasi');
-            $table->tinyInteger('la_efusi');
-            $table->string('la_efusi_lainnya')->nullable();
+            $table->float('la_size', 3, 2)->nullable();
+            $table->string('la_lokasi')->nullable();
+            $table->string('la_efusi')->nullable();
             $table->text('la_description')->nullable();
 
             $table->timestamps();
