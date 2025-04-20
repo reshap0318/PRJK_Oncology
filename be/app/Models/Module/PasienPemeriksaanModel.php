@@ -74,7 +74,6 @@ class PasienPemeriksaanModel extends Model
             "ps"            => [],
             "egfr"          => null,
             "mutasi"        => null,
-            "whild_type"    => 0,
             "pdl1"          => null,
             "alk"           => [],
             "komorbid"      => null,

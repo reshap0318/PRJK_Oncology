@@ -374,12 +374,6 @@
             </td>
           </tr>
           <tr>
-            <td scope="row">WhildType</td>
-            <td class="align-top">
-              {{ $diagnosa['whild_type'] == 1 ? "Ya" : "Tidak" }}
-            </td>
-          </tr>
-          <tr>
             <td scope="row">PD-L1</td>
             <td class="align-top">
               {{ $diagnosa['pdl1'] ?? "" }}

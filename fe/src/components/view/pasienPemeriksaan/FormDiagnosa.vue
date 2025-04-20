@@ -117,11 +117,11 @@
             </div>
 
             <div class="border-dashed p-4 mb-4" style="position: relative">
-                <h2 class="text-uppercase">Marker Molekular (EGFR )</h2>
+                <h2 class="text-uppercase">Marker Molekular</h2>
                 <div class="row mb-3">
                     <div class="col-sm-3 align-self-center">
                         <label class="form-label fs-6 text-dark">
-                            <span> Mutasi </span>
+                            <span> EGFR </span>
                         </label>
                     </div>
                     <div class="col-sm-9">
@@ -129,31 +129,13 @@
                             class="form-control"
                             type="text"
                             autocomplete="off"
-                            placeholder="mutasi"
+                            placeholder="EGFR"
                             v-model="formInput.mutasi"
                         />
                         <form-error
                             :err="formInputValidated.diagnosa.mutasi"
                             name="diagnosa.mutasi"
                         />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-3 align-self-center">
-                        <label class="form-label fs-6 text-dark">
-                            <span> WhildType </span>
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <label class="form-check form-check-custom form-check-solid me-10">
-                            <input
-                                class="form-check-input h-20px w-20px"
-                                type="checkbox"
-                                v-model="formInput.whild_type"
-                                :true-value="1"
-                                :false-value="0"
-                            />
-                        </label>
                     </div>
                 </div>
                 <div class="row mb-3">

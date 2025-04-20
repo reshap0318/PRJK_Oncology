@@ -29,5 +29,8 @@ class PemeriksaanBronkoskopiModel extends Model
         "l_la",
         "l_lb",
         "l_ld",
+
+        "description",
+        "staging",
     ];
 }

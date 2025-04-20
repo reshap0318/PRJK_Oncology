@@ -156,7 +156,6 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             stage: [],
             ps: [],
             mutasi: null,
-            whild_type: 0,
             pdl1: null,
             alk: [],
             komorbid: null
@@ -190,7 +189,10 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             l_carina_second: null,
             l_la: null,
             l_lb: null,
-            l_ld: null
+            l_ld: null,
+
+            description: null,
+            staging: null,
         },
         sitologis: [
             {
@@ -386,7 +388,6 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 stage: {}, //{ required },
                 ps: {}, //{ required },
                 mutasi: {}, //{ required },
-                whild_type: {}, //{ required },
                 pdl1: {}, //{ required },
                 alk: {}, //{ required },
                 komorbid: {} //{ required }
@@ -420,7 +421,10 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 l_carina_second: {}, //{ required },
                 l_la: {}, //{ required },
                 l_lb: {}, //{ required },
-                l_ld: {} //{ required },
+                l_ld: {}, //{ required },
+
+                description: {}, //{ required },
+                staging: {}, //{ required },
             },
             sitologis: {
                 $each: helpers.forEach({

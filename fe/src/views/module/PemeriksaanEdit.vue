@@ -240,7 +240,7 @@ const menus = ref([
                     },
                     {
                         code: 'ONC00314',
-                        label: 'MRI KEPALA'
+                        label: 'MRI'
                     },
                     {
                         code: 'ONC00315',
@@ -258,7 +258,7 @@ const menus = ref([
             },
             {
                 code: 'ONC0034',
-                label: 'PA/Sitologi'
+                label: 'PA'
             },
             {
                 code: 'ONC0035',

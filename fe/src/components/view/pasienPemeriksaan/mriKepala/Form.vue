@@ -59,7 +59,7 @@ import { useAuthStore } from '@/stores/auth'
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
 
-const title = computed(() => (formInput.value.id == 0 ? 'Tambah MRI Kepala' : 'Ubah MRI Kepala'))
+const title = computed(() => (formInput.value.id == 0 ? 'Tambah MRI' : 'Ubah MRI'))
 const modal = ref()
 
 const fileReferral = ref(null)

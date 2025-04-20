@@ -116,7 +116,6 @@ class DummySeeder extends Seeder
                             "stage"     => [2, 3, 5, 8],
                             "ps"        => [2],
                             "mutasi"    => "Testing Mutasi",
-                            "whild_type" => 1,
                             "pdl1"      => "Testing PD-L1",
                             "alk"       => [1, 2],
                             "komorbid"  => "Testing Komorbid"

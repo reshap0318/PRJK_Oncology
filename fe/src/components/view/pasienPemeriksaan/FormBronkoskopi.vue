@@ -188,6 +188,36 @@
                     <form-error :err="v$.bronkoskopi.l_lb" name="bronkoskopi.l_lb" />
                 </div>
             </div>
+            <div class="col-12 col-sm-6 mb-4">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">
+                        <span>Kesan</span>
+                    </label>
+                    <textarea
+                        class="form-control"
+                        placeholder="kesan"
+                        v-model="formInput.description"
+                        cols="30"
+                        rows="2"
+                    ></textarea>
+                    <form-error :err="v$.bronkoskopi.description" name="bronkoskopi.description" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 mb-4">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">
+                        <span>Staging</span>
+                    </label>
+                    <textarea
+                        class="form-control"
+                        placeholder="staging"
+                        v-model="formInput.staging"
+                        cols="30"
+                        rows="2"
+                    ></textarea>
+                    <form-error :err="v$.bronkoskopi.staging" name="bronkoskopi.staging" />
+                </div>
+            </div>
         </div>
     </div>
 </template>
