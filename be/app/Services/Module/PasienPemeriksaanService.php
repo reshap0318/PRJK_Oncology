@@ -120,6 +120,8 @@ class PasienPemeriksaanService extends BaseService
             }, $biomess['value']);
         }
 
+        $data['laboratoryResult']['result'] = null;
+
         return [
             'id' => $id,
             'overview'  => [
@@ -151,7 +153,8 @@ class PasienPemeriksaanService extends BaseService
             ],
             "paal_paru" => $data->paalParu->toArray(),
             "bronkoskopi" => $data->bronkoskopi->toArray(),
-            'sitologis'   => $sitologis
+            'sitologis'   => $sitologis,
+            'laboratory' => $data->laboratoryResult->toArray(),
         ];
     }
 
@@ -311,6 +314,14 @@ class PasienPemeriksaanService extends BaseService
             ];
         }, $payload['sitologis'] ?? []);
         (new PemeriksaanSitologiRepository())->upsert($sitologis, ['inspection_id', 'category'], ['date', 'type', 'type_detail', 'description']);
+
+        $data->laboratoryResult()->delete();
+        if(isset($payload['laboratory']) && isset($payload['laboratory']['result']) && $payload['laboratory']['result']->isValid()) {
+            $fileResult = $payload['laboratory']['result'];
+            $fileName = $data->id . "-laboratory-result." . $fileResult->extension();
+            $payload['laboratory']['result_path'] = $fileResult->storeAs('laboratory-result', $fileName);
+        }
+        $data->laboratoryResult()->create($payload['laboratory'] ?? []);
 
         return $data;
     }

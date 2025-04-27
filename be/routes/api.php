@@ -178,13 +178,13 @@ Route::middleware(['auth:api'])->group(function () {
         Route::delete('/{id}', [PemeriksaanLainnyaController::class, 'destroy'])->name('.delete');
     });
 
-    Route::prefix('pemeriksaan-laboratory')->as('pemeriksaan-laboratory')->middleware('log:pemeriksaan-laboratory')->group(function () {
-        Route::get('/{id}', [PemeriksaanLaboratoryController::class, 'getData'])->name('.detail');
-        Route::post('/', [PemeriksaanLaboratoryController::class, 'store'])->name('.store');
-        Route::post('/datatable', [PemeriksaanLaboratoryController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-laboratory');
-        Route::patch('/{id}', [PemeriksaanLaboratoryController::class, 'update'])->name('.update');
-        Route::delete('/{id}', [PemeriksaanLaboratoryController::class, 'destroy'])->name('.delete');
-    });
+    // Route::prefix('pemeriksaan-laboratory')->as('pemeriksaan-laboratory')->middleware('log:pemeriksaan-laboratory')->group(function () {
+    //     Route::get('/{id}', [PemeriksaanLaboratoryController::class, 'getData'])->name('.detail');
+    //     Route::post('/', [PemeriksaanLaboratoryController::class, 'store'])->name('.store');
+    //     Route::post('/datatable', [PemeriksaanLaboratoryController::class, 'datatable'])->name('.datatable')->withoutMiddleware('log:pemeriksaan-laboratory');
+    //     Route::patch('/{id}', [PemeriksaanLaboratoryController::class, 'update'])->name('.update');
+    //     Route::delete('/{id}', [PemeriksaanLaboratoryController::class, 'destroy'])->name('.delete');
+    // });
 
     Route::prefix('pemeriksaan-toraks-usg')->as('pemeriksaan-toraks-usg')->middleware('log:pemeriksaan-toraks-usg')->group(function () {
         Route::get('/{id}', [PemeriksaanToraksUsgController::class, 'getData'])->name('.detail');

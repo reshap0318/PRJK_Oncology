@@ -54,7 +54,7 @@
             <div class="col-12 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Ct-Scan </span>
+                        <span class="required"> CT-Scan Follow up </span>
                     </label>
                     <InputFile
                         v-model="formInput.ct_scan"

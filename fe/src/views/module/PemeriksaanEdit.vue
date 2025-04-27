@@ -175,7 +175,7 @@ import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.
 import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/View.vue'
 import FormTerapiTarget from '@/components/view/pasienPemeriksaan/terapi/View.vue'
 
-import FormLaboratory from '@/components/view/pasienPemeriksaan/laboratory/View.vue'
+import FormLaboratory from '@/components/view/pasienPemeriksaan/FormLaboratory.vue'
 import FormBronkoskopi from '@/components/view/pasienPemeriksaan/FormBronkoskopi.vue'
 import FormSitologi from '@/components/view/pasienPemeriksaan/FormSitologi.vue'
 import FormPaalParu from '@/components/view/pasienPemeriksaan/FormPaalParu.vue'
