@@ -229,6 +229,15 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             agd_so2: null,
             gds: null,
             description: null
+        },
+        radioterapi: {
+            date: null,
+            category: null,
+            dose: null,
+            fraksi: null,
+            ct_scan: null,
+            ct_scan_url: null,
+            description: null,
         }
     })
 
@@ -486,7 +495,16 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 agd_so2: {}, //{ required },
                 gds: {},// { required }
                 description: {} //{ required }
-            }
+            },
+            radioterapi: {
+                date: {}, //{ required },
+                category: {}, //{ required },
+                dose: {}, //{ required },
+                fraksi: {}, //{ required },
+                ct_scan: {}, //{ required },
+                ct_scan_url: {}, //{ required },
+                description: {} //{ required }
+            },
         }
     })
 

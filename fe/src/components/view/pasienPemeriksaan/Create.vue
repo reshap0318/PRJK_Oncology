@@ -134,6 +134,14 @@ function save(): void {
             Swal.showLoading()
         }
     })
+
+    v$.value.$validate().then((result: any) => {
+        if (!result) {
+            Swal.close()
+            return
+        }
+    })
+
     pemeriksaanStore.createFile(formInput.value).then((res: any) => {
         Swal.close()
         emit('onSave')

@@ -15,6 +15,7 @@ use App\Repository\Module\{
 };
 use App\Services\BaseService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class PasienPemeriksaanService extends BaseService
@@ -121,6 +122,8 @@ class PasienPemeriksaanService extends BaseService
         }
 
         $data['laboratoryResult']['result'] = null;
+        $data['radioterapi']['ct_scan'] = null;
+
 
         return [
             'id' => $id,
@@ -155,6 +158,7 @@ class PasienPemeriksaanService extends BaseService
             "bronkoskopi" => $data->bronkoskopi->toArray(),
             'sitologis'   => $sitologis,
             'laboratory' => $data->laboratoryResult->toArray(),
+            'radioterapi' => $data->radioterapi->toArray(),
         ];
     }
 
@@ -323,6 +327,14 @@ class PasienPemeriksaanService extends BaseService
         }
         $data->laboratoryResult()->create($payload['laboratory'] ?? []);
 
+        $data->radioterapi()->delete();
+        if(isset($payload['radioterapi']) && isset($payload['radioterapi']['ct_scan']) && $payload['radioterapi']['ct_scan']->isValid()) {
+            $fileResult = $payload['radioterapi']['ct_scan'];
+            $fileName = $data->id . "-ct-scan." . $fileResult->extension();
+            $payload['radioterapi']['ct_scan_path'] = $fileResult->storeAs('radioterapi', $fileName);
+        }
+        $data->radioterapi()->create($payload['radioterapi'] ?? []);
+
         return $data;
     }
 
@@ -331,6 +343,10 @@ class PasienPemeriksaanService extends BaseService
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
         abort_if(!Authorization::hasPermission('pasien-pemeriksaan.admin') && $data->user_id != Auth::id(), 403, "anda tidak memiliki akses");
+
+        if ($data->laboratoryResult->result_path) Storage::delete($data->laboratoryResult->result_path);
+        if ($data->radioterapi->ct_scan_path) Storage::delete($data->radioterapi->ct_scan_path);
+        
         return $data->delete($id);
     }
 

@@ -6,7 +6,7 @@
                     <span class="required"> Tanggal </span>
                 </label>
                 <input type="date" class="form-control" v-model="formInput.date" />
-                <form-error :err="v$.laboratory.date" name="date" />
+                <form-error :err="formInputValidated.laboratory.date" name="laboratory.date" />
             </div>
         </div>
         <div class="col-12 col-sm-6 mb-4">
@@ -22,7 +22,7 @@
                     :href="formInput.result_url"
                     v-html="formInput.result_url"
                 ></a>
-                <form-error :err="v$.laboratory.result" name="result" />
+                <form-error :err="formInputValidated.laboratory.result" name="laboratory.result" />
             </div>
         </div>
         <div class="col-12 mb-4 mt-2">
@@ -42,7 +42,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.hb"
                             />
-                            <form-error :err="v$.laboratory.hb" name="hb" />
+                            <form-error
+                                :err="formInputValidated.laboratory.hb"
+                                name="laboratory.hb"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -58,7 +61,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.ht"
                             />
-                            <form-error :err="v$.laboratory.ht" name="ht" />
+                            <form-error
+                                :err="formInputValidated.laboratory.ht"
+                                name="laboratory.ht"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -74,7 +80,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.leukosit"
                             />
-                            <form-error :err="v$.laboratory.leukosit" name="leukosit" />
+                            <form-error
+                                :err="formInputValidated.laboratory.leukosit"
+                                name="laboratory.leukosit"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -90,7 +99,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.tr"
                             />
-                            <form-error :err="v$.laboratory.tr" name="tr" />
+                            <form-error
+                                :err="formInputValidated.laboratory.tr"
+                                name="laboratory.tr"
+                            />
                         </div>
                     </div>
                 </div>
@@ -107,7 +119,7 @@
                     v-model="formInput.dc"
                     placeholder="0/0/0/0/0/0"
                 />
-                <form-error :err="v$.laboratory.dc" name="dc" />
+                <form-error :err="formInputValidated.laboratory.dc" name="laboratory.dc" />
             </div>
         </div>
         <div class="col-12 mb-4">
@@ -120,7 +132,10 @@
                     class="form-control"
                     placeholder="fungsi hati"
                 ></textarea>
-                <form-error :err="v$.laboratory.liver_function" name="liver_function" />
+                <form-error
+                    :err="formInputValidated.laboratory.liver_function"
+                    name="laboratory.liver_function"
+                />
             </div>
         </div>
         <div class="col-12 mb-4">
@@ -133,7 +148,10 @@
                     class="form-control"
                     placeholder="procalsitonin"
                 ></textarea>
-                <form-error :err="v$.laboratory.procalsitonin" name="procalsitonin" />
+                <form-error
+                    :err="formInputValidated.laboratory.procalsitonin"
+                    name="laboratory.procalsitonin"
+                />
             </div>
         </div>
         <div class="col-12 mb-4 mt-2">
@@ -153,7 +171,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.ginjal_ur"
                             />
-                            <form-error :err="v$.laboratory.ginjal_ur" name="ginjal_ur" />
+                            <form-error
+                                :err="formInputValidated.laboratory.ginjal_ur"
+                                name="laboratory.ginjal_ur"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-4 mb-4">
@@ -169,7 +190,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.ginjal_cr"
                             />
-                            <form-error :err="v$.laboratory.ginjal_cr" name="ginjal_cr" />
+                            <form-error
+                                :err="formInputValidated.laboratory.ginjal_cr"
+                                name="laboratory.ginjal_cr"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-4 mb-4">
@@ -185,7 +209,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.ginjal_cct"
                             />
-                            <form-error :err="v$.laboratory.ginjal_cct" name="ginjal_cct" />
+                            <form-error
+                                :err="formInputValidated.laboratory.ginjal_cct"
+                                name="laboratory.ginjal_cct"
+                            />
                         </div>
                     </div>
                 </div>
@@ -208,7 +235,10 @@
                                 placeholder="0"
                                 v-model="formInput.elektrolit_na"
                             />
-                            <form-error :err="v$.laboratory.elektrolit_na" name="elektrolit_na" />
+                            <form-error
+                                :err="formInputValidated.laboratory.elektrolit_na"
+                                name="laboratory.elektrolit_na"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-4 mb-4">
@@ -224,7 +254,10 @@
                                 placeholder="0"
                                 v-model="formInput.elektrolit_k"
                             />
-                            <form-error :err="v$.laboratory.elektrolit_k" name="elektrolit_k" />
+                            <form-error
+                                :err="formInputValidated.laboratory.elektrolit_k"
+                                name="laboratory.elektrolit_k"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-4 mb-4">
@@ -240,7 +273,10 @@
                                 placeholder="0"
                                 v-model="formInput.elektrolit_cl"
                             />
-                            <form-error :err="v$.laboratory.elektrolit_cl" name="elektrolit_cl" />
+                            <form-error
+                                :err="formInputValidated.laboratory.elektrolit_cl"
+                                name="laboratory.elektrolit_cl"
+                            />
                         </div>
                     </div>
                 </div>
@@ -263,7 +299,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.agd_ph"
                             />
-                            <form-error :err="v$.laboratory.agd_ph" name="agd_ph" />
+                            <form-error
+                                :err="formInputValidated.laboratory.agd_ph"
+                                name="laboratory.agd_ph"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -279,7 +318,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.agd_hco3"
                             />
-                            <form-error :err="v$.laboratory.agd_hco3" name="agd_hco3" />
+                            <form-error
+                                :err="formInputValidated.laboratory.agd_hco3"
+                                name="laboratory.agd_hco3"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -295,7 +337,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.agd_pco2"
                             />
-                            <form-error :err="v$.laboratory.agd_pco2" name="agd_pco2" />
+                            <form-error
+                                :err="formInputValidated.laboratory.agd_pco2"
+                                name="laboratory.agd_pco2"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -311,7 +356,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.agd_be"
                             />
-                            <form-error :err="v$.laboratory.agd_be" name="agd_be" />
+                            <form-error
+                                :err="formInputValidated.laboratory.agd_be"
+                                name="laboratory.agd_be"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -327,7 +375,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.agd_po2"
                             />
-                            <form-error :err="v$.laboratory.agd_po2" name="agd_po2" />
+                            <form-error
+                                :err="formInputValidated.laboratory.agd_po2"
+                                name="laboratory.agd_po2"
+                            />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mb-4">
@@ -343,7 +394,10 @@
                                 placeholder="0,0"
                                 v-model="formInput.agd_so2"
                             />
-                            <form-error :err="v$.laboratory.agd_so2" name="agd_so2" />
+                            <form-error
+                                :err="formInputValidated.laboratory.agd_so2"
+                                name="laboratory.agd_so2"
+                            />
                         </div>
                     </div>
                 </div>
@@ -362,7 +416,7 @@
                     placeholder="0.0"
                     min="0"
                 />
-                <form-error :err="v$.laboratory.gds" name="gds" />
+                <form-error :err="formInputValidated.laboratory.gds" name="laboratory.gds" />
             </div>
         </div>
         <div class="col-12 mb-4">
@@ -375,7 +429,10 @@
                     class="form-control"
                     placeholder="keterangan"
                 ></textarea>
-                <form-error :err="v$.laboratory.description" name="description" />
+                <form-error
+                    :err="formInputValidated.laboratory.description"
+                    name="laboratory.description"
+                />
             </div>
         </div>
     </div>
@@ -390,5 +447,5 @@ import { ref } from 'vue'
 const pemeriksaanStore = usePasienPemeriksaanStore()
 
 const formInput = ref(pemeriksaanStore.formUpdate.laboratory)
-const v$ = ref(pemeriksaanStore.formUpdateValidated)
+const formInputValidated = ref(pemeriksaanStore.formUpdateValidated)
 </script>

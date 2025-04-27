@@ -12,9 +12,10 @@ class PemeriksaanRadioterapiModel extends Model
     use HasFactory;
     protected $table = 'i_radioterapi';
     protected $primaryKey = 'id';
+    public $incrementing = false;
 
     protected $fillable = [
-        "inspection_id",
+        "id",
         "date",
         "category",
         "dose",

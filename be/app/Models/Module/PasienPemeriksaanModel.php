@@ -213,4 +213,16 @@ class PasienPemeriksaanModel extends Model
             "description"       => null
         ]);
     }
+
+    public function radioterapi()
+    {
+        return $this->hasOne(PemeriksaanRadioterapiModel::class, 'id', 'id')->withDefault([
+            "date"          => null,
+            "category"      => null,
+            "dose"          => null,
+            "fraksi"        => null,
+            "ct_scan_path"  => null,
+            "description"   => null,
+        ]);
+    }
 }

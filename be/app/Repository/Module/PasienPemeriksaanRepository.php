@@ -80,7 +80,8 @@ class PasienPemeriksaanRepository extends BaseRepository
             'paalParu',
             'bronkoskopi',
             'sitologis',
-            'laboratoryResult'
+            'laboratoryResult',
+            'radioterapi'
         ]);
         return $this;
     }
