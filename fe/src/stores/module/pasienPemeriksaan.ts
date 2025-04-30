@@ -508,7 +508,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
         }
     })
 
-    const formUpdateValidated = useVuelidate(rulesUpdate, formUpdate)
+    const formUpdateValidated = useVuelidate(rulesUpdate, formUpdate, { $scope: false })
 
     return {
         ...base,
