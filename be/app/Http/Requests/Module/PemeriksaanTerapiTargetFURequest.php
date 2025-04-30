@@ -20,19 +20,21 @@ class PemeriksaanTerapiTargetFURequest extends FormRequest
     {
         $terapiTbl = (new PemeriksaanTerapiTargetModel())->getTable();
         return [
-            "target_id"     => ["required", Rule::exists($terapiTbl, "id")],
-            "date"          => "required|date_format:Y-m-d",
-            "toxity"        => "required",
-            "toxity_detail" => "required",
-            "grade"         => "required",
-            "ct_scan"       => [
+            "target_id"         => ["required", Rule::exists($terapiTbl, "id")],
+            "date"              => "required|date_format:Y-m-d",
+            "subjective"        => "required",
+            "semi_subjective"   => "required",
+            "toxity"            => "required",
+            "toxity_detail"     => "required",
+            "grade"             => "required",
+            "ct_scan"           => [
                 "nullable",
                 Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",
             ],
-            "side_effect"         => "required",
-            "description"         => "required",
+            "side_effect"        => "required",
+            "description"        => "required",
         ];
     }
 
@@ -40,11 +42,14 @@ class PemeriksaanTerapiTargetFURequest extends FormRequest
     {
         return [
             "date"              => "tanggal",
+            "subjective"        => "subjektif",
+            "semi_subjective"   => "semi subjektif",
             "toxity"            => "toxity",
             "toxity_detail"     => "toksisitas detail",
             "grade"             => "grade",
             "side_effect"       => "side effect",
             "ct_scan"           => "ct scan",
+            "description"       => "recist",
         ];
     }
 }

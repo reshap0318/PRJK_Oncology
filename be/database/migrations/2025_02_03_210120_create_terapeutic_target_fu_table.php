@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('target_id');
             $table->date('date');
+            $table->text('subjective')->nullable();
+            $table->text('semi_subjective')->nullable();
             $table->tinyInteger('toxity')->default(0);
             $table->tinyInteger('toxity_detail')->default(0);
             $table->mediumInteger('grade');
