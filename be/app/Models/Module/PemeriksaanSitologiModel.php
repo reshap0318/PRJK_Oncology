@@ -37,6 +37,7 @@ class PemeriksaanSitologiModel extends Model
     const K_TTNA = 8;
     const K_TTB = 9;
     const K_BJH = 10;
+    const K_LAINNYA = 11;
 
     const T_SMALL = 1;
     const T_SQUAM = 2;
@@ -54,6 +55,7 @@ class PemeriksaanSitologiModel extends Model
         self::K_TTNA => "TTNA",
         self::K_TTB => "TTB",
         self::K_BJH => "BJH",
+        self::K_LAINNYA => "Lainnya",
     ];
 
     const TYPE_LIST = [

@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string('l_la')->nullable();
             $table->string('l_lb')->nullable();
             $table->string('l_ld')->nullable(); //lower division
+
+            $table->text('description')->nullable();
+            $table->text('staging')->nullable();
             $table->timestamps();
 
             $table->primary('id');

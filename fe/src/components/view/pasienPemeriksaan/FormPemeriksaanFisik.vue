@@ -335,22 +335,6 @@
                                 name="pemeriksaan_fisik.palpasi"
                             />
                         </div>
-                        <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
-                            <label class="form-label text-dark">
-                                <span> Perkusi </span>
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                autocomplete="off"
-                                v-model="formInput.perkusi"
-                                placeholder="perkusi"
-                            />
-                            <form-error
-                                :err="formInputValidated.pemeriksaan_fisik.perkusi"
-                                name="pemeriksaan_fisik.perkusi"
-                            />
-                        </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
@@ -371,6 +355,31 @@
                         </div>
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
+                                <span> Perkusi </span>
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                autocomplete="off"
+                                v-model="formInput.perkusi"
+                                placeholder="perkusi"
+                            />
+                            <form-error
+                                :err="formInputValidated.pemeriksaan_fisik.perkusi"
+                                name="pemeriksaan_fisik.perkusi"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="border-dashed p-4" style="position: relative">
+                <h2 class="text-uppercase">Organ Lainnya</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
+                            <label class="form-label text-dark">
                                 <span> Abdomen </span>
                             </label>
                             <input
@@ -385,6 +394,8 @@
                                 name="pemeriksaan_fisik.abdomen"
                             />
                         </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
                             <label class="form-label text-dark">
                                 <span> Ekstemitas </span>
@@ -399,6 +410,24 @@
                             <form-error
                                 :err="formInputValidated.pemeriksaan_fisik.ekstemitas"
                                 name="pemeriksaan_fisik.ekstemitas"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="border-dashed py-4 px-6 mb-4" style="position: relative">
+                            <label class="form-label text-dark">
+                                <span> Lainnya </span>
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                autocomplete="off"
+                                v-model="formInput.lainnya"
+                                placeholder="lainnya"
+                            />
+                            <form-error
+                                :err="formInputValidated.pemeriksaan_fisik.lainnya"
+                                name="pemeriksaan_fisik.lainnya"
                             />
                         </div>
                     </div>

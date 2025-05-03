@@ -24,7 +24,6 @@ class PemeriksaanDiagnosaModel extends Model
         "staging_m",
         "ps",
         "mutasi",
-        "whild_type",
         "pdl1",
         "alk",
         "komorbid",
@@ -36,7 +35,6 @@ class PemeriksaanDiagnosaModel extends Model
         "stage"         => 'array',
         "ps"            => 'array',
         "alk"           => 'array',
-        'whild_type'    => 'integer'
     ];
 
     protected function jenisSelText(): Attribute

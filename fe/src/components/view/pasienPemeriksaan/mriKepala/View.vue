@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="mb-0">MRI Kepala</h3>
+        <h3 class="mb-0">MRI</h3>
         <button class="btn btn-info btn-sm" @click="formModal.show({ inspection_id: id })">
             Tambah
         </button>

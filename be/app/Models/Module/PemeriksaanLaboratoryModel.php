@@ -12,9 +12,10 @@ class PemeriksaanLaboratoryModel extends Model
     use HasFactory;
     protected $table = 'i_laboratory_result';
     protected $primaryKey = 'id';
+    public $incrementing = false;
 
     protected $fillable = [
-        "inspection_id",
+        "id",
         "date",
         "result_path",
         "hb",
@@ -26,6 +27,7 @@ class PemeriksaanLaboratoryModel extends Model
         "procalsitonin",
         "ginjal_ur",
         "ginjal_cr",
+        "ginjal_cct",
         "elektrolit_na",
         "elektrolit_k",
         "elektrolit_cl",
@@ -47,6 +49,7 @@ class PemeriksaanLaboratoryModel extends Model
         "tr"                => "float:3,2",
         "ginjal_ur"         => "float:3,2",
         "ginjal_cr"         => "float:3,2",
+        "ginjal_cct"        => "float:3,2",
         "elektrolit_na"     => "float:3,2",
         "elektrolit_k"      => "float:3,2",
         "elektrolit_cl"     => "float:3,2",

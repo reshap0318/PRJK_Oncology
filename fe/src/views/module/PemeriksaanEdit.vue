@@ -88,10 +88,18 @@
                             class="d-flex justify-content-center mt-4"
                             v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
                         >
-                            <button class="btn btn-success btn-sm me-3" @click="simpan()">
+                            <button
+                                type="button"
+                                class="btn btn-success btn-sm me-3"
+                                @click.prevent="simpan()"
+                            >
                                 Simpan
                             </button>
-                            <button class="btn btn-danger btn-sm me-3" @click="back()">
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-sm me-3"
+                                @click.prevent="back()"
+                            >
                                 Kembali
                             </button>
                         </div>
@@ -172,10 +180,10 @@ import FormDiagnosa from '@/components/view/pasienPemeriksaan/FormDiagnosa.vue'
 import FormOutcome from '@/components/view/pasienPemeriksaan/FormOutcome.vue'
 import FormOperasi from '@/components/view/pasienPemeriksaan/operasi/OperasiView.vue'
 import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.vue'
-import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/View.vue'
+import FormRadioterapi from '@/components/view/pasienPemeriksaan/FormRadioterapi.vue'
 import FormTerapiTarget from '@/components/view/pasienPemeriksaan/terapi/View.vue'
 
-import FormLaboratory from '@/components/view/pasienPemeriksaan/laboratory/View.vue'
+import FormLaboratory from '@/components/view/pasienPemeriksaan/FormLaboratory.vue'
 import FormBronkoskopi from '@/components/view/pasienPemeriksaan/FormBronkoskopi.vue'
 import FormSitologi from '@/components/view/pasienPemeriksaan/FormSitologi.vue'
 import FormPaalParu from '@/components/view/pasienPemeriksaan/FormPaalParu.vue'
@@ -240,7 +248,7 @@ const menus = ref([
                     },
                     {
                         code: 'ONC00314',
-                        label: 'MRI KEPALA'
+                        label: 'MRI'
                     },
                     {
                         code: 'ONC00315',
@@ -258,7 +266,7 @@ const menus = ref([
             },
             {
                 code: 'ONC0034',
-                label: 'PA/Sitologi'
+                label: 'PA'
             },
             {
                 code: 'ONC0035',
@@ -303,32 +311,37 @@ const menus = ref([
 ])
 
 async function simpan() {
+    pemeriksaanStore.formUpdateValidated.$reset()
     return new Promise((resolve, reject) => {
-        pemeriksaanStore.formUpdateValidated.$validate().then((res) => {
-            if (res) {
-                console.log(pemeriksaanStore.formUpdate)
-                if (pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb_option == 0) {
-                    pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb = null
-                }
-                pemeriksaanStore
-                    .updateFile(pemeriksaanStore.formUpdate.id, pemeriksaanStore.formUpdate)
-                    .then((res: any) => {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: res.message,
-                            icon: 'success'
-                        }).then(() => {
-                            resolve(true)
+        nextTick(() => {
+            pemeriksaanStore.formUpdateValidated.$validate().then((res) => {
+                if (res) {
+                    console.log(pemeriksaanStore.formUpdate)
+                    if (pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb_option == 0) {
+                        pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb = null
+                    }
+                    pemeriksaanStore
+                        .updateFile(pemeriksaanStore.formUpdate.id, pemeriksaanStore.formUpdate)
+                        .then((res: any) => {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: res.message,
+                                icon: 'success'
+                            }).then(() => {
+                                resolve(true)
+                            })
                         })
+                } else {
+                    console.log(pemeriksaanStore.formUpdateValidated)
+
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Form Belum Terisi dengan Lengkap, Silakan Periksa Kembali Form Anda',
+                        icon: 'warning'
                     })
-            } else {
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'Form Belum Terisi dengan Lengkap, Silakan Periksa Kembali Form Anda',
-                    icon: 'warning'
-                })
-                reject(false)
-            }
+                    reject(false)
+                }
+            })
         })
     })
 }

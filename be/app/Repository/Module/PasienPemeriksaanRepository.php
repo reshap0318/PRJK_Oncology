@@ -79,7 +79,9 @@ class PasienPemeriksaanRepository extends BaseRepository
             'sickness:id,description,inspection_id',
             'paalParu',
             'bronkoskopi',
-            'sitologis'
+            'sitologis',
+            'laboratoryResult',
+            'radioterapi'
         ]);
         return $this;
     }

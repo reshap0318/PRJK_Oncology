@@ -60,15 +60,28 @@
             </div>
             <div class="col-12 mb-4">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark"> Efek Samping </label>
+                    <label class="form-label fs-6 text-dark"> Subjektif </label>
                     <textarea
-                        v-model="formInput.side_effect"
+                        v-model="formInput.subjective"
                         cols="30"
                         rows="3"
                         class="form-control"
-                        placeholder="efek samping"
+                        placeholder="subjektif"
                     ></textarea>
-                    <form-error :err="v$.side_effect" name="side_effect" />
+                    <form-error :err="v$.subjective" name="subjective" />
+                </div>
+            </div>
+            <div class="col-12 mb-4">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark"> Semi Subjektif </label>
+                    <textarea
+                        v-model="formInput.semi_subjective"
+                        cols="30"
+                        rows="3"
+                        class="form-control"
+                        placeholder="semi subjektif"
+                    ></textarea>
+                    <form-error :err="v$.semi_subjective" name="semi_subjective" />
                 </div>
             </div>
             <div class="col-12 col-sm-8 mb-4">
@@ -143,13 +156,26 @@
             </div>
             <div class="col-12 mb-4">
                 <div class="fv-row">
-                    <label class="form-label fs-6 text-dark"> Resume </label>
+                    <label class="form-label fs-6 text-dark"> Efek Samping </label>
+                    <textarea
+                        v-model="formInput.side_effect"
+                        cols="30"
+                        rows="3"
+                        class="form-control"
+                        placeholder="efek samping"
+                    ></textarea>
+                    <form-error :err="v$.side_effect" name="side_effect" />
+                </div>
+            </div>
+            <div class="col-12 mb-4">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark"> RECIST </label>
                     <textarea
                         v-model="formInput.description"
                         cols="30"
                         rows="3"
                         class="form-control"
-                        placeholder="resume"
+                        placeholder="RECIST"
                     ></textarea>
                     <form-error :err="v$.description" name="description" />
                 </div>
@@ -197,6 +223,8 @@ const formInput = ref({
     target_id: 0,
 
     date: null,
+    subjective: null,
+    semi_subjective: null,
     toxity: null,
     toxity_detail: null,
     grade: null,
@@ -224,6 +252,8 @@ function show(payload: any = {}, fileRef: any = {}) {
 
     formInput.value.date = payload.date || null
     formInput.value.toxity = payload.toxity || null
+    formInput.value.subjective = payload.subjective || null
+    formInput.value.semi_subjective = payload.semi_subjective || null
     formInput.value.toxity_detail = payload.toxity_detail || null
     formInput.value.grade = payload.grade || null
     formInput.value.side_effect = payload.side_effect || null

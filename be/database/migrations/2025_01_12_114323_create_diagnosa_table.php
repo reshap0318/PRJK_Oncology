@@ -22,7 +22,6 @@ return new class extends Migration
             $table->json('ps')->nullable();
             // $table->string('egfr', 100)->nullable();
             $table->string('mutasi', 100)->nullable();
-            $table->boolean('whild_type')->nullable();
             $table->string('pdl1', 100)->nullable();
             $table->json('alk')->nullable();
             $table->text('komorbid')->nullable();

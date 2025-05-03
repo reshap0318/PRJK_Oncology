@@ -144,7 +144,8 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             perkusi: null,
             auskultasi: null,
             abdomen: null,
-            ekstemitas: null
+            ekstemitas: null,
+            lainnya: null
         },
         diagnosa: {
             jenis_sel: [],
@@ -155,7 +156,6 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             stage: [],
             ps: [],
             mutasi: null,
-            whild_type: 0,
             pdl1: null,
             alk: [],
             komorbid: null
@@ -189,7 +189,10 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             l_carina_second: null,
             l_la: null,
             l_lb: null,
-            l_ld: null
+            l_ld: null,
+
+            description: null,
+            staging: null,
         },
         sitologis: [
             {
@@ -200,7 +203,42 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 type_detail: null,
                 description: null
             }
-        ]
+        ],
+        laboratory: {
+            date: null,
+            result: null,
+            result_url: null,
+            hb: null,
+            leukosit: null,
+            ht: null,
+            tr: null,
+            dc: null,
+            liver_function: null,
+            procalsitonin: null,
+            ginjal_ur: null,
+            ginjal_cr: null,
+            ginjal_cct: null,
+            elektrolit_na: null,
+            elektrolit_k: null,
+            elektrolit_cl: null,
+            agd_ph: null,
+            agd_pco2: null,
+            agd_po2: null,
+            agd_hco3: null,
+            agd_be: null,
+            agd_so2: null,
+            gds: null,
+            description: null
+        },
+        radioterapi: {
+            date: null,
+            category: null,
+            dose: null,
+            fraksi: null,
+            ct_scan: null,
+            ct_scan_url: null,
+            description: null,
+        }
     })
 
     const rulesUpdate = computed(() => {
@@ -373,7 +411,8 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 perkusi: {}, //{ required },
                 auskultasi: {}, //{ required },
                 abdomen: {}, //{ required },
-                ekstemitas: {} //{ required }
+                ekstemitas: {}, //{ required }
+                lainnya: {} //{ required }
             },
             diagnosa: {
                 jenis_sel: {}, //{ required },
@@ -384,7 +423,6 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 stage: {}, //{ required },
                 ps: {}, //{ required },
                 mutasi: {}, //{ required },
-                whild_type: {}, //{ required },
                 pdl1: {}, //{ required },
                 alk: {}, //{ required },
                 komorbid: {} //{ required }
@@ -418,7 +456,10 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 l_carina_second: {}, //{ required },
                 l_la: {}, //{ required },
                 l_lb: {}, //{ required },
-                l_ld: {} //{ required },
+                l_ld: {}, //{ required },
+
+                description: {}, //{ required },
+                staging: {}, //{ required },
             },
             sitologis: {
                 $each: helpers.forEach({
@@ -429,11 +470,45 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                         }
                     }
                 })
-            }
+            },
+            laboratory: {
+                date: {}, //{ required },
+                result: {}, //{ required },
+                hb: {}, //{ required },
+                leukosit: {}, //{ required },
+                ht: {}, //{ required },
+                tr: {}, //{ required },
+                dc: {}, //{ required },
+                liver_function: {}, //{ required },
+                procalsitonin: {}, //{ required },
+                ginjal_ur: {}, //{ required },
+                ginjal_cr: {}, //{ required },
+                ginjal_cct: {}, //{ required },
+                elektrolit_na: {}, //{ required },
+                elektrolit_k: {}, //{ required },
+                elektrolit_cl: {}, //{ required },
+                agd_ph: {}, //{ required },
+                agd_pco2: {}, //{ required },
+                agd_po2: {}, //{ required },
+                agd_hco3: {}, //{ required },
+                agd_be: {}, //{ required },
+                agd_so2: {}, //{ required },
+                gds: {},// { required }
+                description: {} //{ required }
+            },
+            radioterapi: {
+                date: {}, //{ required },
+                category: {}, //{ required },
+                dose: {}, //{ required },
+                fraksi: {}, //{ required },
+                ct_scan: {}, //{ required },
+                ct_scan_url: {}, //{ required },
+                description: {} //{ required }
+            },
         }
     })
 
-    const formUpdateValidated = useVuelidate(rulesUpdate, formUpdate)
+    const formUpdateValidated = useVuelidate(rulesUpdate, formUpdate, { $scope: false })
 
     return {
         ...base,

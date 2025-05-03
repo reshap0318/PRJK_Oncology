@@ -16,6 +16,8 @@ class PemeriksaanTerapiTargetFUModel extends Model
     protected $fillable = [
         "target_id",
         "date",
+        "subjective",
+        "semi_subjective",
         "toxity",
         "toxity_detail",
         "grade",

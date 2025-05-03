@@ -1,5 +1,5 @@
 <template>
-    <h2 class="text-uppercase pb-2">PA Sitologi</h2>
+    <h2 class="text-uppercase pb-2">PA</h2>
     <div class="row">
         <div class="col-12 mb-4 mt-3" v-for="(item, i) in formInput" :key="i">
             <div class="border-dashed" style="position: relative">

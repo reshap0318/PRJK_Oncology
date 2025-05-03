@@ -74,7 +74,6 @@ class PasienPemeriksaanModel extends Model
             "ps"            => [],
             "egfr"          => null,
             "mutasi"        => null,
-            "whild_type"    => 0,
             "pdl1"          => null,
             "alk"           => [],
             "komorbid"      => null,
@@ -185,5 +184,45 @@ class PasienPemeriksaanModel extends Model
     public function sitologis()
     {
         return $this->hasMany(PemeriksaanSitologiModel::class, 'inspection_id', 'id');
+    }
+
+    public function laboratoryResult()
+    {
+        return $this->hasOne(PemeriksaanLaboratoryModel::class, 'id', 'id')->withDefault([
+            "result_path"       => null,
+            "hb"                => null,
+            "leukosit"          => null,
+            "ht"                => null,
+            "tr"                => null,
+            "dc"                => null,
+            "liver_function"    => null,
+            "procalsitonin"     => null,
+            "ginjal_ur"         => null,
+            "ginjal_cr"         => null,
+            "ginjal_cct"        => null,
+            "elektrolit_na"     => null,
+            "elektrolit_k"      => null,
+            "elektrolit_cl"     => null,
+            "agd_ph"            => null,
+            "agd_pco2"          => null,
+            "agd_po2"           => null,
+            "agd_hco3"          => null,
+            "agd_be"            => null,
+            "agd_so2"           => null,
+            "gds"               => null,
+            "description"       => null
+        ]);
+    }
+
+    public function radioterapi()
+    {
+        return $this->hasOne(PemeriksaanRadioterapiModel::class, 'id', 'id')->withDefault([
+            "date"          => null,
+            "category"      => null,
+            "dose"          => null,
+            "fraksi"        => null,
+            "ct_scan_path"  => null,
+            "description"   => null,
+        ]);
     }
 }
