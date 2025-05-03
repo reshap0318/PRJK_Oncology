@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers;
 
 use App\Repository\UAM\PermissionRepository;
@@ -11,44 +12,40 @@ class Authorization
     private static function getPermissionKey(int $userId = 0): string
     {
         $id = Auth::id();
-        if($userId != 0)
-        {
+        if ($userId != 0) {
             $id = $userId;
         }
-        return $id."-userPermissions";
+        return $id . "-userPermissions";
     }
 
     private static function getRoleKey(int $userId = 0): string
     {
         $id = Auth::id();
-        if($userId != 0)
-        {
+        if ($userId != 0) {
             $id = $userId;
         }
-        return $id."-userRoles";
+        return $id . "-userRoles";
     }
 
     public static function getUserAkses(int $userId = 0, $time = 30 * 24 * 60 * 60): array
     {
         $id = Auth::id();
-        if($userId != 0)
-        {
+        if ($userId != 0) {
             $id = $userId;
         }
         $key = self::getPermissionKey($id);
         $user = (new UserRepository())->filterById($id)->getQuery()->with(['roles:id,name'])->first();
         $permRepo = new PermissionRepository();
 
-        if($user->roles->where('id', 1)->isNotEmpty())
-        {
+        if ($user->roles->where('id', 1)->isNotEmpty()) {
             $permissions = $permRepo->get()->toArray();
-        }
-        else {
+        } else {
             $permissions = $permRepo->getByRoleId(
-                $user->roles->map(function($role) { return $role->id; })->toArray()
+                $user->roles->map(function ($role) {
+                    return $role->id;
+                })->toArray()
             )->get()->toArray();
         }
-        
 
         //set permission
         Cache::forget($key);
@@ -75,10 +72,9 @@ class Authorization
         $key = self::getPermissionKey();
         $permissions = Cache::get($key) ?? [];
         $permissions = collect($permissions);
-        
+
         return $permissions
-            ->filter(function($item) use ($permission)
-            {
+            ->filter(function ($item) use ($permission) {
                 return $item['id'] == $permission || $item['name'] == $permission;
             })
             ->isNotEmpty();
@@ -91,12 +87,9 @@ class Authorization
         $permissions = collect($permissions);
 
         return $permissions
-            ->filter(function($item) use ($permission)
-            {
+            ->filter(function ($item) use ($permission) {
                 return in_array($item['id'], $permission) || in_array($item['name'], $permission);
             })
             ->isNotEmpty();
     }
-
-
 }
