@@ -20,7 +20,7 @@ class LoginRequest extends FormRequest
     {
         return true;
     }
-    
+
     public function rules(): array
     {
         return [
@@ -43,7 +43,7 @@ class LoginRequest extends FormRequest
         $this->loginField = $loginField;
         $this->merge([$loginField => $loginValue]);
     }
-    
+
     public function authenticate(): array
     {
         $this->ensureIsNotRateLimited();
@@ -61,13 +61,12 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
         $user = User::find(Auth::id());
-        if($user->is_active == User::S_NON_ACTIVE)
-        {
+        if ($user->is_active == User::S_NON_ACTIVE) {
             Auth::logout();
             throw ValidationException::withMessages([
                 'login' => 'akun anda tidak aktif',
             ]);
-            return 0;
+            return [];
         }
 
         $user->update(['last_login' => now()]);
@@ -118,6 +117,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
     }
 }
