@@ -1,7 +1,11 @@
 <template>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0">Kemoterapi</h3>
-        <button class="btn btn-info btn-sm" @click="formModal.show({ inspection_id: id })">
+        <button
+            class="btn btn-info btn-sm"
+            v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
+            @click="formModal.show({ inspection_id: id })"
+        >
             Tambah
         </button>
     </div>
@@ -21,6 +25,8 @@
 import FormModal from './Form.vue'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
 import FollowUp from './FollowUp.vue'
+import StrgService from '@/core/services/StrgService'
+
 import { usePemeriksaanKemoterapiStore } from '@/stores/module/pemeriksaanKemoterapi'
 
 import type { ConfigColumns, Config } from 'datatables.net'

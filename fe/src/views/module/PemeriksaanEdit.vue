@@ -103,6 +103,15 @@
                                 Kembali
                             </button>
                         </div>
+                        <div class="d-flex justify-content-center mt-4" v-else>
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-sm me-3"
+                                @click.prevent="cancel()"
+                            >
+                                Kembali
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

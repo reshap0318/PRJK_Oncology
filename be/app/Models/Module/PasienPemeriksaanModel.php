@@ -46,7 +46,7 @@ class PasienPemeriksaanModel extends Model
                         'link'  => null,
                     ],
                     'delete' => [
-                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.delete'),
+                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.delete') && $isDokter,
                         'link'  => null,
                     ],
                 ];
