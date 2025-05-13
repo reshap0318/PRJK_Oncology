@@ -24,14 +24,20 @@ class PemeriksaanRadioterapiService extends BaseService
         return $data;
     }
 
-    public function datatable(array $payload = [])
+    public function getData(array $payload = [])
     {
         $pemeriksaanId = $payload['pemeriksaan_id'] ?? null;
         $query = $this->mainRepository->datatable()
             ->getQuery()
             ->when($pemeriksaanId, function($query) use ($pemeriksaanId) {
-                return $query->where('inspection_id', $pemeriksaanId);
+                return $query->where('id', $pemeriksaanId);
             });
+        return $query;
+    }
+
+    public function datatable(array $payload = [])
+    {
+        $query = $this->getData($payload)->getQuery();
 
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {

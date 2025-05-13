@@ -392,7 +392,7 @@ import BaseModal from '@/components/utils/modal/BaseFormModal.vue'
 import FormError from '@/components/utils/error/FormError.vue'
 import InputFile from '@/components/utils/form/InputFile.vue'
 
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
@@ -503,7 +503,6 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.inspection_id = payload.inspection_id || 0
     formInput.value.lini = payload.lini || null
     formInput.value.category = payload.category || null
-    formInput.value.category_detail = payload.category_detail || []
     formInput.value.dose = payload.dose || ''
     formInput.value.description = payload.description || null
 
@@ -528,6 +527,9 @@ function show(payload: any = {}, fileRef: any = {}) {
 
     fileReferral.value.rontgen = fileRef.rontgen || null
     fileReferral.value.ct_scan = fileRef.ct_scan || null
+    nextTick(() => {
+        formInput.value.category_detail = payload.category_detail || []
+    })
     modal.value.show()
     authStore.setFormErrorEmpty()
 

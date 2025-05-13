@@ -3,33 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Services\Module\PasienPemeriksaanService;
+use App\Services\Module\PemeriksaanKemoterapiService;
 use App\Services\Module\PemeriksaanOperasiService;
+use App\Services\Module\PemeriksaanRadioterapiService;
+use App\Services\Module\PemeriksaanTerapiTargetService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Spatie\Browsershot\Browsershot;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ExportController extends Controller
 {
     function pemeriksaanPDF($id)
     {
         $payload = (new PasienPemeriksaanService())->getById($id, 'laporan');
-        $payload['tatalaksana_operasis'] = (new PemeriksaanOperasiService())->getLaporan(['pemeriksaan_id' => $id])->toArray();
-
-        // return view('exports.PemeriksaanPDF', ['payload' => $payload]);
-        $template = view('exports.PemeriksaanPDF', ['payload' => $payload])->render();
-
-        Storage::disk('local')->makeDirectory('exports');
-        $dir = Storage::disk('local')->path('exports');
-        $path = $dir . '/pemeriksaan.pdf';
-
-        Browsershot::html($template)
-            ->showBackground()
-            ->waitUntilNetworkIdle()
-            ->margins(20, 18, 20, 18)
-            ->format('A4')
-            ->save($path);
-
-        return view('exports.PemeriksaanPDF', ['payload' => $payload]);
-        // return response()->download('exports/pemeriksaan.pdf');
+        $payload['tatalaksana_operasis'] = (new PemeriksaanOperasiService())->getData(['pemeriksaan_id' => $id])->get()->toArray();
+        $payload['tatalaksana_kemoterapis'] = (new PemeriksaanKemoterapiService())->getData(['pemeriksaan_id' => $id])->get()->each->setAppends(['category_text'])->toArray();
+        $payload['tatalaksana_radioterapis'] = (new PemeriksaanRadioterapiService())->getData(['pemeriksaan_id' => $id])->get()->each->setAppends(['category_text'])->toArray();
+        $payload['tatalaksana_targets'] = (new PemeriksaanTerapiTargetService())->getData(['pemeriksaan_id' => $id])->get()->each->setAppends(['category_text'])->toArray();
+        // dd($payload);
+        
+        $pdf = Pdf::loadView('exports.PemeriksaanPDF', ['payload' => $payload]);
+        return $pdf->stream('laporan-pemeriksaan-'.$id.'.pdf');
     }
 }

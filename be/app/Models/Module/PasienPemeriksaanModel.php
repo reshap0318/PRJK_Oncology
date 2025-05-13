@@ -37,7 +37,7 @@ class PasienPemeriksaanModel extends Model
             get: function ($value) {
                 $isDokter = $this->user_id == Auth::id() || Authorization::hasPermission('pasien-pemeriksaan.all');
                 return [
-                    'detail' => [
+                    'download' => [
                         'isCan' => Authorization::hasPermission('pasien-pemeriksaan.show'),
                         'link'  => null,
                     ],

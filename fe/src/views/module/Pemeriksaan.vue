@@ -55,22 +55,51 @@
         "
     />
     <FormCreate ref="formCreate" @onSave="tableReload()" />
+
+    <BaseModal modalId="download" ref="modalDownload" width="mw-600px">
+        <template #title> Download </template>
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-danger btn-lg"
+                    style="width: 100%"
+                    @click="download(contentDownload.id, 'pdf')"
+                >
+                    .Pdf
+                </button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-success btn-lg"
+                    style="width: 100%"
+                    @click="download(contentDownload.id, 'excel')"
+                >
+                    .Excel
+                </button>
+            </div>
+        </div>
+    </BaseModal>
 </template>
 <script lang="ts" setup>
 import Multiselect from '@vueform/multiselect'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
-import FAB from '@/components/utils/button/FAB.vue'
+import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import FormCreate from '@/components/view/pasienPemeriksaan/Create.vue'
 import StrgService from '@/core/services/StrgService'
+import FAB from '@/components/utils/button/FAB.vue'
 
 import type { ConfigColumns, Config } from 'datatables.net'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { btnAction } from '@/core/helpers/datatable'
-import { computed, nextTick, onMounted, ref, watch, watchEffect, watchPostEffect } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
 const table = ref()
+const modalDownload = ref()
 const router = useRouter()
 const formCreate = ref()
 const filterTable = ref({
@@ -120,6 +149,7 @@ const filterList = ref({
         }
     ]
 })
+const contentDownload = ref()
 
 const columns = ref<Array<ConfigColumns>>([
     {
@@ -165,6 +195,51 @@ function handleBtnDelete(id: number): void {
     })
 }
 
+function handleBtnDownload(id: number): void {
+    const row = table.value
+        .getDT()
+        .rows()
+        .data()
+        .toArray()
+        .find((elm: any) => elm.id == id || elm.code == id)
+    contentDownload.value = row
+    modalDownload.value.show()
+}
+
+function download(id: number, tag: string) {
+    Swal.fire({
+        icon: 'info',
+        title: 'Tunggu sebentar yaa...',
+        timerProgressBar: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            Swal.showLoading()
+        }
+    })
+    if (tag == 'pdf') {
+        pemeriksaanStore
+            .downloadPDF(id)
+            .then((res: any) => {
+                const url = window.URL.createObjectURL(new Blob([res]))
+                const link = document.createElement('a')
+                link.href = url
+                link.setAttribute(
+                    'download',
+                    `Pemeriksaan Pasien ${contentDownload.value.inspection_at} ${contentDownload.value.pasien_name}.pdf`
+                )
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            })
+            .finally(() => {
+                Swal.close()
+            })
+    } else {
+        console.log(id)
+    }
+}
+
 function tableReload(): void {
     table.value.reload()
 }
@@ -201,6 +276,12 @@ onMounted(() => {
         e.preventDefault()
         const id = e.currentTarget.getAttribute('data-id')
         router.push({ name: 'pemeriksaaan.edit', params: { id: id } })
+    })
+
+    table.value.getDT().on('click', '.btn-download', function (e: any) {
+        e.preventDefault()
+        const id = e.currentTarget.getAttribute('data-id')
+        handleBtnDownload(id)
     })
 })
 </script>

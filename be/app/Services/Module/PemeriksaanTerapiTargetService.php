@@ -24,7 +24,7 @@ class PemeriksaanTerapiTargetService extends BaseService
         return $data;
     }
 
-    public function datatable(array $payload = [])
+    public function getData(array $payload = [])
     {
         $pemeriksaanId = $payload['pemeriksaan_id'] ?? null;
         $query = $this->mainRepository->datatable()
@@ -32,6 +32,12 @@ class PemeriksaanTerapiTargetService extends BaseService
             ->when($pemeriksaanId, function($query) use ($pemeriksaanId) {
                 return $query->where('inspection_id', $pemeriksaanId);
             });
+        return $query;
+    }
+
+    public function datatable(array $payload = [])
+    {
+        $query = $this->getData($payload);
 
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {

@@ -28,15 +28,20 @@ class PemeriksaanKemoterapiService extends BaseService
         return array_merge($fuInit->toArray(), $data->toArray());
     }
 
-    public function datatable(array $payload = [])
+    public function getData(array $payload = [])
     {
         $pemeriksaanId = $payload['pemeriksaan_id'] ?? null;
-        $query = $this->mainRepository->datatable()
+        $q = $this->mainRepository->datatable()
             ->getQuery()
             ->when($pemeriksaanId, function($query) use ($pemeriksaanId) {
                 return $query->where('inspection_id', $pemeriksaanId);
             });
+        return $q;
+    }
 
+    public function datatable(array $payload = [])
+    {
+        $query = $this->getData($payload);
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {
                 return $data->actionModel;
