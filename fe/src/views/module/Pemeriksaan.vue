@@ -2,6 +2,11 @@
     <div class="mb-5 mb-xl-8 card card-border-outline">
         <div class="card-body mt-2 hide-search-bar">
             <div class="row justify-content-sm-end">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-info" @click="formExport.show()">
+                        Export
+                    </button>
+                </div>
                 <div class="col-sm-2">
                     <Multiselect
                         class="multiselect-form-control"
@@ -55,51 +60,28 @@
         "
     />
     <FormCreate ref="formCreate" @onSave="tableReload()" />
-
-    <BaseModal modalId="download" ref="modalDownload" width="mw-600px">
-        <template #title> Download </template>
-        <div class="row">
-            <div class="col-6">
-                <button
-                    type="button"
-                    class="btn btn-danger btn-lg"
-                    style="width: 100%"
-                    @click="download(contentDownload.id, 'pdf')"
-                >
-                    .Pdf
-                </button>
-            </div>
-            <div class="col-6">
-                <button
-                    type="button"
-                    class="btn btn-success btn-lg"
-                    style="width: 100%"
-                    @click="download(contentDownload.id, 'excel')"
-                >
-                    .Excel
-                </button>
-            </div>
-        </div>
-    </BaseModal>
+    <ExportExcel ref="formExport" />
 </template>
 <script lang="ts" setup>
 import Multiselect from '@vueform/multiselect'
 import DataTable from '@/components/utils/datatable/DataTable.vue'
-import BaseModal from '@/components/utils/modal/BaseModal.vue'
 import FormCreate from '@/components/view/pasienPemeriksaan/Create.vue'
 import StrgService from '@/core/services/StrgService'
 import FAB from '@/components/utils/button/FAB.vue'
+import ExportExcel from '@/components/view/pasienPemeriksaan/ExportExcel.vue'
 
 import type { ConfigColumns, Config } from 'datatables.net'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
+import { useExportLaporanStore } from '@/stores/module/exportLaporan'
 import { btnAction } from '@/core/helpers/datatable'
 import { nextTick, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
 const pemeriksaanStore = usePasienPemeriksaanStore()
+const exportLaporan = useExportLaporanStore()
 const table = ref()
-const modalDownload = ref()
+const formExport = ref()
 const router = useRouter()
 const formCreate = ref()
 const filterTable = ref({
@@ -149,7 +131,6 @@ const filterList = ref({
         }
     ]
 })
-const contentDownload = ref()
 
 const columns = ref<Array<ConfigColumns>>([
     {
@@ -202,11 +183,7 @@ function handleBtnDownload(id: number): void {
         .data()
         .toArray()
         .find((elm: any) => elm.id == id || elm.code == id)
-    contentDownload.value = row
-    modalDownload.value.show()
-}
 
-function download(id: number, tag: string) {
     Swal.fire({
         icon: 'info',
         title: 'Tunggu sebentar yaa...',
@@ -217,28 +194,27 @@ function download(id: number, tag: string) {
             Swal.showLoading()
         }
     })
-    if (tag == 'pdf') {
-        pemeriksaanStore
-            .downloadPDF(id)
-            .then((res: any) => {
-                const url = window.URL.createObjectURL(new Blob([res]))
-                const link = document.createElement('a')
-                link.href = url
-                link.setAttribute(
-                    'download',
-                    `Pemeriksaan Pasien ${contentDownload.value.inspection_at} ${contentDownload.value.pasien_name}.pdf`
-                )
-                document.body.appendChild(link)
-                link.click()
-                link.remove()
-            })
-            .finally(() => {
-                Swal.close()
-            })
-    } else {
-        console.log(id)
-    }
+
+    exportLaporan
+        .downloadPDF(id)
+        .then((res: any) => {
+            const url = window.URL.createObjectURL(new Blob([res]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute(
+                'download',
+                `Pemeriksaan Pasien ${row.inspection_at} ${row.pasien_name}.pdf`
+            )
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
+        })
+        .finally(() => {
+            Swal.close()
+        })
 }
+
+function exportModal() {}
 
 function tableReload(): void {
     table.value.reload()

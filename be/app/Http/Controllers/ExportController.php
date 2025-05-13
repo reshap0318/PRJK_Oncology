@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PemeriksaanExcel;
 use App\Services\Module\PasienPemeriksaanService;
 use App\Services\Module\PemeriksaanKemoterapiService;
 use App\Services\Module\PemeriksaanOperasiService;
@@ -23,5 +24,16 @@ class ExportController extends Controller
         
         $pdf = Pdf::loadView('exports.PemeriksaanPDF', ['payload' => $payload]);
         return $pdf->stream('laporan-pemeriksaan-'.$id.'.pdf');
+    }
+
+    function pemeriksaanExcel(Request $request) {
+        $request->validate([
+            'dokter'     => 'nullable',
+            'startDate' => 'required|date',
+            'endDate'   => 'required|date|gte:startDate',
+        ]);
+
+        $fileName = "Laporan-Pemeriksaan-" . parseDateTimeId()->format("d-m-Y") . ".xlsx";
+        return (new PemeriksaanExcel($request->all()))->download($fileName);
     }
 }

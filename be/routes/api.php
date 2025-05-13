@@ -228,6 +228,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::prefix('export')->as('export')->group(function () {
         Route::get('/pemeriksaan-pdf/{id}', [ExportController::class, 'pemeriksaanPDF'])->name('.pemeriksaan-pdf');
+        Route::get('/pemeriksaan-excel', [ExportController::class, 'pemeriksaanExcel'])->name('.pemeriksaan-excel');
     });
     
     Route::get('select-data/{type}', [SelectController::class, 'index'])->name('select.data'); //->withoutMiddleware('log');

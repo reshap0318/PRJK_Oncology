@@ -24,7 +24,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
         }
     })
 
-    const formCreateValidated = useVuelidate(rulesCreate, formCreate)
+    const formCreateValidated = useVuelidate(rulesCreate, formCreate, { $scope: false })
 
     const formUpdate = ref({
         id: 0,
@@ -510,24 +510,11 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
 
     const formUpdateValidated = useVuelidate(rulesUpdate, formUpdate, { $scope: false })
 
-    async function downloadPDF(id:any) {
-        return new Promise((resolve, reject) => {
-            client().get(
-                `/api/export/pemeriksaan-pdf/${id}`, {
-                    responseType: 'blob',
-                }
-            )
-            .then((res: any) => resolve(res))
-            .catch((err: any) => reject(err))
-        })
-    }
-
     return {
         ...base,
         formUpdate,
         formUpdateValidated,
         formCreate,
-        formCreateValidated,
-        downloadPDF
+        formCreateValidated
     }
 })
