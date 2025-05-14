@@ -147,6 +147,16 @@ class PasienPemeriksaanModel extends Model
         return $this->hasMany(PemeriksaanOperasiModel::class, 'inspection_id', 'id');
     }
 
+    public function kemoterapis()
+    {
+        return $this->hasMany(PemeriksaanKemoterapiModel::class, 'inspection_id', 'id');
+    }
+
+    public function terapis()
+    {
+        return $this->hasMany(PemeriksaanTerapiTargetModel::class, 'inspection_id', 'id');
+    }
+
     public function paalParu()
     {
         return $this->hasOne(PemeriksaanPaalParuModel::class, 'id', 'id')->withDefault([
@@ -189,6 +199,7 @@ class PasienPemeriksaanModel extends Model
     public function laboratoryResult()
     {
         return $this->hasOne(PemeriksaanLaboratoryModel::class, 'id', 'id')->withDefault([
+            "date"              => null,
             "result_path"       => null,
             "hb"                => null,
             "leukosit"          => null,
@@ -224,5 +235,35 @@ class PasienPemeriksaanModel extends Model
             "ct_scan_path"  => null,
             "description"   => null,
         ]);
+    }
+
+    public function torakFotos()
+    {
+        return $this->hasMany(PemeriksaanToraksFotoModel::class, 'inspection_id', 'id');
+    }
+
+    public function torakScans()
+    {
+        return $this->hasMany(PemeriksaanToraksScanModel::class, 'inspection_id', 'id');
+    }
+
+    public function torakUsgs()
+    {
+        return $this->hasMany(PemeriksaanToraksUsgModel::class, 'inspection_id', 'id');
+    }
+
+    public function boneSurveys()
+    {
+        return $this->hasMany(PemeriksaanBoneSurveyModel::class, 'inspection_id', 'id');
+    }
+
+    public function mris()
+    {
+        return $this->hasMany(PemeriksaanMriKepalaModel::class, 'inspection_id', 'id');
+    }
+
+    public function lainnya()
+    {
+        return $this->hasMany(PemeriksaanLainnyaModel::class, 'inspection_id', 'id');
     }
 }

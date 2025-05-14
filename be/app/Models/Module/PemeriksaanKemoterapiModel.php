@@ -59,7 +59,7 @@ class PemeriksaanKemoterapiModel extends Model
                     1 => 'Platinum',
                     2 => 'Kombinasi',
                 ];
-                return $list[$this->category] ?? 'Tidak Diketahui';
+                return $list[$this->category] ?? '-';
             }
         );
     }
@@ -77,7 +77,7 @@ class PemeriksaanKemoterapiModel extends Model
                     6 => 'Lainnya',
                 ];
                 return array_map(function($val) use ($list) {
-                    return $list[$val] ?? 'Tidak Diketahui';
+                    return $list[$val] ?? '-';
                 }, $this->category_detail);
             }
         );

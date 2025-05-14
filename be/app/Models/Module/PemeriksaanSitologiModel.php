@@ -2,6 +2,7 @@
 
 namespace App\Models\Module;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -64,4 +65,22 @@ class PemeriksaanSitologiModel extends Model
         self::T_ADENO => "Adeno (Non Small Cell Ca)",
         self::T_LARGE => "Large (Non Small Cell Ca)",
     ];
+
+    protected function categoryText(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                return self::CATEGORY_LIST[$this->category] ?? '-';
+            }
+        );
+    }
+
+    protected function typeText(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                return self::TYPE_LIST[$this->type_detail] ?? '-';
+            }
+        );
+    }
 }

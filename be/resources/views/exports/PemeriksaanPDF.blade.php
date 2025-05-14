@@ -42,6 +42,13 @@
           $diagnosa = $payload['diagnosa'] ?? [];
           $bronkoskopi = $payload['bronkoskopi'] ?? [];
           $paalParu = $payload['paal_paru'] ?? [];
+          $laboratory = $payload['laboratoryResult'] ?? [];
+          $sitologis = $payload['sitologis'] ?? [];
+          $torakScan = $payload['toraks_scan'] ?? [];
+          $torakFoto = $payload['toraks_foto'] ?? [];
+          $torakUsg = $payload['toraks_usg'] ?? [];
+          $boneSurvey = $payload['bone_survey'] ?? [];
+          $mris = $payload['mri'] ?? [];
       @endphp
   <div class="mt-3">
     <table>
@@ -102,19 +109,19 @@
         <tbody>
           <tr>
             <td scope="row" style="width: 170px">Keluhan Utama</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['keluhans'][0]['description'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Lama Keluhan (Bulan)</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['keluhans'][0]['duration'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Gejala Lainnya</td>
-            <td class="align-top">
+            <td>
               @php
                   $gejalas = $anamnesis['gejalas'];
                   foreach ($gejalas as $key => $value) {
@@ -125,7 +132,7 @@
           </tr>
           <tr>
             <td scope="row">Riwayat Penyakit</td>
-            <td class="align-top">
+            <td>
               @php
                   $penyakits = array_merge($anamnesis['penyakit_riwayats'], $anamnesis['penyakits']);
                   foreach ($penyakits as $key => $value) {
@@ -136,89 +143,89 @@
           </tr>
           <tr>
             <th scope="row" class="title" style="text-align: left">Faktor Resiko</th>
-            <td class="align-top"></td>
+            <td></td>
           </tr>
           <tr>
             <td scope="row">Riwayat Merokok</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['kategori_perokok']['history_text'] }}              
             </td>
           </tr>
           <tr>
             <td scope="row">Jumlah</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['kategori_perokok']['stick_day'] }}              
             </td>
           </tr>
           <tr>
             <td scope="row">Lama Merokok (Tahun)</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['kategori_perokok']['count_year'] }}              
             </td>
           </tr>
           <tr>
             <td scope="row">IB</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['kategori_perokok']['ib'] }}              
             </td>
           </tr>
           <tr>
             <td scope="row">Filter</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['kategori_perokok']['category_text'] }}              
             </td>
           </tr>
           <tr>
             <td scope="row">Cara Menghisap</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['kategori_perokok']['suck_text'] }}              
             </td>
           </tr>
           <tr>
             <td scope="row">Paparan Asap Rokok Lingkungan</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['paparan_asap_rokok']['own'] == 1 ? "Ada [". $anamnesis['paparan_asap_rokok']['value'] ."]" : "Tidak" }}            
             </td>
           </tr>
           <tr>
             <td scope="row">Pekerjaan Berisiko</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['pekerjaan_beresiko']['own'] == 1 ? "Ada [". $anamnesis['pekerjaan_beresiko']['value'] ."]" : "Tidak" }}            
             </td>
           </tr>
           <tr>
             <td scope="row">Tempat Tinggal Disekitar Pabrik</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['tempat_tinggal_sekitar_pabrik']['own'] == 1 ? "Ada [". $anamnesis['tempat_tinggal_sekitar_pabrik']['value'] ."]" : "Tidak" }}            
             </td>
           </tr>
           <tr>
             <td scope="row">Riwayat Keganasan di Organ Lain</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['riwayat_keganasan_organ_lain']['own'] == 1 ? "Ada [". $anamnesis['riwayat_keganasan_organ_lain']['value'] ."]" : "Tidak" }}            
             </td>
           </tr>
           <tr>
             <td scope="row">Paparan Radon</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['paparan_radon']['own'] == 1 ? "Ada [". implode(', ', $anamnesis['paparan_radon']['value_txt']) ."]" : "Tidak" }}            
             </td>
           </tr>
           <tr>
             <td scope="row">Biomess</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['biomess']['own'] == 1 ? "Ada [". implode(', ', $anamnesis['biomess']['value_txt']) ."]" : "Tidak" }}            
             </td>
           </tr>
           <tr>
             <td scope="row">Riwayat PPOK</td>
-            <td class="align-top">
+            <td>
               {{ $anamnesis['riwayat_ppok']['own'] == 1 ? "Ada [". $anamnesis['riwayat_ppok']['value'] ."]" : "Tidak" }}            
             </td>
           </tr>
           <tr>
             <td scope="row">Riwayat TB</td>
-            <td class="align-top">
+            <td>
               @php
                   if($anamnesis['riwayat_tb']['own'] == 1) {
                     echo "Ada <br />";
@@ -234,7 +241,7 @@
           </tr>
           <tr>
             <td scope="row">Riwayat Keganasan Dalam Keluarga</td>
-            <td class="align-top">
+            <td>
               @php
                   if($anamnesis['riwayat_kaganasan_keluarga']['own'] == 1) {
                     echo "Ada <br />";
@@ -259,107 +266,107 @@
         <tbody>
           <tr>
             <th scope="row" style="width: 170px; text-align: left" >Tanda Vital</th>
-            <td class="align-top"></td>
+            <td></td>
           </tr>
           <tr>
             <td scope="row">Keadaan Umum</td>
-            <td class="align-top"></td>
+            <td></td>
           </tr>
           <tr>
             <td scope="row">TD (mmHg)</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['td'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">RR (kali/menit)</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['rr'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">SpO2 (%room air)</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['sp_o2'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Nadi (kali/menit)</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['nadi'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Suhu</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['suhu'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">VAS</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['vas'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Keterangan</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['description'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">KGB</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['kgb_option'] == 1 ? "Ya, " . $pemeriksaan_fisik['kgb'] : "Tidak" }}
             </td>
           </tr>
           <tr>
             <th scope="row" style="text-align: left" class="title">Paru</th>
-            <td class="align-top"></td>
+            <td></td>
           </tr>
           <tr>
             <td scope="row">Inspeksi</td>
-            <td class="align-top"></td>
+            <td></td>
           </tr>
           <tr>
             <td scope="row">Statis</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['inspeksi_statis'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Dinamis</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['inspeksi_dinamis'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Palpasi</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['palpasi'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Perkusi</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['perkusi'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Auskultasi</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['auskultasi'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Abdomen</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['abdomen'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Ekstemitas</td>
-            <td class="align-top">
+            <td>
               {{ $pemeriksaan_fisik['ekstemitas'] }}
             </td>
           </tr>
@@ -371,152 +378,354 @@
     <div class="cover">
       <h5 style="margin-left: 12px" class="title">C. PENUNJANG</h5>
       <p style="margin-left: 12px" class="title">1. RADIOLOGI</p>
-      <table class="table table-bordered table-sm">
+      <table class="table" style="margin-bottom: 20px">
         <tbody>
           <tr>
+            <td style="width: 20px;"></td>
             <td scope="row" style="width: 170px">
               <b>RO.FOTO TORAKS</b>
             </td>
-            <td class="align-top">-</td>
+            <td></td>
           </tr>
+          @forelse ($torakFoto as $item)
+            <tr>
+              <td></td>
+              <td style="width: 170px">
+                Tanggal
+              </td>
+              <td>{{ $item['date'] }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="width: 170px">
+                <b>PA</b>
+              </td>
+              <td>
+                {{ $item['pa_size'] }} - {{ $item['pa_lokasi'] }} - {{ $item['pa_efusi'] }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="width: 170px">
+                Keterangan
+              </td>
+              <td>
+                {{ $item['pa_description'] }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="width: 170px">
+                <b>Lateral Kanan/Kiri</b>
+              </td>
+              <td>
+                {{ $item['la_size'] }} - {{ $item['la_lokasi'] }} - {{ $item['la_efusi'] }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="width: 170px">
+                Keterangan
+              </td>
+              <td>
+                {{ $item['la_description'] }}
+              </td>
+            </tr>
+          @empty
+              <tr>
+                <td></td>
+                <td colspan="2">Tidak Ada Data</td>
+              </tr>
+          @endforelse
         </tbody>
       </table>
-      <p style="margin-left: 12px" class="title">2. HASIL LABORATORIUM</p>
-      <table class="table table-bordered table-sm">
+      <table class="table" style="margin-bottom: 20px">
+        <tbody>
+          <tr>
+            <td style="width: 20px;"></td>
+            <td style="width: 170px">
+              <b>CT-Scan Toraks</b>
+            </td>
+            <td></td>
+          </tr>
+          @forelse ($torakScan as $idx => $item)
+            <tr>
+              <td>{{ $idx + 1 }}</td>
+              <td>
+                Tanggal
+              </td>
+              <td>
+                {{ $item['date'] }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                Keterangan
+              </td>
+              <td>
+                {{ $item['description'] }}
+              </td>
+            </tr>
+          @empty
+              <tr>
+                <td></td>
+                <td colspan="2">Tidak Ada Data</td>
+              </tr>
+          @endforelse
+        </tbody>
+      </table>
+      <table class="table" style="margin-bottom: 20px">
+        <tbody>
+          <tr>
+            <td style="width: 20px;"></td>
+            <td scope="row" style="width: 170px">
+              <b>Bone Survey</b>
+            </td>
+            <td></td>
+          </tr>
+          @forelse ($boneSurvey as $idx => $item)
+            <tr>
+              <td>{{ $idx + 1 }}</td>
+              <td style="width: 170px">
+                Tanggal
+              </td>
+              <td>{{ $item['date'] }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="width: 170px">
+                Keterangan
+              </td>
+              <td>{{ $item['description'] }}</td>
+            </tr>
+          @empty
+              <tr>
+                <td></td>
+                <td colspan="2">Tidak Ada Data</td>
+              </tr>
+          @endforelse
+        </tbody>
+      </table>
+      <table class="table" style="margin-bottom: 20px">
+        <tbody>
+          <tr>
+            <td style="width: 20px;"></td>
+            <td scope="row" style="width: 170px">
+              <b>MRI Kepala</b>
+            </td>
+            <td></td>
+          </tr>
+          @forelse ($mris as $idx => $item)
+            <tr>
+              <td>{{ $idx + 1 }}</td>
+              <td style="width: 170px">
+                Tanggal
+              </td>
+              <td>{{ $item['date'] }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="width: 170px">
+                Keterangan
+              </td>
+              <td>{{ $item['description'] }}</td>
+            </tr>
+          @empty
+              <tr>
+                <td></td>
+                <td colspan="2">Tidak Ada Data</td>
+              </tr>
+          @endforelse
+        </tbody>
+      </table>
+      <table class="table" style="margin-bottom: 20px">
+        <tbody>
+          <tr>
+            <td style="width: 20px;"></td>
+            <td scope="row" style="width: 170px">
+              <b>USG Toraks</b>
+            </td>
+            <td></td>
+          </tr>
+          @forelse ($torakUsg as $idx => $item)
+            <tr>
+              <td>{{ $idx + 1 }}</td>
+              <td style="width: 170px">
+                Tanggal
+              </td>
+              <td>{{ $item['date'] }}</td>
+            </tr>
+            <tr>
+              <td style="width: 170px">
+                Keterangan
+              </td>
+              <td>{{ $item['description'] }}</td>
+            </tr>
+          @empty
+            <tr>
+              <td></td>
+              <td colspan="2">Tidak Ada Data</td>
+            </tr>
+          @endforelse
+        </tbody>
+      </table>
+      {{-- <p style="margin-left: 12px" class="title">2. HASIL LABORATORIUM</p>
+      <table class="table">
         <tbody>
           <tr>
             <td scope="row" style="width: 170px">
               Tanggal
             </td>
-            <td class="align-top">-</td>
+            <td>-</td>
           </tr>
         </tbody>
-      </table>
-      <p style="margin-left: 12px" class="title">3. HASIL BRONKOSKOPI</p>
-      <table class="table table-bordered table-sm">
+      </table> --}}
+      <p style="margin-left: 12px" class="title">2. HASIL BRONKOSKOPI</p>
+      <table class="table">
         <tbody>
           <tr>
             <td scope="row" style="width: 170px">Pita Suara</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['vocal_cords'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">Trakea</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['trachea'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">Carina</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['carina'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">BUKa</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['r_bu'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">Second Carina</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['r_carina_second'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">BUKi</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['l_bu'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">Second Carina</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['l_carina_second'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">LAKa/LAKi</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['l_la'] }}/{{ $bronkoskopi['r_la'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">TI</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['r_ti'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">Lower Division</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['l_ld'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">LM</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['r_lm'] }}
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">LBKa/LBKi</td>
-            <td class="align-top">
+            <td>
               {{ $bronkoskopi['l_lb'] }}/{{ $bronkoskopi['r_lb'] }}
             </td>
           </tr>
         </tbody>
       </table>
-      <p style="margin-left: 12px" class="title">4. HASIL LABORATORIUM</p>
-      <table class="table table-bordered table-sm">
+      <p style="margin-left: 12px" class="title">3. PA</p>
+      <table class="table">
         <tbody>
+          @foreach ($sitologis as $sitology)
           <tr>
             <td scope="row" style="width: 170px">
+              <b>{{ $sitology['label'] }}</b>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td scope="row">
               Tanggal
             </td>
-            <td class="align-top">-</td>
+            <td>{{ $sitology['date'] }}</td>
           </tr>
+          <tr>
+            <td scope="row">
+              Jenis Sel Ganas
+            </td>
+            <td> {{ $sitology['type_text'] }} </td>
+          </tr>
+          <tr>
+            <td scope="row">
+              Keterangan
+            </td>
+            <td> {{ $sitology['description'] }} </td>
+          </tr>
+          @endforeach
         </tbody>
       </table>
-      <p style="margin-left: 12px" class="title">5. PAAL PARU</p>
-      <table class="table table-bordered table-sm">
+      <p style="margin-left: 12px" class="title">4. PAAL PARU</p>
+      <table class="table">
         <tbody>
           <tr>
             <td scope="row" style="width: 170px">KVP</td>
-            <td class="align-top">
+            <td>
               {{ $paalParu['kvp_ml'] ?? 0 }}ml {{ $paalParu['kvp_percent'] ?? 0 }}ml 
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">VEP 1</td>
-            <td class="align-top">
+            <td>
               {{ $paalParu['vep_ml'] ?? 0 }}ml {{ $paalParu['vep_percent'] ?? 0 }}% 
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">VEP1/KVP</td>
-            <td class="align-top">
+            <td>
               {{ $paalParu['vep_kvp'] ?? 0 }}% 
             </td>
           </tr>
           <tr>
             <td scope="row" style="width: 170px">Resume</td>
-            <td class="align-top">
+            <td>
               {{ $paalParu['description'] }}
             </td>
           </tr>
         </tbody>
       </table>
-      <p style="margin-left: 12px" class="title">6. PEMERIKSAAN LAINNYA</p>
-      <table class="table table-bordered table-sm">
+      <p style="margin-left: 12px" class="title">5. PEMERIKSAAN LAINNYA</p>
+      <table class="table">
         <tbody>
           <tr>
             <td scope="row" style="width: 170px">
               Nama Pemeriksa
             </td>
-            <td class="align-top">-</td>
+            <td>-</td>
           </tr>
         </tbody>
       </table>
@@ -525,75 +734,75 @@
     <div class="page-break"></div>
     <div class="cover">
       <h5 style="margin-left: 12px" class="title">D. DIAGNOSA</h5>
-      <table class="table table-bordered table-sm">
+      <table class="table">
         <tbody>
           <tr>
             <td scope="row" style="width: 170px">Jenis Sel</td>
-            <td class="align-top">
+            <td>
               {{ implode(", ", $diagnosa['jenis_sel_text'] ?? []) }}
             </td>
           </tr>
           <tr>
             <td scope="row">PS</td>
-            <td class="align-top">
+            <td>
               {{ implode(", ", $diagnosa['ps'] ?? []) }}
             </td>
           </tr>
           <tr>
             <th scope="row" class="title" style="text-align: left">Marker Molekular (EGFR)</th>
-            <td class="align-top"></td>
+            <td></td>
           </tr>
           <tr>
             <td scope="row">Mutasi</td>
-            <td class="align-top">
+            <td>
               {{ $diagnosa['mutasi'] ?? "" }}
             </td>
           </tr>
           <tr>
             <td scope="row">PD-L1</td>
-            <td class="align-top">
+            <td>
               {{ $diagnosa['pdl1'] ?? "" }}
             </td>
           </tr>
           <tr>
             <td scope="row">ALK</td>
-            <td class="align-top">
+            <td>
               {{ implode(", ", $diagnosa['alk_text'] ?? []) }}
             </td>
           </tr>
           <tr>
             <td scope="row">Stage</td>
-            <td class="align-top">
+            <td>
               {{ implode(", ", $diagnosa['stage_text'] ?? []) }}
             </td>
           </tr>
           <tr>
             <td scope="row">Paru</td>
-            <td class="align-top">
+            <td>
               {{ implode(", ", $diagnosa['paru_text'] ?? []) }}
             </td>
           </tr>
           <tr>
             <td scope="row">Komorbid</td>
-            <td class="align-top">
+            <td>
               {{ $diagnosa['komorbid'] ?? "" }}
             </td>
           </tr>
           <tr>
             <td scope="row">Staging T</td>
-            <td class="align-top">
+            <td>
               {{ $diagnosa['staging_t'] ?? "" }}
             </td>
           </tr>
           <tr>
             <td scope="row">Staging N</td>
-            <td class="align-top">
+            <td>
               {{ $diagnosa['staging_n'] ?? "" }}
             </td>
           </tr>
           <tr>
             <td scope="row">Staging M</td>
-            <td class="align-top">
+            <td>
               {{ $diagnosa['staging_m'] ?? "" }}
             </td>
           </tr>
@@ -611,35 +820,35 @@
               <tr>
                 <td style="width: 30px" class="title">{{ numberToRomanRepresentation($key + 1) }}</td>
                 <td style="width: 170px">Tanggal</td>
-                <td class="align-top">
+                <td>
                   {{ $item['date'] }}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>Dokter</td>
-                <td class="align-top">
+                <td>
                   {{ $item['dokter_name'] }}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>Jenis Operasi</td>
-                <td class="align-top">
+                <td>
                   {{ $item['category'] }}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>Margin</td>
-                <td class="align-top">
+                <td>
                   R{{ implode(", R", $item['margin']) }}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>Resume</td>
-                <td class="align-top">
+                <td>
                   {{ $item['description'] }}
                 </td>
               </tr>
@@ -654,28 +863,28 @@
             <tr>
               <td style="width: 30px" class="title">{{ $key + 1 }}</td>
               <td style="width: 170px">Kemoterapi Lini -</td>
-              <td class="align-top">
+              <td>
                 {{ $item['lini'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Date</td>
-              <td class="align-top">
+              <td>
                 {{ $item['date'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Jenis Kemoterapi</td>
-              <td class="align-top">
+              <td>
                 {{ $item['category_text'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Dosis</td>
-              <td class="align-top">
+              <td>
                 {{ $item['dose'] }}
               </td>
             </tr>
@@ -696,42 +905,48 @@
             <tr>
               <td style="width: 30px" class="title">{{ $key + 1 }}</td>
               <td style="width: 170px">Tanggal Radioterapi</td>
-              <td class="align-top">
+              <td>
                 {{ $item['date'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Jenis Radioterapi</td>
-              <td class="align-top">
+              <td>
                 {{ $item['category_text'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Dosis</td>
-              <td class="align-top">
+              <td>
                 {{ $item['dose'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Fraksi</td>
-              <td class="align-top">
+              <td>
                 {{ $item['fraksi'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>CT-Scan Baseline</td>
-              <td class="align-top">
-                {{ $item['ct_scan_url'] }}
+              <td>
+                @if ($item['ct_scan_path'])
+                  @if (in_array(pathinfo($item['ct_scan_path'], PATHINFO_EXTENSION), ["jpg", "jpeg", "png"]))
+                    <img src="{{ '../storage/app/private/'.$item['ct_scan_path'] }}" alt="" style="width: 150px; height: 150px;">
+                  @else 
+                    {{ $item['ct_scan_url'] }}
+                  @endif
+                @endif
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Resume</td>
-              <td class="align-top">
+              <td>
                 {{ $item['description'] }}
               </td>
             </tr>
@@ -752,42 +967,48 @@
             <tr>
               <td style="width: 30px" class="title">{{ $key + 1 }}</td>
               <td style="width: 170px">Tanggal</td>
-              <td class="align-top">
+              <td>
                 {{ $item['date'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Jenis Terapi Target</td>
-              <td class="align-top">
+              <td>
                 {{ $item['category_text'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Lama (Bulan)</td>
-              <td class="align-top">
+              <td>
                 {{ $item['long'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Efek Samping</td>
-              <td class="align-top">
+              <td>
                 {{ $item['side_effect'] }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td>CT-Scan Baseline</td>
-              <td class="align-top">
-                {{ $item['ct_scan_url'] }}
+              <td>
+                @if ($item['ct_scan_path'])
+                  @if (in_array(pathinfo($item['ct_scan_path'], PATHINFO_EXTENSION), ["jpg", "jpeg", "png"]))
+                    <img src="{{ '../storage/app/private/'.$item['ct_scan_path'] }}" alt="" style="width: 150px; height: 150px;">
+                  @else 
+                    {{ $item['ct_scan_url'] }}
+                  @endif
+                @endif
               </td>
             </tr>
             <tr>
               <td></td>
               <td>Resume</td>
-              <td class="align-top">
+              <td>
                 {{ $item['description'] }}
               </td>
             </tr>
@@ -805,23 +1026,23 @@
     <div class="page-break"></div>
     <div class="cover">
       <h5 style="margin-left: 12px" class="title">F. OUTCOME</h5>
-      <table class="table table-bordered table-sm">
+      <table class="table">
         <tbody>
           <tr>
             <td scope="row" style="width: 170px">Tanggal Progress</td>
-            <td class="align-top">
+            <td>
               {{ $outcome['progress'] }}
             </td>
           </tr>
           <tr>
             <td scope="row">Tanggal Kematian</td>
-            <td class="align-top">
+            <td>
               {{ $outcome['dead'] ?? "" }}
             </td>
           </tr>
           <tr>
             <td scope="row">Sebab Kematian</td>
-            <td class="align-top">
+            <td>
               {{ $outcome['description'] ?? "" }}
             </td>
           </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Repository\Module\PasienPemeriksaanRepository;
 use Illuminate\Contracts\View\View;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -24,34 +25,23 @@ class PemeriksaanExcel implements FromView, ShouldAutoSize, WithStyles
 
     public function view(): View
     {
+        $data = $this->data();
+
         return view('exports.PemeriksaanExcel', [
-            
+            'datas' => $data
         ]);
     }
 
     public function styles(Worksheet $sheet)
     {
         return [
-            // Style the first row as bold text.
             1    => ['font' => ['bold' => true]]
         ];
     }
 
-    // public function data()
-    // {
-    //     $date = $this->payload['date'] ?? now()->format("Y-m-d");
-    //     $kas = $this->payload['kas_code'] ?? "0301";
-
-    //     $datas = (new KasTransactionRepository())->withAkun()->withKas()->filterByPeriodeBulan($date)->filterByKasCode($kas)->get();
-    //     return $datas;
-    // }
-
-    // public function saldo()
-    // {
-    //     $date = $this->payload['date'] ?? now()->format("Y-m-d");
-    //     $kas = $this->payload['kas_code'] ?? "0301";
-
-    //     $saldo = (new KasTransactionRepository())->getSaldo()->filterByPeriodeSebelumBulan($date)->filterByKasCode($kas)->first();
-    //     return $saldo;
-    // }
+    public function data()
+    {
+        $data = (new PasienPemeriksaanRepository())->laporanExcel($this->payload)->get();
+        return $data;
+    }
 }

@@ -49,7 +49,7 @@ class PemeriksaanDiagnosaModel extends Model
                     5 => 'KPKBSK',
                 ];
                 return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? 'Tidak Diketahui';
+                    return $list[$val] ?? '-';
                 }, $this->jenis_sel);
             }
         );
@@ -64,7 +64,7 @@ class PemeriksaanDiagnosaModel extends Model
                     2 => 'Fusi(+)',
                 ];
                 return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? 'Tidak Diketahui';
+                    return $list[$val] ?? '-';
                 }, $this->alk);
             }
         );
@@ -88,7 +88,7 @@ class PemeriksaanDiagnosaModel extends Model
                     9 => 'IIIC',
                 ];
                 return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? 'Tidak Diketahui';
+                    return $list[$val] ?? '-';
                 }, $this->stage);
             }
         );
@@ -103,7 +103,7 @@ class PemeriksaanDiagnosaModel extends Model
                     2 => 'Kanan',
                 ];
                 return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? 'Tidak Diketahui';
+                    return $list[$val] ?? '-';
                 }, $this->paru);
             }
         );

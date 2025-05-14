@@ -79,7 +79,7 @@ class PemeriksaanTerapiTargetModel extends Model
     {
         return Attribute::make(
             get: function ($value) {
-                return self::CATEGORY_LIST[$this->category] ?? 'Tidak Diketahui';
+                return self::CATEGORY_LIST[$this->category] ?? '-';
             }
         );
     }

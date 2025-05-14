@@ -77,15 +77,18 @@ class PasienPemeriksaanService extends BaseService
                 "label"         => $value,
                 "category"      => $key,
                 "date"          => null,
+                "type_text"     => null,
                 "type"          => null,
                 "type_detail"   => null,
                 "description"   => null
             ];
             $sitologi = $data->sitologis->firstWhere('category', $key);
             if ($sitologi) {
+                $sitologi->setAppends(['category_text', 'type_text']);
                 $tmp = array_merge($tmp, [
                     "date"          => $sitologi['date'] ? $sitologi['date']->format("Y-m-d") : null,
                     "type"          => $sitologi['type'],
+                    "type_text"     => $sitologi['type_text'],
                     "type_detail"   => $sitologi['type_detail'],
                     "description"   => $sitologi['description']
                 ]);
@@ -108,7 +111,7 @@ class PasienPemeriksaanService extends BaseService
                     2 => 'Lantai Retak',
                     3 => 'Sumur Dalam Rumah',
                 ];
-                return $list[$q] ?? 'Tidak Diketahui';
+                return $list[$q] ?? '-';
             }, $paparan_radon['value']);
 
             $biomess['value_txt'] = array_map(function ($q) {
@@ -117,7 +120,7 @@ class PasienPemeriksaanService extends BaseService
                     2 => 'Minyak Tanah',
                     3 => 'Breket',
                 ];
-                return $list[$q] ?? 'Tidak Diketahui';
+                return $list[$q] ?? '-';
             }, $biomess['value']);
         }
 

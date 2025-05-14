@@ -96,4 +96,40 @@ class PasienPemeriksaanRepository extends BaseRepository
         );
         return $this;
     }
+
+    public function laporanExcel(array $payload = [])
+    {
+        $this->query = $this->query->with([
+            'pasien',
+            'diagnosa',
+            'outcome',
+            'complains',
+
+            'operasis:id,inspection_id',
+            'kemoterapis:id,inspection_id',
+            'radioterapi:id,date',
+            'terapis:id,inspection_id',
+            'sitologis:id,inspection_id,type',
+
+            'torakFotos:id,inspection_id',
+            'torakScans:id,inspection_id',
+            'boneSurveys:id,inspection_id',
+            'mris:id,inspection_id',
+            'torakUsgs:id,inspection_id',
+            'laboratoryResult:id,date',
+            'bronkoskopi:id,vocal_cords',
+            'paalParu:id,kvp_ml',
+            'lainnya:id,inspection_id',
+        ])
+        ->when(isset($payload['dokter']) && $payload['dokter'] != "null", function($q) use ($payload) {
+            return $q->where('user_id', $payload['dokter']);
+        })
+        ->when(isset($payload['startDate']), function($q) use ($payload) {
+            return $q->where('inspection_at', '>=', $payload['startDate']);
+        })
+        ->when(isset($payload['endDate']), function($q) use ($payload) {
+            return $q->where('inspection_at', '<=', $payload['endDate']);
+        });
+        return $this;
+    }
 }

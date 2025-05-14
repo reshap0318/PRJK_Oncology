@@ -2,6 +2,7 @@
 
 namespace App\Models\Module;
 
+use DateTime;
 use App\Helpers\Authorization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,18 @@ class PasienModel extends Model
         'dob'       => 'date:Y-m-d',
         'gender'    => 'boolean'
     ];
+
+    protected function age(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $from = new DateTime($this->dob);
+                $to   = new DateTime('today');
+                echo $from->diff($to)->y;
+            },
+        );
+
+    }
 
     protected function gender(): Attribute
     {
