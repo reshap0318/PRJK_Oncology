@@ -3,7 +3,7 @@
         <!--begin::Notifications-->
         <div class="app-navbar-item ms-1 ms-md-4">
             <!--begin::Menu- wrapper-->
-            <div
+            <!-- <div
                 class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px"
                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                 data-kt-menu-attach="parent"
@@ -11,8 +11,8 @@
                 id="kt_menu_item_wow"
             >
                 <KTIcon icon-name="notification-on" icon-class="fs-2" />
-            </div>
-            <KTNotificationMenu />
+            </div> -->
+            <!-- <KTNotificationMenu /> -->
             <!--end::Menu wrapper-->
         </div>
         <!--end::Notifications-->
@@ -53,7 +53,7 @@
 
 <script lang="ts" setup>
 import KTUserMenu from '@/layouts/main-layout/menus/UserAccountMenu.vue'
-import KTNotificationMenu from '@/layouts/main-layout/menus/NotificationsMenu.vue'
+// import KTNotificationMenu from '@/layouts/main-layout/menus/NotificationsMenu.vue'
 import KTThemeModeSwitcher from '@/layouts/main-layout/theme-mode/ThemeModeSwitcher.vue'
 
 import { computed } from 'vue'

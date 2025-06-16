@@ -206,8 +206,8 @@ export function baseStore(basePath: string): TBaseFunction {
                 text: 'Anda tidak akan dapat mengembalikannya!',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#bebebe',
                 reverseButtons: true,
                 confirmButtonText: 'Ya, hapus!'
             }).then((result) => {

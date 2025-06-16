@@ -45,8 +45,8 @@
         if($item->operasis->count() > 1) array_push($tatalaksana, "Operasi");
         if($item->kemoterapis->count() > 1) array_push($tatalaksana, "Kemoterapi");
         if($item->terapis->count() > 1) array_push($tatalaksana, "Terapi");
-        if($item->radioterapi->date) array_push($tatalaksana, "Radioterapi");
-        if($sitoglogi->date) array_push($tatalaksana, "PA");
+        if(optional($item->radioterapi)->date) array_push($tatalaksana, "Radioterapi");
+        if(optional($sitoglogi)->date) array_push($tatalaksana, "PA");
 
         $penunjangs = [];
         if($item->torakFotos->count() > 1) array_push($penunjangs, "RO. Foto Toraks");
@@ -54,7 +54,7 @@
         if($item->boneSurveys->count() > 1) array_push($penunjangs, "Bone Survey");
         if($item->mris->count() > 1) array_push($penunjangs, "MRI");
         if($item->torakUsgs->count() > 1) array_push($penunjangs, "USG Toraks");
-        if($item->laboratoryResult->date) array_push($penunjangs, "Hasil Laboratorium");
+        if(optional($item->laboratoryResult)->date) array_push($penunjangs, "Hasil Laboratorium");
         if($item->bronkoskopi->vocal_cords) array_push($penunjangs, "Bronkoskopi");
         if($item->paalParu->kvp_ml) array_push($penunjangs, "PAAL Paru");
         if($item->lainnya->count() > 1) array_push($penunjangs, "Pemeriksaan Lainnya");
@@ -75,7 +75,7 @@
           {{ implode(", ", $penunjangs) }}
         </td>
         <td>{{ implode(", ", $diagnosa->jenis_sel_text) }}</td>
-        <td>{{ implode(", ", $diagnosa->ps) }}</td>
+        <td>{{ implode(", ", is_array($diagnosa->ps) ? $diagnosa->ps : []) }}</td>
         <td>{{ $diagnosa->mutasi }}</td>
         <td>{{ $diagnosa->pdl1 }}</td>
         <td>{{ implode(", ", $diagnosa->alk_text) }}</td>

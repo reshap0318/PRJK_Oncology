@@ -49,6 +49,10 @@
           $torakUsg = $payload['toraks_usg'] ?? [];
           $boneSurvey = $payload['bone_survey'] ?? [];
           $mris = $payload['mri'] ?? [];
+
+          function validateArray($input) {
+              return is_array($input) ? $input : [];
+          }
       @endphp
   <div class="mt-3">
     <table>
@@ -739,13 +743,13 @@
           <tr>
             <td scope="row" style="width: 170px">Jenis Sel</td>
             <td>
-              {{ implode(", ", $diagnosa['jenis_sel_text'] ?? []) }}
+              {{ implode(", ", validateArray($diagnosa['jenis_sel_text'])) }}
             </td>
           </tr>
           <tr>
             <td scope="row">PS</td>
             <td>
-              {{ implode(", ", $diagnosa['ps'] ?? []) }}
+              {{ implode(", ", validateArray($diagnosa['ps'])) }}
             </td>
           </tr>
           <tr>
@@ -767,19 +771,19 @@
           <tr>
             <td scope="row">ALK</td>
             <td>
-              {{ implode(", ", $diagnosa['alk_text'] ?? []) }}
+              {{ implode(", ", validateArray($diagnosa['alk_text'])) }}
             </td>
           </tr>
           <tr>
             <td scope="row">Stage</td>
             <td>
-              {{ implode(", ", $diagnosa['stage_text'] ?? []) }}
+              {{ implode(", ", validateArray($diagnosa['stage_text'])) }}
             </td>
           </tr>
           <tr>
             <td scope="row">Paru</td>
             <td>
-              {{ implode(", ", $diagnosa['paru_text'] ?? []) }}
+              {{ implode(", ", validateArray($diagnosa['paru_text'])) }}
             </td>
           </tr>
           <tr>
@@ -842,7 +846,7 @@
                 <td></td>
                 <td>Margin</td>
                 <td>
-                  R{{ implode(", R", $item['margin']) }}
+                  R{{ implode(", R", validateArray($item['margin'])) }}
                 </td>
               </tr>
               <tr>
