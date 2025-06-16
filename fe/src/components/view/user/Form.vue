@@ -170,7 +170,7 @@ const authStore = useAuthStore()
 const selectStore = useSelectStore()
 const modal = ref()
 const fileRef = ref()
-const avatarPreview = ref<string>(getAssetPath('media/avatars/300-3.jpg'))
+const avatarPreview = ref<string>(getAssetPath('media/avatars/blank.png'))
 
 const formInput = ref({
     id: 0,
@@ -215,6 +215,7 @@ function show(
     }
 ) {
     formInput.value = payload
+    avatarPreview.value = getAssetPath('media/avatars/blank.png')
     if (payload.avatar_url) avatarPreview.value = payload.avatar_url
     modal.value.show()
     authStore.setFormErrorEmpty()

@@ -127,6 +127,13 @@ class PasienPemeriksaanService extends BaseService
         $data['laboratoryResult']['result'] = null;
         $data['radioterapi']['ct_scan'] = null;
 
+        // translate null to empty string in diagnosa
+        $data['diagnosa']["jenis_sel"] = $data['diagnosa']["jenis_sel"] ?? [];
+        $data['diagnosa']["paru"] = $data['diagnosa']["paru"] ?? [];
+        $data['diagnosa']["stage"] = $data['diagnosa']["stage"] ?? [];
+        $data['diagnosa']["alk"] = $data['diagnosa']["alk"] ?? [];
+        $data['diagnosa']["ps"] = $data['diagnosa']["ps"] ?? [];
+
 
         return [
             'id' => $id,
@@ -293,6 +300,7 @@ class PasienPemeriksaanService extends BaseService
 
         $data->sickness()->whereNotIn('id', array_column($penyakits, 'id'))->delete();
 
+        $data->riskFactors()->delete(); // dummy fix update in case of no risk factor
         $this->insertRiskFactorLogic($data->riskFactors(), array_merge($payload['anemnesis']['paparan_asap_rokok'], ['category' => PFS::K_PAPARAN_ASAP_ROKOK]));
         $this->insertRiskFactorLogic($data->riskFactors(), array_merge($payload['anemnesis']['pekerjaan_beresiko'], ['category' => PFS::K_PEKERJAAN_BERESIKO]));
         $this->insertRiskFactorLogic($data->riskFactors(), array_merge($payload['anemnesis']['tempat_tinggal_sekitar_pabrik'], ['category' => PFS::K_TEMPAT_TINGGAL_SEKITAR_PABRIK]));
@@ -357,7 +365,7 @@ class PasienPemeriksaanService extends BaseService
     {
         $input = [
             'own' => $payload['own'],
-            'value' => $payload['own'] == 0 ? null : json_encode($payload['value']),
+            'value' => $payload['own'] == 0 ? null : $payload['value'],
             'category' => $payload['category']
         ];
         if (isset($payload['id']) && $payload['id'] != 0) {

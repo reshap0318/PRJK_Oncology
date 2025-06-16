@@ -70,7 +70,6 @@ class PasienPemeriksaanModel extends Model
             "jenis_sel"     => [],
             "paru"          => [],
             "stage"         => [],
-            "staging"       => [],
             "ps"            => [],
             "egfr"          => null,
             "mutasi"        => null,

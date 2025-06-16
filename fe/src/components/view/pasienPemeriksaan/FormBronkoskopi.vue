@@ -126,12 +126,12 @@
                 <h3 class="text-uppercase">Kiri</h3>
                 <div class="fv-row mb-4">
                     <label class="form-label fs-6 text-dark">
-                        <span>BUKa</span>
+                        <span>BUKi</span>
                     </label>
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="BUKa"
+                        placeholder="BUKi"
                         v-model="formInput.l_bu"
                     />
                     <form-error :err="v$.bronkoskopi.l_bu" name="bronkoskopi.l_bu" />
@@ -153,12 +153,12 @@
                 </div>
                 <div class="fv-row mb-4">
                     <label class="form-label fs-6 text-dark">
-                        <span>LAKa (Upper Division)</span>
+                        <span>LAKi (Upper Division)</span>
                     </label>
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="LAKa"
+                        placeholder="LAKi"
                         v-model="formInput.l_la"
                     />
                     <form-error :err="v$.bronkoskopi.l_la" name="bronkoskopi.l_la" />
