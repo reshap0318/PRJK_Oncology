@@ -145,6 +145,10 @@ class PermissionSeeder extends Seeder
             [
                 'name' => "pasien-pemeriksaan.delete",
                 'keterangan' => "menghapus data Pemeriksaan Pasien",
+            ],
+            [
+                'name' => "pasien-pemeriksaan.report",
+                'keterangan' => "mendownload Report Pemeriksaan",
             ]
         ];
 

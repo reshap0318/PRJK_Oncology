@@ -110,12 +110,14 @@ import Swal from 'sweetalert2'
 import type { ConfigColumns, Config } from 'datatables.net'
 import { usePasienStore } from '@/stores/module/pasien'
 import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
+import { useExportLaporanStore } from '@/stores/module/exportLaporan'
 import { computed, onMounted, watch, ref } from 'vue'
 import { btnAction } from '@/core/helpers/datatable'
 import { useRoute, useRouter } from 'vue-router'
 
 const pasienStore = usePasienStore()
 const pasienPemeriksaanStore = usePasienPemeriksaanStore()
+const exportLaporan = useExportLaporanStore()
 const route = useRoute()
 const router = useRouter()
 const table = ref()
@@ -173,6 +175,44 @@ function handleBtnDelete(id: number): void {
     })
 }
 
+function handleBtnDownload(id: number): void {
+    const row = table.value
+        .getDT()
+        .rows()
+        .data()
+        .toArray()
+        .find((elm: any) => elm.id == id || elm.code == id)
+
+    Swal.fire({
+        icon: 'info',
+        title: 'Tunggu sebentar yaa...',
+        timerProgressBar: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            Swal.showLoading()
+        }
+    })
+
+    exportLaporan
+        .downloadPDF(id)
+        .then((res: any) => {
+            const url = window.URL.createObjectURL(new Blob([res]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute(
+                'download',
+                `Pemeriksaan Pasien ${row.inspection_at} ${row.pasien_name}.pdf`
+            )
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
+        })
+        .finally(() => {
+            Swal.close()
+        })
+}
+
 onMounted(() => {
     getData(id.value)
 
@@ -183,6 +223,12 @@ onMounted(() => {
             name: 'pemeriksaaan.edit',
             params: { id: id }
         })
+    })
+
+    table.value.getDT().on('click', '.btn-download', function (e: any) {
+        e.preventDefault()
+        const id = e.currentTarget.getAttribute('data-id')
+        handleBtnDownload(id)
     })
 })
 

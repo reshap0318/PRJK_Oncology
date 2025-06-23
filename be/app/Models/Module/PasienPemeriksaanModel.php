@@ -38,7 +38,7 @@ class PasienPemeriksaanModel extends Model
                 $isDokter = $this->user_id == Auth::id() || Authorization::hasPermission('pasien-pemeriksaan.all');
                 return [
                     'download' => [
-                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.show'),
+                        'isCan' => Authorization::hasPermission('pasien-pemeriksaan.report'),
                         'link'  => null,
                     ],
                     'periksa' => [
