@@ -57,12 +57,14 @@ const columns = ref<Array<ConfigColumns>>([
         data: 'date',
         name: 'kemo.date',
         title: 'Tanggal',
+        defaultContent: '-',
         className: 'w-20p text-start'
     },
     {
         data: 'fu_description',
         name: 'fu.description',
         title: 'Resume',
+        defaultContent: '-',
         className: 'w-60p text-start'
     },
     {

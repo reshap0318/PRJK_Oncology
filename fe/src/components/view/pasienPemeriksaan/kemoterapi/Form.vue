@@ -21,7 +21,7 @@
             <div class="col-12 col-sm-6 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Tanggal Kemoterapi </span>
+                        <span> Tanggal Kemoterapi </span>
                     </label>
                     <input type="date" class="form-control" v-model="formInput.date" />
                     <form-error :err="v$.date" name="date" />
@@ -30,7 +30,7 @@
             <div class="col-12 col-sm-8 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Jenis Kemoterapi </span>
+                        <span> Jenis Kemoterapi </span>
                     </label>
                     <select class="form-control" v-model="formInput.category">
                         <option :value="null">pilihan</option>
@@ -43,7 +43,7 @@
             <div class="col-12 col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Siklus </span>
+                        <span> Siklus </span>
                     </label>
                     <input
                         type="number"
@@ -109,7 +109,7 @@
                         <div class="col-12 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Semi Suby </span>
+                                    <span> Semi Suby </span>
                                 </label>
                                 <div class="row">
                                     <div class="col-12 col-sm-6">
@@ -148,7 +148,7 @@
                         <div class="col-12 col-sm-8 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> WHO Toxiciti </span>
+                                    <span> WHO Toxiciti </span>
                                 </label>
                                 <select class="form-control" v-model="formInput.toxity">
                                     <option :value="null">pilihan</option>
@@ -161,7 +161,7 @@
                         <div class="col-12 col-sm-4 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Grade </span>
+                                    <span> Grade </span>
                                 </label>
                                 <div class="input-group">
                                     <div class="input-group-append">
@@ -200,7 +200,7 @@
                         <div class="col-12 col-sm-6 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Rontgen </span>
+                                    <span> Rontgen </span>
                                 </label>
                                 <InputFile
                                     v-model="formInput.rontgen"
@@ -219,7 +219,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Ct-Scan </span>
+                                    <span> Ct-Scan </span>
                                 </label>
                                 <InputFile
                                     v-model="formInput.ct_scan"
@@ -245,7 +245,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="fv-row mb-4">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> HB </span>
+                                    <span> HB </span>
                                 </label>
                                 <div class="input-group">
                                     <input
@@ -263,7 +263,7 @@
                             </div>
                             <div class="fv-row mb-4">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Leukosit </span>
+                                    <span> Leukosit </span>
                                 </label>
                                 <div class="input-group">
                                     <input
@@ -281,7 +281,7 @@
                             </div>
                             <div class="fv-row mb-4">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> Trombosit </span>
+                                    <span> Trombosit </span>
                                 </label>
                                 <div class="input-group">
                                     <input
@@ -301,7 +301,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="fv-row mb-4">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> SGOT </span>
+                                    <span> SGOT </span>
                                 </label>
                                 <div class="input-group">
                                     <input
@@ -319,7 +319,7 @@
                             </div>
                             <div class="fv-row mb-4">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> SGPT </span>
+                                    <span> SGPT </span>
                                 </label>
                                 <div class="input-group">
                                     <input
@@ -337,7 +337,7 @@
                             </div>
                             <div class="fv-row mb-4">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> CCT Urine </span>
+                                    <span> CCT Urine </span>
                                 </label>
                                 <div class="input-group">
                                     <input
@@ -357,7 +357,7 @@
                         <div class="col-12 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
-                                    <span class="required"> DC </span>
+                                    <span> DC </span>
                                 </label>
                                 <input
                                     type="text"
@@ -471,28 +471,28 @@ const fileReferral = ref({
 const rules = computed(() => {
     return {
         lini: { required },
-        category: { required },
-        category_detail: { required },
-        dose: { required },
-        description: { required },
+        category: {},
+        category_detail: { required: requiredIf(() => formInput.value.category != null) },
+        dose: {},
+        description: {},
 
-        date: { required },
-        siklus: { required },
+        date: {},
+        siklus: {},
         subjective: {}, //{ required },
-        semi_ps: { required },
-        semi_bb: { required },
-        toxity: { required },
-        toxity_detail: { required },
-        grade: { required },
-        rontgen: { required: requiredIf(() => fileReferral.value.rontgen == null) },
-        ct_scan: { required: requiredIf(() => fileReferral.value.ct_scan == null) },
-        hb: { required },
-        leukosit: { required },
-        trombosit: { required },
-        sgot: { required },
-        sgpt: { required },
-        urine: { required },
-        dc: { required },
+        semi_ps: {},
+        semi_bb: {},
+        toxity: {},
+        toxity_detail: {},
+        grade: {},
+        rontgen: {},
+        ct_scan: {},
+        hb: {},
+        leukosit: {},
+        trombosit: {},
+        sgot: {},
+        sgpt: {},
+        urine: {},
+        dc: {},
         description_fu: {} //{ required }
     }
 })

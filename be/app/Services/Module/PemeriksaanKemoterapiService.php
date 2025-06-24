@@ -51,13 +51,14 @@ class PemeriksaanKemoterapiService extends BaseService
 
     public function create($payload)
     {
+        $kategori = $payload['category'] ?? null;
         $data = $this->mainRepository->create([
-            "date"              => $payload['date'],
-            "inspection_id"     => $payload['inspection_id'],
+            "date"              => $payload['date'] ?? null,
+            "inspection_id"     => $payload['inspection_id'] ?? null,
             "lini"              => $payload['lini'],
-            "category"          => $payload['category'],
-            "category_detail"   => $payload['category_detail'],
-            "dose"              => $payload['dose'],
+            "category"          => $kategori,
+            "category_detail"   => $kategori == null ? [] : $payload['category_detail'],
+            "dose"              => $payload['dose'] ?? null,
         ]);
 
         $fu = $data->fus()->create($payload);
@@ -82,31 +83,32 @@ class PemeriksaanKemoterapiService extends BaseService
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
 
+        $kategori = $payload['category'] ?? null;
         $data->update([
-            "date"              => $payload['date'],
-            "lini"              => $payload['lini'],
-            "category"          => $payload['category'],
-            "category_detail"   => $payload['category_detail'],
-            "dose"              => $payload['dose'],
+            "date"              => $payload['date'] ?? null,
+            "lini"              => $payload['lini'] ?? null,
+            "category"          => $kategori,
+            "category_detail"   => $kategori == null ? [] : $payload['category_detail'],
+            "dose"              => $payload['dose'] ?? null,
         ]);
 
         $update = [
-            "date"          => $payload['date'],
-            "siklus"        => $payload['siklus'],
-            "subjective"    => $payload['subjective'],
-            "semi_ps"       => $payload['semi_ps'],
-            "semi_bb"       => $payload['semi_bb'],
-            "toxity"        => $payload['toxity'],
-            "toxity_detail" => $payload['toxity_detail'],
-            "grade"         => $payload['grade'],
-            "hb"            => $payload['hb'],
-            "leukosit"      => $payload['leukosit'],
-            "trombosit"     => $payload['trombosit'],
-            "sgot"          => $payload['sgot'],
-            "sgpt"          => $payload['sgpt'],
-            "urine"         => $payload['urine'],
-            "dc"            => $payload['dc'],
-            "description"   => $payload['description'],
+            "date"          => $payload['date'] ?? null,
+            "siklus"        => $payload['siklus'] ?? null,
+            "subjective"    => $payload['subjective'] ?? null,
+            "semi_ps"       => $payload['semi_ps'] ?? null,
+            "semi_bb"       => $payload['semi_bb'] ?? null,
+            "toxity"        => $payload['toxity'] ?? null,
+            "toxity_detail" => $payload['toxity_detail'] ?? null,
+            "grade"         => $payload['grade'] ?? null,
+            "hb"            => $payload['hb'] ?? null,
+            "leukosit"      => $payload['leukosit'] ?? null,
+            "trombosit"     => $payload['trombosit'] ?? null,
+            "sgot"          => $payload['sgot'] ?? null,
+            "sgpt"          => $payload['sgpt'] ?? null,
+            "urine"         => $payload['urine'] ?? null,
+            "dc"            => $payload['dc'] ?? null,
+            "description"   => $payload['description'] ?? null,
         ];
 
         if(isset($payload['rontgen']) && $payload['rontgen']->isValid()) {

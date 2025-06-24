@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('i_kemoterapi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('inspection_id');
-            $table->date('date');
             $table->tinyInteger('lini');
-            $table->tinyInteger('category');
-            $table->json('category_detail');
-            $table->text('dose'); //dosis
+            $table->date('date')->nullable();
+            $table->tinyInteger('category')->nullable();
+            $table->json('category_detail')->nullable();
+            $table->text('dose')->nullable(); //dosis
             $table->timestamps();
             $table->foreign('inspection_id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();
         });
