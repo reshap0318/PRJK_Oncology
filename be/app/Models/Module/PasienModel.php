@@ -31,7 +31,7 @@ class PasienModel extends Model
     ];
 
     protected $casts = [
-        'dob'       => 'date:Y-m-d',
+        'dob'       => 'date:d-m-Y',
         'gender'    => 'boolean'
     ];
 

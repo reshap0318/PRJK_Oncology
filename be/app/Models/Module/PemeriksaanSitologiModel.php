@@ -22,7 +22,7 @@ class PemeriksaanSitologiModel extends Model
     ];
 
     protected $casts = [
-        "date"          => 'date:Y-m-d',
+        "date"          => 'date:d-m-Y',
         "category"      => 'integer',
         "type"          => 'integer',
         "type_detail"   => 'integer',

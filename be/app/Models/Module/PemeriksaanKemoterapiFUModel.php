@@ -36,7 +36,7 @@ class PemeriksaanKemoterapiFUModel extends Model
     ];
 
     protected $casts = [
-        'date'          => 'date:Y-m-d',
+        'date'          => 'date:d-m-Y',
         "semi_ps"       => 'float:5,2',
         "semi_bb"       => 'float:5,2',
         "hb"            => 'float:3,2',

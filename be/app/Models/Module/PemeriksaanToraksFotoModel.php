@@ -33,7 +33,7 @@ class PemeriksaanToraksFotoModel extends Model
     protected $casts = [
         "pa_size"       => 'float:3,2',
         "la_size"       => 'float:3,2',
-        "date"          => 'date:Y-m-d',
+        "date"          => 'date:d-m-Y',
     ];
 
     protected $appends = [

@@ -19,7 +19,7 @@ class PasienPenyakitModel extends Model
     ];
 
     protected $casts = [
-        'date_inspection'   => 'date:Y-m-d',
+        'date_inspection'   => 'date:d-m-Y',
         'is_family'         => 'boolean'
     ];
 

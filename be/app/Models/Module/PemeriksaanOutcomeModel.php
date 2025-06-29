@@ -21,7 +21,7 @@ class PemeriksaanOutcomeModel extends Model
     ];
 
     protected $casts = [
-        "progress"      => 'date:Y-m-d',
-        'dead'          => 'date:Y-m-d'
+        "progress"      => 'date:d-m-Y',
+        'dead'          => 'date:d-m-Y'
     ];
 }

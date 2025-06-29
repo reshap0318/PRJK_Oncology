@@ -23,7 +23,7 @@ class PasienPemeriksaanModel extends Model
     ];
 
     protected $casts = [
-        'inspection_at'   => 'date:Y-m-d',
+        'inspection_at'   => 'date:d-m-Y',
     ];
 
     public function getTableCon(): string

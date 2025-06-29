@@ -110,6 +110,8 @@ import { usePasienPemeriksaanStore } from '@/stores/module/pasienPemeriksaan'
 import { usePasienStore } from '@/stores/module/pasien'
 import { useSelectStore } from '@/stores/global/select'
 import { computed, onMounted, ref, watch } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 import Swal from 'sweetalert2'
 
 const emit = defineEmits(['onSave'])
@@ -121,37 +123,44 @@ const selectStore = useSelectStore()
 const modal = ref()
 const pasien = computed(() => pasienStore.itemDetail)
 
-const formInput = ref(pemeriksaanStore.formCreate)
-const v$ = ref(pemeriksaanStore.formCreateValidated)
+const formInput = ref({
+    dokter_id: null,
+    pasien_id: null,
+    tanggal: null
+})
+const rules = computed(() => {
+    return {
+        dokter_id: { required },
+        pasien_id: { required },
+        tanggal: { required }
+    }
+})
+const v$ = useVuelidate(rules, formInput)
 
 function save(): void {
-    Swal.fire({
-        title: 'Loading',
-        html: 'menyimpan data...',
-        icon: 'info',
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading()
+    v$.value.$validate().then((result) => {
+        if (result) {
+            Swal.fire({
+                title: 'Loading',
+                html: 'menyimpan data...',
+                icon: 'info',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            })
+            pemeriksaanStore.createFile(formInput.value).then((res: any) => {
+                Swal.close()
+                emit('onSave')
+                Swal.fire({
+                    title: 'Success!',
+                    text: res.message,
+                    icon: 'success'
+                }).then(() => {
+                    modal.value.hide()
+                })
+            })
         }
-    })
-
-    v$.value.$validate().then((result: any) => {
-        if (!result) {
-            Swal.close()
-            return
-        }
-    })
-
-    pemeriksaanStore.createFile(formInput.value).then((res: any) => {
-        Swal.close()
-        emit('onSave')
-        Swal.fire({
-            title: 'Success!',
-            text: res.message,
-            icon: 'success'
-        }).then(() => {
-            modal.value.hide()
-        })
     })
 }
 

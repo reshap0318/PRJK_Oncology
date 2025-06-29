@@ -42,7 +42,7 @@ class PemeriksaanLaboratoryModel extends Model
     ];
 
     protected $casts = [
-        'date'              => 'date:Y-m-d',
+        'date'              => 'date:d-m-Y',
         "hb"                => "float:3,2",
         "leukosit"          => "float:3,2",
         "ht"                => "float:3,2",

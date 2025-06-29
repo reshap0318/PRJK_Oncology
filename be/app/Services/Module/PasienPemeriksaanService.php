@@ -86,7 +86,7 @@ class PasienPemeriksaanService extends BaseService
             if ($sitologi) {
                 $sitologi->setAppends(['category_text', 'type_text']);
                 $tmp = array_merge($tmp, [
-                    "date"          => $sitologi['date'] ? $sitologi['date']->format("Y-m-d") : null,
+                    "date"          => $sitologi['date'] ? $sitologi['date']->format("d-m-Y") : null,
                     "type"          => $sitologi['type'],
                     "type_text"     => $sitologi['type_text'],
                     "type_detail"   => $sitologi['type_detail'],
@@ -140,8 +140,8 @@ class PasienPemeriksaanService extends BaseService
             'overview'  => [
                 'dokter_id' => $data->user_id,
                 'pasien_id' => $data->pasien_id,
-                'tanggal'   => $data->inspection_at->format("Y-m-d"),
-                'perubahan_terakhir' => $data->updated_at->format("Y-m-d"),
+                'tanggal'   => $data->inspection_at->format("d-m-Y"),
+                'perubahan_terakhir' => $data->updated_at->format("d-m-Y"),
                 'dokter'    => $data->dokter->toArray(),
                 'pasien'    => $data->pasien->toArray(),
             ],

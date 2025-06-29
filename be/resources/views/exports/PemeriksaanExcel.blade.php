@@ -65,7 +65,7 @@
         <td>{{ $pasien->no_mr }}</td>
         <td>{{ $pasien->gender ? 'Laki-laki' : 'Perempuan' }}</td>
         <td>{{ $pasien->age }}</td>
-        <td>{{ parseDateTimeId($item->inspection_at)->format("Y-m-d") }}</td>
+        <td>{{ parseDateTimeId($item->inspection_at)->format("d-m-Y") }}</td>
         <td>{{ $keluhan->description }}</td>
         <td>{{ $keluhan->duration }}</td>
         <td>{{ implode(", ", $keluhanLainnya->pluck('description')->toArray()) }}</td>
@@ -88,8 +88,8 @@
         <td>
           {{ implode(", ", $tatalaksana) }}
         </td>
-        <td>{{ parseDateTimeId($outcome->progress)->format("Y-m-d") }}</td>
-        <td>{{ parseDateTimeId($outcome->dead)->format("Y-m-d") }}</td>
+        <td>{{ parseDateTimeId($outcome->progress)->format("d-m-Y") }}</td>
+        <td>{{ parseDateTimeId($outcome->dead)->format("d-m-Y") }}</td>
         <td>{{ $outcome->description }}</td>
       </tr>
     @endforeach

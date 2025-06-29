@@ -20,7 +20,7 @@ class PemeriksaanRadioterapiFUModel extends Model
     ];
 
     protected $casts = [
-        'date'          => 'date:Y-m-d',
+        'date'          => 'date:d-m-Y',
     ];
 
     protected $appends = [
