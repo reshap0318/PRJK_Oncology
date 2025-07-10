@@ -210,6 +210,8 @@ class PasienPemeriksaanService extends BaseService
             "type"          => 0
         ]);
 
+        $pemeriksaan->radioterapi()->create([]);
+
         return $pemeriksaan;
     }
 
@@ -331,7 +333,7 @@ class PasienPemeriksaanService extends BaseService
         (new PemeriksaanSitologiRepository())->upsert($sitologis, ['inspection_id', 'category'], ['date', 'type', 'type_detail', 'description']);
 
         $data->laboratoryResult()->delete();
-        if(isset($payload['laboratory']) && isset($payload['laboratory']['result']) && $payload['laboratory']['result']->isValid()) {
+        if (isset($payload['laboratory']) && isset($payload['laboratory']['result']) && $payload['laboratory']['result']->isValid()) {
             $fileResult = $payload['laboratory']['result'];
             $fileName = $data->id . "-laboratory-result." . $fileResult->extension();
             $payload['laboratory']['result_path'] = $fileResult->storeAs('laboratory-result', $fileName);
@@ -339,7 +341,7 @@ class PasienPemeriksaanService extends BaseService
         $data->laboratoryResult()->create($payload['laboratory'] ?? []);
 
         $data->radioterapi()->delete();
-        if(isset($payload['radioterapi']) && isset($payload['radioterapi']['ct_scan']) && $payload['radioterapi']['ct_scan']->isValid()) {
+        if (isset($payload['radioterapi']) && isset($payload['radioterapi']['ct_scan']) && $payload['radioterapi']['ct_scan']->isValid()) {
             $fileResult = $payload['radioterapi']['ct_scan'];
             $fileName = $data->id . "-ct-scan." . $fileResult->extension();
             $payload['radioterapi']['ct_scan_path'] = $fileResult->storeAs('radioterapi', $fileName);
@@ -357,7 +359,7 @@ class PasienPemeriksaanService extends BaseService
 
         if ($data->laboratoryResult->result_path) Storage::delete($data->laboratoryResult->result_path);
         if ($data->radioterapi->ct_scan_path) Storage::delete($data->radioterapi->ct_scan_path);
-        
+
         return $data->delete($id);
     }
 

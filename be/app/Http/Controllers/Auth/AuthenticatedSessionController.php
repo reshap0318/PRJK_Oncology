@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Responses\Success;
 use Illuminate\Http\{
-    Request,
     JsonResponse
 };
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +24,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): JsonResponse
+    public function destroy(): JsonResponse
     {
         Auth::guard('api')->logout(true);
         return Success::defaultSuccessExtraMessage("Logout");

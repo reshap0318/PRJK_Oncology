@@ -31,7 +31,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
         overview: {
             dokter_id: null,
             pasien_id: null,
-            tanggal: null
+            tanggal: null as string | null
         },
         anemnesis: {
             keluhans: [
@@ -192,7 +192,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             l_ld: null,
 
             description: null,
-            staging: null,
+            staging: null
         },
         sitologis: [
             {
@@ -237,7 +237,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             fraksi: null,
             ct_scan: null,
             ct_scan_url: null,
-            description: null,
+            description: null
         }
     })
 
@@ -257,18 +257,18 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 },
                 gejalas: {
                     $each: helpers.forEach({
-                        description: { },
-                        duration: { 
+                        description: {},
+                        duration: {
                             required: (value: number, item: any) => {
-                                if(!item.description) return true
-                                return value != null;
+                                if (!item.description) return true
+                                return value != null
                             }
                         }
                     })
                 },
                 penyakits: {
                     $each: helpers.forEach({
-                        description: { }
+                        description: {}
                     })
                 },
                 kategori_perokok: {
@@ -374,17 +374,23 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                         $each: helpers.forEach({
                             siapa: {
                                 required: requiredIf(
-                                    () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                    () =>
+                                        formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own ==
+                                        1
                                 )
                             },
                             apa: {
                                 required: requiredIf(
-                                    () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                    () =>
+                                        formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own ==
+                                        1
                                 )
                             },
                             tahun: {
                                 required: requiredIf(
-                                    () => formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own == 1
+                                    () =>
+                                        formUpdate.value.anemnesis.riwayat_kaganasan_keluarga.own ==
+                                        1
                                 )
                             }
                         })
@@ -459,14 +465,14 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 l_ld: {}, //{ required },
 
                 description: {}, //{ required },
-                staging: {}, //{ required },
+                staging: {} //{ required },
             },
             sitologis: {
                 $each: helpers.forEach({
-                    type_detail: { 
+                    type_detail: {
                         required: (value: string, item: any) => {
-                            if(!item.type) return true
-                            return value != null;
+                            if (!item.type) return true
+                            return value != null
                         }
                     }
                 })
@@ -493,7 +499,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 agd_hco3: {}, //{ required },
                 agd_be: {}, //{ required },
                 agd_so2: {}, //{ required },
-                gds: {},// { required }
+                gds: {}, // { required }
                 description: {} //{ required }
             },
             radioterapi: {
@@ -504,7 +510,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 ct_scan: {}, //{ required },
                 ct_scan_url: {}, //{ required },
                 description: {} //{ required }
-            },
+            }
         }
     })
 

@@ -325,7 +325,6 @@ async function simpan() {
         nextTick(() => {
             pemeriksaanStore.formUpdateValidated.$validate().then((res) => {
                 if (res) {
-                    console.log(pemeriksaanStore.formUpdate)
                     if (pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb_option == 0) {
                         pemeriksaanStore.formUpdate.pemeriksaan_fisik.kgb = null
                     }
@@ -428,6 +427,11 @@ onMounted(() => {
         }
         title.value = `Edit Pemeriksaan ${pasienStore.itemDetail.name} (${res.data.overview.tanggal})`
         nextTick(() => {
+            // Convert dd-mm-yyyy to yyyy-mm-dd
+            const [day, month, year] = res.data.overview.tanggal.split('-')
+            const date = `${year}-${month}-${day}`
+            pemeriksaanStore.formUpdate.overview.tanggal = date
+
             formActive.value = 'ONC000'
             // formActive.value = 'ONC00312'
         })
