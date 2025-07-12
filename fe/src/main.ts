@@ -26,7 +26,7 @@ app.directive('tooltip', (el) => {
     new Tooltip(el)
 })
 
-app.directive("uppercase", (el) => {
+app.directive('uppercase', (el) => {
     el.value = el.value.toUpperCase()
 })
 

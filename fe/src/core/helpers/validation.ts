@@ -30,7 +30,12 @@ export function isError(vuelidateState: any): boolean {
     return getErrorMessages(vuelidateState).length > 0
 }
 
-export function getErrorEachMessages(vuelidateState: any, idx: number, key: string, customErrorMessages = {}) {
+export function getErrorEachMessages(
+    vuelidateState: any,
+    idx: number,
+    key: string,
+    customErrorMessages = {}
+) {
     try {
         const result: string[] = []
         if (!vuelidateState.$dirty) {
@@ -42,7 +47,8 @@ export function getErrorEachMessages(vuelidateState: any, idx: number, key: stri
         const error = vuelidateState.$errors[0]
 
         if (error) {
-            const msg = errorMessages[error.$response.$errors[idx][key][0].$validator] ?? error.$message
+            const msg =
+                errorMessages[error.$response.$errors[idx][key][0].$validator] ?? error.$message
             result.push(msg)
         }
         return result

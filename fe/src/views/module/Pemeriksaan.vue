@@ -3,7 +3,12 @@
         <div class="card-body mt-2 hide-search-bar">
             <div class="row justify-content-sm-end">
                 <div class="col-sm-6">
-                    <button type="button" class="btn btn-info" @click="formExport.show()" v-if="StrgService.hasPermission('pasien-pemeriksaan.report')">
+                    <button
+                        type="button"
+                        class="btn btn-info"
+                        @click="formExport.show()"
+                        v-if="StrgService.hasPermission('pasien-pemeriksaan.report')"
+                    >
                         Export
                     </button>
                 </div>

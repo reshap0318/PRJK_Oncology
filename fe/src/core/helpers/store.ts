@@ -241,6 +241,6 @@ export function baseStore(basePath: string): TBaseFunction {
         actionDelete: actionDelete,
         createFile: createFile,
         updateFile: updateFile,
-        actionUpSertFile: actionUpSertFile,
+        actionUpSertFile: actionUpSertFile
     }
 }

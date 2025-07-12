@@ -14,24 +14,24 @@
 @import 'layout/layout';
 
 .card-border-outline {
-  border-top: 3px solid #28a745;
+    border-top: 3px solid #28a745;
 }
 
 .multiselect-form-control .multiselect-input {
-  height: 44px;
-  border-radius: 8px;
-  margin-top: 1px;
+    height: 44px;
+    border-radius: 8px;
+    margin-top: 1px;
 }
 
 .multiselect-height-auto {
-  .multiselect-single-label {
-    position: relative !important;
-    width: auto;
-  }
-  .multiselect-search {
-    width: 7%;
-  }
-  .multiselect-option {
-    min-height: auto;
-  }
+    .multiselect-single-label {
+        position: relative !important;
+        width: auto;
+    }
+    .multiselect-search {
+        width: 7%;
+    }
+    .multiselect-option {
+        min-height: auto;
+    }
 }

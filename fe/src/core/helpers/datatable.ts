@@ -12,7 +12,7 @@ type TBtnAction = {
 }
 
 export function btnAction(action: TBtnAction, payload: string | number): string {
-    return btnActionText(action, payload);
+    return btnActionText(action, payload)
 }
 
 export function btnActionText(action: TBtnAction, payload: string | number): string {
