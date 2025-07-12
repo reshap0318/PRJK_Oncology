@@ -21,6 +21,10 @@ export default defineConfig({
     },
     server: {
         // @ts-ignore
-        allowedHosts: ['lcr.sabrinaermayanti.com', 'localhost']
+        allowedHosts: [
+            'lcr.sabrinaermayanti.com',
+            'localhost',
+            'oncology.rangminangdev.my.id'
+        ]
     }
 })
