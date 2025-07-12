@@ -1,21 +1,21 @@
 # version: '3.8'
 name: "oncology-v2"
 services:
-  # webserver:
-  #   image: nginx:alpine
-  #   container_name: oncology.webserver
-  #   restart: unless-stopped
-  #   tty: true
-  #   depends_on:
-  #     - backend
-  #     - frontend
-  #   ports:
-  #     - "1012:80"
-  #   volumes:
-  #     - ./:/var/www/
-  #     - ./etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-  #   networks:
-  #     - oncology.network
+  webserver:
+    image: nginx:alpine
+    container_name: oncology.webserver
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "1012:80"
+    volumes:
+      - ./:/var/www/
+      - ./etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - oncology.network
 
   backend:
     build:
@@ -70,3 +70,14 @@ networks:
     driver: bridge
     name: webserver-network
     external: true
+
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  index: /
+  is_uncontrolled: true
+  port_map: "1002"
+  scheme: http
+  title:
+    custom: Oncology
