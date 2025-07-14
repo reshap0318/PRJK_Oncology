@@ -30,7 +30,7 @@
                         <th scope="row" style="width: 150px">CT-Scan Baseline</th>
                         <td style="width: 10px">:</td>
                         <td>
-                            <a :href="radio.ct_scan_url" target="_blank">{{ radio.ct_scan_url }}</a>
+                            <a :href="radio.ct_scan_url" target="_blank">Download</a>
                         </td>
                     </tr>
                     <tr>
@@ -83,6 +83,7 @@ import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
+import { convertDateToYMD } from '@/core/helpers/date'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
@@ -96,7 +97,7 @@ const formInput = ref({
     id: 0,
     radio_id: 0,
 
-    date: null,
+    date: null as string | null,
     ct_scan: null
 })
 const ctScanReferral = ref(null)
@@ -112,7 +113,10 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.radio_id = payload.radio_id || 0
 
-    formInput.value.date = payload.date || null
+    formInput.value.date = null
+    if (payload.date) {
+        formInput.value.date = convertDateToYMD(payload.date)
+    }
     formInput.value.ct_scan = null
 
     ctScanReferral.value = fileRef.ct_scan || null
@@ -139,3 +143,4 @@ defineExpose({
     hide
 })
 </script>
+

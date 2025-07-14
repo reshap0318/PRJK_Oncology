@@ -19,8 +19,8 @@ class PemeriksaanRadioterapiService extends BaseService
     public function getById($id)
     {
         $data = $this->mainRepository->filterById($id)->first();
-        abort_if(!$data, 404, "halaman tidak ditemukan");       
-        $data->category_text = $data->category_text; 
+        abort_if(!$data, 404, "halaman tidak ditemukan");
+        $data->category_text = $data->category_text;
         return $data;
     }
 
@@ -29,16 +29,15 @@ class PemeriksaanRadioterapiService extends BaseService
         $pemeriksaanId = $payload['pemeriksaan_id'] ?? null;
         $query = $this->mainRepository->datatable()
             ->getQuery()
-            ->when($pemeriksaanId, function($query) use ($pemeriksaanId) {
-                return $query->where('id', $pemeriksaanId);
+            ->when($pemeriksaanId, function ($query) use ($pemeriksaanId) {
+                return $query->where('inspection_id', $pemeriksaanId);
             });
         return $query;
     }
 
     public function datatable(array $payload = [])
     {
-        $query = $this->getData($payload)->getQuery();
-
+        $query = $this->getData($payload);
         return DataTables::eloquent($query)
             ->addColumn('action', function ($data) {
                 return $data->actionModel;
@@ -53,14 +52,14 @@ class PemeriksaanRadioterapiService extends BaseService
     {
         $data = $this->mainRepository->create([
             "inspection_id" => $payload['inspection_id'],
-            "date"          => $payload['date'],
-            "category"      => $payload['category'],
-            "dose"          => $payload['dose'],
-            "fraksi"        => $payload['fraksi'],
-            "description"   => $payload['description'],
+            "date"          => $payload['date'] ?? null,
+            "category"      => $payload['category'] ?? null,
+            "dose"          => $payload['dose'] ?? null,
+            "fraksi"        => $payload['fraksi'] ?? null,
+            "description"   => $payload['description'] ?? null
         ]);
 
-        if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
+        if (isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
             $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
             $data->update([
                 'ct_scan_path' => $payload['ct_scan']->storeAs('radioterapi', $fileName)
@@ -76,18 +75,18 @@ class PemeriksaanRadioterapiService extends BaseService
 
         $update = [
             "inspection_id" => $payload['inspection_id'],
-            "date"          => $payload['date'],
-            "category"      => $payload['category'],
-            "dose"          => $payload['dose'],
-            "fraksi"        => $payload['fraksi'],
-            "description"   => $payload['description'],
+            "date"          => $payload['date'] ?? null,
+            "category"      => $payload['category'] ?? null,
+            "dose"          => $payload['dose'] ?? null,
+            "fraksi"        => $payload['fraksi'] ?? null,
+            "description"   => $payload['description'] ?? null
         ];
 
-        if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
+        if (isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
             $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
             $update['ct_scan_path'] = $payload['ct_scan']->storeAs('radioterapi', $fileName);
         }
-        
+
         $data = $data->update($update);
         return $data;
     }
@@ -96,7 +95,7 @@ class PemeriksaanRadioterapiService extends BaseService
     {
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
-        
+
         $fus = (new PemeriksaanRadioterapiFURepository)->filterByRadioId($id)->get();
         $data->delete();
 

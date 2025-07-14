@@ -12,10 +12,9 @@ class PemeriksaanRadioterapiModel extends Model
     use HasFactory;
     protected $table = 'i_radioterapi';
     protected $primaryKey = 'id';
-    public $incrementing = false;
 
     protected $fillable = [
-        "id",
+        "inspection_id",
         "date",
         "category",
         "dose",
@@ -42,7 +41,7 @@ class PemeriksaanRadioterapiModel extends Model
         self::C_KEPALA      => 'Radioterapi Kepala',
         self::C_KURATIF     => 'Radioterapi Kuratif'
     ];
-    
+
     protected function actionModel(): Attribute
     {
         return Attribute::make(

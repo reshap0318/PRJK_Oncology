@@ -27,6 +27,7 @@ class PemeriksaanDiagnosaModel extends Model
         "pdl1",
         "alk",
         "komorbid",
+        "complication"
     ];
 
     protected $casts = [

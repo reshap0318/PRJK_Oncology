@@ -21,15 +21,15 @@ class PemeriksaanRadioterapiRequest extends FormRequest
         $pemeriksaanTbl = (new PasienPemeriksaanModel())->getTable();
         return [
             "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
-            "date"          => "required|date_format:Y-m-d",
-            "category"      => "required",
-            "dose"          => "required",
-            "fraksi"        => "required",
+            "date"          => "nullable|date_format:Y-m-d",
+            "category"      => "nullable",
+            "dose"          => "nullable",
+            "fraksi"        => "nullable",
             "description"   => "nullable",
 
             "ct_scan"       => [
                 "nullable",
-                Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
+                // Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",
             ],
@@ -44,6 +44,7 @@ class PemeriksaanRadioterapiRequest extends FormRequest
             "dose"              => "dosis",
             "fraksi"            => "fraksi",
             "description"       => "deskripsi",
+            "ct_scan"           => "ct scan"
         ];
     }
 }

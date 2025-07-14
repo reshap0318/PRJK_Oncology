@@ -42,7 +42,7 @@ class PasienPemeriksaanRepository extends BaseRepository
         $tbl = $tbl ?? (new PasienPemeriksaanModel())->getTable();
         $this->query = $this->query->when($value, function ($q) use ($value, $tbl) {
             return $q->whereIn(
-                $tbl.".id", 
+                $tbl . ".id",
                 PemeriksaanDiagnosaModel::select('id')->whereJsonContains('jenis_sel', "$value")
             );
         });
@@ -53,14 +53,14 @@ class PasienPemeriksaanRepository extends BaseRepository
     public function datatableFilterByTatalaksana($tbl, $value)
     {
         $tbl = $tbl ?? (new PasienPemeriksaanModel())->getTable();
-        if($value == 1) {
-            $this->query = $this->query->whereIn($tbl.".id", PemeriksaanKemoterapiModel::select('inspection_id')->whereNotNull('category'));
-        } else if($value == 2) {
-            $this->query = $this->query->whereIn($tbl.".id", PemeriksaanOperasiModel::select('inspection_id')->whereNotNull('margin'));
-        } else if($value == 3) {
-            $this->query = $this->query->whereIn($tbl.".id", PemeriksaanTerapiTargetModel::select('inspection_id')->whereNotNull('category'));
-        } else if($value == 4) {
-            $this->query = $this->query->whereIn($tbl.".id", PemeriksaanRadioterapiModel::select('inspection_id')->whereNotNull('category'));
+        if ($value == 1) {
+            $this->query = $this->query->whereIn($tbl . ".id", PemeriksaanKemoterapiModel::select('inspection_id')->whereNotNull('category'));
+        } else if ($value == 2) {
+            $this->query = $this->query->whereIn($tbl . ".id", PemeriksaanOperasiModel::select('inspection_id')->whereNotNull('margin'));
+        } else if ($value == 3) {
+            $this->query = $this->query->whereIn($tbl . ".id", PemeriksaanTerapiTargetModel::select('inspection_id')->whereNotNull('category'));
+        } else if ($value == 4) {
+            $this->query = $this->query->whereIn($tbl . ".id", PemeriksaanRadioterapiModel::select('inspection_id')->whereNotNull('category'));
         }
         return $this;
     }
@@ -80,18 +80,18 @@ class PasienPemeriksaanRepository extends BaseRepository
             'paalParu',
             'bronkoskopi',
             'sitologis',
-            'laboratoryResult',
-            'radioterapi'
+            'laboratoryResult'
         ]);
         return $this;
     }
 
-    public function filterByRole($tbl=null)
+    public function filterByRole($tbl = null)
     {
         $tbl = $tbl ?? (new PasienPemeriksaanModel())->getTable();
         $this->query = $this->query->when(
-            !Authorization::hasPermission('pasien-pemeriksaan.all'), function ($q) use ($tbl) {
-                return $q->where($tbl.".user_id", Auth::id());
+            !Authorization::hasPermission('pasien-pemeriksaan.all'),
+            function ($q) use ($tbl) {
+                return $q->where($tbl . ".user_id", Auth::id());
             }
         );
         return $this;
@@ -121,15 +121,15 @@ class PasienPemeriksaanRepository extends BaseRepository
             'paalParu:id,kvp_ml',
             'lainnya:id,inspection_id',
         ])
-        ->when(isset($payload['dokter']) && $payload['dokter'] != "null", function($q) use ($payload) {
-            return $q->where('user_id', $payload['dokter']);
-        })
-        ->when(isset($payload['startDate']), function($q) use ($payload) {
-            return $q->where('inspection_at', '>=', $payload['startDate']);
-        })
-        ->when(isset($payload['endDate']), function($q) use ($payload) {
-            return $q->where('inspection_at', '<=', $payload['endDate']);
-        });
+            ->when(isset($payload['dokter']) && $payload['dokter'] != "null", function ($q) use ($payload) {
+                return $q->where('user_id', $payload['dokter']);
+            })
+            ->when(isset($payload['startDate']), function ($q) use ($payload) {
+                return $q->where('inspection_at', '>=', $payload['startDate']);
+            })
+            ->when(isset($payload['endDate']), function ($q) use ($payload) {
+                return $q->where('inspection_at', '<=', $payload['endDate']);
+            });
         return $this;
     }
 }

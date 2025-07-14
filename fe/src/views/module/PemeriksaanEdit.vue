@@ -189,7 +189,8 @@ import FormDiagnosa from '@/components/view/pasienPemeriksaan/FormDiagnosa.vue'
 import FormOutcome from '@/components/view/pasienPemeriksaan/FormOutcome.vue'
 import FormOperasi from '@/components/view/pasienPemeriksaan/operasi/OperasiView.vue'
 import FormKemoterapi from '@/components/view/pasienPemeriksaan/kemoterapi/View.vue'
-import FormRadioterapi from '@/components/view/pasienPemeriksaan/FormRadioterapi.vue'
+// import FormRadioterapi from '@/components/view/pasienPemeriksaan/FormRadioterapi.vue'
+import FormRadioterapi from '@/components/view/pasienPemeriksaan/radioterapi/View.vue'
 import FormTerapiTarget from '@/components/view/pasienPemeriksaan/terapi/View.vue'
 
 import FormLaboratory from '@/components/view/pasienPemeriksaan/FormLaboratory.vue'
@@ -439,3 +440,4 @@ onMounted(() => {
     })
 })
 </script>
+

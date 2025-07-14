@@ -125,7 +125,6 @@ class PasienPemeriksaanService extends BaseService
         }
 
         $data['laboratoryResult']['result'] = null;
-        $data['radioterapi']['ct_scan'] = null;
 
         // translate null to empty string in diagnosa
         $data['diagnosa']["jenis_sel"] = $data['diagnosa']["jenis_sel"] ?? [];
@@ -167,8 +166,7 @@ class PasienPemeriksaanService extends BaseService
             "paal_paru" => $data->paalParu->toArray(),
             "bronkoskopi" => $data->bronkoskopi->toArray(),
             'sitologis'   => $sitologis,
-            'laboratory' => $data->laboratoryResult->toArray(),
-            'radioterapi' => $data->radioterapi->toArray(),
+            'laboratory' => $data->laboratoryResult->toArray()
         ];
     }
 
@@ -209,8 +207,6 @@ class PasienPemeriksaanService extends BaseService
             "inspection_at" => $payload['tanggal'],
             "type"          => 0
         ]);
-
-        $pemeriksaan->radioterapi()->create([]);
 
         return $pemeriksaan;
     }
@@ -340,14 +336,6 @@ class PasienPemeriksaanService extends BaseService
         }
         $data->laboratoryResult()->create($payload['laboratory'] ?? []);
 
-        $data->radioterapi()->delete();
-        if (isset($payload['radioterapi']) && isset($payload['radioterapi']['ct_scan']) && $payload['radioterapi']['ct_scan']->isValid()) {
-            $fileResult = $payload['radioterapi']['ct_scan'];
-            $fileName = $data->id . "-ct-scan." . $fileResult->extension();
-            $payload['radioterapi']['ct_scan_path'] = $fileResult->storeAs('radioterapi', $fileName);
-        }
-        $data->radioterapi()->create($payload['radioterapi'] ?? []);
-
         return $data;
     }
 
@@ -358,7 +346,6 @@ class PasienPemeriksaanService extends BaseService
         abort_if(!Authorization::hasPermission('pasien-pemeriksaan.admin') && $data->user_id != Auth::id(), 403, "anda tidak memiliki akses");
 
         if ($data->laboratoryResult->result_path) Storage::delete($data->laboratoryResult->result_path);
-        if ($data->radioterapi->ct_scan_path) Storage::delete($data->radioterapi->ct_scan_path);
 
         return $data->delete($id);
     }

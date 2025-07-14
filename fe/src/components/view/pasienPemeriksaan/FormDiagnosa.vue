@@ -347,6 +347,25 @@
             </div>
 
             <div class="border-dashed p-4 mb-4" style="position: relative">
+                <div class="fv-row">
+                    <label class="form-label fs-6 text-dark">
+                        <span> Komplikasi </span>
+                    </label>
+                    <textarea
+                        class="form-control"
+                        v-model="formInput.complication"
+                        cols="30"
+                        rows="6"
+                        placeholder="komplikasi"
+                    ></textarea>
+                    <form-error
+                        :err="formInputValidated.diagnosa.complication"
+                        name="diagnosa.complication"
+                    />
+                </div>
+            </div>
+
+            <div class="border-dashed p-4 mb-4" style="position: relative">
                 <div class="fv-row mb-4">
                     <label class="form-label fs-6 text-dark">
                         <span> Staging T </span>
@@ -409,3 +428,4 @@ const pemeriksaanStore = usePasienPemeriksaanStore()
 const formInput = ref(pemeriksaanStore.formUpdate.diagnosa)
 const formInputValidated = ref(pemeriksaanStore.formUpdateValidated)
 </script>
+

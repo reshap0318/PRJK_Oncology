@@ -97,6 +97,7 @@ import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
+import { convertDateToYMD } from '@/core/helpers/date'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
@@ -107,7 +108,7 @@ const modal = ref()
 const formInput = ref({
     id: 0,
     inspection_id: 0,
-    date: null,
+    date: null as string | null,
     category: null,
     dose: null,
     fraksi: null,
@@ -131,7 +132,10 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.inspection_id = payload.inspection_id || 0
 
-    formInput.value.date = payload.date || null
+    formInput.value.date = null
+    if (payload.date) {
+        formInput.value.date = convertDateToYMD(payload.date)
+    }
     formInput.value.category = payload.category || null
     formInput.value.dose = payload.dose || null
     formInput.value.fraksi = payload.fraksi || null
@@ -162,3 +166,4 @@ defineExpose({
     hide
 })
 </script>
+

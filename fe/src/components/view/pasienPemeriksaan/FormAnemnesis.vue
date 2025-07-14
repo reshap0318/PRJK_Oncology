@@ -38,7 +38,7 @@
                                     v-model="d.duration"
                                 />
                                 <div class="input-group-append">
-                                    <span class="input-group-text"> Bulan </span>
+                                    <span class="input-group-text"> Hari </span>
                                 </div>
                             </div>
                             <form-each-error
@@ -109,7 +109,7 @@
                                     v-model="d.duration"
                                 />
                                 <div class="input-group-append">
-                                    <span class="input-group-text"> Bulan </span>
+                                    <span class="input-group-text"> Hari </span>
                                 </div>
                             </div>
                             <form-each-error

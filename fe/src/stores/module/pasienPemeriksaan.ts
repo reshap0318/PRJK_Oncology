@@ -158,7 +158,8 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             mutasi: null,
             pdl1: null,
             alk: [],
-            komorbid: null
+            komorbid: null,
+            complication: null
         },
         outcome: {
             progress: null,
@@ -431,7 +432,8 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
                 mutasi: {}, //{ required },
                 pdl1: {}, //{ required },
                 alk: {}, //{ required },
-                komorbid: {} //{ required }
+                komorbid: {}, //{ required }
+                complication: {} //{ required }
             },
             outcome: {
                 progress: {}, //{ required },
@@ -524,3 +526,4 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
         formCreateValidated
     }
 })
+

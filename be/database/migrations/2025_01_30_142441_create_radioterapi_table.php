@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('i_radioterapi', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->id();
+            $table->foreignId('inspection_id');
             $table->date('date')->nullable();
             $table->tinyInteger('category')->nullable();
             $table->string('dose')->nullable();
@@ -21,8 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
 
-            $table->primary('id');
-            $table->foreign('id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('inspection_id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
