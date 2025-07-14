@@ -95,7 +95,7 @@ class DummySeeder extends Seeder
                             "nadi"          => 111,
                             "rr"            => 100,
                             "suhu"          => 27,
-                            "sp_o2"         => 98,
+                            "sp_o2"         => "98% room air",
                             "vas"           => 10,
                             "description"   => "Testing Keterangan",
                             "kgb"           => "Testing Lokasi KGB",

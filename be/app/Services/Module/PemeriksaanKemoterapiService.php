@@ -20,11 +20,11 @@ class PemeriksaanKemoterapiService extends BaseService
     {
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
-        $data->category_text = $data->category_text;
-        $data->category_detail_text = $data->category_detail_text;
-        
+        $data->platinum_detail_text = $data->platinum_detail_text;
+        $data->combination_detail_text = $data->combination_detail_text;
+
         $fuInit = (new PemeriksaanKemoterapiFURepository)->filterByKemoId($id)->filterByInitData()->first();
-        
+
         return array_merge($fuInit->toArray(), $data->toArray());
     }
 
@@ -33,7 +33,7 @@ class PemeriksaanKemoterapiService extends BaseService
         $pemeriksaanId = $payload['pemeriksaan_id'] ?? null;
         $q = $this->mainRepository->datatable()
             ->getQuery()
-            ->when($pemeriksaanId, function($query) use ($pemeriksaanId) {
+            ->when($pemeriksaanId, function ($query) use ($pemeriksaanId) {
                 return $query->where('inspection_id', $pemeriksaanId);
             });
         return $q;
@@ -51,24 +51,23 @@ class PemeriksaanKemoterapiService extends BaseService
 
     public function create($payload)
     {
-        $kategori = $payload['category'] ?? null;
         $data = $this->mainRepository->create([
             "date"              => $payload['date'] ?? null,
             "inspection_id"     => $payload['inspection_id'] ?? null,
             "lini"              => $payload['lini'],
-            "category"          => $kategori,
-            "category_detail"   => $kategori == null ? [] : $payload['category_detail'],
+            "platinum_detail"   => $payload['platinum_detail'] ?? [],
+            "combination_detail" => $payload['combination_detail'] ?? [],
             "dose"              => $payload['dose'] ?? null,
         ]);
 
         $fu = $data->fus()->create($payload);
 
-        if(isset($payload['rontgen']) && $payload['rontgen']->isValid()) {
+        if (isset($payload['rontgen']) && $payload['rontgen']->isValid()) {
             $fileName = $fu->id . "-rontgen." . $payload['rontgen']->extension();
             $payload['rontgen_path'] = $payload['rontgen']->storeAs('kemoterapi', $fileName);
         }
 
-        if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
+        if (isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
             $fileName = $fu->id . "-ct-scan." . $payload['ct_scan']->extension();
             $payload['ct_scan_path'] = $payload['ct_scan']->storeAs('kemoterapi', $fileName);
         }
@@ -83,12 +82,11 @@ class PemeriksaanKemoterapiService extends BaseService
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
 
-        $kategori = $payload['category'] ?? null;
         $data->update([
             "date"              => $payload['date'] ?? null,
             "lini"              => $payload['lini'] ?? null,
-            "category"          => $kategori,
-            "category_detail"   => $kategori == null ? [] : $payload['category_detail'],
+            "platinum_detail"   => $payload['platinum_detail'] ?? [],
+            "combination_detail" => $payload['combination_detail'] ?? [],
             "dose"              => $payload['dose'] ?? null,
         ]);
 
@@ -111,12 +109,12 @@ class PemeriksaanKemoterapiService extends BaseService
             "description"   => $payload['description'] ?? null,
         ];
 
-        if(isset($payload['rontgen']) && $payload['rontgen']->isValid()) {
+        if (isset($payload['rontgen']) && $payload['rontgen']->isValid()) {
             $fileName = $data->id . "-rontgen." . $payload['rontgen']->extension();
             $update['rontgen_path'] = $payload['rontgen']->storeAs('kemoterapi', $fileName);
         }
 
-        if(isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
+        if (isset($payload['ct_scan']) && $payload['ct_scan']->isValid()) {
             $fileName = $data->id . "-ct-scan." . $payload['ct_scan']->extension();
             $update['ct_scan_path'] = $payload['ct_scan']->storeAs('kemoterapi', $fileName);
         }
@@ -132,7 +130,7 @@ class PemeriksaanKemoterapiService extends BaseService
         $data = $this->mainRepository->filterById($id)->first();
         abort_if(!$data, 404, "halaman tidak ditemukan");
         $fuInits = (new PemeriksaanKemoterapiFURepository)->filterByKemoId($id)->get();
-        
+
         $data->delete();
         foreach ($fuInits as $fu) {
             if ($fu->rontgen_path) Storage::delete($fu->rontgen_path);

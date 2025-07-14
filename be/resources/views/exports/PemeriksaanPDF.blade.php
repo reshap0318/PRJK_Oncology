@@ -289,7 +289,7 @@
             </td>
           </tr>
           <tr>
-            <td scope="row">SpO2 (%room air)</td>
+            <td scope="row">SpO2</td>
             <td>
               {{ $pemeriksaan_fisik['sp_o2'] }}
             </td>
@@ -880,9 +880,16 @@
             </tr>
             <tr>
               <td></td>
-              <td>Jenis Kemoterapi</td>
+              <td>Kemoterapi Kombinasi</td>
               <td>
-                {{ $item['category_text'] }}
+                {{ implode(", ", $item['combination_detail_text']) }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Kemoterapi Platinum</td>
+              <td>
+                {{ implode(", ", $item['platinum_detail_text']) }}
               </td>
             </tr>
             <tr>

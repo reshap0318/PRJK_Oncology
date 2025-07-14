@@ -6,24 +6,31 @@
             <table width="100%" class="table">
                 <tbody>
                     <tr>
-                        <th scope="row" style="width: 150px">Lini</th>
+                        <th scope="row" style="width: 200px">Lini</th>
                         <td style="width: 10px">:</td>
                         <td>{{ kemo.lini }}</td>
                     </tr>
                     <tr>
-                        <th scope="row" style="width: 150px">Jenis Kemoterapi</th>
+                        <th scope="row" style="width: 200px">Kemoterapi Kombinasi</th>
                         <td style="width: 10px">:</td>
                         <td>
-                            {{ kemo.category_text }} ( {{ kemo.category_detail_text?.join(', ') }} )
+                            {{ kemo.combination_detail_text?.join(', ') }}
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row" style="width: 150px">Tanggal Kemoterapi</th>
+                        <th scope="row" style="width: 200px">Kemoterapi Platinum</th>
+                        <td style="width: 10px">:</td>
+                        <td>
+                            {{ kemo.platinum_detail_text?.join(', ') }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 200px">Tanggal Kemoterapi</th>
                         <td style="width: 10px">:</td>
                         <td>{{ kemo.date }}</td>
                     </tr>
                     <tr>
-                        <th scope="row" style="width: 150px">Dosis</th>
+                        <th scope="row" style="width: 200px">Dosis</th>
                         <td style="width: 10px">:</td>
                         <td>{{ kemo.dose }}</td>
                     </tr>
@@ -108,7 +115,7 @@
                     <form-error :err="v$.subjective" name="subjective" />
                 </div>
             </div>
-            <div class="col-12 col-sm-8 mb-4">
+            <div class="col-12 col-sm-6 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
                         <span> WHO Toxiciti </span>
@@ -121,7 +128,7 @@
                     <form-error :err="v$.toxity" name="toxity" />
                 </div>
             </div>
-            <div class="col-12 col-sm-4 mb-4">
+            <div class="col-12 col-sm-6 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
                         <span> Grade </span>
