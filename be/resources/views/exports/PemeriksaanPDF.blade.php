@@ -118,7 +118,7 @@
             </td>
           </tr>
           <tr>
-            <td scope="row">Lama Keluhan (Hari)</td>
+            <td scope="row">Lama Keluhan</td>
             <td>
               {{ $anamnesis['keluhans'][0]['duration'] }}
             </td>
@@ -129,7 +129,7 @@
               @php
                   $gejalas = $anamnesis['gejalas'];
                   foreach ($gejalas as $key => $value) {
-                    echo "- ". $value['description'] . " ( ". $value['duration'] ." Hari ) " . "<br />";
+                    echo "- ". $value['description'] . " ( ". $value['duration'] ." ) " . "<br />";
                   }
               @endphp
             </td>

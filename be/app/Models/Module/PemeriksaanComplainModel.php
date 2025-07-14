@@ -19,7 +19,7 @@ class PemeriksaanComplainModel extends Model
     ];
 
     protected $casts = [
-        "duration"      => 'integer',
+        // "duration"      => 'integer',
         "tag"           => 'integer',
     ];
 

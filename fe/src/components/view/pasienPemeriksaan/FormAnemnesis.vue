@@ -24,23 +24,17 @@
                             />
                         </div>
                     </div>
-                    <div class="col-3 mb-3">
+                    <div class="col-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
                                 <span>Lama Keluhan</span>
                             </label>
-                            <div class="input-group">
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    min="0"
-                                    placeholder="0"
-                                    v-model="d.duration"
-                                />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"> Hari </span>
-                                </div>
-                            </div>
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="1 bulan 10 hari"
+                                v-model="d.duration"
+                            />
                             <form-each-error
                                 :err="formInputValidated.anemnesis.keluhans"
                                 :idx="i"
@@ -50,7 +44,7 @@
                         </div>
                     </div>
                     <div
-                        class="col-9"
+                        class="col-8"
                         v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection') && false"
                     >
                         <button
@@ -95,23 +89,17 @@
                             />
                         </div>
                     </div>
-                    <div class="col-3 mb-3">
+                    <div class="col-4 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
                                 <span>Lama Keluhan</span>
                             </label>
-                            <div class="input-group">
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    min="0"
-                                    placeholder="0"
-                                    v-model="d.duration"
-                                />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"> Hari </span>
-                                </div>
-                            </div>
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="1 bulan 10 hari"
+                                v-model="d.duration"
+                            />
                             <form-each-error
                                 :err="formInputValidated.anemnesis.gejalas"
                                 :idx="i"
@@ -121,7 +109,7 @@
                         </div>
                     </div>
                     <div
-                        class="col-9"
+                        class="col-8"
                         v-if="StrgService.hasPermission('pasien-pemeriksaan.inspection')"
                     >
                         <button

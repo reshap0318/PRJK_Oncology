@@ -189,22 +189,22 @@ class DummySeeder extends Seeder
                         'complains'       => [
                             [
                                 "description"   => "Testing Keluhan 1",
-                                "duration"      => 851,
+                                "duration"      => "2 tahun 4 bulan 1 hari",
                                 "tag"           => 1
                             ],
                             [
                                 "description"   => "Testing Gejala 1",
-                                "duration"      => 765,
+                                "duration"      => "2 tahun 1 bulan 10 hari",
                                 "tag"           => 2
                             ],
                             [
                                 "description"   => "Testing Gejala 2",
-                                "duration"      => 497,
+                                "duration"      => "3 bulan 10 hari",
                                 "tag"           => 2
                             ],
                             [
                                 "description"   => "Testing Gejala 3",
-                                "duration"      => 20,
+                                "duration"      => "20 hari",
                                 "tag"           => 2
                             ]
                         ],
