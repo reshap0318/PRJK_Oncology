@@ -66,8 +66,8 @@
         <td>{{ $pasien->gender ? 'Laki-laki' : 'Perempuan' }}</td>
         <td>{{ $pasien->age }}</td>
         <td>{{ parseDateTimeId($item->inspection_at)->format("d-m-Y") }}</td>
-        <td>{{ $keluhan->description }}</td>
-        <td>{{ $keluhan->duration }}</td>
+        <td>{{ optional($keluhan)->description }}</td>
+        <td>{{ optional($keluhan)->duration }}</td>
         <td>{{ implode(", ", $keluhanLainnya->pluck('description')->toArray()) }}</td>
         <td>Riwayat Penyakit</td>
         <td>Keadaan Umum</td>

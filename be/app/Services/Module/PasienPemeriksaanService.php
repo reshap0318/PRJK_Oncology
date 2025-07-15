@@ -224,7 +224,13 @@ class PasienPemeriksaanService extends BaseService
         ]);
 
         $data->diagnosa()->delete();
-        $data->diagnosa()->create($payload['diagnosa'] ?? []);
+        $data->diagnosa()->create($payload['diagnosa'] ?? [
+            'jenis_sel'     => [],
+            "paru"          => [],
+            "stage"         => [],
+            "ps"            => [],
+            "alk"           => [],
+        ]);
 
         $data->outcome()->delete();
         $data->outcome()->create($payload['outcome'] ?? []);

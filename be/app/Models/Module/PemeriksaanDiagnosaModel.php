@@ -49,9 +49,12 @@ class PemeriksaanDiagnosaModel extends Model
                     4 => 'KSS',
                     5 => 'KPKBSK',
                 ];
-                return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? '-';
-                }, $this->jenis_sel);
+                if (is_array($this->jenis_sel)) {
+                    return array_map(function ($val) use ($list) {
+                        return $list[$val] ?? '-';
+                    }, $this->jenis_sel);
+                }
+                return [];
             }
         );
     }
@@ -64,9 +67,12 @@ class PemeriksaanDiagnosaModel extends Model
                     1 => 'Fusi(-)',
                     2 => 'Fusi(+)',
                 ];
-                return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? '-';
-                }, $this->alk);
+                if (is_array($this->alk)) {
+                    return array_map(function ($val) use ($list) {
+                        return $list[$val] ?? '-';
+                    }, $this->alk);
+                }
+                return [];
             }
         );
     }
@@ -88,9 +94,13 @@ class PemeriksaanDiagnosaModel extends Model
 
                     9 => 'IIIC',
                 ];
-                return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? '-';
-                }, $this->stage);
+
+                if (is_array($this->stage)) {
+                    return array_map(function ($val) use ($list) {
+                        return $list[$val] ?? '-';
+                    }, $this->stage);
+                }
+                return [];
             }
         );
     }
@@ -103,9 +113,12 @@ class PemeriksaanDiagnosaModel extends Model
                     1 => 'Kiri',
                     2 => 'Kanan',
                 ];
-                return array_map(function ($val) use ($list) {
-                    return $list[$val] ?? '-';
-                }, $this->paru);
+                if (is_array($this->paru)) {
+                    return array_map(function ($val) use ($list) {
+                        return $list[$val] ?? '-';
+                    }, $this->paru);
+                }
+                return [];
             }
         );
     }
