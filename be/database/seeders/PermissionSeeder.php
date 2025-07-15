@@ -169,7 +169,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name'              => "Dokter",
-                'permissions'       => ['pasien.index', 'pasien.show', 'pasien-pemeriksaan.index', 'pasien-pemeriksaan.show', 'pasien-pemeriksaan.inspection', 'pasien-pemeriksaan.delete', 'user.dokter', 'pasien-pemeriksaan.report']
+                'permissions'       => ['pasien.index', 'pasien.show', 'pasien-pemeriksaan.index', 'pasien-pemeriksaan.show', 'pasien-pemeriksaan.inspection', 'pasien-pemeriksaan.delete', 'user.dokter']
             ],
             [
                 'name'              => "Mahasiswa",

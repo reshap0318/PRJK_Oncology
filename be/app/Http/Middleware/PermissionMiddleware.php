@@ -18,7 +18,7 @@ class PermissionMiddleware
     {
         $E403 = true;
         foreach ($guards as $guard) {
-            if(Gate::check($guard)) {
+            if (Gate::check(trim($guard))) {
                 $E403 = false;
                 break;
             }

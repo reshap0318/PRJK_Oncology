@@ -1063,7 +1063,7 @@
         </tr>
         <tr>
           <td style="text-align: right">
-            <b>Dokter yang Merawat</b> <br />
+            <b>Yang Menginput Data</b> <br />
           </td>
         </tr>
         <tr>

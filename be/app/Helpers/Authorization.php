@@ -72,12 +72,12 @@ class Authorization
         $key = self::getPermissionKey();
         $permissions = Cache::get($key) ?? [];
         $permissions = collect($permissions);
-
-        return $permissions
+        $isAllow = $permissions
             ->filter(function ($item) use ($permission) {
                 return $item['id'] == $permission || $item['name'] == $permission;
             })
             ->isNotEmpty();
+        return $isAllow;
     }
 
     public static function hasAnyPermission(array $permission = []): bool
