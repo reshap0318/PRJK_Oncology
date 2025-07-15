@@ -25,14 +25,14 @@ class PemeriksaanKemoterapiRequest extends FormRequest
     {
         $pemeriksaanTbl = (new PasienPemeriksaanModel())->getTable();
         return [
-            "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
-            "lini"          => "required",
-            "category"      => "nullable",
-            "category_detail"=> "nullable|array",
-            "dose"          => "nullable",
-            "description"   => "nullable",
+            "inspection_id"     => ["required", Rule::exists($pemeriksaanTbl, "id")],
+            "lini"              => "required",
+            "platinum_detail"   => "nullable|array",
+            "combination_detail" => "nullable|array",
+            "dose"              => "nullable",
+            "description"       => "nullable",
 
-            "date"          => "nullable|date_format:Y-m-d",
+            "date"              => "nullable|date_format:Y-m-d",
             // "siklus"        => "required",
             // "subjective"    => "required",
             // "semi_ps"       => "required",
@@ -66,8 +66,8 @@ class PemeriksaanKemoterapiRequest extends FormRequest
     {
         return [
             "lini"              => "lini",
-            "category"          => "jenis kemoterapi",
-            "category_detail"   => "",
+            "platinum_detail"   => "platinum detail",
+            "combination_detail" => "combination detail",
             "dose"              => "dosis",
             "description"       => "deskripsi",
 

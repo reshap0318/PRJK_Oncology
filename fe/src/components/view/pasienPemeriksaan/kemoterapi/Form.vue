@@ -1,8 +1,8 @@
 <template>
-    <BaseModal modalId="create" ref="modal" width="mw-800px" @onSubmit="save">
+    <BaseModal modalId="create" ref="modal" width="mw-900px" @onSubmit="save">
         <template #title> {{ title }} </template>
         <div class="row">
-            <div class="col-12 col-sm-6 mb-4">
+            <div class="col-12 col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
                         <span class="required"> Kemoterapi Lini </span>
@@ -18,26 +18,13 @@
                     <form-error :err="v$.lini" name="lini" />
                 </div>
             </div>
-            <div class="col-12 col-sm-6 mb-4">
+            <div class="col-12 col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
                         <span> Tanggal Kemoterapi </span>
                     </label>
                     <input type="date" class="form-control" v-model="formInput.date" />
                     <form-error :err="v$.date" name="date" />
-                </div>
-            </div>
-            <div class="col-12 col-sm-8 mb-4">
-                <div class="fv-row">
-                    <label class="form-label fs-6 text-dark">
-                        <span> Jenis Kemoterapi </span>
-                    </label>
-                    <select class="form-control" v-model="formInput.category">
-                        <option :value="null">pilihan</option>
-                        <option :value="1">Platinum</option>
-                        <option :value="2">Kombinasi</option>
-                    </select>
-                    <form-error :err="v$.category" name="category" />
                 </div>
             </div>
             <div class="col-12 col-sm-4 mb-4">
@@ -55,24 +42,49 @@
                     <form-error :err="v$.siklus" name="siklus" />
                 </div>
             </div>
-            <div class="col-12 mb-4" v-if="categoryDetailList.length != 0">
+            <div class="col-12 col-sm-6 mb-4">
+                <label class="form-label fs-6 text-dark">
+                    <span> Kemoterapi Kombinasi </span>
+                </label>
                 <div class="d-flex align-items-center flex-wrap my-1">
                     <label
                         class="form-check form-check-custom form-check-solid me-5 mb-3"
-                        v-for="item in categoryDetailList"
+                        v-for="item in combinationList"
                         :key="item.id"
                     >
                         <input
                             multiple
                             class="form-check-input h-20px w-20px"
                             type="checkbox"
-                            v-model="formInput.category_detail"
+                            v-model="formInput.combination_detail"
                             :value="item.id"
                         />
                         <span class="form-check-label fw-semibold" v-html="item.name"> </span>
                     </label>
                 </div>
-                <form-error :err="v$.category_detail" name="category_detail" />
+                <form-error :err="v$.combination_detail" name="combination_detail" />
+            </div>
+            <div class="col-12 col-sm-6 mb-4">
+                <label class="form-label fs-6 text-dark">
+                    <span> Kemoterapi Platinum </span>
+                </label>
+                <div class="d-flex align-items-center flex-wrap my-1">
+                    <label
+                        class="form-check form-check-custom form-check-solid me-5 mb-3"
+                        v-for="item in platinumList"
+                        :key="item.id"
+                    >
+                        <input
+                            multiple
+                            class="form-check-input h-20px w-20px"
+                            type="checkbox"
+                            v-model="formInput.platinum_detail"
+                            :value="item.id"
+                        />
+                        <span class="form-check-label fw-semibold" v-html="item.name"> </span>
+                    </label>
+                </div>
+                <form-error :err="v$.platinum_detail" name="platinum_detail" />
             </div>
             <div class="col-12 mb-4">
                 <div class="fv-row">
@@ -145,7 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-8 mb-4">
+                        <div class="col-12 col-sm-6 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
                                     <span> WHO Toxiciti </span>
@@ -158,7 +170,7 @@
                                 <form-error :err="v$.toxity" name="toxity" />
                             </div>
                         </div>
-                        <div class="col-12 col-sm-4 mb-4">
+                        <div class="col-12 col-sm-6 mb-4">
                             <div class="fv-row">
                                 <label class="form-label fs-6 text-dark">
                                     <span> Grade </span>
@@ -402,23 +414,17 @@ const authStore = useAuthStore()
 
 const title = computed(() => (formInput.value.id == 0 ? 'Create Kemoterapi' : 'Edit Kemoterapi'))
 const modal = ref()
-const categoryDetailList = computed(() => {
-    if (formInput.value.category == 1) {
-        return [
-            { id: 1, name: 'Karboplatin' },
-            { id: 2, name: 'Sisplatin' }
-        ]
-    } else if (formInput.value.category == 2) {
-        return [
-            { id: 3, name: 'Paklitaksel' },
-            { id: 4, name: 'Pemetreksed' },
-            { id: 5, name: 'Gemsitabin' },
-            { id: 6, name: 'Venorelbin' },
-            { id: 7, name: 'Dosetaksel' }
-        ]
-    }
-    return []
-})
+const platinumList = ref([
+    { id: 1, name: 'Karboplatin' },
+    { id: 2, name: 'Sisplatin' }
+])
+const combinationList = ref([
+    { id: 1, name: 'Paklitaksel' },
+    { id: 2, name: 'Pemetreksed' },
+    { id: 3, name: 'Gemsitabin' },
+    { id: 4, name: 'Venorelbin' },
+    { id: 5, name: 'Dosetaksel' }
+])
 const toxityList = computed(() => {
     if (formInput.value.toxity == 1) {
         return [
@@ -440,8 +446,8 @@ const formInput = ref({
     id: 0,
     inspection_id: 0,
     lini: null,
-    category: null,
-    category_detail: [],
+    platinum_detail: [],
+    combination_detail: [],
     dose: null,
     description: null,
 
@@ -471,8 +477,8 @@ const fileReferral = ref({
 const rules = computed(() => {
     return {
         lini: { required },
-        category: {},
-        category_detail: { required: requiredIf(() => formInput.value.category != null) },
+        platinum_detail: {},
+        combination_detail: {},
         dose: {},
         description: {},
 
@@ -502,7 +508,6 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.inspection_id = payload.inspection_id || 0
     formInput.value.lini = payload.lini || null
-    formInput.value.category = payload.category || null
     formInput.value.dose = payload.dose || ''
     formInput.value.description = payload.description || null
 
@@ -528,7 +533,8 @@ function show(payload: any = {}, fileRef: any = {}) {
     fileReferral.value.rontgen = fileRef.rontgen || null
     fileReferral.value.ct_scan = fileRef.ct_scan || null
     nextTick(() => {
-        formInput.value.category_detail = payload.category_detail || []
+        formInput.value.platinum_detail = payload.platinum_detail || []
+        formInput.value.combination_detail = payload.combination_detail || []
     })
     modal.value.show()
     authStore.setFormErrorEmpty()
@@ -552,11 +558,4 @@ defineExpose({
     show,
     hide
 })
-
-watch(
-    () => formInput.value.category,
-    () => {
-        formInput.value.category_detail = []
-    }
-)
 </script>

@@ -23,23 +23,24 @@ class ExportController extends Controller
         $payload = (new PasienPemeriksaanService())->getById($id, 'laporan');
 
         $payload['tatalaksana_operasis'] = (new PemeriksaanOperasiService())->getData(['pemeriksaan_id' => $id])->get()->toArray();
-        $payload['tatalaksana_kemoterapis'] = (new PemeriksaanKemoterapiService())->getData(['pemeriksaan_id' => $id])->get()->each->setAppends(['category_text'])->toArray();
+        $payload['tatalaksana_kemoterapis'] = (new PemeriksaanKemoterapiService())->getData(['pemeriksaan_id' => $id])->get()->each->setAppends(['platinum_detail_text', 'combination_detail_text'])->toArray();
         $payload['tatalaksana_radioterapis'] = (new PemeriksaanRadioterapiService())->getData(['pemeriksaan_id' => $id])->get()->each->setAppends(['category_text', 'ct_scan_url'])->toArray();
         $payload['tatalaksana_targets'] = (new PemeriksaanTerapiTargetService())->getData(['pemeriksaan_id' => $id])->get()->each->setAppends(['category_text', 'ct_scan_url'])->toArray();
 
         $payload['toraks_foto'] = (new PemeriksaanToraksFotoService())->getData(['pemeriksaan_id' => $id])->get()->toArray();
         $payload['toraks_scan'] = (new PemeriksaanToraksScanService())->getData(['pemeriksaan_id' => $id])->get()->toArray();
         $payload['toraks_usg'] = (new PemeriksaanToraksUsgService())->getData(['pemeriksaan_id' => $id])->get()->toArray();
-        
+
         $payload['bone_survey'] = (new PemeriksaanBoneSurveyService())->getData(['pemeriksaan_id' => $id])->get()->toArray();
         $payload['mri'] = (new PemeriksaanMriKepalaService())->getData(['pemeriksaan_id' => $id])->get()->toArray();
         // dd($payload);
-        
+
         $pdf = Pdf::loadView('exports.PemeriksaanPDF', ['payload' => $payload]);
-        return $pdf->stream('laporan-pemeriksaan-'.$id.'.pdf');
+        return $pdf->stream('laporan-pemeriksaan-' . $id . '.pdf');
     }
 
-    function pemeriksaanExcel(Request $request) {
+    function pemeriksaanExcel(Request $request)
+    {
         $request->validate([
             'dokter'     => 'nullable',
             'startDate' => 'required|date',

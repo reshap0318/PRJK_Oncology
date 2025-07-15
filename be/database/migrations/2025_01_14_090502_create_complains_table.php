@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inspection_id');
             $table->string('description');
-            $table->unsignedMediumInteger('duration');
+            $table->string('duration');
             $table->unsignedTinyInteger('tag')->default(1)->nullable();
             $table->timestamps();
             $table->foreign('inspection_id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();

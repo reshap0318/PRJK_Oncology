@@ -90,7 +90,7 @@
                             />
                         </div>
                     </div>
-                    <div class="col-sm-4 mb-3">
+                    <div class="col-sm-6 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
                                 <span> TD- (Sistole/Diastole) </span>
@@ -113,7 +113,7 @@
                             />
                         </div>
                     </div>
-                    <div class="col-sm-4 mb-3">
+                    <div class="col-sm-6 mb-3">
                         <div class="fv-row">
                             <label class="form-label fs-6 text-dark">
                                 <span> RR </span>
@@ -133,29 +133,6 @@
                             <form-error
                                 :err="formInputValidated.pemeriksaan_fisik.rr"
                                 name="pemeriksaan_fisik.rr"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mb-3">
-                        <div class="fv-row">
-                            <label class="form-label fs-6 text-dark">
-                                <span> SpO2 </span>
-                            </label>
-                            <div class="input-group">
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    min="0"
-                                    placeholder="0"
-                                    v-model="formInput.sp_o2"
-                                />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"> % room air </span>
-                                </div>
-                            </div>
-                            <form-error
-                                :err="formInputValidated.pemeriksaan_fisik.sp_o2"
-                                name="pemeriksaan_fisik.sp_o2"
                             />
                         </div>
                     </div>
@@ -221,6 +198,24 @@
                             <form-error
                                 :err="formInputValidated.pemeriksaan_fisik.vas"
                                 name="pemeriksaan_fisik.vas"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="fv-row">
+                            <label class="form-label fs-6 text-dark">
+                                <span> SpO2 </span>
+                            </label>
+                            <textarea
+                                class="form-control"
+                                v-model="formInput.sp_o2"
+                                cols="30"
+                                rows="3"
+                                placeholder="Sp02"
+                            ></textarea>
+                            <form-error
+                                :err="formInputValidated.pemeriksaan_fisik.sp_o2"
+                                name="pemeriksaan_fisik.sp_o2"
                             />
                         </div>
                     </div>

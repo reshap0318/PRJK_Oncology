@@ -17,16 +17,16 @@ class PemeriksaanKemoterapiModel extends Model
         "inspection_id",
         "date",
         "lini",
-        "category",
-        "category_detail",
+        "platinum_detail",
+        "combination_detail",
         "dose",
     ];
 
     protected $casts = [
-        'date'              => 'date:d-m-Y',
-        "lini"              => "integer",
-        "category"          => "integer",
-        "category_detail"   => "array",
+        'date'                  => 'date:d-m-Y',
+        "lini"                  => "integer",
+        "platinum_detail"       => "array",
+        "combination_detail"    => "array",
     ];
 
     protected function actionModel(): Attribute
@@ -50,35 +50,36 @@ class PemeriksaanKemoterapiModel extends Model
             }
         );
     }
-    
-    protected function categoryText(): Attribute
+
+    protected function platinumDetailText(): Attribute
     {
         return Attribute::make(
             get: function ($value) {
                 $list = [
-                    1 => 'Platinum',
-                    2 => 'Kombinasi',
+                    1 => 'Karboplatin',
+                    2 => 'Sisplatin'
                 ];
-                return $list[$this->category] ?? '-';
+                return array_map(function ($val) use ($list) {
+                    return $list[$val] ?? '-';
+                }, $this->platinum_detail);
             }
         );
     }
-    
-    protected function categoryDetailText(): Attribute
+
+    protected function combinationDetailText(): Attribute
     {
         return Attribute::make(
             get: function ($value) {
                 $list = [
-                    1 => 'Anemia',
-                    2 => 'Leukositosis',
-                    3 => 'Trombositopemia',
-                    4 => 'Allopesia',
-                    5 => 'Neuropati Perifer',
-                    6 => 'Lainnya',
+                    1 => 'Paklitaksel',
+                    2 => 'Pemetreksed',
+                    3 => 'Gemsitabin',
+                    4 => 'Venorelbin',
+                    5 => 'Dosetaksel'
                 ];
-                return array_map(function($val) use ($list) {
+                return array_map(function ($val) use ($list) {
                     return $list[$val] ?? '-';
-                }, $this->category_detail);
+                }, $this->combination_detail);
             }
         );
     }
