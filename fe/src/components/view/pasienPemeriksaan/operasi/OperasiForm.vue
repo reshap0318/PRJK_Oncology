@@ -14,7 +14,7 @@
             <div class="col-12 col-sm-6 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required">Dokter</span>
+                        <span>Dokter</span>
                     </label>
                     <input
                         class="form-control"
@@ -29,7 +29,7 @@
             <div class="col-12 col-sm-6 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Jenis Operasi </span>
+                        <span> Jenis Operasi </span>
                     </label>
                     <input
                         class="form-control"
@@ -44,7 +44,7 @@
             <div class="col-12 col-sm-6 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Margin </span>
+                        <span> Margin </span>
                     </label>
                     <div class="d-flex align-items-center flex-wrap my-1 mt-4">
                         <label class="form-check form-check-custom form-check-solid me-10 mb-3">
@@ -100,7 +100,6 @@
 <script lang="ts" setup>
 import BaseModal from '@/components/utils/modal/BaseFormModal.vue'
 import FormError from '@/components/utils/error/FormError.vue'
-import Multiselect from '@vueform/multiselect'
 
 import { useSelectStore } from '@/stores/global/select'
 import { computed, onMounted, ref } from 'vue'
@@ -126,10 +125,10 @@ const formInput = ref({
     description: ''
 })
 const rules = {
-    dokter: { required },
+    dokter: {},
     date: { required },
-    category: { required },
-    margin: { required },
+    category: {},
+    margin: {},
     description: {} // { required }
 }
 const v$ = useVuelidate(rules, formInput)
@@ -138,10 +137,7 @@ function show(payload: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.inspection_id = payload.inspection_id || 0
     formInput.value.dokter = payload.dokter || null
-    formInput.value.date = null
-    if (payload.date) {
-        formInput.value.date = convertDateToYMD(payload.date)
-    }
+    formInput.value.date = convertDateToYMD(payload.date)
     formInput.value.category = payload.category || ''
     formInput.value.margin = payload.margin || []
     formInput.value.description = payload.description || ''

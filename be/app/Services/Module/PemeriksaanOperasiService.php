@@ -41,4 +41,21 @@ class PemeriksaanOperasiService extends BaseService
             })
             ->make(true);
     }
+
+    public function create($payload)
+    {
+        $payload['margin'] = $payload['margin'] ?? [];
+        $data = $this->mainRepository->create($payload);
+        return $data;
+    }
+
+    public function update($id, $payload)
+    {
+        $data = $this->mainRepository->filterById($id)->first();
+        abort_if(!$data, 404, "halaman tidak ditemukan");
+
+        $payload['margin'] = $payload['margin'] ?? [];
+        $data->update($payload);
+        return $data;
+    }
 }
