@@ -408,6 +408,7 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
+import { convertDateToYMD } from '@/core/helpers/date'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
@@ -451,7 +452,7 @@ const formInput = ref({
     dose: null,
     description: null,
 
-    date: null,
+    date: null as string | null,
     siklus: null,
     subjective: null,
     semi_ps: null,
@@ -511,7 +512,7 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.dose = payload.dose || ''
     formInput.value.description = payload.description || null
 
-    formInput.value.date = payload.date || null
+    formInput.value.date = convertDateToYMD(payload.date)
     formInput.value.siklus = payload.siklus || null
     formInput.value.subjective = payload.subjective || null
     formInput.value.semi_ps = payload.semi_ps || null

@@ -16,14 +16,14 @@
                     <label class="form-label fs-6 text-dark">
                         <span class="required">Dokter</span>
                     </label>
-                    <Multiselect
-                        class="multiselect-form-control"
-                        placeholder="Select dokter"
-                        v-model="formInput.dokter_id"
-                        :options="selectStore.dokters"
-                        :searchable="true"
+                    <input
+                        class="form-control"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="dokter"
+                        v-model="formInput.dokter"
                     />
-                    <form-error :err="v$.dokter_id" name="dokter_id" />
+                    <form-error :err="v$.dokter" name="dokter" />
                 </div>
             </div>
             <div class="col-12 col-sm-6 mb-4">
@@ -107,6 +107,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
+import { convertDateToYMD } from '@/core/helpers/date'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
@@ -118,14 +119,14 @@ const modal = ref()
 const formInput = ref({
     id: 0,
     inspection_id: 0,
-    dokter_id: null,
-    date: '',
+    dokter: null,
+    date: null as string | null,
     category: '',
     margin: [],
     description: ''
 })
 const rules = {
-    dokter_id: { required },
+    dokter: { required },
     date: { required },
     category: { required },
     margin: { required },
@@ -136,8 +137,11 @@ const v$ = useVuelidate(rules, formInput)
 function show(payload: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.inspection_id = payload.inspection_id || 0
-    formInput.value.dokter_id = payload.dokter_id || null
-    formInput.value.date = payload.date || ''
+    formInput.value.dokter = payload.dokter || null
+    formInput.value.date = null
+    if (payload.date) {
+        formInput.value.date = convertDateToYMD(payload.date)
+    }
     formInput.value.category = payload.category || ''
     formInput.value.margin = payload.margin || []
     formInput.value.description = payload.description || ''
@@ -165,7 +169,7 @@ defineExpose({
 
 onMounted(() => {
     selectStore.getDokters().then((res: any) => {
-        if (res.length == 1) formInput.value.dokter_id = res[0].id
+        if (res.length == 1) formInput.value.dokter = res[0].id
     })
 })
 </script>

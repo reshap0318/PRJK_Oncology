@@ -16,12 +16,11 @@ return new class extends Migration
             $table->foreignId('inspection_id');
             $table->date('date');
             $table->string('category'); //jenis-operasi
-            $table->json('margin');   
-            $table->foreignId('dokter_id');
+            $table->json('margin')->nullable();
+            $table->string('dokter')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('inspection_id')->references('id')->on('inspection')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('dokter_id')->references('id')->on('users')->cascadeOnUpdate();
         });
     }
 

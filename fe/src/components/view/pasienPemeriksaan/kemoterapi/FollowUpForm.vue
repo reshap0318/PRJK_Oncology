@@ -343,6 +343,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
 import { usePemeriksaanKemoterapiStore } from '@/stores/module/pemeriksaanKemoterapi'
+import { convertDateToYMD } from '@/core/helpers/date'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
@@ -372,7 +373,7 @@ const formInput = ref({
     id: 0,
     kemo_id: 0,
 
-    date: null,
+    date: null as string | null,
     siklus: null,
     subjective: null,
     semi_ps: null,
@@ -423,7 +424,8 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.kemo_id = payload.kemo_id || 0
 
-    formInput.value.date = payload.date || null
+    formInput.value.date = null
+    formInput.value.date = convertDateToYMD(payload.date)
     formInput.value.siklus = payload.siklus || null
     formInput.value.subjective = payload.subjective || null
     formInput.value.semi_ps = payload.semi_ps || null

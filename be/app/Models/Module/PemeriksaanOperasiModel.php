@@ -18,7 +18,7 @@ class PemeriksaanOperasiModel extends Model
 
     protected $fillable = [
         "inspection_id",
-        "dokter_id",
+        "dokter",
         "date",
         "category",
         "margin",
@@ -46,10 +46,5 @@ class PemeriksaanOperasiModel extends Model
                 ];
             }
         );
-    }
-
-    public function dokter()
-    {
-        return $this->hasOne(User::class, 'id', 'dokter_id')->withDefault(['name' => 'tidak ditemukan']);
     }
 }

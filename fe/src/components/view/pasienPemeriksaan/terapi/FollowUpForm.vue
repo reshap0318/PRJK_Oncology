@@ -193,6 +193,7 @@ import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
+import { convertDateToYMD } from '@/core/helpers/date'
 
 const emit = defineEmits(['onSubmit'])
 const authStore = useAuthStore()
@@ -222,7 +223,7 @@ const formInput = ref({
     id: 0,
     target_id: 0,
 
-    date: null,
+    date: null as string | null,
     subjective: null,
     semi_subjective: null,
     toxity: null,
@@ -252,7 +253,7 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.target_id = payload.target_id || 0
 
-    formInput.value.date = payload.date || null
+    formInput.value.date = convertDateToYMD(payload.date)
     formInput.value.toxity = payload.toxity || null
     formInput.value.subjective = payload.subjective || null
     formInput.value.semi_subjective = payload.semi_subjective || null

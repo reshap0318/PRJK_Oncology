@@ -113,10 +113,7 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.radio_id = payload.radio_id || 0
 
-    formInput.value.date = null
-    if (payload.date) {
-        formInput.value.date = convertDateToYMD(payload.date)
-    }
+    formInput.value.date = convertDateToYMD(payload.date)
     formInput.value.ct_scan = null
 
     ctScanReferral.value = fileRef.ct_scan || null
@@ -143,4 +140,3 @@ defineExpose({
     hide
 })
 </script>
-

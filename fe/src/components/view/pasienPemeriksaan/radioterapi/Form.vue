@@ -132,10 +132,7 @@ function show(payload: any = {}, fileRef: any = {}) {
     formInput.value.id = payload.id || 0
     formInput.value.inspection_id = payload.inspection_id || 0
 
-    formInput.value.date = null
-    if (payload.date) {
-        formInput.value.date = convertDateToYMD(payload.date)
-    }
+    formInput.value.date = convertDateToYMD(payload.date)
     formInput.value.category = payload.category || null
     formInput.value.dose = payload.dose || null
     formInput.value.fraksi = payload.fraksi || null
@@ -166,4 +163,3 @@ defineExpose({
     hide
 })
 </script>
-

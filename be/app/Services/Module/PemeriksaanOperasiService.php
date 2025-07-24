@@ -26,7 +26,7 @@ class PemeriksaanOperasiService extends BaseService
         $pemeriksaanId = $payload['pemeriksaan_id'] ?? null;
         $q = $this->mainRepository->datatable()
             ->when($pemeriksaanId, function ($query) use ($pemeriksaanId) {
-                return $query->where('o.inspection_id', $pemeriksaanId);
+                return $query->where('inspection_id', $pemeriksaanId);
             });
         return $q;
     }

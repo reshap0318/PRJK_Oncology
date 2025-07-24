@@ -40,18 +40,18 @@ const id = computed(() => route.params.id as string)
 const columns = ref<Array<ConfigColumns>>([
     {
         data: 'id',
-        name: 'o.id',
+        name: 'id',
         title: 'No'
     },
     {
         data: 'date',
-        name: 'o.date',
+        name: 'date',
         title: 'Tanggal Operasi',
         className: 'w-30p text-start'
     },
     {
         data: 'category',
-        name: 'o.category',
+        name: 'category',
         title: 'Jenis Operasi',
         className: 'w-60p'
     },

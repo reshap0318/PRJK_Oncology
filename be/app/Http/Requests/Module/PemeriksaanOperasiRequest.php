@@ -24,14 +24,13 @@ class PemeriksaanOperasiRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userTbl = (new User())->getTableCon();
         $pemeriksaanTbl = (new PasienPemeriksaanModel())->getTable();
         return [
             "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
-            "dokter_id"     => Rule::exists($userTbl, "id"),
+            "dokter"        => "nullable",
             "date"          => "required|date_format:Y-m-d",
-            "category"      => "required",
-            "margin"        => "required",
+            "category"      => "nullable",
+            "margin"        => "nullable",
             "description"   => "nullable",
         ];
     }
@@ -39,7 +38,7 @@ class PemeriksaanOperasiRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            "dokter_id"         => "dokter",
+            "dokter"            => "dokter",
             "date"              => "tanggal",
             "category"          => "kategori",
             "margin"            => "margin",
