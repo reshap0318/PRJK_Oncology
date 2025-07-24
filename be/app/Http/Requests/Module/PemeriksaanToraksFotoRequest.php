@@ -29,7 +29,7 @@ class PemeriksaanToraksFotoRequest extends FormRequest
             "date"          => "required|date_format:Y-m-d",
             "file"          => [
                 "mimes:pdf,jpg,jpeg,png",
-                "max:2048",
+                "max:5120",
             ],
 
             "pa_size"               => "nullable",

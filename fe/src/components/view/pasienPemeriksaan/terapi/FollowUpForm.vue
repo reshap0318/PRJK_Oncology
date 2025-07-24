@@ -30,9 +30,9 @@
                         <th scope="row" style="width: 150px">CT-Scan Baseline</th>
                         <td style="width: 10px">:</td>
                         <td>
-                            <a :href="terapi.ct_scan_url" target="_blank">{{
-                                terapi.ct_scan_url
-                            }}</a>
+                            <a :href="terapi.ct_scan_url" target="_blank" v-if="terapi.ct_scan_url">
+                                {{ terapi.ct_scan_url }}
+                            </a>
                         </td>
                     </tr>
                     <tr>
@@ -87,7 +87,7 @@
             <div class="col-12 col-sm-8 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> WHO Toxiciti </span>
+                        <span> WHO Toxiciti </span>
                     </label>
                     <select class="form-control" v-model="formInput.toxity">
                         <option :value="null">pilihan</option>
@@ -100,7 +100,7 @@
             <div class="col-12 col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Grade </span>
+                        <span> Grade </span>
                     </label>
                     <div class="input-group">
                         <div class="input-group-append">
@@ -138,7 +138,7 @@
             <div class="col-12 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Ct-Scan </span>
+                        <span> Ct-Scan </span>
                     </label>
                     <InputFile
                         v-model="formInput.ct_scan"
@@ -191,7 +191,7 @@ import InputFile from '@/components/utils/form/InputFile.vue'
 import { usePemeriksaanTerapiTargetStore } from '@/stores/module/pemeriksaanTerapiTarget'
 import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, requiredIf } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
 
 const emit = defineEmits(['onSubmit'])
@@ -236,12 +236,14 @@ const ctScanReferral = ref(null)
 const rules = computed(() => {
     return {
         date: { required },
-        toxity: { required },
-        toxity_detail: { required },
-        grade: { required },
-        side_effect: { required },
-        description: { required },
-        ct_scan: { required: requiredIf(() => ctScanReferral.value == null) }
+        subjective: {},
+        semi_subjective: {},
+        toxity: {},
+        toxity_detail: {},
+        grade: {},
+        side_effect: {},
+        description: {},
+        ct_scan: {}
     }
 })
 const v$ = useVuelidate(rules, formInput)

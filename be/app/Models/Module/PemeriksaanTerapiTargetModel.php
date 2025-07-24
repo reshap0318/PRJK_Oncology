@@ -39,11 +39,11 @@ class PemeriksaanTerapiTargetModel extends Model
     const C_ANTI_ALK = 3;
 
     const CATEGORY_LIST = [
-        self::C_TKI   => 'TKI',
+        self::C_TKI          => 'TKI',
         self::C_ANTI_PD      => 'Anti PD-L1',
         self::C_ANTI_ALK     => 'Anti ALK'
     ];
-    
+
     protected function actionModel(): Attribute
     {
         return Attribute::make(

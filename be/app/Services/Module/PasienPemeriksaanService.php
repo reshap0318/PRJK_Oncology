@@ -256,7 +256,7 @@ class PasienPemeriksaanService extends BaseService
         foreach ($keluhans as $key => $keluhan) {
             if (isset($keluhan['id']) && $keluhan['id'] != 0) {
                 $data->complains()->where('id', $keluhan['id'])->update([
-                    'description'   => $keluhan['description'],
+                    'description'   => $keluhan['description'] ?? null,
                     'duration'      => $keluhan['duration']
                 ]);
             } else if (isset($keluhan['description'])) {
@@ -273,12 +273,12 @@ class PasienPemeriksaanService extends BaseService
         foreach ($gejalas as $key => $gejala) {
             if (isset($gejala['id']) && $gejala['id'] != 0) {
                 $data->complains()->where('id', $gejala['id'])->update([
-                    'description'   => $gejala['description'],
+                    'description'   => $gejala['description'] ?? null,
                     'duration'      => $gejala['duration']
                 ]);
             } else if (isset($gejala['description'])) {
                 $obj = $data->complains()->create([
-                    'description'   => $gejala['description'],
+                    'description'   => $gejala['description'] ?? null,
                     'duration'      => $gejala['duration'],
                     'tag'           => PemeriksaanComplainModel::T_GEJALA
                 ]);
@@ -292,11 +292,11 @@ class PasienPemeriksaanService extends BaseService
         foreach ($penyakits as $key => $penyakit) {
             if (isset($penyakit['id']) && $penyakit['id'] != 0) {
                 $data->sickness()->where('id', $penyakit['id'])->update([
-                    'description'   => $penyakit['description'],
+                    'description'   => $penyakit['description'] ?? null,
                 ]);
             } else if (!isset($penyakit['description'])) {
                 $obj = $data->sickness()->create([
-                    'description'   => $penyakit['description']
+                    'description'   => $penyakit['description'] ?? null
                 ]);
                 $penyakits[$key]['id'] = $obj->id;
             }

@@ -14,13 +14,13 @@
             <div class="col-12 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Nama Pemeriksa </span>
+                        <span class="required"> Nama Pemeriksan </span>
                     </label>
                     <input
                         type="text"
                         class="form-control"
                         v-model="formInput.inspector_name"
-                        placeholder="nama pemeriksa"
+                        placeholder="nama pemeriksan"
                     />
                     <form-error :err="v$.inspector_name" name="inspector_name" />
                 </div>

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->date('date');
             $table->text('subjective')->nullable();
             $table->text('semi_subjective')->nullable();
-            $table->tinyInteger('toxity')->default(0);
-            $table->tinyInteger('toxity_detail')->default(0);
-            $table->mediumInteger('grade');
+            $table->tinyInteger('toxity')->nullable()->default(0);
+            $table->tinyInteger('toxity_detail')->nullable()->default(0);
+            $table->mediumInteger('grade')->nullable();
             $table->string('ct_scan_path')->nullable();
             $table->text('side_effect')->nullable();
             $table->text('description')->nullable();

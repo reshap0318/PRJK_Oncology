@@ -37,9 +37,9 @@
                         <th scope="row" style="width: 150px">CT-Scan Baseline</th>
                         <td style="width: 10px">:</td>
                         <td>
-                            <a :href="target.ct_scan_url" target="_blank">{{
-                                target.ct_scan_url
-                            }}</a>
+                            <a :href="target.ct_scan_url" target="_blank" v-if="target.ct_scan_url">
+                                {{ target.ct_scan_url }}
+                            </a>
                         </td>
                     </tr>
                     <tr>
@@ -107,6 +107,9 @@ const columns = ref<Array<ConfigColumns>>([
         title: 'CT Scan',
         className: 'w-70p',
         render: (data, meta, full) => {
+            if (data == null || data == '') {
+                return 'Tidak ada CT Scan'
+            }
             return `<a href="${full.ct_scan_url}" target="_blank">${full.ct_scan_url}</a>`
         }
     },

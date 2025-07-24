@@ -28,7 +28,7 @@
             <div class="col-12 col-sm-8 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Jenis </span>
+                        <span> Jenis </span>
                     </label>
                     <input
                         type="text"
@@ -42,7 +42,7 @@
             <div class="col-12 col-sm-4 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> Lama (bulan) </span>
+                        <span> Lama (bulan) </span>
                     </label>
                     <input
                         type="number"
@@ -70,7 +70,7 @@
             <div class="col-12 mb-4">
                 <div class="fv-row">
                     <label class="form-label fs-6 text-dark">
-                        <span class="required"> CT-Scan Baseline </span>
+                        <span> CT-Scan Baseline </span>
                     </label>
                     <InputFile
                         v-model="formInput.ct_scan"
@@ -109,7 +109,7 @@ import InputFile from '@/components/utils/form/InputFile.vue'
 
 import { computed, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, requiredIf } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/auth'
 
 const emit = defineEmits(['onSubmit'])
@@ -136,11 +136,11 @@ const rules = computed(() => {
     return {
         date: { required },
         category: { required },
-        type: { required },
-        long: { required },
-        side_effect: { required },
-        description: { required },
-        ct_scan: { required: requiredIf(() => ctScanReferral.value == null) }
+        type: {},
+        long: {},
+        side_effect: {},
+        description: {},
+        ct_scan: {}
     }
 })
 const v$ = useVuelidate(rules, formInput)

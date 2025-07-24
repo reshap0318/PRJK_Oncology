@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('inspection_id');
             $table->date('date');
             $table->tinyInteger('category');
-            $table->string('type');
-            $table->mediumInteger('long');
+            $table->string('type')->nullable();
+            $table->mediumInteger('long')->nullable();
             $table->string('ct_scan_path')->nullable();
             $table->text('side_effect')->nullable();
             $table->text('description')->nullable();

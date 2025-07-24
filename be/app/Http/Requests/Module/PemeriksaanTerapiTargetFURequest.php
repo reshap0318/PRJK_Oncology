@@ -22,19 +22,18 @@ class PemeriksaanTerapiTargetFURequest extends FormRequest
         return [
             "target_id"         => ["required", Rule::exists($terapiTbl, "id")],
             "date"              => "required|date_format:Y-m-d",
-            "subjective"        => "required",
-            "semi_subjective"   => "required",
-            "toxity"            => "required",
-            "toxity_detail"     => "required",
-            "grade"             => "required",
+            "subjective"        => "nullable",
+            "semi_subjective"   => "nullable",
+            "toxity"            => "nullable",
+            "toxity_detail"     => "nullable",
+            "grade"             => "nullable",
             "ct_scan"           => [
                 "nullable",
-                Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",
             ],
-            "side_effect"        => "required",
-            "description"        => "required",
+            "side_effect"        => "nullable",
+            "description"        => "nullable",
         ];
     }
 

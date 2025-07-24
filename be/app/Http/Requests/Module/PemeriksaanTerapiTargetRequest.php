@@ -28,11 +28,10 @@ class PemeriksaanTerapiTargetRequest extends FormRequest
             "inspection_id" => ["required", Rule::exists($pemeriksaanTbl, "id")],
             "date"          => "required|date_format:Y-m-d",
             "category"      => "required",
-            "type"          => "required",
-            "long"          => "required",
+            "type"          => "nullable",
+            "long"          => "nullable",
             "ct_scan"       => [
                 "nullable",
-                Rule::requiredIf(!in_array($this->method(), ['PUT', 'PATCH'])),
                 "mimes:pdf,jpg,jpeg,png",
                 "max:2048",
             ],
