@@ -211,6 +211,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { usePasienStore } from '@/stores/module/pasien'
 import { useSelectStore } from '@/stores/global/select'
 import { computed, onMounted, ref, nextTick } from 'vue'
+import { convertDateToYMD } from '@/core/helpers/date'
 import StrgService from '@/core/services/StrgService'
 
 const route = useRoute()
@@ -432,6 +433,11 @@ onMounted(() => {
             const [day, month, year] = res.data.overview.tanggal.split('-')
             const date = `${year}-${month}-${day}`
             pemeriksaanStore.formUpdate.overview.tanggal = date
+
+            res.data.sitologis.map((d) => {
+                d.date = convertDateToYMD(d.date)
+                return d
+            })
 
             formActive.value = 'ONC000'
             // formActive.value = 'ONC00312'

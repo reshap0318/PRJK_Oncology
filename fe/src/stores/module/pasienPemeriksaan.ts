@@ -471,12 +471,7 @@ export const usePasienPemeriksaanStore = defineStore('pasien-pemeriksaan', () =>
             },
             sitologis: {
                 $each: helpers.forEach({
-                    type_detail: {
-                        required: (value: string, item: any) => {
-                            if (!item.type) return true
-                            return value != null
-                        }
-                    }
+                    type_detail: {}
                 })
             },
             laboratory: {
