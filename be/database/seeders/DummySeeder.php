@@ -221,7 +221,7 @@ class DummySeeder extends Seeder
                                 "date"          => "2025-01-11",
                                 "category"      => "Testing Kategori Operasi",
                                 "margin"        => [1],
-                                "dokter_id"     => $dokterId,
+                                "dokter"        => "Testing Dokter",
                                 "description"   => "Testing Penyakit 1",
                             ],
                         ]
